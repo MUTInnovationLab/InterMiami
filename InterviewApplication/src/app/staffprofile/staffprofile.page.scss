@@ -1,0 +1,207 @@
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px;
+   
+  }
+  
+  .profile-image-container {
+    margin-bottom: 24px;
+  }
+  
+  .profile-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .profile-details {
+    width: 100%;
+    max-width: 400px;
+    background-color: #006281;
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .label {
+    font-weight: bold;
+  }
+  
+  ion-item {
+    --highlight-background-focused: transparent;
+    --highlight-color-focused: transparent;
+  }
+  
+  ion-text {
+    font-size: 16px;
+  }
+  
+  ion-card {
+    margin-top: 24px;
+    background-color: #802B28;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+  }
+  
+  ion-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 20px;
+    padding: 16px;
+    border-bottom: 1px solid #e0e0e0;
+    color: white; /* Set the header text color to white */
+  }
+  
+  ion-card-content {
+    padding: 16px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  ion-content {
+    --background-color: #473E66;
+  }
+  
+  ion-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+  
+  ion-col {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 8px;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+  }
+  
+  ion-col[size="6"] {
+    grid-column: span 1;
+  }
+  
+  /* Animation */
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  .profile-container,
+  .profile-details,
+  ion-card {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  /* ION CARD */
+  ion-card-header,
+  .task-col {
+    color: white;
+  }
+  
+  .task-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  
+  .task-row {
+    display: flex;
+    align-items: center;
+  }
+  
+  .task-col {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 8px;
+    border-radius: 4px;
+    color: white; /* Added to change the font color */
+  }
+  
+  /* BACKGROUND */
+  :root {
+    --ion-background-color: #26425A;
+  }
+  
+  .profile-details ion-list {
+    background-color: transparent; /* Set the list background color to transparent */
+    margin-top: -16px; /* Adjust the margin to overlap with the card header */
+  }
+  
+  .profile-details ion-item {
+    --highlight-background-focused: transparent;
+    --highlight-color-focused: transparent;
+    --background: transparent; /* Set the item background to transparent */
+    --color: white; /* Set the item text color to white */
+  }
+  
+  .profile-details ion-item ion-label.label {
+    color: white; /* Set the label text color to white */
+  }
+
+  
+  
+
+  //header
+  .custom-toolbar {
+    background-color: #333;
+    color: white;
+  }
+  
+  .phuto img {
+    width: 110px;
+    height: 60px;
+  }
+  
+  .header-title {
+    flex: 1;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+  }
+  
+  ion-menu-button {
+    color: white;
+  }
+  
+  ion-popover {
+    --background: white;
+  }
+  
+  
+  
+
+  .card-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+
+  ion-footer {
+    background-color: #300505;
+    color: #fcfcfc;
+    text-align: center;
+  }
+
+  

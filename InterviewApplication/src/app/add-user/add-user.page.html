@@ -1,0 +1,170 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-menu-toggle>
+        <ion-button>
+          <ion-icon slot="icon-only" name="menu"></ion-icon>
+        </ion-button>
+      </ion-menu-toggle>
+    </ion-buttons>
+    <ion-title class="header-title">
+      Add-User
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content [fullscreen]="true" style="--background: url('assets/tiny.jpg') no-repeat center / cover;">
+
+  <div class="info">
+    <ion-label >ADD & GRANT USER PRIVILEGES</ion-label>
+  </div>
+
+  <div class="cont">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title text-align="center">Add User Info</ion-card-title>
+      </ion-card-header>
+    
+      <ion-card-content>
+
+          <ion-item>
+            <ion-label position="floating">Name</ion-label>
+            <ion-icon name="person" slot="start"></ion-icon>
+            <ion-input type="text" name="name" [(ngModel)]="name" (input)="nameError=null;"></ion-input>
+            <div class="error-message" *ngIf="nameError">{{ nameError }}</div>
+          </ion-item>
+       
+
+          <ion-item>
+            <ion-label position="floating">Email</ion-label>
+            <ion-icon name="mail" slot="start"></ion-icon>
+            <ion-input type="email" [(ngModel)]="email" name="email" (input)="emailError = null;"></ion-input>
+            <div class="error-message" *ngIf="emailError">{{ emailError }}</div>
+          </ion-item>
+
+        
+          <ion-item>
+            <ion-label position="floating">Position</ion-label>
+            <ion-icon name="briefcase" slot="start"></ion-icon>
+            <ion-input type="text" name="position" [(ngModel)]="position" (input)="positionError = null;"></ion-input>
+            <div class="error-message" *ngIf="positionError">{{ positionError }}</div>
+          </ion-item>
+         
+          <ion-item>
+            <ion-label position="floating">Staff Number</ion-label>
+            <ion-icon name="people" slot="start"></ion-icon>
+            <ion-input type="text" name="staffNumber" [(ngModel)]="staffNumber" (input)="staffError = null;"></ion-input>
+            <div class="error-message" *ngIf="staffError">{{ staffError }}</div>
+          </ion-item>
+        
+
+      </ion-card-content>
+    </ion-card>
+    
+
+    <div class="info">
+    <ion-label >ADD ROLE</ion-label>
+    </div>
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-subtitle>
+          <ion-icon name="checkmark-circle-outline"></ion-icon>
+        </ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+
+
+        <ion-item>
+          <ion-label>
+            <ion-icon name="time"></ion-icon>
+            History
+          </ion-label>
+          <ion-toggle slot="end"  (ionChange)="getHistoryValue($event)"></ion-toggle>
+        </ion-item>
+        
+        <ion-item>
+          <ion-label>
+            <ion-icon name="stats-chart"></ion-icon>
+            All Users
+          </ion-label>
+          <ion-toggle slot="end" (ionChange)="getAllUsersValue($event)"></ion-toggle>
+        </ion-item>
+        
+        <ion-item>
+          <ion-label>
+            <ion-icon name="briefcase"></ion-icon>
+            All Applicants
+          </ion-label>
+          <ion-toggle slot="end" (ionChange)="getApplicantsValue($event)"></ion-toggle>
+        </ion-item>
+        
+        <ion-item>
+          <ion-label>
+            <ion-icon name="school"></ion-icon>
+           Scheduled interviews
+          </ion-label>
+          <ion-toggle slot="end"(ionChange)="getUpcomingValue($event)"></ion-toggle>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>
+            <ion-icon name="person-add-sharp"></ion-icon>
+            AddUser
+          </ion-label>
+          <ion-toggle slot="end"(ionChange)="getAdduserValue($event)"></ion-toggle>
+        </ion-item>
+        <ion-item>
+          
+            <ion-label>
+              <ion-icon name="person-add-sharp"></ion-icon>
+              Score-Capture
+            </ion-label>
+            <ion-toggle slot="end"(ionChange)="getScoreValue($event)"></ion-toggle>
+          </ion-item>
+          
+
+          <ion-item>
+          <ion-label>
+            <ion-icon name="checkmark-done-sharp"></ion-icon>
+            Graded Interviews
+          </ion-label>
+          <ion-toggle slot="end"(ionChange)="getMarksValue($event)"></ion-toggle>
+        </ion-item>
+        <ion-item>
+
+          <ion-label>
+            <ion-icon name="checkmark-done-sharp"></ion-icon>
+              Schedule Interview
+          </ion-label>
+          <ion-toggle slot="end"(ionChange)="getScheduleInterviewValue($event)"></ion-toggle>
+        </ion-item>
+        
+        
+       
+        <ion-button color="danger"  class="ion-margin-top" (click)="deleteUser()">
+          <ion-icon slot="start" name="trash-outline"></ion-icon>
+          Remove
+        </ion-button>
+        <ion-button color="medium" class="ion-margin-top" (click)="updateUser()">
+          <ion-icon slot="start" name="pencil-outline"></ion-icon>
+          Update
+        </ion-button>
+        
+        <ion-button color="success" class="ion-margin-top" (click)="Validation()">
+          <ion-icon slot="start" name="add-outline"></ion-icon>
+          Assign
+        </ion-button>
+        
+
+      </ion-card-content>
+    </ion-card>
+
+
+  </div> 
+</ion-content>
+<ion-footer class="custom-footer">
+  Designed by @<b>MUT INNOVATIONLAB</b>
+</ion-footer>

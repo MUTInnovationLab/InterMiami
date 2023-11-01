@@ -1,0 +1,95 @@
+<div class="ion-page" id="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-buttons slot="start" class="phuto" (click)="goToHomePage()">
+        <img src="assets\MUT LOGO.png" >
+      </ion-buttons>
+      <h2 class="header-title">ALL APPLICANTS</h2>
+      <ion-buttons slot="end">
+        <ion-button>
+            <ion-button id="popover-button"><ion-icon name="person"></ion-icon></ion-button>
+         
+          <ion-popover trigger="popover-button" [dismissOnSelect]="true">
+            <ng-template>
+              <ion-content>
+                <ion-list >
+                  <ion-item lines="none" [button]="true" [detail]="false" (click)="goToView()" ><ion-icon name="eye" ></ion-icon> &nbsp;  Profile</ion-item>
+                  <ion-item lines="none" [button]="true" [detail]="false"  (click)="presentConfirmationAlert()"><ion-icon color="danger" name="exit"></ion-icon>&nbsp;<p>LOGOUT</p></ion-item>
+                </ion-list>
+              </ion-content>
+            </ng-template>
+          </ion-popover>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+<ion-content [fullscreen]="true">
+  <div class="cent">
+    <ion-grid>
+      <table class="bordered">
+        <thead class="color">
+          <tr>
+            <th>
+              <ion-icon name="person"></ion-icon>
+              <br>
+            Applicants
+            </th>
+            <th>
+              <ion-icon name="trending-up"></ion-icon>
+              <br>
+              Experience
+            </th>
+            <th>
+              <ion-icon name="book-outline"></ion-icon>
+              <br>
+              Qualification
+            </th>
+            <th>
+              <ion-icon name="mail"></ion-icon>
+              <br>
+              Email
+            </th>
+            <th>
+              Actions
+            </th>
+          </tr>
+        </thead>
+        <tbody class="body">
+          <tr *ngFor="let data of tableData.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage)">
+               
+            <td class="white-text">{{data.fullName}}</td>
+            <td >
+              <ion-badge color="tertiary" style="cursor: pointer;">{{ data.gradeAverage }}</ion-badge>
+            </td>
+            <td class="white-text">{{data.certificate}}</td>
+            <td class="white-text">{{data.email}}</td>
+            <td>
+              <button ion-button (click)="onClickerr(data.email , data.fullName)" class="horizontal-button approve-button" style="color: green;" >
+                Approve 
+              </button>
+              <button ion-button (click)="decline(data.id, data.email)" class="horizontal-button decline-button" color="success" style="color: red;">
+                Decline
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="total-text ion-text-left">Current Number of Applications: {{tableData.length}}</p>
+    </ion-grid>
+  </div>
+  
+  <div class="pagination">
+    <div class="centered-buttons">
+      <button class="pagination-button" [disabled]="currentPage === 1" (click)="previousPage()">Previous</button>
+      <button class="pagination-button" [disabled]="currentPage === totalPages()" (click)="nextPage()">Next</button>
+    </div>
+  </div>
+  
+  
+</ion-content>
+<ion-footer class="custom-footer">
+  Designed by @<b>MUT INNOVATIONLAB</b>
+</ion-footer>

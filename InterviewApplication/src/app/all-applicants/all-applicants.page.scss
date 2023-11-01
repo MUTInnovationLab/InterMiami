@@ -1,0 +1,170 @@
+/* TABLE STYLE */
+.bordered {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+/* Footer */
+.custom-footer {
+  text-align: center;
+  background-color: #333; /* Footer background color */
+  color: white; /* Footer text color */
+  padding: 10px;
+}
+
+/* Header styles */
+.color th {
+  background-color: #065D78;
+  color: white;
+  font-weight: bold;
+}
+
+/* Row styles */
+.body tr:nth-child(even) {
+  background-color: #7A726A;
+}
+
+.body tr:nth-child(odd) {
+  background-color: #EBDDDD;
+}
+
+/* Cell styles */
+.cent td, .cent th {
+  text-align: center;
+  padding: 8px;
+}
+
+/* Icon styles */
+.cent ion-icon {
+  margin-right: 5px;
+}
+
+.logout-button {
+  margin-right: 10px;
+  --color: white; /* Sets the color of the button text to white */
+  --ion-color-base: white; /* Sets the background color of the button to white */
+}
+
+.total-text {
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.horizontal-button {
+  display: inline-block;
+  width: 60px;
+  height: 40px;
+  margin-right: 10px;
+  padding: 0;
+  border-radius: 0;
+}
+
+.horizontal-button.approve-button {
+  --background: green;
+  --color: white; /* Set the text color to white for contrast */
+}
+
+.horizontal-button.decline-button {
+  --background: red;
+  --color: white; /* Set the text color to white for contrast */
+}
+
+/* Tooltip styles */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  cursor: pointer; /* Add a pointer cursor for interaction */
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 200px;
+  background-color: #000;
+  color: #fff;
+  text-align: center;
+  padding: 5px;
+  border-radius: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -100px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Update ion-content background */
+ion-content {
+  --background: #ECF0F6;
+}
+
+/* Pagination styles */
+.pagination {
+  display: flex;
+  justify-content: center;
+}
+
+.pagination-button {
+  background-color: #c42e2e;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px;
+  cursor: pointer;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.pagination-button:enabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Menu styles */
+img {
+  width: 100px;
+  height: 60px;
+}
+
+ion-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#popover-button {
+  color: black;
+}
+
+.header-title {
+  margin: 0 auto;
+  text-align: center;
+  color: black;
+  font-weight: bold;
+}
+
+.menu {
+  color: #000000;
+  font-family: Arial;
+  height: 50px; /* Set the desired height value */
+  cursor: pointer;
+}
+
+ion-menu-button {
+  color: black;
+  cursor: pointer;
+}
+
+/* Update ion-toolbar background */
+ion-toolbar {
+  --background: #ffffff; /* White background */
+}

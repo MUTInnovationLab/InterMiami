@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-menu-toggle>
+        <ion-button>
+          <ion-icon slot="icon-only" name="menu"></ion-icon>
+        </ion-button>
+      </ion-menu-toggle>
+    </ion-buttons>
+    <ion-title class="header-title">
+      View Interview Marks
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-content>
+      <ion-grid class="custom-grid">
+        <ion-row class="header-row">
+          <ion-col>ID</ion-col>
+          <ion-col>Interviewee Name</ion-col>
+          <ion-col>Interviewee Surname</ion-col>
+          <ion-col>Email Address</ion-col>
+          <ion-col>Score</ion-col>
+        </ion-row>
+
+        <ion-row class="data-row" *ngFor="let item of interviewData">
+          <ion-col>{{ item.id }}</ion-col>
+          <ion-col>{{ item.intervieweeName }}</ion-col>
+          <ion-col>{{ item.intervieweeSurname }}</ion-col>
+          <ion-col>{{ item.emailAddress }}</ion-col>
+          <ion-col>{{ item.score }}</ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
+<ion-footer class="custom-footer">
+  Designed by @<b>MUT INNOVATIONLAB</b>
+</ion-footer>

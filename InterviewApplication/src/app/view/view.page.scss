@@ -1,0 +1,244 @@
+ion-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    max-width: 1200px;
+    width: 100%;
+    height: 500px;
+    --background:rgb(233, 20, 20);
+    --background:#fff;
+    
+  }
+  ion-card-content{
+    font-size: medium;
+    font-family:Arial;
+  }
+  .det{
+    font-size:large;
+  }
+
+  
+  table{
+    line-height: 2;
+    width: 100%;
+  }
+  td {
+    padding: 8px 16px; /* Adjust the padding as needed */ 
+    padding-right: 130px; /* Adjust the right padding as needed */
+  }
+  
+  th{
+    padding: 8px 16px; /* Adjust the padding as needed */
+      
+    padding-right: 130px; /* Adjust the right padding as needed */
+  }
+  
+  ion-avatar {
+    height: 100px;
+    width: 100px;
+  }
+  ion-content{
+    
+  
+     --background:#ECF0F6;
+   
+      
+  }
+/* Footer */
+.custom-footer {
+  text-align: center;
+  background-color: #333; /* Footer background color */
+  color: white; /* Footer text color */
+  padding: 10px;
+}
+  .show-all {
+    margin-top: 20px;
+  }
+  .image-size {
+    width: 100px; /* Adjust the desired width */
+    height: 60px; /* Adjust the desired height */
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+  .header-title {
+    margin-left:-9%;
+    text-align: center;
+    color: #060606;
+    font-weight: bold;
+  }
+  .content-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    max-width: 600px;
+    height: 100vh;
+    width: 100%;
+  }
+  .status {
+    color: rgb(16, 16, 16);
+    font-size:larger ;
+    font-weight: bold;
+  
+  }
+  
+  .item{
+    --background: 	#802B28;
+  
+      border-radius: 7px;
+      height: 50px;
+      box-shadow: 0px 0px 15px #460c0c;
+      color: #ffffff;
+    
+  }
+  
+  .item:hover {
+    box-shadow: 0px 0px 30px #460b10;
+  }
+  
+  
+  
+  table {
+    width: 100%;
+    margin-top: 10px; /* add some spacing between the card and the table */
+  }
+  
+  th,td {
+    padding: 8px;
+    text-align: left; /* Align the values to the left */
+  }
+  
+  
+  
+  ion-select::part(placeholder) {
+    color: #649490;
+    
+  }
+  
+  ion-select::part(icon) {
+    color: #666;
+  }
+  
+  ion-select-option {
+    background-color: #d61616;
+    color: #333;
+  }
+  
+  ion-select-option::part(checkmark) {
+    color: blue;
+  }
+  ion-buttons {
+    margin: 0;
+    padding: 0;
+  }ion-card {
+    /* ... */
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  ion-card-content {
+    /* ... */
+    font-size: medium;
+    font-family: 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  div {
+    /* ... */
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  
+  
+  @media (max-width: 576px) {
+    ion-card {
+      width: 90%;
+    }
+  
+    ion-card-content {
+      font-size: small;
+    }
+  
+    td,
+    th {
+      padding-right: 10px;
+    }
+  }
+
+  .prof{
+    font-size: 500px;
+  }
+
+  .vertical-buttons {
+    position: fixed;
+    align-items: center;
+    bottom: 40px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  .col11{
+    width: 25%;
+  }
+
+  
+  
+  
+  /* Define styles for the status box */
+  .status-box {
+    display: inline-block;
+    padding: 8px 12px;
+    border-radius: 4px;
+    perspective: 100px; /* Add perspective to create the 3D effect */
+    transition: background-color 0.3s ease-in-out; /* Add animation transition for color change */
+  }
+  
+  /* Define styles for different status classes */
+  .pending-box {
+    background-color: #ffc107; /* Change the background color for 'pending' status */
+  }
+  
+  .active-box {
+    background-color: #4caf50; /* Change the background color for 'active' status */
+    animation: glowing 2s infinite; /* Add a glowing effect for 'active' status */
+  }
+  
+  .recommended-box {
+    background-color: #2196f3; /* Change the background color for 'recommended' status */
+  }
+  
+  .placed-box {
+    background-color: #9c27b0; /* Change the background color for 'placed' status */
+  }
+  
+  .declined-box {
+    background-color: #f44336; /* Change the background color for 'declined' status */
+  }
+  
+  /* Define the glowing animation for 'active' status */
+  @keyframes glowing {
+    0% {
+      box-shadow: 0 0 5px #00ff00; /* Green glow */
+    }
+    50% {
+      box-shadow: 0 0 20px #00ff00; /* Green glow with higher intensity */
+    }
+    100% {
+      box-shadow: 0 0 5px #00ff00; /* Green glow */
+    }
+  }
+  
+  

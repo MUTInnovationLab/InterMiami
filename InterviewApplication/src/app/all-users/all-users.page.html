@@ -1,0 +1,95 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-menu-toggle>
+        <ion-button>
+          <ion-icon slot="icon-only" name="menu"></ion-icon>
+        </ion-button>
+      </ion-menu-toggle>
+    </ion-buttons>
+    <ion-title class="header-title">
+      All-Users
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true" style="--background: url('assets/tiny.jpg') no-repeat center / cover;">
+  <div class="ion-text-center" class="cent">
+    <ion-card>
+      <ion-card-content>
+        <table class="bordered">
+          <thead class="color">
+            <tr>
+              <th class="header-cell">
+                <ion-icon name="person" size="small" class="small-icon"></ion-icon>
+                <div class="header-text small-text">Name</div>
+              </th>
+              <th class="header-cell">
+                <ion-icon name="mail" size="small" class="small-icon"></ion-icon>
+                <div class="header-text small-text">Email</div>
+              </th>
+              <th class="header-cell">
+                <ion-icon name="briefcase" size="small" class="small-icon"></ion-icon>
+                <div class="header-text small-text">Position</div>
+              </th>
+              <th class="header-cell">
+                <ion-icon name="reorder-two-outline" size="small" class="small-icon"></ion-icon>
+                <div class="header-text small-text">Staff Number</div>
+              </th>
+              <th class="header-cell">
+                <ion-icon name="documents-outline" size="small" class="small-icon"></ion-icon>
+                <div class="header-text small-text">Score Capturing</div>
+              </th>
+              <th class="header-cell">
+                <ion-icon name="school-outline" size="small" class="small-icon"></ion-icon>
+                <div class="header-text small-text">Scheduled Interviews</div>
+              </th>
+              <th class="header-cell">
+                <ion-icon name="stats-chart-outline" size="small" class="small-icon"></ion-icon>
+                <div class="header-text small-text">Scored interviews</div>
+              </th>
+              <th class="header-cell">
+                <ion-icon name="options-outline" size="small" class="small-icon"></ion-icon>
+                <div class="header-text small-text"> Interviews history</div>
+              </th>
+              <th class="header-cell">
+                <ion-icon name="options-outline" size="small" class="small-icon"></ion-icon>
+                <div class="header-text small-text">Schedule Interview</div>
+              </th>
+              <th class="header-cell">
+                <ion-icon name="options-outline" size="small" class="small-icon"></ion-icon>
+                <div class="header-text small-text">Add User Role</div>
+              </th>
+              <th class="header-cell">
+                <ion-icon name="options-outline" size="small" class="small-icon"></ion-icon>
+                <div class="header-text small-text">Add Staff</div>
+              </th>
+            </tr>
+          </thead>
+          <tbody class="body">
+            <tr *ngFor="let data of tableData">
+              <td class="ion-text-center white-text">{{ data.Name }}</td>
+              <td class="ion-text-center white-text">{{ data.email }}</td>
+              <td class="ion-text-center white-text">{{ data.position }}</td>
+              <td class="ion-text-center white-text">{{ data.staffNumber }}</td>
+              <td class="ion-text-center white-text">{{ data.role.score }}</td>
+              <td class="ion-text-center white-text">{{ data.role.upcomingInterviews }}</td>
+              <td class="ion-text-center white-text">{{ data.role.marks }}</td>
+              <td class="ion-text-center white-text">{{ data.role.history }}</td>
+              <td class="ion-text-center white-text">{{ data.role.addUser }}</td>
+              <td class="ion-text-center white-text">{{ data.role.addUser }}</td>
+              <td class="ion-text-center white-text">{{ data.role.ScheduleInterview }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="total-text ion-text-left">Total Users: {{tableData.length}}</p>
+      </ion-card-content>
+    </ion-card>
+    
+    
+  </div>
+</ion-content>
+]<ion-footer class="custom-footer">
+  Designed by @<b>MUT INNOVATIONLAB</b>
+</ion-footer>

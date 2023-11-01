@@ -1,0 +1,106 @@
+
+<div class="ion-page" id="main-content">
+  <ion-header>
+    <ion-toolbar class="custom-toolbar">
+      <ion-buttons slot="start" class="phuto" (click)="goToHomePage()">
+        <img src="assets\MUT LOGO.png" class="logo-img">
+      </ion-buttons>
+      <h2 class="header-title">STAFF PROFILE</h2>
+      <ion-buttons slot="end">
+        <ion-button>
+          <ion-button id="popover-button">
+            <ion-icon name="person"></ion-icon>
+            <ion-popover trigger="popover-button" [dismissOnSelect]="true">
+              <ng-template>
+                <ion-content>
+                  <ion-list>
+                    <ion-item lines="none" [button]="true" [detail]="false" (click)="navigateBack()">
+                      <ion-icon name="arrow-back-outline"></ion-icon>&nbsp; Back
+                    </ion-item>
+                    <ion-item lines="none" [button]="true" [detail]="false" (click)="presentConfirmationAlert()">
+                      <ion-icon color="danger" name="exit"></ion-icon>&nbsp;<p>LOGOUT</p>
+                    </ion-item>
+                  </ion-list>
+                </ion-content>
+              </ng-template>
+            </ion-popover>
+            
+          </ion-button>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  
+<ion-content style="--background: url('assets/tiny.jpg') no-repeat center / cover;">
+  <div class="profile-container">
+    <div class="profile-heading">
+      
+    </div>
+    <div class="profile-details">
+      <ion-list lines="full">
+        <ion-item>
+          <ion-label class="label">Name</ion-label>
+          <ion-text>{{ (user$ | async)?.Name }}</ion-text>
+        </ion-item>
+        <ion-item>
+          <ion-label class="label">Email</ion-label>
+          <ion-text>{{ (user$ | async)?.email }}</ion-text>
+        </ion-item>
+        <ion-item>
+          <ion-label class="label">Position</ion-label>
+          <ion-text>{{ (user$ | async)?.position}}</ion-text>
+        </ion-item>
+        <ion-item>
+          <ion-label class="label">Staff No.</ion-label>
+          <ion-text>{{ (user$ | async)?.staffNumber}}</ion-text>
+        </ion-item>
+      </ion-list>
+      <ion-card>
+        <ion-card-header>
+          Task Granted
+        </ion-card-header>
+        <ion-card-content class="card-content">
+          <div class="task-grid">
+            <div class="task-row">
+              <div class="task-col" *ngIf="(user$ | async)?.role.allApplicants === 'on'">
+                All Applicants
+              </div>
+              <div class="task-col" *ngIf="(user$ | async)?.role.allUsers === 'on'">
+                All Users
+              </div>
+            </div>
+            <div class="task-row">
+              <div class="task-col" *ngIf="(user$ | async)?.role.upcomingInterviews === 'on'">
+                Scheduled Interviews
+              </div>
+              <div class="task-col" *ngIf="(user$ | async)?.role.marks === 'on'">
+                Graded Interviews
+              </div>
+            </div>
+            <div class="task-row">
+              <div class="task-col" *ngIf="(user$ | async)?.role.scheduleInterview === 'on'">
+                Schedule Interview
+              </div>
+              <div class="task-col" *ngIf="(user$ | async)?.role.score === 'on'">
+                Score Capture
+              </div>
+              
+            </div>
+            <div class="task-row">
+              <div class="task-col" *ngIf="(user$ | async)?.role.addUser === 'on'">
+                +New Users
+              </div>
+              <div class="task-col" *ngIf="(user$ | async)?.role.history === 'on'">
+                History
+              </div>
+            </div>
+          </div>
+        </ion-card-content>
+      </ion-card>
+      
+    </div>
+  </div>
+</ion-content>
+<ion-footer>
+  Designed by @<b>MUT INNOVATIONLAB</b>
+</ion-footer>

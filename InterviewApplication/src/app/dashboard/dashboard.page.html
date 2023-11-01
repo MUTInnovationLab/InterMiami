@@ -1,0 +1,155 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-menu-toggle>
+        <ion-button>
+          <ion-icon slot="icon-only" name="menu"></ion-icon>
+        </ion-button>
+      </ion-menu-toggle>
+    </ion-buttons>
+    <ion-title class="header-title">Staff Dashboard</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<div class="watermark-container">
+<ion-content class="ion-padding">
+  <ion-grid class="ion-margin-top">
+    <ion-row justify-content-center align-items-center>
+      <ion-col size="12" size-md="4">
+        <ion-card class="dashboard-card animated custom-color-3" (click)="goToAllApplicants()">
+          <ion-icon name="people"></ion-icon>
+          <ion-card-content>
+            <h2>Staff Dashboard</h2>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col size="12" size-md="4">
+        <ion-card class="dashboard-card animated custom-color-2" (click)="goToAllUsers()">
+          <ion-icon name="people-circle"></ion-icon>
+          <ion-card-content>
+            <h2>All Users</h2>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="12" size-md="4">
+        <ion-card class="dashboard-card animated custom-color-1" (click)="goToScores()">
+          <ion-icon name="document-text"></ion-icon>
+          <ion-card-content>
+            <h2>Score Capture</h2>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col size="12" size-md="4">
+        <ion-card class="dashboard-card animated custom-color-1"  (click)="goToScheduleInterview()">
+          <ion-icon name="add"></ion-icon>
+          <ion-card-content>
+            <h2>Schedule Interview</h2>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col size="12" size-md="4">
+        <ion-card class="dashboard-card animated custom-color-3" (click)="goToGraded()">
+          <ion-icon name="calendar"></ion-icon>
+          <ion-card-content>
+            <h2>Check Scheduled Interviews</h2>
+            <ion-item lines="none">
+              <ion-select placeholder="Select View" (ionChange)="onViewChange($event)">
+                <ion-select-option value="all">All</ion-select-option>
+                <ion-select-option value="today">Today</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col size="12" size-md="4">
+        <ion-card class="dashboard-card animated custom-color-2"  (click)="goToGraded()">
+          <ion-icon name="stats-chart"></ion-icon>
+          <ion-card-content>
+            <h2>Graded Interviews</h2>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col size="12" size-md="4">
+        <ion-card class="dashboard-card animated custom-color-2"  (click)="goToAddUser()">
+          <ion-icon name="person-add"></ion-icon>
+          <ion-card-content>
+            <h2>Add Users</h2>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col size="12" size-md="4">
+        <ion-card class="dashboard-card animated custom-color-1"  (click)="goToInterviewHistory()">
+          <ion-icon name="timer"></ion-icon>
+          <ion-card-content>
+            <h2>Interviews History</h2>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <!-- Add more cards and customize their colors using custom CSS classes -->
+      
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+
+
+<ion-footer class="custom-footer">
+  Designed by @<b>MUT INNOVATIONLAB</b>
+</ion-footer>
+</div>
+
+
+<style>
+  .dashboard-card {
+    text-align: center;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: transform 0.2s ease-in-out;
+    animation: fadeInUp 0.5s ease;
+  }
+
+  .dashboard-card:hover {
+    transform: scale(1.05);
+  }
+
+  .ion-margin-top {
+    margin-top: 20px;
+  }
+
+  .ion-text-center {
+    text-align: center;
+  }
+
+  ion-card-content {
+    padding: 20px;
+  }
+
+  @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .watermark-container {
+    position: relative;
+    background-image: url('../assets/watermark.jpeg'); /* Replace with the path to your watermark image */
+    background-repeat: repeat; /* Adjust to your preference */
+    background-position: center center;
+    background-size: cover;
+    height: 100vh; /* Ensure the container covers the entire viewport */
+  }
+
+</style>
+

@@ -1,0 +1,90 @@
+
+  /* Header Styles */
+ion-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: maroon;
+  color: white;
+  height: 70px;
+  animation: headerFadeIn 1s ease-in;
+}
+
+.header-title {
+  margin: 0;
+  text-align: center;
+  font-weight: bold;
+  animation: textFadeIn 1.5s ease-in-out;
+}
+
+/* Menu Button Styles */
+ion-menu-button {
+  color: white;
+  transition: transform 0.3s ease-in-out;
+}
+
+ion-menu-button:hover {
+  transform: scale(1.1);
+}
+  .white-text {
+    color: rgb(19, 16, 16); /* Sets the text color to white */
+  }
+  
+  ion-content{
+    --background:#ECF0F6;
+    
+}
+
+#popover-button {
+  color: white;
+}
+
+.centered-title {
+    text-align: center; /* Aligns the text to the center */
+    font-size: 1.5rem; /* Increases the font size to 1.5rem (adjust as needed) */
+    font-weight: bold; /* Sets the text to bold */
+    color: rgba(255, 255, 255, 0.966); /* Sets the text color to white */
+    font-size: 24px; /* Adjust the font size as needed */
+    border-radius: 7px; /* Apply a border radius of 7px */
+  }
+  
+  thead{
+    background-color:#065D78;
+
+  }
+  .header-cell {
+    font-weight: bold; /* Make the header cells bold */
+    color: white; /* Set the text color to white */
+  }
+  
+  .logo-image {
+    
+    width: 100px; /* Adjust the desired width */
+    height: 60px; /* Adjust the desired height */
+ 
+  }
+  .total-text {
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  
+  .bordered {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  /* Row styles */
+  .body tr:nth-child(even) {
+    background-color: #fffefe;
+  }
+
+  .body tr:nth-child(odd) {
+    background-color: #d3cdcd;
+  }
+/* Footer */
+.custom-footer {
+  text-align: center;
+  background-color: #333; /* Footer background color */
+  color: white; /* Footer text color */
+  padding: 10px;
+}
+  

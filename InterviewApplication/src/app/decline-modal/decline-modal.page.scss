@@ -1,0 +1,45 @@
+.modal-button-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 16px;
+  }
+  .modal-item {
+    width: 100%;
+    margin-bottom: 16px;
+    --background:#f4f8c8;
+  }
+  
+  .modal-label {
+    color: #333333;
+  }
+  
+  .modal-input {
+    --ion-background-color: #f9f9f9;
+    --ion-input-border-color: #dddddd;
+    --ion-input-color: #333333;
+
+  }
+  
+  .modal-button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    margin-top: auto;
+  }
+  
+      .modal-button {
+        --background: deepskyblue;
+        --color: #ffffff;
+        --border-radius: 8px;
+        padding: 8px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+      .modal-message {
+        color: #333333;
+        text-align: center;
+        margin-bottom: 16px;
+        font-weight: bolder;
+      }

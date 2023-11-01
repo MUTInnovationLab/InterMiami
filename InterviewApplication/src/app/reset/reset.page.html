@@ -1,0 +1,54 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title class="header-title">RESET PASSWORD</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" style="--background: url('assets/tiny.jpg') no-repeat center / cover;">
+  <br>
+  <br>
+  <br>
+  <br>
+  <ion-card>
+    <ion-card-content>
+      <br>
+      <div class="color2">
+        <ion-label>Email Address</ion-label>
+        <ion-item class="rounded">
+          <ion-input type="email" [(ngModel)]="email" name="email" (input)="emailError = null;"></ion-input>
+        </ion-item>
+        <div class="error-message" *ngIf="emailError">{{ emailError }}</div>
+        <br>
+        <button expand="block" (click)="reset()" class="reset-button">
+          <span class="span-mother">
+            <span>R</span>
+            <span>e</span>
+            <span>s</span>
+            <span>e</span>
+            <span>t</span>
+          </span>
+          <span class="span-mother2">
+            <span>P</span>
+            <span>a</span>
+            <span>s</span>
+            <span>s</span>
+            <span>w</span>
+            <span>o</span>
+            <span>r</span>
+            <span>d</span>
+          </span>
+        </button>
+        <div class="form-section">
+          <p>I got a password <a href="applicant-login()">Log in</a> </p>
+        </div>
+        <div class="align">
+          <!-- Content of the div -->
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
+<ion-footer class="custom-footer">
+  Designed by @<b>MUT INNOVATIONLAB</b>
+</ion-footer>

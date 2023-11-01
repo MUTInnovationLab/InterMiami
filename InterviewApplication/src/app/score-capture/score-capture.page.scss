@@ -1,0 +1,204 @@
+/* score-capture.page.scss */
+ion-content{
+  --background:#065D78 !important;
+}
+ion-input{
+  width: 20% !important;
+  height: 100px;
+}
+ion-toolbar {
+  border-top: 3px solid brown ; /* Add a red top border */
+  border-bottom: 3px solid brown; /* Add a red bottom border */
+}
+
+ion-label{
+  width: 70%;
+}
+.label_1{
+  margin-top:12px;
+}
+.label_2{
+  margin-top:35px;
+  margin-left:-160px;
+}
+.label_3{
+  margin-top:35px;
+  margin-left:-160px;
+  position:relative;
+}
+.skill_card{
+  margin-top: -5px;
+  --background: #C9911A !important;
+
+}
+.custom-background {
+  --background: rgba(136, 35, 35, 0);
+}
+
+.text-container {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.panel_member{
+  background: transparent;
+  margin-top:-5px;
+  height:70px;
+  align-items:center;
+  
+}
+.header-title {
+  color:white;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+}
+.main-grid {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+}
+
+.container1 {
+  flex: 0 0 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container2 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+}
+
+.user-card {
+  display:flex !important;
+  width: 90%;
+  margin: 10px;
+  padding: 15px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  background-color: #933c3c;
+  font-family: "Open Sans",'sans-serif';
+}
+
+.user-list ion-card {
+  margin: 8px 0;
+}
+
+.user-list b {
+  font-size: 18px;
+}
+
+.user-list p {
+  font-size: 14px;
+}
+
+.score-card {
+  width: 95%;
+  margin: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  background-color: #933c3c;
+  color: rgb(48, 47, 47);
+}
+
+.score-label {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.score-input {
+  width: 40px;
+}
+
+.total-row {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f1f1f1; /* Add a background color to make it visually distinct */
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2); /* Add a box shadow for a nice effect */
+  font-size: 50px; /* Adjust the font size to your desired value */
+
+}
+
+.total-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.button-row {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.submitBtn,
+.clearBtn {
+  width: 140px;
+  height: 40px;
+  border-radius: 30px;
+  border: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  cursor: pointer;
+  color: #fff;
+}
+
+.submitBtn {
+  background: linear-gradient(to left, #ff4d4d, #ff944d);
+}
+
+.clearBtn {
+  background: linear-gradient(to left, #ff4d4d, #ff944d);
+}
+
+.submitBtn:hover,
+.clearBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.innovation-lab {
+  margin-top: 20px;
+  font-size: 12px;
+  color: #888;
+}
+
+/* Footer */
+.custom-footer {
+  text-align: center;
+  background-color: #333; /* Footer background color */
+  color: white; /* Footer text color */
+  padding: 10px;
+}
+
+/* Center the label horizontally */
+/* Center the label horizontally */
+.custom-label {
+  text-align: center;
+}
+
+/* Increase the font size */
+.custom-label {
+  font-size: 24px; /* You can adjust the value as needed */
+}
+
+

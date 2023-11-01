@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-menu-toggle>
+        <ion-button>
+          <ion-icon slot="icon-only" name="menu"></ion-icon>
+        </ion-button>
+      </ion-menu-toggle>
+    </ion-buttons>
+    <ion-title class="header-title">
+      Sign Up
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container">
+  <div class="centered-container">
+    <div class="image-container">
+      <img src="assets/logo.jpg" alt="Logo" class="logo">
+    </div>
+  </div>
+  
+  <ion-card class="custom-card">
+    <ion-card-content>
+      <div class="custom-form">
+        <ion-label class="custom-label">Email Address</ion-label>
+        <ion-item class="custom-input rounded">
+          <ion-input required="" placeholder="" type="email" class="input" type="email" [(ngModel)]="email" name="email" (input)="emailError = null;"></ion-input>
+        </ion-item>
+        <ion-label class="custom-label">Password</ion-label>
+        <ion-item class="custom-input rounded">
+          <ion-input required="" placeholder="" type="password" class="input" type="password" [(ngModel)]="password" name="password" (input)="passwordError = null;"></ion-input>
+        </ion-item>
+        <ion-label class="custom-label">Confirm Password</ion-label>
+        <ion-item class="custom-input rounded">
+          <ion-input required="" placeholder="" type="password" class="input" type="password" [(ngModel)]="confirmPassword" name="confirmPassword" (input)="confirmPasswordError = null;"></ion-input>
+        </ion-item>
+        <ion-button class="submit" type="submit" expand="block" (click)="register()" (click)="login()">LOGIN</ion-button>
+        <div class="custom-links">
+          <div class="custom-links">
+            <ion-label>Already have an account?</ion-label>
+            <ion-label class="custom-link" (click)="login()">Sign-In</ion-label>
+          </div>
+        </div>
+      
+      </div>
+    </ion-card-content>
+  </ion-card>
+  </div>
+</ion-content>
+
+<ion-footer class="custom-footer">
+  Designed by @<b>MUT INNOVATIONLAB</b>
+</ion-footer>

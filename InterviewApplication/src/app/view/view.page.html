@@ -1,0 +1,184 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="start" class="phuto"  (click)="goToHomePage()">
+      <img src="assets\MUT LOGO.png" class="image-size" >
+    </ion-buttons>
+    <h2 class="header-title">PROFILE</h2>
+    <ion-title></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen  style="--background: url('assets/view3.jpg') no-repeat center / cover;">
+  <br>
+  <div class="content-wrapper">
+    <ng-container *ngIf="!(user$ | async); else profileCard">
+      <ion-card class="custom-card">
+        <ion-card-header>
+          <ion-card-title>
+            MY PROFILE
+          </ion-card-title>
+        </ion-card-header>
+        <ion-icon class="prof" name="person"></ion-icon>
+      </ion-card>
+    </ng-container>
+    
+    <ng-template #profileCard>
+      <ion-card *ngIf="user$ | async as user">
+      <ion-card-header>
+        <ion-card-title>{{ user.fullName }}</ion-card-title>
+        <ion-card-subtitle>{{ user.email }}</ion-card-subtitle>
+        <ion-card-subtitle>{{ user.studentno }}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+     
+
+
+        <div style="max-height: 400px; overflow-y: scroll;">
+          <table class="ion-text-center">
+          <thead>
+            <tr>
+              <th ><h4><b>Details</b></h4></th>
+              <th>Value</th>
+            </tr>
+          </thead>
+        <tbody>
+          <tr>
+            <!--end here-->
+            <td><b>Gender:</b></td>
+            <td><b>{{ user.gender }}</b></td>
+          </tr>
+          <tr>
+            <td><b>Phone Number:</b></td>
+            <td><b>{{ user.phoneNumber }}</b></td>
+          </tr>
+          <tr>
+            <td><b>Date Of Birthday:</b></td>
+            <td><b>{{ user.birthdate }}</b></td>
+          </tr>
+          <tr>
+            <td><b>Grade Average:</b></td>
+            <td><b>{{ user.gradeAverage }}</b></td>
+          </tr>
+          <tr>
+            <td><b>Email:</b></td>
+            <td><b>{{ user.email }}</b></td>
+          </tr>
+          <tr>
+            <td><b>Status:</b></td>
+            <td>
+              <div [ngClass]="getStatusBoxStyle(user.status)">
+                <b [ngStyle]="{ color: getStatusTextColor(user.status) }">{{ user.status }}</b>
+              </div>
+            </td>
+          </tr>
+          
+          
+          
+      <!--end here-->
+          
+      <tr *ngIf="showAll" class="show-all">
+        <td><b>Address:</b></td>
+        <td><b>{{ user.address }}</b></td>
+      </tr>
+      <tr *ngIf="showAll" class="show-all">
+        <td><b>City:</b></td>
+        <td><b>{{ user.city }}</b></td>
+      </tr>
+
+      <tr *ngIf="showAll" class="show-all">
+        <td><b>Postal Code:</b></td>
+        <td><b>{{ user.postalCode }}</b></td>
+      </tr>
+      <tr *ngIf="showAll" class="show-all">
+        <td><b>Province:</b></td>
+        <td><b>{{ user.provice }}</b></td>
+      </tr>
+      <tr *ngIf="showAll" class="show-all">
+        <td><b>Country:</b></td>
+        <td><b>{{ user.country }}</b></td>
+      </tr>
+      <!-- <tr *ngIf="showAll" class="show-all">
+        <td><b>Languages:</b></td>
+        <td><b>{{ user.languages}}</b></td>
+      </tr>
+
+      <tr *ngIf="showAll" class="show-all">
+        <td><b>Field of Study:</b></td>
+        <td><b>{{ user.studyField }}</b></td>
+      </tr>
+      <tr *ngIf="showAll" class="show-all">
+        <td><b>Graduation Year:</b></td>
+        <td><b>{{ user.graduationYear }}</b></td>
+      </tr>
+      <tr *ngIf="showAll" class="show-all">
+        <td><b>Institution:</b></td>
+        <td><b>{{ user.universityOrCollege }}</b></td>
+      </tr> -->
+      <tr *ngIf="showAll" class="show-all">
+        <td><b>Driver's License:</b></td>
+        <td><b>{{ user.license }}</b></td>
+      </tr>
+      <!-- started here-->
+          </tbody>
+        </table>
+
+        <div *ngIf="pdfUrl">
+        
+          <button style="background-color: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 4px;">
+            <a href="{{ pdfUrl }}" target="_blank" rel="noopener noreferrer" style="color: white; text-decoration: none;">Download CV</a>
+            </button>
+     </div>
+     <div *ngIf="!pdfUrl">
+       <span style="color: red;">
+         No PDF available/there has been an error uploading documents, please recreate or re-upload your documents.
+       </span>
+     </div> 
+      </div>
+        
+      </ion-card-content>
+    </ion-card>
+    </ng-template>
+    <ion-row>
+       <ion-item *ngIf="this.status === 'recommended' " class="item">
+        <ion-label class="status">Status</ion-label>
+        <ion-select [(ngModel)]="status" (ionChange)="updateStatus(status)">
+          <ion-select-option value="active">Active</ion-select-option>
+          <ion-select-option value="placed">Placed</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-row>
+  </div>
+
+
+  <div class="vertical-buttons">
+    <ion-button class="col11" expand="block" color="primary" routerLink="/edit-profile" (click)="goToCreate()" title="click to edit your details" [disabled]="isButtonDisabled()">
+      <ion-icon name="pencil"></ion-icon>
+      {{ detProfile ? 'Update Profile' : 'Apply'}}
+    </ion-button>
+
+    <ion-button class="col11" expand="block" color="success" (click)="toggleAllDetails()" title="click to view all your details">
+      <ion-icon name="list"></ion-icon>
+      {{ showAll ? 'Hide Details' : 'View All Details' }}
+    </ion-button>
+
+    <ion-button class="col11" expand="block" color="danger" (click)="confermDelete()" title="click to delete your profile" [disabled]="isButtonDisabled()">
+      <ion-icon name="trash"></ion-icon>
+      Delete
+    </ion-button>
+
+    <ion-button class="col11" expand="block" color="medium" (click)="presentConfirmationAlert()" title="click to LogOut">
+      <ion-icon name="exit"></ion-icon>
+      Exit
+    </ion-button>
+  </div>
+
+
+</ion-content>
+
+<ion-footer class="custom-footer">
+  Designed by @<b>MUT INNOVATIONLAB</b>
+</ion-footer>
+
