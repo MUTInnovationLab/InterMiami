@@ -18,7 +18,19 @@ export class ScoreCapturePage implements OnInit {
   problemSolving: number = 0;
   total: number = 0;
 
-  constructor(private firestore: AngularFirestore) {}
+  groupedInterviewees: Map<string, any[]> = new Map();
+  todayDateString: string;
+  selectedOption: any;// Variable to store the selected option
+
+  sortIntervieweesByDate() {
+    // Sort the grouped interviewees by date (keys)
+    this.groupedInterviewees = new Map([...this.groupedInterviewees.entries()].sort());
+  }
+
+
+  constructor(private firestore: AngularFirestore) {
+    this.todayDateString = new Date().toDateString();
+  }
 
   ngOnInit() {}
 
@@ -83,6 +95,31 @@ export class ScoreCapturePage implements OnInit {
       .catch((error) => {
         console.error('Error adding form data to Firestore:', error);
       });
+  }
+
+  fetchData() {
+    this.firestore.collection('Interviewees').valueChanges().subscribe((data: any[]) => {
+      this.groupedInterviewees = data.reduce((result, interviewee) => {
+        const itemDate = new Date(interviewee.date);
+        const dateKey = itemDate.toDateString();
+        
+        if (dateKey === this.todayDateString) {
+          //interviewee.date = 'Today';
+        } else {
+          interviewee.date = dateKey;
+        }
+  
+        if (!result.has(dateKey)) {
+          result.set(dateKey, []);
+        }
+        result.get(dateKey).push(interviewee);
+        
+        return result;
+      }, new Map<string, any[]>());
+  
+      // Sort the grouped interviewees by date
+      this.sortIntervieweesByDate();
+    });
   }
 
   Clear() {
