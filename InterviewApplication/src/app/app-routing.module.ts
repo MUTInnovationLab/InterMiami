@@ -113,7 +113,19 @@ const routes: Routes = [
   {
     path: 'marks',
     loadChildren: () => import('./marks/marks.module').then( m => m.MarksPageModule)
+  },  {
+    path: 'posts',
+    loadChildren: () => import('./posts/posts.module').then( m => m.PostsPageModule)
   },
+  {
+    path: 'createpost',
+    loadChildren: () => import('./createpost/createpost.module').then( m => m.CreatepostPageModule)
+  },
+  {
+    path: 'manageposts',
+    loadChildren: () => import('./manageposts/manageposts.module').then( m => m.ManagepostsPageModule)
+  },
+
 
 
 ];

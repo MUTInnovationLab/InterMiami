@@ -22,7 +22,7 @@
     "@angular/platform-browser": "^16.0.0",
     "@angular/platform-browser-dynamic": "^16.0.0",
     "@angular/router": "^16.0.0",
-    "@ionic/angular": "^7.0.0",
+    "@ionic/angular": "^7.5.2",
     "@types/jspdf": "^2.0.0",
     "@types/pdfmake": "^0.2.2",
     "emailjs-com": "^3.2.0",
