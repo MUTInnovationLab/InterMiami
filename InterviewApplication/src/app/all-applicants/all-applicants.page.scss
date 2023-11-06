@@ -138,7 +138,12 @@ img {
 ion-header {
   display: flex;
   justify-content: center;
+  text-align: center;
   align-items: center;
+  background-color: maroon;
+  color: white;
+  height: 70px;
+  animation: headerFadeIn 1s ease-in;
 }
 
 #popover-button {
