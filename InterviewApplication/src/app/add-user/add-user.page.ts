@@ -106,6 +106,10 @@ export class AddUserPage implements OnInit {
     this.role.scheduleInterview = toggleValue;
     console.log(this.role);
   }
+
+  goToStaffProfile(): void {
+    this.navController.navigateBack('/staffprofile');
+  }
   
   
   async Validation() {

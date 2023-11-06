@@ -1,24 +1,9 @@
-<ion-header>
-  <ion-toolbar color="dark">
-    <ion-buttons slot="start">
-      <ion-menu-toggle>
-        <ion-button>
-          <ion-icon slot="icon-only" name="menu"></ion-icon>
-        </ion-button>
-      </ion-menu-toggle>
-    </ion-buttons>
-    <ion-title class="header-title">
-      Sign In
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
+<ion-content >
   <div class="container">
-  <div class="centered-container">
-    <div class="image-container">
-      <img src="assets/logo.jpg" alt="Logo" class="logo">
-    </div>
+    <div class="centered-container">
+      <div class="image-container">
+        <img src="assets/logo.jpg" alt="Logo" class="logo">
+      </div>
   </div>
   <ion-card class="custom-card">
     <ion-card-content>
@@ -31,7 +16,8 @@
         <ion-item class="custom-input rounded">
           <ion-input type="password" name="password" [(ngModel)]="password"></ion-input>
         </ion-item>
-        <ion-button type="submit" expand="block" (click)="log()" class="custom-button">LOGIN</ion-button>
+    
+        <button class="butSubmit" expand="block" (click)="log()" >LOGIN</button>
         <div class="custom-links">
           <ion-label>Don't have an account?</ion-label>
           <ion-label class="custom-link" (click)="goToSignUp()">Sign Up</ion-label>
@@ -44,5 +30,5 @@
 </div>
 </ion-content>
 <ion-footer class="custom-footer">
-  Designed by @<b>MUT INNOVATIONLAB</b>
+  Designed with ❤️ by <b>MUT INNOVATIONLAB</b>
 </ion-footer>

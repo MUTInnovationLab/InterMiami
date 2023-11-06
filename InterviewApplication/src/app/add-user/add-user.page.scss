@@ -1,11 +1,4 @@
 /* Global Styles */
-body {
-  font-family: Arial, sans-serif;
-  background-color: #ECF0F6;
-  margin: 0;
-  padding: 0;
-}
-
 /* Header Styles */
 ion-header {
   display: flex;
@@ -35,6 +28,19 @@ ion-menu-button:hover {
 }
 
 
+img{
+  width: 100px; /* Adjust the desired width */
+  height: 60px; /* Adjust the desired height */
+ }
+
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #ECF0F6;
+  margin: 0;
+  padding: 0;
+}
+
 /* Footer */
 .custom-footer {
   text-align: center;
@@ -62,18 +68,10 @@ ion-menu-button:hover {
 }
 
 /* Image Styles */
-img {
-  width: 100px;
-  height: 60px;
-  display: block;
-  margin: 0 auto;
-  animation: imageFadeIn 1s ease-in-out;
-}
+
 
 /* Popover Button Styles */
-#popover-button {
-  color: maroon;
-}
+
 
 /* Error Message Styles */
 .error-message {
@@ -87,10 +85,6 @@ ion-button {
   transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
-ion-button:hover {
-  background-color: maroon;
-  transform: scale(1.05);
-}
 
 /* Keyframe Animations */
 @keyframes headerFadeIn {
@@ -184,6 +178,21 @@ ion-button:hover {
   box-shadow: -.3em 0 0 0 #373737,-.3em .3em 0 0 #373737,.3em 0 0 0 #373737,.3em .3em 0 0 #373737,0 .3em 0 0 #373737;
 }
 
+.butSubmit{
+  background-color: #CB8D1C;
+  border: none;
+  padding: 1rem;
+  font-size: 1rem;
+  width: 10%;
+  border-radius: 1rem;
+  color: rgb(255, 255, 255);
+  box-shadow: 0 0.4rem #dfd9d9;
+  cursor: pointer;
+  margin-top: 20px;
+  animation: bounceIn 1s ease 1.5s;
+ }
+
+
 .toggle > .left {
   position: absolute;
   display: flex;
@@ -266,4 +275,11 @@ ion-button:hover {
 .switch input:checked + .toggle > .right {
   transform: rotateX(10deg) rotateY(0deg);
   color: #487bdb;
+}
+
+.custom-footer {
+  text-align: center;
+  background-color: #065D78; /* Footer background color */
+  color: white; /* Footer text color */
+  padding: 10px;
 }
