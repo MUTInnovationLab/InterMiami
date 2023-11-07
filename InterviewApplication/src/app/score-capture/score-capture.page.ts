@@ -22,6 +22,10 @@ export class ScoreCapturePage implements OnInit {
   todayDateString: string;
   selectedOption: any;// Variable to store the selected option
 
+  data: any;
+  tables$: any;
+  jobfaculty:any;
+
   sortIntervieweesByDate() {
     // Sort the grouped interviewees by date (keys)
     this.groupedInterviewees = new Map([...this.groupedInterviewees.entries()].sort());
@@ -30,9 +34,22 @@ export class ScoreCapturePage implements OnInit {
 
   constructor(private firestore: AngularFirestore) {
     this.todayDateString = new Date().toDateString();
+
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getAllDocuments2();
+  }
+
+  getAllDocuments2() {
+    this.firestore
+      .collection('Interviewees')
+      .valueChanges()
+      .subscribe((data) => {
+        this.tables$ = data;
+        console.log(this.tables$);
+      });
+  }
 
   calculateTotal() {
     this.total =

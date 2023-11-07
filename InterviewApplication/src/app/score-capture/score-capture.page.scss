@@ -201,4 +201,13 @@ ion-label{
   font-size: 24px; /* You can adjust the value as needed */
 }
 
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
 
