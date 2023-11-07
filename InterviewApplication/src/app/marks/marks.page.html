@@ -15,27 +15,32 @@
 
 <ion-content>
   <ion-card>
+    <ion-card-header>
+      Interview Data
+    </ion-card-header>
     <ion-card-content>
-      <ion-grid class="custom-grid">
-        <ion-row class="header-row">
-          <ion-col>ID</ion-col>
-          <ion-col>Interviewee Name</ion-col>
-          <ion-col>Interviewee Surname</ion-col>
-          <ion-col>Email Address</ion-col>
-          <ion-col>Score</ion-col>
-        </ion-row>
+      <ion-list>
+        <ion-item-divider class="header-row">
+          <ion-label class="center-label">ID</ion-label>
+          <ion-label class="center-label">Interviewee Name</ion-label>
+          <ion-label class="center-label">Interviewee Surname</ion-label>
+          <ion-label class="center-label">Email Address</ion-label>
+          <ion-label class="center-label">Score</ion-label>
+        </ion-item-divider>
 
-        <ion-row class="data-row" *ngFor="let item of interviewData">
-          <ion-col>{{ item.id }}</ion-col>
-          <ion-col>{{ item.intervieweeName }}</ion-col>
-          <ion-col>{{ item.intervieweeSurname }}</ion-col>
-          <ion-col>{{ item.emailAddress }}</ion-col>
-          <ion-col>{{ item.score }}</ion-col>
-        </ion-row>
-      </ion-grid>
+        <ion-item class="data-row" *ngFor="let item of interviewData">
+          <ion-label class="center-label">223</ion-label>
+          <ion-label class="center-label">Amahle</ion-label>
+          <ion-label class="center-label">Ghost</ion-label>
+          <ion-label class="center-label">hlehle@outlook.com</ion-label>
+          <ion-label class="center-label">89</ion-label>
+        </ion-item>
+      </ion-list>
     </ion-card-content>
   </ion-card>
 </ion-content>
+
+
 
 <ion-footer class="custom-footer">
   Designed by @<b>MUT INNOVATIONLAB</b>
