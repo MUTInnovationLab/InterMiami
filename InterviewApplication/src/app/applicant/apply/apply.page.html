@@ -50,7 +50,9 @@
       <ion-card-header>
         <ion-card-title><b>Personal Information</b></ion-card-title>
       </ion-card-header>
-
+      <ion-card-content [(ngModel)]="code_job">
+        {{ counter }}
+      </ion-card-content>
       <ion-card-content class="field-input">
         <ion-item>
           <ion-label position="stacked">Full Name</ion-label>
@@ -377,29 +379,15 @@
         </form>
       </ion-card-content>
     </ion-card>
-
     <button class="butSubmit" (click)="Validation()">{{ arrayOn ? 'Update' : 'Submit' }}</button>
-<!--
-    <ion-item>
-      <ion-label position="stacked">CV&nbsp;&nbsp; max-size:2MB</ion-label>
-      <input type="file" accept=".pdf" maxlength="3000000" (change)="uploadAcademicRrd($event)" required>  
-    </ion-item>
-    <ion-item>
-      <ion-label position="stacked">Cover Letter&nbsp;&nbsp; Max-size:2MB &nbsp;&nbsp;note: merge or combine all your certificates into one document(pdf)
-        </ion-label>
-      <input type="file" accept=".pdf" maxlength="3000000" (change)="uploadCertificates($event)">
-    </ion-item>
-    <ion-item>
-      <ion-label position="stacked">Educational Certificates&nbsp;&nbsp; max-size:2MB</ion-label>
-      <input type="file" accept=".pdf" maxlength="3000000" (change)="uploadID($event)" required>
-    </ion-item>
-    <ion-item>
-      <ion-label position="stacked">Upload Additional Documents&nbsp;&nbsp; max-size:2MB</ion-label>
-      <input type="file" accept=".pdf" maxlength="3000000" (change)="uploadLetter($event)" required>
-    </ion-item>
--->
-
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
   </div>
+  
 </ion-content>
 <ion-footer class="custom-footer">
   Designed by @<b>MUT INNOVATIONLAB</b>

@@ -20,10 +20,30 @@
     <span>Job position Open</span>
     <input placeholder="Job position" [(ngModel)]="jobpost" [ngModelOptions]="{ standalone: true }" class="input" type="text" required="">
   </label>
-  <label>
-    <span>Field of Study</span>
-    <input placeholder="Faculty" [(ngModel)]="jobfaculty" [ngModelOptions]="{ standalone: true }" class="input" type="text" required="">
-  </label>
+  <fieldset>
+    <label >
+      <span>Department</span>
+      <div class="custom-select">
+      <select class="input" placeholder="Department" [(ngModel)]="jobfaculty"  [ngModelOptions]="{ standalone: true }" type="select" required="" (change)="updateJobPosition()">
+        <option *ngFor="let option of departmentOptions" [value]="option.value">{{ option.text }}</option>
+        <!-- <option value="CHEM">Chemical Engeneering</option>
+        <option value="ELEC">Electrical Engeneering</option>
+        <option value="ICT">Information Communications & Technology</option>
+        <option value="ACC">Accounting</option>
+        <option value="HR">Human Resources</option>
+        <option value="ANIPRO">Animal Production</option>
+        <option value="PLPRO">Plant Production</option>
+        <option value="AGRI">Agriculture</option>
+        <option value="OFT">Office Technology</option>
+        <option value="PA">Public Admin</option> -->
+      </select>
+      </div>
+    </label>
+    <label>
+      <span>Job Position Code</span>
+      <input placeholder="Department" [(ngModel)]="jobdepartment"  [ngModelOptions]="{ standalone: true }" class="input" type="text" required="">
+    </label>
+  </fieldset>
   <label>
     <span>Enter Job Description/Requirements</span>
     <textarea  class="input" [(ngModel)]="description" [ngModelOptions]="{ standalone: true }" type="text" rows="10" cols="180" required=""></textarea>

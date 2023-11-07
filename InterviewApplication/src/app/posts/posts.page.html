@@ -26,16 +26,16 @@
       <ion-item lines="full"  class="list-item">
         <div class="item-content">
           <span class="item-topic">Job Post:  {{ table.jobpost }}</span><br>
-          <span class="item-topic">Department:  {{ table.jobfaculty }}</span><br>
+          <span class="item-topic">Department:  {{ table.jobdepartment }}</span><br>
+          <span class="item-topic">Code:  {{ table.jobfaculty }}</span><br>
           <span class="item-topic">Requirements:</span><br>
           <span class="item-topic">{{ table.description }}</span><br>
           <span class="item-topic">Qualification:  {{ table.qualification }}</span><br>
           <span class="item-topic">Experience:  {{ table.required_exp }}</span><br>
           <span class="item-topic">End Date:  {{ table.date }}</span><br>
-          <ion-card-subtitle class="item-date">{{ formatTableDate(table.date) | date: 'yyyy-MM-dd HH:mm a' }}</ion-card-subtitle>
           <span class="item-topic"></span><br>
         </div>
-        <ion-icon name="chevron-forward-outline" style="font-size: 24px; color: #aaa;"></ion-icon>
+        <ion-icon class="fowarder" name="chevron-forward-outline" (click)="navigateToViewPage(table.jobfaculty)" style="font-size: 24px; color: #aaa;"></ion-icon>
       </ion-item>
 
     </ion-item-sliding>

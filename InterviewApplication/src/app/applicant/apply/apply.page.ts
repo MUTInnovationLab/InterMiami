@@ -119,6 +119,11 @@ license="";
 recommendDate="";
 placedDate="";
 data: any;
+code_job: any;
+
+counter:any;
+tables$:any;
+jobfaculty:any;
 
 
 
@@ -136,6 +141,7 @@ municipalities:any[]=[];
     private alertController: AlertController,
     private toastController: ToastController,
     private formBuilder: FormBuilder,
+    private route: ActivatedRoute
    
   ) {
     this.getUserToUpdate();
@@ -151,7 +157,22 @@ municipalities:any[]=[];
 
 
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.route.paramMap.subscribe(params => {
+      this.counter = params.get('counter');
+    });
+
+    this.getAllDocuments();
+  }
+
+  getAllDocuments() {
+    this.db
+      .collection('Post')
+      .valueChanges()
+      .subscribe((data) => {
+        this.tables$ = data;
+      });
+  }
 
   addReference() {
     this.references.push({
@@ -507,7 +528,24 @@ municipalities:any[]=[];
           }
           return;
         }
+
+        if (this.code_job) {
+          const applicantRef = this.db.collection<any>('applicant-application');
+          const query = applicantRef.ref.where('code_job', '==', this.code_job);
   
+          const matchingApplicants = await query.get();
+  
+          if (!matchingApplicants.empty) {
+            const applicantDoc = matchingApplicants.docs[0];
+            const currentCount = applicantDoc.data().count || 0;
+            alert("ADDING BY 1");
+            await applicantRef.doc(applicantDoc.id).update({
+              count: currentCount + 1,
+            });
+          }
+        }
+        
+
         const currentDate = firebase.firestore.Timestamp.now();
 
         await this.generatePDF();
@@ -543,6 +581,7 @@ municipalities:any[]=[];
           certicatesUrl: this.certicatesUrl,
           level: this.level,
           faculty: this.faculty,
+          code_job: this.code_job,
           companyName: this.companyName,
           companyNames: this.companyNames,
           count: this.count,

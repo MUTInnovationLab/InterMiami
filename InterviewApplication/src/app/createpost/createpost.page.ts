@@ -13,6 +13,7 @@ export class CreatepostPage implements OnInit {
 
   jobpost: any;
   jobfaculty: any;
+  jobdepartment: any;
   description: any;
   qualification: any;
   required_exp: any;
@@ -25,6 +26,25 @@ export class CreatepostPage implements OnInit {
      private route: ActivatedRoute) { }
 
   ngOnInit() {
+  }
+
+  departmentOptions = [
+    { value: 'CHEM', text: 'Chemical Engineering' },
+    { value: 'ELEC', text: 'Electrical Engineering' },
+    { value: 'ICT', text: 'Information Communications & Technology' },
+    { value: 'ACC', text: 'Accounting' },
+    { value: 'HR', text: 'Human Resources' },
+    { value: 'ANIPRO', text: 'Animal Production' },
+    { value: 'PLPRO', text: 'Plant Production' },
+    { value: 'AGRI', text: 'Agriculture' },
+    { value: 'OFT', text: 'Office Technology' },
+    { value: 'PA', text: 'Public Admin' }
+  ];
+
+  updateJobPosition() {
+    // Update the jobdepartment variable with the selected department text
+    const selectedOption = this.departmentOptions.find(option => option.value === this.jobfaculty);
+    this.jobdepartment = selectedOption ? selectedOption.text : '';
   }
 
 
@@ -41,14 +61,16 @@ export class CreatepostPage implements OnInit {
         .add({
                 jobpost:this.jobpost,
                 jobfaculty:this.jobfaculty,
+                jobdepartment:this.jobdepartment,
                 description: this.description,
                 qualification:this.qualification,
                 required_exp:this.required_exp,
                 date:this.date
+
         })
         .then((docRef) => {
           //loader.dismiss();
-
+          this.presentToast();
 
         })
         .catch((error) => {
@@ -62,6 +84,16 @@ export class CreatepostPage implements OnInit {
     console.error('Error:', error);
     // Display appropriate error messages using toastController
   }
+}
+
+async presentToast() {
+  const toast = await this.toastController.create({
+    message: 'Success!',
+    duration: 1500,
+    position: 'top',
+  });
+
+  await toast.present();
 }
 
 }
