@@ -43,13 +43,13 @@ export class AllApplicantsPage implements OnInit {
     private navController: NavController,
     private db: AngularFirestore, private modalController: ModalController) {
 
-
       this.tableData.sort((a, b) => {
-        console.log(`Sorting: ${a.gradeAverage} vs ${b.gradeAverage}`);
-        return b.gradeAverage - a.gradeAverage;
+        console.log(`Sorting: ${a.tTotalExperience} vs ${b.tTotalExperience}`);
+        return b.tTotalExperience - a.tTotalExperience;
       });
 
       this.getAllData();
+      this.sortByCerticate();
      }
 
      onClickerr(email: string , fullName: string) {
@@ -80,7 +80,7 @@ export class AllApplicantsPage implements OnInit {
 
     sortByGradeAverage() {
       // Sort the tableData array by gradeAverage in descending order
-      this.tableData.sort((a, b) => b.gradeAverage - a.gradeAverage);
+      this.tableData.sort((a, b) => b.tTotalExperience - a.tTotalExperience);
     }
     
     getQualificationValue(qualification: string): number {

@@ -12,6 +12,7 @@ import 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Certificate } from 'crypto';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-view',
@@ -28,9 +29,13 @@ export class ViewPage implements OnInit {
   user = {
     status: 'pending', // Change this value to test different statuses
   };
+  counter:any;
+  tables$:any;
+  data:any;
+  jobfaculty:any;
 
   constructor(private loadingController: LoadingController,private storage: AngularFireStorage , private auth:AngularFireAuth,private navCtrl: NavController ,private afs: AngularFirestore,private alertController: AlertController,
-    private toastController: ToastController) {
+    private toastController: ToastController,private route: ActivatedRoute) {
 
 
       firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
@@ -68,9 +73,7 @@ export class ViewPage implements OnInit {
         console.error("Error enabling Firebase authentication persistence:", error);
       });
     
-      
-
-
+    
 
     }
 
@@ -117,6 +120,22 @@ export class ViewPage implements OnInit {
 
     ngOnInit() {
  
+      this.route.paramMap.subscribe(params => {
+        this.counter = params.get('counter');
+      });
+
+      this.getAllDocuments();
+
+      
+    }
+
+    getAllDocuments() {
+      this.afs
+        .collection('Post')
+        .valueChanges()
+        .subscribe((data) => {
+          this.tables$ = data;
+        });
     }
     
 isButtonDisabled(): boolean {
@@ -131,8 +150,11 @@ isButtonDisabled(): boolean {
   }
   
   
+  
   goToCreate(){
-    this.navCtrl.navigateForward("/apply");
+    const counterValue = this.counter;
+
+    this.navCtrl.navigateForward(['/apply', { counter: counterValue }]);
   }
 
 

@@ -1,18 +1,3 @@
-<ion-header>
-  <ion-toolbar color="dark">
-    <ion-buttons slot="start">
-      <ion-menu-toggle>
-        <ion-button>
-          <ion-icon slot="icon-only" name="menu"></ion-icon>
-        </ion-button>
-      </ion-menu-toggle>
-    </ion-buttons>
-    <ion-title class="header-title">
-      Sign Up
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
   <div class="container">
   <div class="centered-container">
@@ -36,11 +21,11 @@
         <ion-item class="custom-input rounded">
           <ion-input required="" placeholder="" type="password" class="input" type="password" [(ngModel)]="confirmPassword" name="confirmPassword" (input)="confirmPasswordError = null;"></ion-input>
         </ion-item>
-        <ion-button class="submit" type="submit" expand="block" (click)="register()" (click)="login()">LOGIN</ion-button>
+        <button class="butSubmit" expand="block" (click)="register()" >Register</button>
         <div class="custom-links">
           <div class="custom-links">
             <ion-label>Already have an account?</ion-label>
-            <ion-label class="custom-link" (click)="login()">Sign-In</ion-label>
+            <ion-label class="custom-link" (click)="login()"> Sign-In</ion-label>
           </div>
         </div>
       
@@ -49,7 +34,8 @@
   </ion-card>
   </div>
 </ion-content>
-
 <ion-footer class="custom-footer">
-  Designed by @<b>MUT INNOVATIONLAB</b>
+  Designed with ❤️ by <b>MUT INNOVATIONLAB</b>
 </ion-footer>
+
+

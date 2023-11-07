@@ -1,0 +1,99 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-menu-toggle>
+        <ion-button>
+          <ion-icon slot="icon-only" name="menu"></ion-icon>
+        </ion-button>
+      </ion-menu-toggle>
+    </ion-buttons>
+    <ion-title class="header-title">
+      Create Job Application Post
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+
+<form class="form">
+  <label>
+    <span>Job position Open</span>
+    <input placeholder="Job position" [(ngModel)]="jobpost" [ngModelOptions]="{ standalone: true }" class="input" type="text" required="">
+  </label>
+  <fieldset>
+    <label >
+      <span>Department</span>
+      <div class="custom-select">
+      <select class="input" placeholder="Department" [(ngModel)]="jobfaculty"  [ngModelOptions]="{ standalone: true }" type="select" required="" (change)="updateJobPosition()">
+        <option *ngFor="let option of departmentOptions" [value]="option.value">{{ option.text }}</option>
+        <!-- <option value="CHEM">Chemical Engeneering</option>
+        <option value="ELEC">Electrical Engeneering</option>
+        <option value="ICT">Information Communications & Technology</option>
+        <option value="ACC">Accounting</option>
+        <option value="HR">Human Resources</option>
+        <option value="ANIPRO">Animal Production</option>
+        <option value="PLPRO">Plant Production</option>
+        <option value="AGRI">Agriculture</option>
+        <option value="OFT">Office Technology</option>
+        <option value="PA">Public Admin</option> -->
+      </select>
+      </div>
+    </label>
+    <label>
+      <span>Job Position Code</span>
+      <input placeholder="Department" [(ngModel)]="jobdepartment"  [ngModelOptions]="{ standalone: true }" class="input" type="text" required="">
+    </label>
+  </fieldset>
+  <label>
+    <span>Enter Job Description/Requirements</span>
+    <textarea  class="input" [(ngModel)]="description" [ngModelOptions]="{ standalone: true }" type="text" rows="10" cols="180" required=""></textarea>
+  </label>
+
+  <fieldset>
+    <label class="sm">
+    <span>Quailfication</span>
+    <div class="custom-select">
+    <select class="input" [(ngModel)]="qualification" [ngModelOptions]="{ standalone: true }" type="select" required="">
+      <option></option>
+      <option value="Doctorate">Doctoral Degree</option>
+      <option value="Masters">Master's Degree</option>
+      <option value="Honors">Honour's degree</option>
+      <option value="Bachelor/advanced">Bachelor's Degree/advanced Diploma</option>
+      <option value="Diploma">National Diploma</option>
+    </select>
+    </div>
+  </label>
+  <label class="sm">
+    <span>Exp. required </span>
+    <div class="custom-select">
+    <select class="input" [(ngModel)]="required_exp" [ngModelOptions]="{ standalone: true }" type="select" required="">
+      <option></option>
+      <option>NO Experience</option>
+      <option>6Months+</option>
+      <option>12Months+</option>
+      <option>24Months+</option>
+      <option>3Years+</option>
+      <option>4Years+</option>
+      <option>5Years+</option>
+      <option>6Years+</option>
+    </select>
+    </div>
+  </label>
+
+  <label class="sm">
+  <ion-item class="input" fill="outline">
+    <ion-datetime-button datetime="birthDatee"></ion-datetime-button>
+    <ion-modal [keepContentsMounted]="true">
+      <ng-template>
+        <ion-datetime id="birthDatee" [(ngModel)]="date" [ngModelOptions]="{ standalone: true }"></ion-datetime>
+      </ng-template>
+    </ion-modal>
+  </ion-item>
+  </label>
+  </fieldset>
+  <div class="submitCard">
+    <button (click)="submit()">Complete Post</button>
+  </div>
+</form>
+
+

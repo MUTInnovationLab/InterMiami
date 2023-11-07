@@ -1,23 +1,48 @@
 <ion-header>
-  <ion-toolbar color="dark">
-    <ion-buttons slot="start">
-      <ion-menu-toggle>
-        <ion-button>
-          <ion-icon slot="icon-only" name="menu"></ion-icon>
-        </ion-button>
-      </ion-menu-toggle>
+  <ion-toolbar>
+    <ion-buttons slot="start" (click)="goToHomePage()">
+      <img src="assets\MUT LOGO.png">
     </ion-buttons>
-    <ion-title class="header-title">
-      Add-User
-    </ion-title>
+    <ion-title class="header-title">Add-User</ion-title>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-button id="popover-button" >
+          <ion-icon name="person"></ion-icon>
+        </ion-button>
+
+        <ion-popover trigger="popover-button" [dismissOnSelect]="true">
+          <ng-template>
+            <ion-content>
+              <ion-list >
+                <ion-item lines="none" [button]="true" [detail]="false" (click)="goToStaffProfile()" ><ion-icon name="eye" ></ion-icon> &nbsp;  Profile</ion-item>
+                <ion-item lines="none" [button]="true" [detail]="false"  (click)="presentConfirmationAlert()"><ion-icon name="exit"></ion-icon>&nbsp;<p>LOGOUT</p></ion-item>
+              </ion-list>
+            </ion-content>
+          </ng-template>
+        </ion-popover>
+<!-- 
+        <ion-popover trigger="popover-button" [dismissOnSelect]="true">
+          <ng-template>
+            <ion-content>
+              <ion-list>
+                <ion-item lines="none" [button]="true" [detail]="false" (click)="goToView()">
+                  <ion-icon name="eye"></ion-icon> &nbsp; VIEW PROFILE</ion-item>
+                <ion-item lines="none" [button]="true" [detail]="false" (click)="presentConfirmationAlert()">
+                  <ion-icon color="danger" name="exit"></ion-icon>&nbsp;
+                  <p>LOGOUT</p>
+                </ion-item>
+              </ion-list>
+            </ion-content>
+          </ng-template>
+        </ion-popover> -->
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
+<ion-content [fullscreen]="true">
 
-
-<ion-content [fullscreen]="true" style="--background: url('assets/tiny.jpg') no-repeat center / cover;">
-
-  <div class="info">
+  <div class="info" style="background-color: #802B28;">
     <ion-label >ADD & GRANT USER PRIVILEGES</ion-label>
   </div>
 
@@ -64,7 +89,7 @@
     </ion-card>
     
 
-    <div class="info">
+    <div class="info" style="background-color: #802B28;">
     <ion-label >ADD ROLE</ion-label>
     </div>
 
@@ -143,28 +168,26 @@
         </ion-item>
         
         
-       
-        <ion-button color="danger"  class="ion-margin-top" (click)="deleteUser()">
+        <button class="butSubmit" expand="block" (click)="Validation()" (click)="deleteUser()">
           <ion-icon slot="start" name="trash-outline"></ion-icon>
           Remove
-        </ion-button>
-        <ion-button color="medium" class="ion-margin-top" (click)="updateUser()">
+        </button>
+        <button class="butSubmit" expand="block" (click)="Validation()" (click)="updateUser()">
           <ion-icon slot="start" name="pencil-outline"></ion-icon>
           Update
-        </ion-button>
+        </button>
         
-        <ion-button color="success" class="ion-margin-top" (click)="Validation()">
+        
+        <button class="butSubmit" expand="block" (click)="Validation()" >
           <ion-icon slot="start" name="add-outline"></ion-icon>
           Assign
-        </ion-button>
+        </button>
         
 
       </ion-card-content>
     </ion-card>
-
-
   </div> 
 </ion-content>
 <ion-footer class="custom-footer">
-  Designed by @<b>MUT INNOVATIONLAB</b>
+  Designed with ❤️ by <b>MUT INNOVATIONLAB</b>
 </ion-footer>
