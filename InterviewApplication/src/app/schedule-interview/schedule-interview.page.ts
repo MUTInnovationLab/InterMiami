@@ -17,6 +17,7 @@ export class ScheduleInterviewPage {
 
   // Initialize properties with default values
   int_id:any; // Unique interview ID
+  code_job: any;
   name:any;
   surname:any;
   email: any;
@@ -74,6 +75,7 @@ export class ScheduleInterviewPage {
               this.email=docData.email;
               this.name=docData.fullName;
               this.surname=docData.surname;
+              this.code_job=docData.code_job;
               console.log(this.email);
 
               const currentDate = new Date();
@@ -265,7 +267,7 @@ export class ScheduleInterviewPage {
       this.db
         .collection('Interviewees')
         .add({
-                int_id:this.int_id,
+                int_id:this.code_job,
                 name:this.name,
                 email: this.email,
                 date:this.date,
