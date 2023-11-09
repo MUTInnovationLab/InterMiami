@@ -127,6 +127,7 @@ jobfaculty:any;
 
 
 
+
 municipalities:any[]=[];
 
   emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -163,6 +164,8 @@ municipalities:any[]=[];
     });
 
     this.getAllDocuments();
+
+    this.writeOn();
   }
 
   getAllDocuments() {
@@ -419,7 +422,15 @@ municipalities:any[]=[];
   getIonGreduationYear($event: any) {
     this.graduationYear = $event.detail.value.split('-')[0];
   }
-  
+  //>>>>>>>>>>>><<<<<<<<<<<<<<<<<??//
+
+  //>>>>>>>>>>>><<<<<<<<<<<<<<<<<??// 
+  writeOn(){
+    const counterValue = this.counter;
+
+// Write the value of the counter to the input field
+    this.code_job = counterValue;
+  }
 
   async save() {
     const loader = await this.loadingController.create({
@@ -540,6 +551,7 @@ municipalities:any[]=[];
             });
           }
         }
+        
         
 
         const currentDate = firebase.firestore.Timestamp.now();

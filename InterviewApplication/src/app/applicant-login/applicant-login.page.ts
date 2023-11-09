@@ -136,7 +136,7 @@ export class ApplicantLoginPage implements OnInit {
           .then((querySnapshot) => {
             loader.dismiss();
             if (!querySnapshot.empty) {
-              this.navController.navigateForward("/view");
+              this.navController.navigateForward("/posts");
            
             } else {
               this.navController.navigateForward("/dashboard");

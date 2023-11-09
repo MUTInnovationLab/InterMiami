@@ -437,7 +437,7 @@ async presentToast() {
 }
 
 goToHomePage(): void {
-  this.navController.navigateBack('/home');
+  this.navController.navigateBack('/dashboard');
 }
 
    

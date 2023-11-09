@@ -50,8 +50,12 @@
       <ion-card-header>
         <ion-card-title><b>Personal Information</b></ion-card-title>
       </ion-card-header>
-      <ion-card-content [(ngModel)]="code_job">
+      <ion-card-content >
         {{ counter }}
+        <ion-item>
+          <ion-label >Code</ion-label>
+          <ion-input type="text"  [(ngModel)]="code_job"  name="code" required ></ion-input>
+        </ion-item>
       </ion-card-content>
       <ion-card-content class="field-input">
         <ion-item>

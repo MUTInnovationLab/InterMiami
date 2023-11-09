@@ -77,6 +77,7 @@ export class ScheduleInterviewPage {
               this.surname=docData.surname;
               this.code_job=docData.code_job;
               console.log(this.email);
+              console.log(this.code_job);
 
               const currentDate = new Date();
               const day = currentDate.getDate().toString().padStart(2, '0');
@@ -87,7 +88,6 @@ export class ScheduleInterviewPage {
 
               // Increment the counter for the next unique ID
               this.counter++;
-              console.log(this.int_id);
             }
           });
       }
