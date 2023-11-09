@@ -513,10 +513,6 @@ municipalities:any[]=[];
           }
 
 
-
-
-
-  
         } else {
           loader.dismiss();
           if (!this.academicRrdFile) {

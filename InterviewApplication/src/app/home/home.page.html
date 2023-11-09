@@ -6,10 +6,11 @@
     </div>
     <h1 class="app-title">Welcome to Mangosuthu University of Technology</h1>
     <p class="app-description">Discover all the oppurtunities.</p>
-    <ion-button expand="block" shape="round" color="warning" routerLink="/posts" routerDirection="forward" class="learn-more-button">
+    <ion-button id="present-alert" expand="block" shape="round" color="warning" routerDirection="forward" class="learn-more-button">
       EXPLORE
     </ion-button>
   </div>
+  <ion-alert trigger="present-alert" class="custom-alert" header="Before you continue, Would you like to Register?" [buttons]="alertButtons"></ion-alert>
 </ion-content>
 <ion-footer class="custom-footer">
   Designed by @<b>MUT INNOVATIONLAB</b>

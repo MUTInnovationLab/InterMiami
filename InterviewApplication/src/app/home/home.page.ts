@@ -21,6 +21,21 @@ export class HomePage {
   // subject!: string;
   // message!: string;
 
+  
+  public alertButtons = [
+    {
+      text: 'No',
+      cssClass: 'alert-button-cancel',
+    },
+    {
+      text: 'Yes',
+      cssClass: 'alert-button-confirm',
+      handler: () => {
+        this.navController.navigateForward("/applicant-resgister");
+      }
+
+    },
+  ];
 
   backgroundImage: SafeStyle;
 
@@ -37,8 +52,8 @@ export class HomePage {
 
 
 
-  
- 
+
+
   //  submitForm() {
   //    // You can perform any necessary validation or form processing here
   //    // For simplicity, we'll just log the form data in this example
