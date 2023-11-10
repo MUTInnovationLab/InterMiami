@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header class="header">
   <ion-toolbar color="dark">
     <ion-buttons slot="start">
       <ion-menu-toggle>
@@ -14,30 +14,46 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-list class="custom-list">
-    <ion-item-sliding *ngFor="let table of tables$">
-      <ion-item-options lines="full" side="start">
-        <ion-item-option color="danger">
-          <ion-icon name="trash-outline" style="font-size: 24px;"></ion-icon>
-          Delete
-        </ion-item-option>
-      </ion-item-options>
-  
-      <ion-item lines="full"  class="list-item">
-        <div class="item-content">
-          <span class="item-topic">Job Post:  {{ table.jobpost }}</span><br>
-          <span class="item-topic">Department:  {{ table.jobdepartment }}</span><br>
-          <span class="item-topic">Code:  {{ table.jobfaculty }}</span><br>
-          <span class="item-topic">Requirements:</span><br>
-          <span class="item-topic">{{ table.description }}</span><br>
-          <span class="item-topic">Qualification:  {{ table.qualification }}</span><br>
-          <span class="item-topic">Experience:  {{ table.required_exp }}</span><br>
-          <span class="item-topic">End Date:  {{ table.date }}</span><br>
-          <span class="item-topic"></span><br>
-        </div>
-        <ion-icon class="fowarder" name="chevron-forward-outline" (click)="navigateToViewPage(table.jobfaculty)" style="font-size: 24px; color: #aaa;"></ion-icon>
-      </ion-item>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" size-md="6" size-lg="4" *ngFor="let table of tables$">
+        <ion-card class="custom-card" (click)="navigateToViewPage(table.jobfaculty)">
+          <ion-card-header style="--background: #79c2d0; color: #fff;">
+            <ion-card-title>
+                <ion-icon name="newspaper-outline"></ion-icon>
+              {{ table.jobpost }}
+            </ion-card-title>
+            <ion-card-subtitle>{{ table.jobdepartment }}</ion-card-subtitle>
+          </ion-card-header>
 
-    </ion-item-sliding>
-  </ion-list>
+          <ion-card-content>
+            <ion-item lines="none">
+              <ion-label class="item-label">Department:</ion-label>
+              <ion-text>{{ table.jobdepartment }}</ion-text>
+            </ion-item>
+            <ion-item lines="none">
+              <ion-label class="item-label">Code:</ion-label>
+              <ion-text>{{ table.jobfaculty }}</ion-text>
+            </ion-item>
+            <ion-item lines="none">
+              <ion-label class="item-label">Requirements:</ion-label>
+              <ion-text>{{ table.description }}</ion-text>
+            </ion-item>
+            <ion-item lines="none">
+              <ion-label class="item-label">Qualification:</ion-label>
+              <ion-text>{{ table.qualification }}</ion-text>
+            </ion-item>
+            <ion-item lines="none">
+              <ion-label class="item-label">Experience:</ion-label>
+              <ion-text>{{ table.required_exp }}</ion-text>
+            </ion-item>
+            <ion-item lines="none">
+              <ion-label class="item-label">End Date:</ion-label>
+              <ion-text>{{ table.date }}</ion-text>
+            </ion-item>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
