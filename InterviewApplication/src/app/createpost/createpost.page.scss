@@ -280,4 +280,32 @@
     height: 70px;
     animation: headerFadeIn 1s ease-in;
   }
+  
+  #popover-button {
+    color: black;
+  }
+  
+  .header-title {
+    margin: 0 auto;
+    text-align: center;
+    color: black;
+    font-weight: bold;
+  }
+  
+  .menu {
+    color: #000000;
+    font-family: Arial;
+    height: 50px; /* Set the desired height value */
+    cursor: pointer;
+  }
+  
+  ion-menu-button {
+    color: black;
+    cursor: pointer;
+  }
+  
+  /* Update ion-toolbar background */
+  ion-toolbar {
+    --background: #ffffff; /* White background */
+  }
 

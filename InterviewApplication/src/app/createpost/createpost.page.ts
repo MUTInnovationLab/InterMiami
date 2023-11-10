@@ -28,6 +28,49 @@ export class CreatepostPage implements OnInit {
   ngOnInit() {
   }
 
+  goToView(): void {
+    this.router.navigate(['/staff-profile']);
+  }
+
+  async presentConfirmationAlert() {
+    const alert = await this.alertController.create({
+      header: 'Confirmation',
+      message: 'Are you sure you want to SIGN OUT?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+         cssClass: 'my-custom-alert',
+          handler: () => {
+            console.log('Confirmation canceled');
+          }
+        }, {
+          text: 'Confirm',
+          handler: () => {
+           
+            
+            this.auth.signOut().then(() => {
+              this.navCtrl.navigateForward("/applicant-login");
+              this.presentToast()
+        
+        
+            }).catch((error) => {
+            
+            });
+  
+  
+  
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+  goToHomePage(): void {
+    this.navCtrl.navigateBack('/dashboard');
+  }
+
   departmentOptions = [
     { value: 'CHEM', text: 'Chemical Engineering' },
     { value: 'ELEC', text: 'Electrical Engineering' },
