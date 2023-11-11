@@ -1,11 +1,53 @@
-ion-header {
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    align-items: center;
-    background-color: maroon;
-    color: white;
-    height: 70px;
-    animation: headerFadeIn 1s ease-in;
+
+ /* styles.css */
+
+.header {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  background-color: maroon;
+  color: white;
+  height: 70px;
+  animation: headerFadeIn 1s ease-in;
+}
+
+.custom-card {
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+  height: 100%; /* Set a fixed height for equal size */
+  color: #fff;
+}
+
+.custom-card:hover {
+  transform: scale(1.05);
+}
+
+ion-card-header {
+  background-color:#892F29;
+  color: #fff;
+  transition: background-color 0.3s ease-in-out;
+  height: 80px; /* Set a fixed height for equal size */
+}
+
+
+.item-label {
+  font-weight: bold;
+}
+
+.fowarder {
+  cursor: pointer;
+}
+
+@keyframes headerFadeIn {
+  from {
+    opacity: 0;
   }
-  
+  to {
+    opacity: 1;
+  }
+}
+ion-content{
+  --background:#fff;
+}

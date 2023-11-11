@@ -210,4 +210,32 @@ ion-label{
   opacity: 1;
 }
 
+.custom-card {
+  width: 100%;
+  background-color: #C9911A;
+  color: white;
+  margin-bottom: 10px; 
+}
+
+.custom-icon {
+  font-size: 45px;
+  color: rgb(15, 76, 126);
+  margin-top: 10px;
+}
+
+.info-label {
+  margin-bottom: 5px; 
+}
+
+/* Additional styling if required */
+.icon-col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.text-col {
+  display: flex;
+  flex-direction: column;
+}
 
