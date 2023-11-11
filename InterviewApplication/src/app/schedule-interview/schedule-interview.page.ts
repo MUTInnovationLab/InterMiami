@@ -367,7 +367,7 @@ export class ScheduleInterviewPage {
       const emailParams={
         name:this.name,
         surname:this.surname,
-        Email: this.email,
+        email_to: this.email,
         from_email:'thandekan736@gmail.com',
         subject:'Interview Invitation from MUTInnovation Lab',
         message:'You are invited for an interview on the',
@@ -375,8 +375,8 @@ export class ScheduleInterviewPage {
       };
   
       try{
-         await emailjs.send('service_cc5n4da','template_srn36yh',
-         emailParams,'7oDBuuKkIXSTVYQgn'
+         await emailjs.send('service_8ept2vs','template_315hlk4',
+         emailParams,'XX8rNKm_N2YCpntSv'
          );
          console.log('email successfully sent');
          alert('email successfully sent');

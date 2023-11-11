@@ -536,21 +536,24 @@ municipalities:any[]=[];
           return;
         }
 
-        if (this.code_job) {
-          const applicantRef = this.db.collection<any>('applicant-application');
-          const query = applicantRef.ref.where('code_job', '==', this.code_job);
+        // if (this.code_job) {
+        //   const applicantRef = this.db.collection<any>('applicant-application');
+        //   const query = applicantRef.ref.where('code_job', '==', this.code_job);
   
-          const matchingApplicants = await query.get();
+        //   const matchingApplicants = await query.get();
   
-          if (!matchingApplicants.empty) {
-            const applicantDoc = matchingApplicants.docs[0];
-            const currentCount = applicantDoc.data().count || 0;
-            alert("ADDING BY 1");
-            await applicantRef.doc(applicantDoc.id).update({
-              count: currentCount + 1,
-            });
-          }
-        }
+        //   if (matchingApplicants.empty) {
+        //     const applicantDoc = matchingApplicants.docs[0];
+        //     const currentCount = applicantDoc.data().count || 0;
+        //     alert("ADDING BY 1");
+        //     await applicantRef.doc(applicantDoc.id).update({
+        //       count: currentCount + 1,
+        //     });
+        //   }
+        // }
+
+        
+        
         
         
 
@@ -602,6 +605,38 @@ municipalities:any[]=[];
           letterURL :this.letterURL,
           loginCount:0
         });
+
+        if (this.code_job) {
+          const applicantRef = this.db.collection<any>('applicant-application');
+          const query = applicantRef.ref.where('code_job', '==', this.code_job);
+      
+          const matchingApplicants = await query.get();
+      
+          if (!matchingApplicants.empty) {
+            // If matching documents exist
+            const applicantDoc = matchingApplicants.docs[0];
+            const currentCount = applicantDoc.data().count || 0;
+      
+            // Extract the numeric part and increment it
+            const numericPart = parseInt(this.code_job.match(/\d+$/)[0], 11) + 1;
+      
+            // Create a new code_job with the incremented numeric part and pad with leading zeros
+            const newNumericPart = String(numericPart).padStart(this.code_job.match(/\d+$/)[0].length, '0');
+            const newCodeJob = this.code_job.replace(/\d+$/, newNumericPart);
+      
+            // Update the document in the collection
+            await applicantRef.doc(applicantDoc.id).update({
+              code_job: newCodeJob,
+              count: currentCount+1,
+            });
+      
+            // Update the local property
+            this.code_job = newCodeJob;
+          } 
+        }
+
+
+        
 
         loader.dismiss();
         alert('Information successfully saved');

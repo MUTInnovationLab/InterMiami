@@ -91,7 +91,7 @@ export class ApplicantResgisterPage implements OnInit {
         });
         loader.dismiss();
         alert("Registered Successfully");
-        this.navController.navigateForward("/sign-in");
+        this.navController.navigateForward("applicant-login");
       } else {
         loader.dismiss();
         alert('User not found');
