@@ -1,7 +1,6 @@
-
  /* styles.css */
 
-.header {
+ .header {
   display: flex;
   justify-content: center;
   text-align: center;
@@ -49,5 +48,46 @@ ion-card-header {
   }
 }
 ion-content{
-  --background:#fff;
+  --background:#065D78;
+}
+/* styles.css */
+
+ion-card-content {
+  background-color: #fff ; /* Light gray background color */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(37, 25, 25, 0.1);
+  padding: 20px;
+  margin: 20px;
+}
+
+ion-item {
+  border-bottom: 1px solid #dcdcdc; /* Gray border between items */
+}
+
+.item-label {
+  font-weight: bold;
+  color: #245576; /* Blue label color */
+}
+
+.item-value {
+  color: #333; /* Dark text color for values */
+}
+
+/* Apply a margin to the last ion-item to provide space at the bottom */
+ion-item:last-child {
+  margin-bottom: 0;
+}
+
+/* Add styles for the container */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+ion-card-title{
+  color: #fff;
+}
+ion-card-subtitle{
+  color: #fff;
 }
