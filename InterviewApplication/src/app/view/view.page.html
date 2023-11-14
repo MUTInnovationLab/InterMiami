@@ -14,20 +14,20 @@
 <ion-content fullscreen  style="--background: url('assets/view3.jpg') no-repeat center / cover;">
   <br>
   <div class="content-wrapper">
-    <ng-container *ngIf="!(user$ | async); else profileCard">
-      <ion-card class="custom-card">
-        <ion-card-header>
-          <ion-card-title>
-            MY PROFILE
-          </ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          {{ counter }}
-        </ion-card-content>
-  
-        <ion-icon class="prof" name="person"></ion-icon>
-      </ion-card>
-    </ng-container>
+      <ng-container *ngIf="!(user$ | async); else profileCard">
+    <ion-card class="custom-card">
+      <ion-card-header>
+        <ion-card-title>
+          MY PROFILE
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        {{ counter }}
+      </ion-card-content>
+
+      <ion-icon class="prof" name="person"></ion-icon>
+    </ion-card>
+  </ng-container>
     
     <ng-template #profileCard>
       <ion-card *ngIf="user$ | async as user">

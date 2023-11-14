@@ -41,31 +41,45 @@
             </ion-card-title>
             <ion-card-subtitle>{{ table.jobdepartment }}</ion-card-subtitle>
           </ion-card-header>
-
           <ion-card-content>
+            <!-- Department -->
             <ion-item lines="none">
               <ion-label class="item-label">Department:</ion-label>
-              <ion-text>{{ table.jobdepartment }}</ion-text>
+              <ion-text class="item-value">{{ table.jobdepartment }}</ion-text>
             </ion-item>
+          
+            <!-- Code -->
             <ion-item lines="none">
               <ion-label class="item-label">Code:</ion-label>
-              <ion-text>{{ table.jobfaculty }}</ion-text>
+              <ion-text class="item-value">{{ table.jobfaculty }}</ion-text>
             </ion-item>
+          
+            <!-- Requirements -->
             <ion-item lines="none">
               <ion-label class="item-label">Requirements:</ion-label>
-              <ion-text>{{ table.description }}</ion-text>
+              <ion-text class="item-value">
+                <div *ngFor="let requirement of table.description.split('\n')">
+                  {{ requirement }}
+                </div>
+              </ion-text>
             </ion-item>
+          
+            <!-- Qualification -->
             <ion-item lines="none">
               <ion-label class="item-label">Qualification:</ion-label>
-              <ion-text>{{ table.qualification }}</ion-text>
+              <ion-text class="item-value">{{ table.qualification }}</ion-text>
             </ion-item>
+          
+            <!-- Experience -->
             <ion-item lines="none">
               <ion-label class="item-label">Experience:</ion-label>
-              <ion-text>{{ table.required_exp }}</ion-text>
+              <ion-text class="item-value">{{ table.required_exp }}</ion-text>
             </ion-item>
+          
+            <!-- End Date -->
             <ion-item lines="none">
               <ion-label class="item-label">End Date:</ion-label>
-              <ion-text>{{ table.date }}</ion-text>
+              <ion-text class="item-value">{{ table.date }}</ion-text>
             </ion-item>
           </ion-card-content>
         </ion-card>
