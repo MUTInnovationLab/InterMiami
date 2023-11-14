@@ -26,6 +26,8 @@ export class ScoreCapturePage implements OnInit {
   tables$: any;
   jobfaculty:any;
 
+  selectedRowIndex: number = -1;
+
   sortIntervieweesByDate() {
     // Sort the grouped interviewees by date (keys)
     this.groupedInterviewees = new Map([...this.groupedInterviewees.entries()].sort());
@@ -39,6 +41,10 @@ export class ScoreCapturePage implements OnInit {
 
   ngOnInit() {
     this.getAllDocuments2();
+  }
+
+  handleItemClick(index: number) {
+    this.selectedRowIndex = index;
   }
 
   getAllDocuments2() {

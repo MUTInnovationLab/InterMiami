@@ -27,7 +27,7 @@
             </ion-item>
             <ion-content>
               <ion-list>
-                <ion-item *ngFor="let table of tables$">
+                <ion-item *ngFor="let table of tables$; let i = index" (click)="handleItemClick(i)" [class.selected]="i === selectedRowIndex">
                   <ion-card class="custom-card">
                     <ion-grid>
                       <ion-row>
@@ -112,7 +112,7 @@
       </ion-card> -->
       <!-- <ion-card class="score-card"> -->
           <!-- style="margin-top: -15px" -->
-        <ion-grid>
+        <ion-grid [ngClass]="{'grid': selectedRowIndex !== -1, 'selected-grid': selectedRowIndex !== -1}">
           <ion-row>
             <ion-col size="6">
                 <ion-card class="skill_card">

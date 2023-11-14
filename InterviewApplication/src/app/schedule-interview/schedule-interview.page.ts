@@ -17,6 +17,7 @@ export class ScheduleInterviewPage {
 
   // Initialize properties with default values
   int_id:any; // Unique interview ID
+  datecode: any;
   code_job: any;
   name:any;
   surname:any;
@@ -58,7 +59,56 @@ export class ScheduleInterviewPage {
       // Now you can use the 'data' object in this component as needed
       this.getOneDocumentData;
     }
+
+    async presentConfirmationAlert() {
+      const alert = await this.alertController.create({
+        header: 'Confirmation',
+        message: 'Are you sure you want to SIGN OUT?',
+        buttons: [
+          {
+            text: 'Cancel',
+            role: 'cancel',
+           cssClass: 'my-custom-alert',
+            handler: () => {
+              console.log('Confirmation canceled');
+            }
+          }, {
+            text: 'Confirm',
+            handler: () => {
+             
+              
+              this.auth.signOut().then(() => {
+                this.navCtrl.navigateForward("/applicant-login");
+                this.presentToast()
+          
+          
+              }).catch((error) => {
+              
+              });
     
+    
+    
+            }
+          }
+        ]
+      });
+      await alert.present();
+    }
+
+    async presentToast() {
+      const toast = await this.toastController.create({
+        message: 'SIGNED OUT!',
+        duration: 1500,
+        position: 'top',
+      
+      });
+    
+      await toast.present();
+    }
+    
+    goToHomePage(): void {
+      this.navCtrl.navigateBack('/dashboard');
+    }
 
     getOneDocumentData() {
       if (this.email) {
@@ -83,8 +133,13 @@ export class ScheduleInterviewPage {
               const day = currentDate.getDate().toString().padStart(2, '0');
               const month = (currentDate.getMonth() + 1).toString().padStart(2, '0'); // Months are zero-based
               const year = currentDate.getFullYear().toString();
-              const formattedDate = `${year}${month}${day}`;
-              this.int_id = `${formattedDate}${this.formatCounter(this.counter)}`;
+              const hours = currentDate.getHours().toString().padStart(2, '0');
+              const minutes = currentDate.getMinutes().toString().padStart(2, '0');
+              const seconds = currentDate.getSeconds().toString().padStart(2, '0');
+              const milliseconds = currentDate.getMilliseconds().toString().padStart(3, '0');
+              const formattedDate = `${hours}${minutes}${seconds}${milliseconds}${year}`;
+              this.datecode = `${formattedDate}${this.formatCounter(this.counter)}`;
+              this.int_id = this.code_job + this.datecode;
 
               // Increment the counter for the next unique ID
               this.counter++;

@@ -1,15 +1,28 @@
 <ion-header>
-  <ion-toolbar color="dark">
+  <ion-toolbar >
     <ion-buttons slot="start">
       <ion-menu-toggle>
-        <ion-button>
-          <ion-icon slot="icon-only" name="menu"></ion-icon>
-        </ion-button>
       </ion-menu-toggle>
     </ion-buttons>
     <ion-title class="header-title">
       Schedule Interview
     </ion-title>
+    <ion-buttons slot="end">
+      <ion-button>
+          <ion-button id="popover-button"><ion-icon name="person"></ion-icon></ion-button>
+       
+        <ion-popover trigger="popover-button" [dismissOnSelect]="true">
+          <ng-template>
+            <ion-content>
+              <ion-list >
+                <ion-item lines="none" [button]="true" [detail]="false"  ><ion-icon name="eye" ></ion-icon> &nbsp;  Profile</ion-item>
+                <ion-item lines="none" [button]="true" [detail]="false"  (click)="presentConfirmationAlert()"><ion-icon color="danger" name="exit"></ion-icon>&nbsp;<p>LOGOUT</p></ion-item>
+              </ion-list>
+            </ion-content>
+          </ng-template>
+        </ion-popover>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -22,7 +35,7 @@
       <ion-input
         placeholder="Interviewee ID"
         type="text"
-        [(ngModel)]="code_job"
+        [(ngModel)]="int_id"
         maxlength="13"
       ></ion-input>
     </ion-item>
