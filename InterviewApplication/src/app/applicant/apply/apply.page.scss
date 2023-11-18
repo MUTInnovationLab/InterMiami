@@ -409,7 +409,7 @@ to {
   text-align: center;
   overflow: hidden;
   color: var(--glow-color);
-  background-color: #ffffff;
+ // background-color: #ffffff;
   border-radius: 20px;
   position: relative;
 }
@@ -428,25 +428,11 @@ to {
    text-align: center;
    overflow: hidden;
    color: var(--glow-color);
-   background-color: #ffffff;
+   //background-color: #ffffff;
   // border-radius: 20px;
   // position: relative;
  }
 
-.field-input {
-  width: 100%;
-  min-height: 45px;
-  //color: #444;
-  color: rgba(65, 65, 65, 0.508);
-  outline: 2px;
-  transition: 0.35s;
-  padding: 1px;
-  //background-color: #444;
-  //border-radius: 2px;
-  //border: 2px solid #444;
-  box-shadow: 6px 6px 10px rgb(107, 106, 106),
-  1px 1px 10px rgba(255, 255, 255, 0.6);
-}
 
 .input::placeholder {
   color: #999;
