@@ -28,7 +28,9 @@
             <ion-content>
               <ion-list>
                 <ion-item *ngFor="let table of tables$; let i = index" (click)="handleItemClick(i)" [class.selected]="i === selectedRowIndex">
-                  <ion-card class="custom-card">
+                  <ion-card class="custom-card" [class.selected]="i === selectedRowIndex">
+                    <div class="bg"></div>
+                    <div class="blob"></div>
                     <ion-grid>
                       <ion-row>
                         <ion-col size="1" class="icon-col">
@@ -112,40 +114,30 @@
       </ion-card> -->
       <!-- <ion-card class="score-card"> -->
           <!-- style="margin-top: -15px" -->
-        <ion-grid [ngClass]="{'grid': selectedRowIndex !== -1, 'selected-grid': selectedRowIndex !== -1}">
-          <ion-row>
-            <ion-col size="6">
-                <ion-card class="skill_card">
-                    <ion-item>
-                        <ion-label class="score-label">Introduction</ion-label>
-      
-                        <ion-input  class="score-input" type="number" [(ngModel)]="introduction" (ionChange)="calculateTotal()"></ion-input>
-                    </ion-item>
-                  </ion-card>
-            </ion-col>
-            <ion-col size="6">
-                <ion-card class="skill_card">
-                    <ion-item>
-                      <ion-label class="score-label" >Teamwork</ion-label>
-                      <ion-input class="score-input" type="number" [(ngModel)]="teamwork" (ionChange)="calculateTotal()"></ion-input>
-                    </ion-item>
-                  </ion-card>
-              </ion-col>
-          </ion-row>
-          <ion-row>
+        <ion-card class="former">
+          <figure [ngClass]="{'loader': selectedRowIndex !== -1, 'selected-loader': selectedRowIndex !== -1}">
+            <div class="dot white"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </figure>
+          <ion-grid >
+            <ion-row>
               <ion-col size="6">
                   <ion-card class="skill_card">
                       <ion-item>
-                      <ion-label class="score-label">adaptability</ion-label>
-                      <ion-input class="score-input" type="number" [(ngModel)]="adaptability"  (ionChange)="calculateTotal()"></ion-input>
-                    </ion-item>
-                  </ion-card>
+                          <ion-label class="score-label">Introduction</ion-label>
+        
+                          <ion-input  class="score-input" type="number" [(ngModel)]="introduction" (ionChange)="calculateTotal()"></ion-input>
+                      </ion-item>
+                    </ion-card>
               </ion-col>
               <ion-col size="6">
                   <ion-card class="skill_card">
                       <ion-item>
-                        <ion-label class="score-label">Problem Solving</ion-label>
-                        <ion-input class="score-input" type="number" [(ngModel)]="problemSolving" (ionChange)="calculateTotal()"></ion-input>
+                        <ion-label class="score-label" >Teamwork</ion-label>
+                        <ion-input class="score-input" type="number" [(ngModel)]="teamwork" (ionChange)="calculateTotal()"></ion-input>
                       </ion-item>
                     </ion-card>
                 </ion-col>
@@ -153,56 +145,74 @@
             <ion-row>
                 <ion-col size="6">
                     <ion-card class="skill_card">
-                        <ion-item >
-                        <ion-label class="score-label">Communication Skills</ion-label>
-                        <ion-input class="score-input" type="number" [(ngModel)]="communicationSkills" (ionChange)="calculateTotal()"></ion-input>
-                      </ion-item> </ion-card>
+                        <ion-item>
+                        <ion-label class="score-label">adaptability</ion-label>
+                        <ion-input class="score-input" type="number" [(ngModel)]="adaptability"  (ionChange)="calculateTotal()"></ion-input>
+                      </ion-item>
+                    </ion-card>
                 </ion-col>
                 <ion-col size="6">
                     <ion-card class="skill_card">
-                        <ion-item >
-                        <ion-label class="score-label">Job Specific Skills </ion-label>
-                        <ion-input class="score-input" type="number" [(ngModel)]="jobSpecificSkills" (ionChange)="calculateTotal()"></ion-input>
-                      </ion-item>
-                    </ion-card>
-                  </ion-col>
-              </ion-row>
-              <ion-row>
-                  <ion-col size=6>
-                      <ion-card class="skill_card">
-                          <ion-item >
-                          <ion-label class="score-label">Leadership Skills</ion-label>
-                          <ion-input class="score-input" type="number" [(ngModel)]="leadershipSkills" (ionChange)="calculateTotal()"></ion-input>
+                        <ion-item>
+                          <ion-label class="score-label">Problem Solving</ion-label>
+                          <ion-input class="score-input" type="number" [(ngModel)]="problemSolving" (ionChange)="calculateTotal()"></ion-input>
                         </ion-item>
                       </ion-card>
                   </ion-col>
-                  <ion-col size=6>
-                    <ion-card class="skill_card">
-                        <ion-item >
-                        <ion-label class="custom-label" style="color:green;font-weight:bolder;font-size:40px;">Total</ion-label>
-                        <ion-input class="score-input" style="color:green;font-weight:bolder;font-size:40px;" [value]="total"></ion-input>
-                      </ion-item>
-                    </ion-card>
+              </ion-row>
+              <ion-row>
+                  <ion-col size="6">
+                      <ion-card class="skill_card">
+                          <ion-item >
+                          <ion-label class="score-label">Communication Skills</ion-label>
+                          <ion-input class="score-input" type="number" [(ngModel)]="communicationSkills" (ionChange)="calculateTotal()"></ion-input>
+                        </ion-item> </ion-card>
+                  </ion-col>
+                  <ion-col size="6">
+                      <ion-card class="skill_card">
+                          <ion-item >
+                          <ion-label class="score-label">Job Specific Skills </ion-label>
+                          <ion-input class="score-input" type="number" [(ngModel)]="jobSpecificSkills" (ionChange)="calculateTotal()"></ion-input>
+                        </ion-item>
+                      </ion-card>
                     </ion-col>
                 </ion-row>
-                <ion-row class="button-row">
-                    <ion-col>
-                      <button class="submitBtn" (click)="submitForm()">
-                        Submit
-                        <svg fill="white" viewBox="0 0 448 512" height="1em" class="arrow"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg>
-                      </button>
+                <ion-row>
+                    <ion-col size=6>
+                        <ion-card class="skill_card">
+                            <ion-item >
+                            <ion-label class="score-label">Leadership Skills</ion-label>
+                            <ion-input class="score-input" type="number" [(ngModel)]="leadershipSkills" (ionChange)="calculateTotal()"></ion-input>
+                          </ion-item>
+                        </ion-card>
                     </ion-col>
-                    <ion-col>
-                      <button class="clearBtn" (click)="Clear()">
-                        Clear
-                        <svg fill="white" viewBox="0 0 384 512" height="1em" class="x-icon">
-                          <path d="M217.94 256l150.52-150.52c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L152 189.06 1.48 38.54c-12.28-12.28-32.19-12.28-44.48 0L-.76 60.78c-12.28 12.28-12.28 32.19 0 44.48L150.52 256 1.48 406.52c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.19 12.28 44.48 0L152 322.94l150.52 150.52c12.28 12.28 32.19 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L217.94 256z"></path>
-                        </svg>
-                      </button>
-                    </ion-col>
+                    <ion-col size=6>
+                      <ion-card class="skill_card">
+                          <ion-item >
+                          <ion-label class="custom-label" style="color:green;font-weight:bolder;font-size:40px;">Total</ion-label>
+                          <ion-input class="score-input" style="color:green;font-weight:bolder;font-size:40px;" [value]="total"></ion-input>
+                        </ion-item>
+                      </ion-card>
+                      </ion-col>
                   </ion-row>
-              
-          </ion-grid>
+                  <ion-row class="button-row">
+                      <ion-col>
+                        <button class="submitBtn" (click)="submitForm()">
+                          Submit
+                          <svg fill="white" viewBox="0 0 448 512" height="1em" class="arrow"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg>
+                        </button>
+                      </ion-col>
+                      <ion-col>
+                        <button class="clearBtn" (click)="Clear()">
+                          Clear
+                          <svg fill="white" viewBox="0 0 384 512" height="1em" class="x-icon">
+                            <path d="M217.94 256l150.52-150.52c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L152 189.06 1.48 38.54c-12.28-12.28-32.19-12.28-44.48 0L-.76 60.78c-12.28 12.28-12.28 32.19 0 44.48L150.52 256 1.48 406.52c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.19 12.28 44.48 0L152 322.94l150.52 150.52c12.28 12.28 32.19 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L217.94 256z"></path>
+                          </svg>
+                        </button>
+                      </ion-col>
+                    </ion-row>
+            </ion-grid>
+        </ion-card>
           <!-- <ion-label class="custom-label">Total</ion-label>
           <ion-row class="total-row">
             <ion-col class="total-col">
