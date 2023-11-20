@@ -17,6 +17,8 @@ export class ScoreCapturePage implements OnInit {
   jobSpecificSkills: number = 0;
   problemSolving: number = 0;
   total: number = 0;
+  label1= Text;
+  label2=Text;
 
   groupedInterviewees: Map<string, any[]> = new Map();
   todayDateString: string;
@@ -43,9 +45,7 @@ export class ScoreCapturePage implements OnInit {
     this.getAllDocuments2();
   }
 
-  handleItemClick(index: number) {
-    this.selectedRowIndex = index;
-  }
+  
 
   getAllDocuments2() {
     this.firestore
@@ -82,8 +82,19 @@ export class ScoreCapturePage implements OnInit {
     }
   }
 
+  handleItemClick(index: number) {
+    this.selectedRowIndex = index;
+
+  }
+
   submitForm() {
-    this.calculateTotal();
+     const selectedTable = this.tables$[this.selectedRowIndex];
+
+     if (!selectedTable) {
+      alert('Please select interview candidate.');
+    }else{
+
+      this.calculateTotal();
 
     alert('Introduction:'+ this.introduction + '\n'
     + 'Teamwork:'+ this.teamwork + '\n'
@@ -94,6 +105,14 @@ export class ScoreCapturePage implements OnInit {
      + 'Job Specific Skills:'+ this.jobSpecificSkills + '\n'
      + 'Problem-Solving:'+ this.problemSolving + '\n'
      + 'Total:'+ this.total);
+
+     const {int_id, name} = selectedTable;
+
+     const label1Element = document.getElementById("label_1");
+     const label2Element = document.getElementById("label_2");
+
+      const label1 = label1Element ? label1Element.textContent : null;
+      const label2 = label2Element ? label2Element.textContent : null;
 
     // Now you can proceed with adding the data to Firestore if needed
     const formData = {
@@ -106,18 +125,25 @@ export class ScoreCapturePage implements OnInit {
       jobSpecificSkills: this.jobSpecificSkills,
       problemSolving: this.problemSolving,
       total: this.total,
+      ID: int_id,
+      name: name,
+      panelMember: label1,
+      panelEmail: label2
+      
     };
 
     this.firestore
       .collection('feedback')
       .add(formData)
       .then(() => {
+        
         // Data added successfully
         console.log('Form data added to Firestore!');
       })
       .catch((error) => {
         console.error('Error adding form data to Firestore:', error);
       });
+    }
   }
 
   fetchData() {
