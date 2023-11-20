@@ -32,7 +32,9 @@ export class AllApplicantsPage implements OnInit {
   recipient:any;
   userEmailArray: string[] = [];
   userDocument:any;
-  selectedExperience: string = '';
+  filteredTableData: any[] = [];
+  selectedExperience: number | null = null;
+  selectedQualification: string | null = null;
 
 
   constructor(private http: HttpClient,private firestore: AngularFirestore, 
@@ -49,17 +51,32 @@ export class AllApplicantsPage implements OnInit {
         return b.tTotalExperience - a.tTotalExperience;
       });
 
+      this.db.collection("applicant-application").valueChanges().subscribe((data: any[]) => {
+        this.tableData = data;
+        this.filteredTableData = data;
+      });
+
       this.getAllData();
       this.sortByCerticate();
      }
 
-     filterTableData() {
-      if (this.selectedExperience === '') {
-        // Show all rows if no experience filter is selected
-        return this.tableData;
+     onExperienceChange() {
+      if (this.selectedExperience !== null) {
+        this.filteredTableData = this.tableData.filter(
+          (data) => data.tTotalExperience >= this.selectedExperience!
+        );
       } else {
-        // Filter rows based on the selected experience
-        return this.tableData.filter(data => data.tTotalExperience >= parseInt(this.selectedExperience));
+        this.filteredTableData = this.tableData;
+      }
+    }
+
+    onExperienceChange2() {
+      if (this.selectedQualification !== null) {
+        this.filteredTableData = this.tableData.filter(
+          (data) => data.certificate === this.selectedQualification
+        );
+      } else {
+        this.filteredTableData = this.tableData;
       }
     }
 
