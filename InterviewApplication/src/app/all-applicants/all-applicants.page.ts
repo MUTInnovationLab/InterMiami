@@ -32,6 +32,7 @@ export class AllApplicantsPage implements OnInit {
   recipient:any;
   userEmailArray: string[] = [];
   userDocument:any;
+  selectedExperience: string = '';
 
 
   constructor(private http: HttpClient,private firestore: AngularFirestore, 
@@ -51,6 +52,16 @@ export class AllApplicantsPage implements OnInit {
       this.getAllData();
       this.sortByCerticate();
      }
+
+     filterTableData() {
+      if (this.selectedExperience === '') {
+        // Show all rows if no experience filter is selected
+        return this.tableData;
+      } else {
+        // Filter rows based on the selected experience
+        return this.tableData.filter(data => data.tTotalExperience >= parseInt(this.selectedExperience));
+      }
+    }
 
      onClickerr(email: string , fullName: string) {
       this.navCtrl.navigateForward(['/schedule-interview'], { queryParams: { email , fullName } });

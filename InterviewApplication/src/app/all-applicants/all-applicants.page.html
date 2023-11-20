@@ -27,6 +27,30 @@
     </ion-toolbar>
   </ion-header>
 <ion-content [fullscreen]="true">
+  <div>
+    <br>
+    Filter By:
+    <select class="input">
+      <option placeholer="Experience" disabled selected hidden>Quailfication</option>
+      <option value="Doctorate">Doctoral Degree</option>
+      <option value="Masters">Master's Degree</option>
+      <option value="Honors">Honour's degree</option>
+      <option value="Bachelor/advanced">Bachelor's Degree/advanced Diploma</option>
+      <option value="Diploma">National Diploma</option>
+    </select>
+    Filter By:
+    <select class="input" [(ngModel)]="selectedExperience" (change)="filterTableData()">
+      <option placeholer="Experience" disabled selected hidden>Experience</option>
+      <option>NO Experience</option>
+      <option>6Months+</option>
+      <option>12Months+</option>
+      <option>24Months+</option>
+      <option>3Years+</option>
+      <option>4Years+</option>
+      <option>5Years+</option>
+      <option>6Years+</option>
+    </select>
+  </div>
   <div class="cent">
     <ion-grid>
       <table class="bordered">
