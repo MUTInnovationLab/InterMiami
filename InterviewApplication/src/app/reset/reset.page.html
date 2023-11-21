@@ -7,21 +7,22 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" style="--background: url('assets/tiny.jpg') no-repeat center / cover;">
-  <br>
-  <br>
-  <br>
-  <br>
+  <div class="container2">
+    <div class="centered-container">
+      <div class="image-container">
+        <img src="assets/logo.jpg" alt="Logo" class="logo">
+      </div>
+  </div>
   <ion-card>
     <ion-card-content>
       <br>
-      <div class="color2">
+      <div class="custom-card">
         <ion-label>Email Address</ion-label>
-        <ion-item class="rounded">
-          <ion-input type="email" [(ngModel)]="email" name="email" (input)="emailError = null;"></ion-input>
+        <ion-item class="custom-input rounded">
+          <ion-input type="email" name="email" [(ngModel)]="email" (input)="emailError = null;"></ion-input>
         </ion-item>
         <div class="error-message" *ngIf="emailError">{{ emailError }}</div>
-        <br>
-        <button expand="block" (click)="reset()" class="reset-button">
+        <button expand="block" (click)="reset()" class="butSubmit">
           <span class="span-mother">
             <span>R</span>
             <span>e</span>
@@ -41,7 +42,7 @@
           </span>
         </button>
         <div class="form-section">
-          <p>I got a password <a href="applicant-login()">Log in</a> </p>
+          <p>I got a password <a class="custom-link" href="applicant-login()">Log in</a> </p>
         </div>
         <div class="align">
           <!-- Content of the div -->
@@ -49,6 +50,7 @@
       </div>
     </ion-card-content>
   </ion-card>
+</div>
 </ion-content>
 
 <ion-footer class="custom-footer">
