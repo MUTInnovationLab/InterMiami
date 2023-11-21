@@ -1,42 +1,7 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start" (click)="goToHomePage()">
-      <img src="assets\MUT LOGO.png">
-    </ion-buttons>
     <ion-title class="header-title">Add-User</ion-title>
-    <ion-buttons slot="end">
-      <ion-button>
-        <ion-button id="popover-button" >
-          <ion-icon name="person"></ion-icon>
-        </ion-button>
-
-        <ion-popover trigger="popover-button" [dismissOnSelect]="true">
-          <ng-template>
-            <ion-content>
-              <ion-list >
-                <ion-item lines="none" [button]="true" [detail]="false" (click)="goToStaffProfile()" ><ion-icon name="eye" ></ion-icon> &nbsp;  Profile</ion-item>
-                <ion-item lines="none" [button]="true" [detail]="false"  (click)="presentConfirmationAlert()"><ion-icon name="exit"></ion-icon>&nbsp;<p>LOGOUT</p></ion-item>
-              </ion-list>
-            </ion-content>
-          </ng-template>
-        </ion-popover>
-<!-- 
-        <ion-popover trigger="popover-button" [dismissOnSelect]="true">
-          <ng-template>
-            <ion-content>
-              <ion-list>
-                <ion-item lines="none" [button]="true" [detail]="false" (click)="goToView()">
-                  <ion-icon name="eye"></ion-icon> &nbsp; VIEW PROFILE</ion-item>
-                <ion-item lines="none" [button]="true" [detail]="false" (click)="presentConfirmationAlert()">
-                  <ion-icon color="danger" name="exit"></ion-icon>&nbsp;
-                  <p>LOGOUT</p>
-                </ion-item>
-              </ion-list>
-            </ion-content>
-          </ng-template>
-        </ion-popover> -->
-      </ion-button>
-    </ion-buttons>
+   
   </ion-toolbar>
 </ion-header>
 
