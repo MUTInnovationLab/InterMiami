@@ -1,15 +1,27 @@
 /* score-capture.page.scss */
-ion-content{
-  --background:#065D78 !important;
+.header-title {
+  margin: 0;
+  text-align: center;
+  font-weight: bold;
+  animation: textFadeIn 1.5s ease-in-out;
 }
+
+ion-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #065D78;
+  color: white;
+  height: 70px;
+  animation: headerFadeIn 1s ease-in;
+}
+
+
 ion-input{
   width: 20% !important;
   height: 100px;
 }
-ion-toolbar {
-  border-top: 3px solid brown ; /* Add a red top border */
-  border-bottom: 3px solid brown; /* Add a red bottom border */
-}
+
 
 ion-label{
   width: 70%;
@@ -48,12 +60,7 @@ ion-label{
   align-items:center;
   
 }
-.header-title {
-  color:white;
-  font-size: 24px;
-  font-weight: bold;
-  text-align: center;
-}
+
 .main-grid {
   height: 100%;
   display: flex;
@@ -85,7 +92,7 @@ ion-label{
   padding: 15px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
-  background-color: #933c3c;
+ // background-color: #933c3c;
   font-family: "Open Sans",'sans-serif';
 }
 
@@ -107,7 +114,7 @@ ion-label{
   padding: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
-  background-color: #933c3c;
+ // background-color: #933c3c;
   color: rgb(48, 47, 47);
 }
 
@@ -163,11 +170,11 @@ ion-label{
 }
 
 .submitBtn {
-  background: linear-gradient(to left, #ff4d4d, #ff944d);
+  background: linear-gradient(to left, #0f86aa, #065D78);
 }
 
 .clearBtn {
-  background: linear-gradient(to left, #ff4d4d, #ff944d);
+  background: linear-gradient(to left, #0f86aa, #065D78);
 }
 
 .submitBtn:hover,
@@ -185,8 +192,8 @@ ion-label{
 /* Footer */
 .custom-footer {
   text-align: center;
-  background-color: #333; /* Footer background color */
-  color: white; /* Footer text color */
+  background-color: #065D78; /* Footer background color */
+  padding: 2px;
 }
 
 /* Center the label horizontally */
@@ -211,7 +218,7 @@ ion-label{
 
 .custom-card {
   width: 100%;
-  background-color: #C9911A;
+  background-color: #0f86aa;;
   color: white;
   margin-bottom: 10px; 
 }
@@ -242,7 +249,9 @@ ion-label{
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>> New CSS Animation
 
 .former{
-  height: 98%;
+  height: 100%;
+  border-radius: 10px;
+  border: 2px dashed#0f86aa;
 }
 
 .loader {
@@ -280,7 +289,7 @@ ion-label{
   top: 0;
   bottom: 0;
   left: 0;
-  background: #FF4444;
+  background:#33B5E5;
   animation: dotsY 10.4s linear infinite;
 }
 
@@ -288,7 +297,7 @@ ion-label{
   left: 0;
   right: 0;
   top: 0;
-  background: #FFBB33;
+  background: #33B5E5;
   animation: dotsX 10.4s linear infinite;
 }
 
@@ -296,7 +305,7 @@ ion-label{
   top: 0;
   bottom: 0;
   right: 0;
-  background: #99CC00;
+  background: #33B5E5;
   animation: dotsY 10.4s linear infinite;
 }
 
@@ -386,7 +395,7 @@ ion-label{
   align-items: center;
   justify-content: center;
   box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
-  background: radial-gradient(circle, red, maroon);
+  background: radial-gradient(circle, #0f86aa, #023646);
 
 }
 

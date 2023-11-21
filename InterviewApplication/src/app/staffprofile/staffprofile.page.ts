@@ -129,7 +129,7 @@ export class StaffprofilePage implements OnInit {
           text: 'Confirm',
           handler: () => {
             this.auth.signOut().then(() => {
-              this.navController.navigateForward("/sign-in");
+              this.navController.navigateForward("/applicant-login");
               this.presentToast();
             }).catch((error) => {
               console.error('Error signing out:', error);
@@ -152,7 +152,7 @@ export class StaffprofilePage implements OnInit {
   }
 
   goToHomePage(): void {
-    this.router.navigateByUrl('/home');
+    this.router.navigateByUrl('/dashboard');
   }
 
   navigateBack(): void {

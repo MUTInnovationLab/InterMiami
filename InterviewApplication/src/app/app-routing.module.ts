@@ -35,16 +35,8 @@ const routes: Routes = [
     loadChildren: () => import('./applicant/apply/apply.module').then( m => m.ApplyPageModule)
   },
   {
-    path: 'profile',
-    loadChildren: () => import('./applicant/profile/profile.module').then( m => m.ProfilePageModule)
-  },
-  {
     path: 'apply',
     loadChildren: () => import('./applicant/apply/apply.module').then( m => m.ApplyPageModule)
-  },
-  {
-    path: 'profile',
-    loadChildren: () => import('./applicant/profile/profile.module').then( m => m.ProfilePageModule)
   },
   {
     path: 'schedule-interview',
@@ -107,13 +99,10 @@ const routes: Routes = [
     loadChildren: () => import('./cv-modal/cv-modal.module').then( m => m.CvModalPageModule)
   },
   {
-    path: 'today-interviews',
-    loadChildren: () => import('./today-interviews/today-interviews.module').then( m => m.TodayInterviewsPageModule)
-  },
-  {
     path: 'marks',
     loadChildren: () => import('./marks/marks.module').then( m => m.MarksPageModule)
-  },  {
+  },
+  {
     path: 'posts',
     loadChildren: () => import('./posts/posts.module').then( m => m.PostsPageModule)
   },

@@ -1,17 +1,23 @@
 <!-- index.html -->
 <ion-header>
-    <ion-toolbar color="primarys" style="background-color: rgb(0, 0, 0)">
-      <ion-title class="header-title">Score Capture</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-toolbar >
+    <ion-buttons slot="start">
+      <ion-menu-toggle>
+      </ion-menu-toggle>
+    </ion-buttons>
+    <ion-title class="header-title">
+      Score Capture
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
   
 
 <ion-content [fullscreen]="true">
   <ion-grid class="main-grid">
     <!-- First ion-content -->
     <!-- <ion-content class="container1"> -->
-    <ion-list style="margin-left: -5px;margin-top:-5px;margin-bottom:-10px;background-color:rgb(133, 37, 37);width: 250px;" no-lines>
-        <ion-card style="display:flex;background-color:#ff944d;color:white">
+    <ion-list style="margin-left: -5px;margin-top:-5px;margin-bottom:-5px;width: 250px;" no-lines>
+        <ion-card style="display:flex;background-color:#0f86aa;color:white">
             <ion-icon name="person-circle-outline" style="font-size: 60px; color: rgb(15, 76, 126);" ></ion-icon>
           
             <!-- <ion-list lines="none"> -->
@@ -23,7 +29,7 @@
             <!-- </ion-list> -->
           </ion-card>
           <ion-item style="height: 50px;" class="custom-background">
-            <ion-label style="color:white">Upcoming Interviews</ion-label>
+            <ion-label style="color:black">Upcoming Interviews</ion-label>
             </ion-item>
             <ion-content>
               <ion-list>
@@ -189,8 +195,8 @@
                     <ion-col size=6>
                       <ion-card class="skill_card">
                           <ion-item >
-                          <ion-label class="custom-label" style="color:green;font-weight:bolder;font-size:40px;">Total</ion-label>
-                          <ion-input class="score-input" style="color:green;font-weight:bolder;font-size:40px;" [value]="total"></ion-input>
+                          <ion-label class="custom-label" style="color:#0f86aa;;font-weight:bolder;font-size:40px;">Total</ion-label>
+                          <ion-input class="score-input" style="color:#0f86aa;;font-weight:bolder;font-size:40px;" [value]="total"></ion-input>
                         </ion-item>
                       </ion-card>
                       </ion-col>
@@ -211,7 +217,10 @@
                         </button>
                       </ion-col>
                     </ion-row>
+                    <br>
+                    <br>
             </ion-grid>
+            <br>
         </ion-card>
           <!-- <ion-label class="custom-label">Total</ion-label>
           <ion-row class="total-row">
@@ -220,12 +229,9 @@
             </ion-col>
           </ion-row> -->
 
-  
-
- 
-    
   </ion-grid>
+  <br>
 </ion-content>
 <ion-footer class="custom-footer">
-  Designed by @<b>MUT INNOVATIONLAB</b>
+  Designed with ❤️ by <b>MUT INNOVATIONLAB</b>
 </ion-footer>

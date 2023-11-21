@@ -34,7 +34,7 @@
 }
 
 .butSubmit{
-  background-color: #CB8D1C;
+  background-color: #065D78;
   border: none;
   padding: 1rem;
   font-size: 1rem;
@@ -69,7 +69,7 @@
 }
 
 .custom-button {
-  background-color: #ff5722; /* Custom button color */
+  background-color: #065D78; /* Custom button color */
   color: white; /* Button text color */
   font-weight: bold;
   border-radius: 10px;
@@ -83,7 +83,7 @@
 
 .custom-link {
   font-weight: bold;
-  color: #56221F; /* Link text color */
+  color: #0f86aa; /* Link text color */
   cursor: pointer;
 }
 
@@ -95,8 +95,7 @@
 .custom-footer {
   text-align: center;
   background-color: #065D78; /* Footer background color */
-  color: white; /* Footer text color */
-  padding: 10px;
+  padding: 2px;
 }
 
 .centered-container {
@@ -145,5 +144,5 @@
   height: 100vh;
   height: 100px;
   text-align: center;
-  background-color: #56221F;
+  background-color: #065D78;
 }

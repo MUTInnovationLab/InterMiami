@@ -143,7 +143,7 @@ isButtonDisabled(): boolean {
 }
 
   goToHomePage(): void {
-    this.navCtrl.navigateBack('/home');
+    this.navCtrl.navigateBack('/posts');
   }
   toggleAllDetails() {
     this.showAll = !this.showAll;

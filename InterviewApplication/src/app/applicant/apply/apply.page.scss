@@ -9,7 +9,7 @@ ion-header {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: maroon;
+  background-color: #065D78;
   color: white;
   height: 70px;
   animation: headerFadeIn 1s ease-in;
@@ -85,8 +85,8 @@ ion-searchbar,
 /* Footer */
 .custom-footer {
   text-align: center;
-  background-color: #333; /* Footer background color */
-  color: white; /* Footer text color */
+  background-color: #065D78; /* Footer background color */
+  padding: 2px;
 }
 /// Collapsing Butoon
 .buttonH,
@@ -164,7 +164,7 @@ transform: rotateX(35deg);
 
 .buttonH:after,
 .buttonH:before {
-background: #7e3d3d;
+background: #0f86aa;
 content: "";
 height: 100%;
 left: 0;
@@ -176,7 +176,7 @@ z-index: -1;
 }
 
 .buttonH:after {
-background:#6b0000;
+background:#065D78;
 width: 0;
 }
 
@@ -262,7 +262,7 @@ to {
 // Button Submit code
 
 .butSubmit{
-  background-color: #7e3d3d;
+  background-color: #065D78;
   border: none;
   padding: 1rem;
   font-size: 1rem;
@@ -280,8 +280,7 @@ to {
  }
  
  .butSubmit:hover:not(:disabled) {
-  background: maroon;
-  //background: #0d45a5;
+  background: #0f86aa;
   color: white;
   text-shadow: 0 0.1rem #bcb4b4;
  }
@@ -343,7 +342,7 @@ to {
   padding: 10px;
   margin-top: 2.1875rem;
   border-radius: 10px;
-  border: 2px dashed #7e3d3d;
+  border: 2px dashed#0f86aa;
   color: #444;
   cursor: pointer;
   transition: background .2s ease-in-out, border .2s ease-in-out;
@@ -381,7 +380,7 @@ to {
 #file-input::file-selector-button {
   margin-right: 20px;
   border: none;
-  background: #7e3d3d;
+  background: #065D78;
   padding: 10px 20px;
   border-radius: 10px;
   color: #fff;
@@ -390,16 +389,16 @@ to {
 }
 
 #file-input::file-selector-button:hover {
-  background: maroon;
+  background: #0f86aa;
 }
 
 //// Card layout
 
 .Crd {
  // --glow-color: #065D78;
-  --glow-color: maroon;
+  --glow-color: #065D78;
   --glow-spread-color: rgba(123, 246, 255, 0.781);
-  --enhanced-glow-color: rgb(182, 71, 71);
+  --enhanced-glow-color: rgba(8, 145, 155, 0.781);
   --btn-color: rgba(65, 65, 65, 0.508);
   border: 2px solid var(--glow-color);
   padding: 2px;
@@ -416,9 +415,9 @@ to {
 
 .Crd2 {
   // --glow-color: #065D78;
-   --glow-color: maroon;
+   --glow-color: #065D78;
    --glow-spread-color: rgba(123, 246, 255, 0.781);
-   --enhanced-glow-color: rgb(182, 71, 71);
+   --enhanced-glow-color: rgba(8, 145, 155, 0.781);
    --btn-color: rgba(65, 65, 65, 0.508);
    border: 2px solid var(--glow-color);
    padding: 2px;
@@ -784,15 +783,15 @@ to {
 
 @keyframes fade00 {
   0% {
-    background: rgb(228, 0, 228);
+    background: rgba(108, 151, 245, 0.781);
   }
 
   50% {
-    background: red;
+    background: #065D78;
   }
 
   100% {
-    background: violet;
+    background: rgba(123, 246, 255, 0.781);
   }
 }
 

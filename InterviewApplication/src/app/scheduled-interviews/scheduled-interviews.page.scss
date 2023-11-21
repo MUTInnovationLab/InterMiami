@@ -53,9 +53,25 @@ ion-item-divider{
 /* Footer */
 .custom-footer {
   text-align: center;
-  background-color: #333; /* Footer background color */
-  color: white; /* Footer text color */
-  padding: 10px;
+  background-color: #065D78; /* Footer background color */
+  padding: 2px;
+}
+
+ion-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #065D78;
+  color: white;
+  height: 70px;
+  animation: headerFadeIn 1s ease-in;
+}
+
+.header-title {
+  margin: 0;
+  text-align: center;
+  font-weight: bold;
+  animation: textFadeIn 1.5s ease-in-out;
 }
 
 
