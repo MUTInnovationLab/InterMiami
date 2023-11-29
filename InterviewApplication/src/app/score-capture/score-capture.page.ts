@@ -1,5 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { Router } from '@angular/router';
+import { AlertController, LoadingController, NavController, ToastController } from '@ionic/angular';
+import * as firebase from 'firebase/compat';
+import 'firebase/auth';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-score-capture',
@@ -30,14 +37,47 @@ export class ScoreCapturePage implements OnInit {
 
   selectedRowIndex: number = -1;
 
+  user$: Observable<any> = of(null);
+  detProfile: any;
+  role = {
+    history: 'off',
+    score: 'off',
+    allApplicants: 'off',
+    addUser: 'off',
+    marks: 'off',
+    upcomingInterviews: 'off'
+  };
+
+  tableData: any[] = [];
+
+  userData: any;
+  currentPage: number = 1;
+  rowsPerPage: number = 10;
+  recipient: any;
+  userEmailArray: string[] = [];
+  userDocument: any;
+  navController: any;
+
   sortIntervieweesByDate() {
     // Sort the grouped interviewees by date (keys)
     this.groupedInterviewees = new Map([...this.groupedInterviewees.entries()].sort());
   }
 
 
-  constructor(private firestore: AngularFirestore) {
+  constructor(private firestore: AngularFirestore,
+    private loadingController: LoadingController,
+    private storage: AngularFireStorage,
+    private auth: AngularFireAuth,
+    private navCtrl: NavController,
+    private afs: AngularFirestore,
+    private alertController: AlertController,
+    private db: AngularFirestore,
+    private toastController: ToastController,
+    private router: Router) {
+
     this.todayDateString = new Date().toDateString();
+
+    
 
   }
 

@@ -35,6 +35,7 @@ export class AllApplicantsPage implements OnInit {
   filteredTableData: any[] = [];
   selectedExperience: number | null = null;
   selectedQualification: string | null = null;
+  hideRow: boolean = false;
 
 
   constructor(private http: HttpClient,private firestore: AngularFirestore, 
@@ -51,10 +52,18 @@ export class AllApplicantsPage implements OnInit {
         return b.tTotalExperience - a.tTotalExperience;
       });
 
-      this.db.collection("applicant-application").valueChanges().subscribe((data: any[]) => {
-        this.tableData = data;
-        this.filteredTableData = data;
-      });
+      // this.db.collection("applicant-application").valueChanges().subscribe((data: any[]) => {
+      //   this.tableData = data;
+      //   this.filteredTableData = data;
+      // });
+
+        this.db.collection("applicant-application")
+        .valueChanges()
+        .subscribe((data: any[]) => {
+          // Filter the data based on the "status" field
+          this.tableData = data.filter(entry => entry.status === 'pending');
+          this.filteredTableData = this.tableData; // You may adjust this line based on your requirements
+        });
 
       this.getAllData();
       this.sortByCerticate();
@@ -80,9 +89,41 @@ export class AllApplicantsPage implements OnInit {
       }
     }
 
-     onClickerr(email: string , fullName: string) {
-      this.navCtrl.navigateForward(['/schedule-interview'], { queryParams: { email , fullName } });
+    onClickerr(email: string, fullName: string) {
+      // Navigate to the schedule-interview page with queryParams
+      this.navCtrl.navigateForward(['/schedule-interview'], { queryParams: { email, fullName } });
+    
+      const updatedStatus = 'active';
+    
+      // Use a query to find the document based on the email
+      this.db.collection('applicant-application', ref => ref.where('email', '==', email))
+        .get()
+        .toPromise()
+        .then(querySnapshot => {
+          if (querySnapshot && !querySnapshot.empty) {
+            // Assuming there is only one document for the given email
+            const doc = querySnapshot.docs[0];
+    
+            // Update the status in the found document
+            doc.ref.update({ status: updatedStatus })
+              .then(() => {
+                console.log('Approved!!!');
+                this.showToast('Approved!!!');
+                this.sendApproveNotification(email);
+              })
+              .catch(error => {
+                console.error('Error updating status:', error);
+              });
+          } else {
+            console.error('No document found for the given email:', email);
+          }
+        })
+        .catch(error => {
+          console.error('Error querying the database:', error);
+        });
     }
+    
+    
 
 
      goToView(): void {

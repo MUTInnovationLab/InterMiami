@@ -123,7 +123,7 @@ export class StaffprofilePage implements OnInit {
           role: 'cancel',
           cssClass: 'my-custom-alert',
           handler: () => {
-            console.log('Confirmation canceled');
+            console.log('Confirmation cancelled');
           }
         }, {
           text: 'Confirm',
