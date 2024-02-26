@@ -244,20 +244,21 @@
       <ion-card-content >
         {{ counter }}
         <ion-item>
-          <ion-label >Code :</ion-label>
-          <ion-input type="text"  [(ngModel)]="code_job"  name="code" required ></ion-input>
+          <ion-label >Code
+          <ion-input type="text" color="black" [(ngModel)]="code_job"  name="code" required ></ion-input>
+        </ion-label>
         </ion-item>
       </ion-card-content>
       <ion-card-content class="field-input">
         <ion-item>
           <ion-label position="stacked">Full Name</ion-label>
-          <ion-input type="text"  [(ngModel)]="fullname"  name="fullname" required (input)=" fullNameError= null;"></ion-input>
+          <ion-input type="text" color="black" [(ngModel)]="fullname"  name="fullname" required (input)=" fullNameError= null;"></ion-input>
         </ion-item>
         <div class="error-message" *ngIf="fullNameError">{{  fullNameError }}</div>
 
         <ion-item>
           <ion-label position="stacked">Last Name</ion-label>
-          <ion-input type="text"  [(ngModel)]="lastname"  name="lastname" required (input)=" lastNameError= null;"></ion-input>
+          <ion-input type="text" color="black" [(ngModel)]="lastname"  name="lastname" required (input)=" lastNameError= null;"></ion-input>
         </ion-item>
         <div class="error-message" *ngIf="lastNameError">{{  lastNameError }}</div>
 
@@ -267,11 +268,12 @@
         </ion-item>-->
 
         <ion-item class="dropdown" lines="none">
-          <ion-label>Gender</ion-label>
+          <ion-label>Gender
           <ion-select [(ngModel)]="gender"  name="fullname" required (input)="genderError= null;">
             <ion-select-option value="Male">Male</ion-select-option>
             <ion-select-option value="Female">Female</ion-select-option>
           </ion-select>
+        </ion-label>
         </ion-item>
         <div class="error-message" *ngIf="genderError">{{  genderError }}</div>
 
@@ -288,13 +290,13 @@
 
         <ion-item>
           <ion-label position="stacked">Email Address</ion-label>
-          <ion-input type="email" [(ngModel)]="email" name="email" (input)="emailError = null;" required ></ion-input>
+          <ion-input type="email" color="black" [(ngModel)]="email" name="email" (input)="emailError = null;" required ></ion-input>
         </ion-item>
         <div class="error-message" *ngIf="emailError">{{ emailError }}</div>
 
         <ion-item>
           <ion-label position="stacked">Phone Number</ion-label>
-          <ion-input type="tel" [(ngModel)]="phone" name="phone" (input)="phoneError = null;" required></ion-input>
+          <ion-input type="tel" color="black" [(ngModel)]="phone" name="phone" (input)="phoneError = null;" required></ion-input>
         </ion-item>
         <div class="error-message" *ngIf="phoneError">{{ phoneError }}</div>
 
@@ -302,31 +304,31 @@
 
         <ion-item>
           <ion-label position="stacked">Address</ion-label>
-          <ion-input type="text" [(ngModel)]="address" name="address" (input)="addressError = null; " required></ion-input>
+          <ion-input type="text" color="black" [(ngModel)]="address" name="address" (input)="addressError = null; " required></ion-input>
         </ion-item>
         <div class="error-message" *ngIf="addressError">{{ addressError }}</div>
 
         <ion-item>
           <ion-label position="stacked">City</ion-label>
-          <ion-input type="text" [(ngModel)]="city" name="city" (input)="cityError = null;" required></ion-input>
+          <ion-input type="text" color="black"  [(ngModel)]="city" name="city" (input)="cityError = null;" required></ion-input>
         </ion-item>
         <div class="error-message" *ngIf="cityError">{{ cityError }}</div>
         <br>
         <ion-item>
           <ion-label position="stacked">Province</ion-label>
-          <ion-input type="text" [(ngModel)]="province" name="province" (input)="provinceError = null;" required></ion-input>
+          <ion-input type="text" color="black" [(ngModel)]="province" name="province" (input)="provinceError = null;" required></ion-input>
         </ion-item>
         <div class="error-message" *ngIf="provinceError">{{ provinceError }}</div>
         <br>
         <ion-item>
           <ion-label position="stacked">Country</ion-label>
-          <ion-input type="text" [(ngModel)]="country" name="country" (input)="countryError = null;" required></ion-input>
+          <ion-input type="text" color="black" [(ngModel)]="country" name="country" (input)="countryError = null;" required></ion-input>
         </ion-item>
         <div class="error-message" *ngIf="countryError">{{ countryError }}</div>
 
         <ion-item>
           <ion-label position="stacked">Postal Code</ion-label>
-          <ion-input type="number" [(ngModel)]="code" name="code" (input)="codeError = null;" required></ion-input>
+          <ion-input type="number" color="black" [(ngModel)]="code" name="code" (input)="codeError = null;" required></ion-input>
         </ion-item>
         <div class="error-message" *ngIf="codeError">{{ codeError }}</div>
       </ion-card-content>
@@ -339,7 +341,7 @@
   
       <ion-card-content class="field-input">
         <ion-item>
-          <ion-textarea  type="text" [(ngModel)]="objective" required rows="5" cols="100" placeholder="Enter objectives  or summary here..."></ion-textarea>
+          <ion-textarea  type="text" color="black" [(ngModel)]="objective" required rows="5" cols="100" placeholder="Enter objectives  or summary here..."></ion-textarea>
         </ion-item>
       </ion-card-content>
     </ion-card>
@@ -372,7 +374,7 @@
  
         <ion-item class="dropdown" lines="none" style="max-width: 200px;">
           <ion-label>Qualification</ion-label> 
-          <ion-select [(ngModel)]="certificate" interface="popover" style="width: 100%;">
+          <ion-select color="black" [(ngModel)]="certificate" interface="popover" style="width: 100%;">
             <ion-select-option value="Doctorate">Doctoral Degree</ion-select-option>     
             <ion-select-option value="Masters">Master's Degree</ion-select-option>
             <ion-select-option value="Honors">Honour's degree</ion-select-option>
@@ -382,28 +384,28 @@
         </ion-item>
         <ion-item>
           <ion-label>Field of study:</ion-label>
-          <ion-input [(ngModel)]="qualification.studyField"></ion-input>
+          <ion-input color="black" [(ngModel)]="qualification.studyField"></ion-input>
           <div class="error-message" *ngIf="fieldError">{{ fieldError }}</div>
         </ion-item>
         <ion-item>
           <ion-label position="stacked">Course Description</ion-label>
-          <ion-input [(ngModel)]="qualification.Qdescription"></ion-input>
+          <ion-input color="black" [(ngModel)]="qualification.Qdescription"></ion-input>
           <div class="error-message" *ngIf="gradeaverageError">{{ gradeaverageError }}</div>
         </ion-item>
         <ion-label position="stacked">Optional e.g. IT(Software development)</ion-label>
         <ion-item>
           <ion-label>University/College:</ion-label>
-          <ion-input [(ngModel)]="qualification.universityOrCollege"></ion-input>
+          <ion-input color="black"  [(ngModel)]="qualification.universityOrCollege"></ion-input>
           <div class="error-message" *ngIf="universityError">{{ universityError}}</div>
         </ion-item>
         <ion-item>
           <ion-label position="stacked">Grade Avarage</ion-label>
-          <ion-input  type="number" [(ngModel)]="gradeAverage" required></ion-input>
+          <ion-input  color="black" type="number" [(ngModel)]="gradeAverage" required></ion-input>
           <div class="error-message" *ngIf="gradeaverageError">{{ gradeaverageError }}</div>
         </ion-item>
         <ion-item>
           <ion-label>Graduation Year:</ion-label>
-          <ion-input placeholder="YYYY/MM/DD" [(ngModel)]="qualification.graduationYear"></ion-input>
+          <ion-input color="black" placeholder="YYYY/MM/DD" [(ngModel)]="qualification.graduationYear"></ion-input>
           <div class="error-message" *ngIf="yearError">{{ yearError }}</div>
         </ion-item>
       </ion-card-content>
@@ -417,29 +419,29 @@
     <ion-card *ngFor="let experience of experiences; " class="Crd">
       <ion-card-header>
         Experience {{ experiences.indexOf(experience) + 1 }}
-        <ion-icon name="trash" (click)="removeExperience(experience)"></ion-icon>
+        <ion-icon name="trash" color="black" (click)="removeExperience(experience)"></ion-icon>
       </ion-card-header>
       <ion-card-content class="field-input">
         <ion-item>
           <ion-label>Company:</ion-label>
-          <ion-input [(ngModel)]="experience.company"></ion-input>
+          <ion-input color="black" [(ngModel)]="experience.company"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label>Job Title:</ion-label>
-          <ion-input [(ngModel)]="experience.jobTitle"></ion-input>
+          <ion-input color="black" [(ngModel)]="experience.jobTitle"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label>Employment Period Start:</ion-label>
-          <ion-input placeholder="YYYY/MM/DD" [(ngModel)]="experience.employmentPeriod"></ion-input>
+          <ion-input color="black"  placeholder="YYYY/MM/DD" [(ngModel)]="experience.employmentPeriod"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label>Employment Period End:</ion-label>
-          <ion-input placeholder="YYYY/MM/DD" [(ngModel)]="experience.employmentPeriodend"></ion-input>
+          <ion-input color="black" placeholder="YYYY/MM/DD" [(ngModel)]="experience.employmentPeriodend"></ion-input>
         </ion-item>
 
         <ion-item>
           <ion-label>Job Description:</ion-label>
-          <ion-input [(ngModel)]="experience.jobDescription"></ion-input>
+          <ion-input color="black" [(ngModel)]="experience.jobDescription"></ion-input>
         </ion-item>
       </ion-card-content>
     </ion-card>
@@ -447,7 +449,7 @@
     <ion-card>
       <ion-item>
         <ion-label position="stacked">Total Years of Experience</ion-label>
-        <ion-input type="text"  [(ngModel)]="TotalExperience"  name="fullname" required (input)=" fullNameError= null;"></ion-input>
+        <ion-input type="text" color="black" [(ngModel)]="TotalExperience"  name="fullname" required (input)=" fullNameError= null;"></ion-input>
       </ion-item>
       <div class="error-message" *ngIf="TotalExperienceError">{{  TotalExperienceError }}</div>
     </ion-card>
@@ -464,7 +466,7 @@
       </ion-card-header>
       <ion-card-content>
         <ion-item>
-          <ion-input [(ngModel)]="skill.skilln"></ion-input>
+          <ion-input [(ngModel)]="skill.skilln"  color="black"></ion-input>
         </ion-item>
       </ion-card-content>
     </ion-card>
@@ -477,7 +479,7 @@
       </ion-card-header>
       <ion-card-content class="field-input">
         <ion-item>
-          <ion-input [(ngModel)]="language.languagen"></ion-input>
+          <ion-input color="black" [(ngModel)]="language.languagen"></ion-input>
         </ion-item>
       </ion-card-content>
     </ion-card>
@@ -494,36 +496,37 @@
       <ion-card-content>
         <ion-item>
           <ion-label>Name</ion-label>
-          <ion-input [(ngModel)]="reference.name"></ion-input>
+          <ion-input color="black" [(ngModel)]="reference.name"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label>relationship</ion-label>
-          <ion-input [(ngModel)]="reference.relationship"></ion-input>
+          <ion-input color="black" [(ngModel)]="reference.relationship"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label>Phone number</ion-label>
-          <ion-input [(ngModel)]="reference.phone"></ion-input>
+          <ion-input color="black" [(ngModel)]="reference.phone"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label>Email</ion-label>
-          <ion-input [(ngModel)]="reference.email"></ion-input>
+          <ion-input color="black" [(ngModel)]="reference.email"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label>Company</ion-label>
-          <ion-input [(ngModel)]="reference.company"></ion-input>
+          <ion-input color="black" [(ngModel)]="reference.company"></ion-input>
         </ion-item>
       </ion-card-content>
     </ion-card>
 
 
     <ion-item class="dropdown" lines="none" style="max-width: 200px;">
-      <ion-label>License</ion-label> 
-      <ion-select [(ngModel)]="license" interface="popover" style="width: 100%;">       
+      <ion-label color="black" >License
+      <ion-select color="black" [(ngModel)]="license" interface="popover" style="width: 100%;">       
         <ion-select-option value="Code 2">Code 2</ion-select-option>
         <ion-select-option value="Code 8">Code 8</ion-select-option>
         <ion-select-option value="Code 10">Code 10</ion-select-option>
         <ion-select-option value="Code 14">Code 14</ion-select-option>      
       </ion-select>
+    </ion-label> 
     </ion-item>
     
 

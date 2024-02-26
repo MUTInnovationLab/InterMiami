@@ -18,6 +18,8 @@ export class ApplicantLoginPage implements OnInit {
   emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // regular expression for email validation
   passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/; // regular expression for password validation
   userData: any;
+  emailError: any;
+  passwordError: any;
 
   constructor( private db: AngularFirestore,private loadingController: LoadingController,
      navCtrl: NavController,private auth: AngularFireAuth,private navController: NavController,
@@ -97,7 +99,21 @@ export class ApplicantLoginPage implements OnInit {
 
 
   async log() {
+
+    this.emailError = null;
+    this.passwordError = null;
    
+    if (!this.email) {
+      this.emailError = 'Please enter your email.';
+      alert("Please enter your email");
+      return;
+    }
+
+    if (!this.password) {
+      this.passwordError = 'Please enter a password.';
+      alert("Please enter a password");
+      return;
+    }
 
       const loader = await this.loadingController.create({
         message: 'Signing in',

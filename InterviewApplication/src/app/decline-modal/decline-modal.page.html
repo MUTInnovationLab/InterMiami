@@ -1,14 +1,17 @@
 <ion-content class="modal-ion-content">
   <div class="modal-container">
-    <p class="modal-message">Please provide a detailed explanation for declining the applicant's application:</p>
+    <p class="modal-message">Please provide a detailed explanation for regretting the applicant's application:</p>
     <ion-item class="modal-item">
+      
       <ion-label class="modal-label" position="floating">Reason</ion-label>
-      <ion-textarea rows="6" cols="20" placeholder="Enter reason here..." class="modal-input" [(ngModel)]="reason" auto-grow="true" (ionChange)="formatBody()"></ion-textarea>
+  <ion-textarea rows="6" cols="20" placeholder="Enter reason here..."auto-grow="true" [(ngModel)]="reason" ></ion-textarea>
     </ion-item>
-
+    <ion-alert trigger="present-alert" class="custom-alert" header="Are you sure you want to cancel?" [buttons]="alertButtons"></ion-alert>
     <div class="modal-button-group">
-      <ion-button class="modal-button" expand="block" color="danger" (click)="send()">Send</ion-button>
-      <ion-button class="modal-button" expand="block" color="medium" (click)="dismiss()">Cancel</ion-button>
+      <ion-button expand="block" color="success" (click)="Send()">Send</ion-button>
+      <button id="present-alert" color="danger" expand="block" shape="round" routerDirection="forward" class="butSubmit">
+        Cancel
+    </button>
     </div>
   </div>
 </ion-content>

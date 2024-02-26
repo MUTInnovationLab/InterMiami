@@ -5,7 +5,7 @@
       </ion-menu-toggle>
     </ion-buttons>
     <ion-title class="header-title">
-      All Interviews
+      Today Interviews
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -13,13 +13,6 @@
 
 
 <ion-content>
-    Filter By:
-    <select class="input" [(ngModel)]="selectedStatus" (change)="Filtering()">
-      <option placeholer="Status" disabled selected hidden>Status</option>
-      <option value="op1">Interviewed</option>
-      <option value="op2">In progress</option>
-      <option value="op3">Waiting</option>
-    </select>
   <ion-list *ngFor="let group of groupedInterviewees | keyvalue">
     <ion-item-divider class="table">
       <ion-label>{{ group.key === todayDateString ? 'Today' : group.key }}</ion-label>
@@ -49,4 +42,3 @@
 <ion-footer class="custom-footer">
   Designed by @<b>MUT INNOVATIONLAB</b>
 </ion-footer>
-

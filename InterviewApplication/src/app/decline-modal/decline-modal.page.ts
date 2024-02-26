@@ -1,9 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IonicModule,ModalController, ToastController } from '@ionic/angular';
+import { IonicModule,ModalController, ToastController ,NavController} from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import emailjs from 'emailjs-com';
 
 @Component({
   selector: 'app-decline-modal',
@@ -11,74 +12,64 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   styleUrls: ['./decline-modal.page.scss'],
 })
 export class DeclineModalPage implements OnInit {
-  @Input()  email= "";
-  @Input()studentId="";
-  reason="";
+  // @Input()  email= "";
+  // @Input()studentId="";
+ reason:any;
+  email:any;
 
-  constructor(private http: HttpClient,private modalController: ModalController, private db: AngularFirestore,private toastController: ToastController) {}
+  constructor(private http: HttpClient,private navController: NavController,private modalController: ModalController, private db: AngularFirestore,private toastController: ToastController) {}
 
   ngOnInit() {}
 
 
-  send() {
-    this.db.collection('studentProfile').doc(this.studentId).update({ status: 'declined' })
-    .then(() => {
-      console.log('Declined false information!!!');
-      this.showToast('Declined false information!!!');
+  async Send() {
+    const emailParams={ 
+      email_to: 'thandekan736@gmail.com',
+      from_email:'thandekan736@gmail.com',
+      subject:'Regret Unsuccessful',
+      message:this.reason
+    };
 
-      this.sendDeclineNotification(this.email); // Pass the email to sendDeclineNotification method
-    })
-    .catch(error => {
-      console.error('Error updating status:', error);
-    });
-  
-    this.modalController.dismiss();
+    try{
+       await emailjs.send('service_8ept2vs','template_315hlk4',
+       emailParams,'XX8rNKm_N2YCpntSv'
+       );
+       console.log('email successfully sent');
+       alert('email successfully sent');
+    }
+  catch(error){
+    console.error('error sending email', error);
+    alert('error sending email');
   }
+   
+}
+ 
+    
+  public alertButtons = [
+    {
+      text: 'No',
+      cssClass: 'alert-button-cancel',
+    },
+    {
+      text: 'Yes',
+      cssClass: 'alert-button-confirm',
+      handler: () => {
+        this.navController.navigateForward("/all-applicants");
+      }
 
-  formatBody() {
-    this.reason = this.reason.replace(/\n/g, '<br>');
-  }
+    },
+  ];
+ }
+
 
  
 
-sendDeclineNotification(email: string) {
-const url = 'https://test149ionic.000webhostapp.com/send_decline_notifictaion.php';
-const recipient = encodeURIComponent(email);
-const subject = encodeURIComponent('Application Rejection Notice');
-const body = encodeURIComponent(this.reason);
-
-// Include the parameters in the query string
-const query = `recipient=${recipient}&subject=${subject}&body=${body}`;
-
-const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
-
-this.http.get(url + '?' + query, { headers: headers })
-  .subscribe(
-    response => {
-      console.log(response + ' (notification)');
-      // Handle the response from the PHP file
-    },
-    error => {
-      console.error('Error:', error + ' (notification)');
-    }
-  );
-}
 
 
 
 
 
-  dismiss() {
-    this.modalController.dismiss();
-  }
 
-  async showToast(message: string) {
-    const toast = await this.toastController.create({
-      message: message,
-      duration: 2000, // Duration in milliseconds
-      position: 'top' // Toast position: 'top', 'bottom', 'middle'
-    });
-    toast.present();
-  }
+
   
-}
+  

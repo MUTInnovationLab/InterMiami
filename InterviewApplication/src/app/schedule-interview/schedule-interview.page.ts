@@ -31,6 +31,7 @@ export class ScheduleInterviewPage {
   data: any;
   tables$: any;
   oneDocData: any;
+  
 
 
   counter: number = 1;
@@ -46,7 +47,7 @@ export class ScheduleInterviewPage {
 
      ngOnInit() {
 
-      this.route.queryParams.subscribe((params) => {
+      this.route.queryParams.subscribe((params:Params) => {
         if (params && params['email']) {
           this.email = params['email'];
           // Fetch data for the specified email
@@ -153,11 +154,12 @@ export class ScheduleInterviewPage {
       return counter.toString().padStart(3, '0');
     }
 
-    getAllDocuments() {
+    getAllDocuments() 
+    {
       this.db
         .collection('applicant-application')
         .valueChanges()
-        .subscribe((data) => {
+        .subscribe((data:any) => {
           this.tables$ = data;
         });
     }
@@ -189,62 +191,71 @@ export class ScheduleInterviewPage {
         }
       });
     }
- 
-  async submit() {
+    async submit() {
   
-    if (!this.emailRegex.test(this.email)) {
-      const toast = await this.toastController.create({
-        message: "Please enter a valid email address.",
-        duration: 2000,
-        position: 'top'
-      });
-      return;
-    }
+      if (!this.emailRegex.test(this.email)) {
+        const toast = await this.toastController.create({
+          message: "Please enter a valid email address.",
+          duration: 2000,
+          position: 'top'
+        });
+        return;
+      }
+      
+        
+      if (this.int_id.toString().length< 13) {
+        const toast = await this.toastController.create({
+          message: 'ID Invalid',
+          duration: 2000,
+          position: 'top',
+          color: 'danger'
+        });
+        toast.present();
+        return;
+      }
+      
+      if (this.int_id.toString().length > 13) {
+        const toast = await this.toastController.create({
+          message: 'ID invalid',
+          duration: 2000,
+          position: 'top',
+          color: 'danger'
+        });
+        toast.present();
+        return;
+      }
+  
+  
+      if(!isNaN(this.int_id)){
+      
+      }else{
+        const toast = await this.toastController.create({
+          message: 'ID must be 13 digits only',
+          duration: 2000,
+          position: 'top',
+          color: 'danger'
+        });
+        toast.present();
+        return;
+      }
     
       
-    if (this.int_id.toString().length< 0) {
-      const toast = await this.toastController.create({
-        message: 'ID Invalid',
-        duration: 2000,
-        position: 'top',
-        color: 'danger'
+  
+       const loader = await this.loadingController.create({
+        message: 'Scheduling',
+        cssClass: 'custom-loader-class'
       });
-      toast.present();
-      return;
-    }
     
-    if (this.int_id.toString().length > 20) {
-      const toast = await this.toastController.create({
-        message: 'ID invalid',
-        duration: 2000,
-        position: 'top',
-        color: 'danger'
-      });
-      toast.present();
-      return;
-    }
+   
+      await loader.present();
 
+// Simulate some asynchronous task or wait for a certain period of time
+// For example, let's wait for 3 seconds
+const delay = 2000;
+await new Promise(resolve => setTimeout(resolve, delay));
 
-    if(!isNaN(this.int_id)){
-    
-    }else{
-      const toast = await this.toastController.create({
-        message: 'ID must be 13 digits only',
-        duration: 2000,
-        position: 'top',
-        color: 'danger'
-      });
-      toast.present();
-      return;
-    }
-
-    
-
-     const loader = await this.loadingController.create({
-      message: 'Scheduling',
-      cssClass: 'custom-loader-class'
-    });
-
+// Dismiss the loader after the specified time
+await loader.dismiss();
     // const toast = await this.toastController.create({
     //   message: 'Schduled Successfully',
     //   duration: 2000,
@@ -253,7 +264,31 @@ export class ScheduleInterviewPage {
     // });
     // toast.present();
     // return;
-   
+    this.auth.createUserWithEmailAndPassword(this.email,this.int_id)
+    .then(async (userCredential) => {
+      if (userCredential.user) {
+        // Assuming this.id, this.name, and this.date are the variables holding ID, Name, and Date respectively
+        await this.db.collection('Interviewees').add({
+          int_id: this.int_id,
+          name: this.name,
+          email: this.email,
+          date: this.date,
+          Status:this.status
+        });
+        loader.dismiss();
+        alert("Recorded");
+        // this.navController.navigateForward("applicant-login");
+      } else {
+        loader.dismiss();
+        alert('User not found');
+      }
+    })
+    .catch((error) => {
+      loader.dismiss();
+      const errorMessage = error.message;
+      alert(errorMessage);
+    });
+
   
       const pattern =/^[a-zA-Z]*$/;
   
@@ -283,61 +318,8 @@ export class ScheduleInterviewPage {
     
       
   
-    await loader.present(); 
-
-    
-    try 
-    {
-      // Check if the ID already exists in the Firestore collection
-      const idExistsSnapshot = await this.db.collection('Interviewees').ref.where('int_id', '==', this.int_id).get();
   
-      if (!idExistsSnapshot.empty) {
-        const toast = await this.toastController.create({
-          message: 'ID already exists',
-          duration: 2000,
-          position: 'top',
-          color: 'danger'
-        });
-        toast.present();
-        return;
-      }
 
-      const collectionRef = this.db.collection('Interviewees').ref;
-
-  // Check if the email already exists in the Firestore collection
-      const emailExistsSnapshot = await collectionRef.where('email', '==', this.email).get();
-
-      if (!emailExistsSnapshot.empty) {
-        const toast = await this.toastController.create({
-          message: 'Email already exists',
-          duration: 2000,
-          position: 'top',
-          color: 'danger'
-        });
-        toast.present();
-        loader.dismiss();
-        return;
-      }
-      
-      this.db
-        .collection('Interviewees')
-        .add({
-                int_id:this.code_job,
-                name:this.name,
-                email: this.email,
-                date:this.date,
-                Status:this.status
-        })
-        .then((docRef) => {
-          loader.dismiss();
-
-
-        })
-        .catch((error) => {
-         // loader.dismiss();
-          console.error('Error adding document: ', error);
-          alert('failed : ' + error);
-        });
   
       // Proceed with user creation and data addition
     //   const userCredential = await this.auth.createUserWithEmailAndPassword(this.email, this.int_id);
@@ -354,11 +336,7 @@ export class ScheduleInterviewPage {
   
     //     console.log('User and data added successfully');
     //   }
-    } catch (error) {
-      // Handle errors
-      console.error('Error:', error);
-      // Display appropriate error messages using toastController
-    }
+   
     // this.auth.createUserWithEmailAndPassword(this.email, this.int_id)
     //   .then( userCredential => {
 
@@ -425,8 +403,7 @@ export class ScheduleInterviewPage {
         email_to: this.email,
         from_email:'thandekan736@gmail.com',
         subject:'Interview Invitation from MUTInnovation Lab',
-        message:'You are invited for an interview on the',
-        date:this.date
+        message:'You are invited for an interview on the', date:this.date
       };
   
       try{
@@ -441,6 +418,7 @@ export class ScheduleInterviewPage {
       alert('error sending email');
     }
 
+    // loader.dismiss();
     }
 
     // const loader = await this.loadingController.create({

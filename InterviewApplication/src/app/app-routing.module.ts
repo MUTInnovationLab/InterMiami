@@ -113,7 +113,11 @@ const routes: Routes = [
   {
     path: 'manageposts',
     loadChildren: () => import('./manageposts/manageposts.module').then( m => m.ManagepostsPageModule)
+  },  {
+    path: 'today-interviews',
+    loadChildren: () => import('./today-interviews/today-interviews.module').then( m => m.TodayInterviewsPageModule)
   },
+
 
 
 
