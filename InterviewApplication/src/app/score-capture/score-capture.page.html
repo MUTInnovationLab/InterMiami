@@ -32,27 +32,30 @@
             <ion-label style="color:black">Upcoming Interviews</ion-label>
             </ion-item>
             <ion-content>
-              <ion-list>
-                <ion-item *ngFor="let table of tables$; let i = index" (click)="handleItemClick(i)" [class.selected]="i === selectedRowIndex">
-                  <ion-card class="custom-card" [class.selected]="i === selectedRowIndex">
-                    <div class="bg"></div>
-                    <div class="blob"></div>
-                    <ion-grid>
-                      <ion-row>
-                        <ion-col size="1" class="icon-col">
-                          <ion-icon name="person-add-outline" class="custom-icon"></ion-icon>
-                        </ion-col>
-                        <ion-col size="11" class="text-col">
-                          <ion-label class="info-label">ID: {{ table.int_id }}</ion-label>
-                          <ion-label class="info-label">Name: {{ table.name }}</ion-label>
-                          <ion-label class="info-label">Email: {{ table.email }}</ion-label>
-                          <ion-label class="info-label">Date: {{ table.date }}</ion-label>
-                        </ion-col>
-                      </ion-row>
-                    </ion-grid>
-                  </ion-card>
-                </ion-item>
-              </ion-list>
+              <ion-list *ngFor="let group of groupedInterviewees | keyvalue let i = index"  (click)="handleItemClick(i)" [class.selected]="i === selectedRowIndex">
+              <ion-item-divider class="table">
+                <ion-label>{{ group.key === todayDateString ? 'Today' : group.key }}</ion-label>
+                <button class="submitBtn" (click)="start()">
+                    Start
+                    <svg fill="white" viewBox="0 0 448 512" height="1em" class="arrow"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg>
+                  </button>
+              </ion-item-divider>
+              <ion-item *ngFor="let item of group.value">
+                <!-- Your card content here -->
+                <ion-card  class="custom-card" [class.selected]="i === selectedRowIndex">
+                   
+                  <ion-card-content>
+                    <p>ID: {{ item.int_id }}</p>
+                    <p>Name: {{ item.name }}</p>
+                    <p>Surname:{{ item.surname }}</p>
+                    <p>Email: {{ item.email }}</p>
+                    <p>Date: {{ item.date }}</p> 
+                    <p>Status: {{ item.Status }}</p>
+                  
+                  </ion-card-content>
+              </ion-card>
+              </ion-item>
+            </ion-list>
             </ion-content>
             
     </ion-list>
