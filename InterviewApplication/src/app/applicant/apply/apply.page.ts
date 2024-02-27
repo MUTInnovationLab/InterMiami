@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+//import { AngularFireStorage } from '@angular/fire/storage';
+
 
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AlertController, LoadingController, ToastController } from '@ionic/angular';
@@ -8,10 +10,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule, NavController } from '@ionic/angular';
 
-import {
-  AngularFireStorage,
-  AngularFireUploadTask,
-} from '@angular/fire/compat/storage';
+import { AngularFireStorage, AngularFireUploadTask} from '@angular/fire/compat/storage';
 
 //import jsPDF from 'jspdf';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
@@ -607,33 +606,38 @@ municipalities:any[]=[];
         });
 
         if (this.code_job) {
-          const applicantRef = this.db.collection<any>('applicant-application');
-          const query = applicantRef.ref.where('code_job', '==', this.code_job);
-      
+          const applicantRef = this.db.collection<any>('applicant-application').ref;
+          const query = applicantRef.where('code_job', '==', this.code_job);
+          
           const matchingApplicants = await query.get();
-      
+          
           if (!matchingApplicants.empty) {
             // If matching documents exist
             const applicantDoc = matchingApplicants.docs[0];
             const currentCount = applicantDoc.data().count || 0;
-      
+        
             // Extract the numeric part and increment it
-            const numericPart = parseInt(this.code_job.match(/\d+$/)[0], 11) + 1;
-      
-            // Create a new code_job with the incremented numeric part and pad with leading zeros
-            const newNumericPart = String(numericPart).padStart(this.code_job.match(/\d+$/)[0].length, '0');
-            const newCodeJob = this.code_job.replace(/\d+$/, newNumericPart);
-      
-            // Update the document in the collection
-            await applicantRef.doc(applicantDoc.id).update({
-              code_job: newCodeJob,
-              count: currentCount+1,
-            });
-      
-            // Update the local property
-            this.code_job = newCodeJob;
+            const numericPartMatch = this.code_job.match(/\d+$/);
+            if (numericPartMatch) {
+              const numericPart = parseInt(numericPartMatch[0], 10) + 1;
+        
+              // Create a new code_job with the incremented numeric part and pad with leading zeros
+              const newCodeJob = this.code_job.replace(/\d+$/, String(numericPart).padStart(numericPartMatch[0].length, '0'));
+        
+              // Update the document in the collection
+              await applicantRef.doc(applicantDoc.id).update({
+                code_job: newCodeJob,
+                count: currentCount + 1,
+              });
+        
+              // Update the local property
+              this.code_job = newCodeJob;
+            } else {
+              console.error('Could not find numeric part in code_job:', this.code_job);
+            }
           } 
         }
+        
 
 
         
