@@ -1,33 +1,39 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { IonicModule,ModalController, ToastController ,NavController} from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
+import emailjs from 'emailjs-com';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import emailjs from 'emailjs-com';
+import { IonicModule,ModalController, ToastController ,NavController} from '@ionic/angular';
 
 @Component({
-  selector: 'app-decline-modal',
-  templateUrl: './decline-modal.page.html',
-  styleUrls: ['./decline-modal.page.scss'],
+  selector: 'app-hr-modal',
+  templateUrl: './hr-modal.page.html',
+  styleUrls: ['./hr-modal.page.scss'],
 })
-export class DeclineModalPage implements OnInit {
-  // @Input()  email= "";
-  // @Input()studentId="";
- reason:any;
-  email:any;
+export class HrModalPage implements OnInit {
 
-  constructor(private http: HttpClient,private navController: NavController,private modalController: ModalController, private db: AngularFirestore,private toastController: ToastController) {}
+
+    email: string = '';
+    subject: string = '';
+    message: any = 'Congratulations on passing your interview';
+
+  constructor(private http: HttpClient,
+    private navController: NavController,
+    private modalController: ModalController,
+     private db: AngularFirestore,
+     private toastController: ToastController) {}
 
   ngOnInit() {}
 
 
-  async Send() {
-    const emailParams={ 
-      email_to: 'hlehlerhamahle@gmail.com',
-      //from_email:'thandekan736@gmail.com',
-      subject:'Regret Unsuccessful',
-      message:this.reason
+async Send() {
+    const emailParams={
+     
+       email_to: this.email,
+      //from_email:'',
+      subject:this.subject,
+      message:this.message,
     };
 
     try{
@@ -41,10 +47,9 @@ export class DeclineModalPage implements OnInit {
     console.error('error sending email', error);
     alert('error sending email');
   }
-   
-}
- 
-    
+
+  }
+
   public alertButtons = [
     {
       text: 'No',
@@ -69,7 +74,5 @@ export class DeclineModalPage implements OnInit {
 
 
 
+    
 
-
-  
-  

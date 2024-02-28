@@ -117,6 +117,10 @@ const routes: Routes = [
     path: 'today-interviews',
     loadChildren: () => import('./today-interviews/today-interviews.module').then( m => m.TodayInterviewsPageModule)
   },
+  {
+    path: 'hr-modal',
+    loadChildren: () => import('./hr-modal/hr-modal.module').then( m => m.HrModalPageModule)
+  },
 
 
 
