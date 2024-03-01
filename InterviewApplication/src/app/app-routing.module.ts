@@ -19,6 +19,10 @@ const routes: Routes = [
     loadChildren: () => import('./reset/reset.module').then( m => m.ResetPageModule),
     canActivate: [PreventUrlEntryGuard]
   },
+  {
+    path: 'hr-modal',
+    loadChildren: () => import('./hr-modal/hr-modal.module').then( m => m.HrModalPageModule)
+  },
 
   {
     path: 'home',

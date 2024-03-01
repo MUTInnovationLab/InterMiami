@@ -407,8 +407,8 @@ await loader.dismiss();
       };
   
       try{
-         await emailjs.send('service_8ept2vs','template_315hlk4',
-         emailParams,'XX8rNKm_N2YCpntSv'
+         await emailjs.send('interviewEmailsAD','template_7x4kjte',
+         emailParams,'TrFF8ofl4gbJlOhzB'
          );
          console.log('email successfully sent');
          alert('email successfully sent');

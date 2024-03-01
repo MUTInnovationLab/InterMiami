@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="header-title">
+      Hire Modal
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+
+
+<ion-content>
+  <ion-grid class="ion-padding">
+    <ion-row>
+      <ion-col size-md="6" offset-md="3">
+        <ion-item class="input-item">
+          <ion-icon name="mail" slot="start"></ion-icon>
+          <ion-input
+            placeholder="Email Address"
+            type="email"
+            [(ngModel)]="email"
+            required
+            id="email"
+          ></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size-md="6" offset-md="3">
+        <ion-item>
+          <ion-icon name="document" slot="start"></ion-icon> <!-- Icon for subject -->
+          <ion-label position="floating">Subject</ion-label>
+          <ion-input type="text" [(ngModel)]="subject"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size-md="6" offset-md="3">
+        <ion-item>
+          <ion-label position="floating">Message</ion-label>
+          <ion-textarea [(ngModel)]="message" rows="6"></ion-textarea>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size-md="6" offset-md="3">
+        <ion-button expand="full" (click)="Send()" shape="round" color="success">Send Email</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+
