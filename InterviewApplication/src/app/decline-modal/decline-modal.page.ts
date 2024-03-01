@@ -24,8 +24,8 @@ export class DeclineModalPage implements OnInit {
 
   async Send() {
     const emailParams={ 
-      email_to: 'thandekan736@gmail.com',
-      from_email:'thandekan736@gmail.com',
+      email_to: 'thandekan7t36@gmail.com',
+      from_email:'thandekan73t6@gmail.com',
       subject:'Regret Unsuccessful',
       message:this.reason
     };
@@ -36,6 +36,7 @@ export class DeclineModalPage implements OnInit {
        );
        console.log('email successfully sent');
        alert('email successfully sent');
+       this.dismissModal();
     }
   catch(error){
     console.error('error sending email', error);
@@ -54,11 +55,18 @@ export class DeclineModalPage implements OnInit {
       text: 'Yes',
       cssClass: 'alert-button-confirm',
       handler: () => {
-        this.navController.navigateForward("/all-applicants");
+        this.dismissModal();
+
       }
 
     },
+    // await alert.present();
   ];
+
+
+  async dismissModal() {
+    await this.modalController.dismiss();
+  }
  }
 
 

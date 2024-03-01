@@ -1,10 +1,13 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { PreventUrlEntryGuard } from './prevent-url-entry.guard';
+
 
 const routes: Routes = [
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule),
+    canActivate: [PreventUrlEntryGuard]
   },
   {
     path: '',
@@ -13,12 +16,14 @@ const routes: Routes = [
   },
   {
     path: 'reset',
-    loadChildren: () => import('./reset/reset.module').then( m => m.ResetPageModule)
+    loadChildren: () => import('./reset/reset.module').then( m => m.ResetPageModule),
+    canActivate: [PreventUrlEntryGuard]
   },
 
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule),
+    canActivate: [PreventUrlEntryGuard]
   },
   {
     path: '',
@@ -27,33 +32,39 @@ const routes: Routes = [
   },
   {
     path: 'score-capture',
-    loadChildren: () => import('./score-capture/score-capture.module').then( m => m.ScoreCapturePageModule)
+    loadChildren: () => import('./score-capture/score-capture.module').then( m => m.ScoreCapturePageModule),
+    canActivate: [PreventUrlEntryGuard]
   },
  
   {
     path: 'apply',
-    loadChildren: () => import('./applicant/apply/apply.module').then( m => m.ApplyPageModule)
+    loadChildren: () => import('./applicant/apply/apply.module').then( m => m.ApplyPageModule),
+    canActivate: [PreventUrlEntryGuard]
   },
   {
     path: 'apply',
-    loadChildren: () => import('./applicant/apply/apply.module').then( m => m.ApplyPageModule)
+    loadChildren: () => import('./applicant/apply/apply.module').then( m => m.ApplyPageModule),
+    canActivate: [PreventUrlEntryGuard]
   },
   {
     path: 'schedule-interview',
-    loadChildren: () => import('./schedule-interview/schedule-interview.module').then( m => m.ScheduleInterviewPageModule)
+    loadChildren: () => import('./schedule-interview/schedule-interview.module').then( m => m.ScheduleInterviewPageModule),
+    canActivate: [PreventUrlEntryGuard]
   },
   {
     path: 'dashboard',
-    loadChildren: () => import('./dashboard/dashboard.module').then( m => m.DashboardPageModule)
+    loadChildren: () => import('./dashboard/dashboard.module').then( m => m.DashboardPageModule),
+    canActivate: [PreventUrlEntryGuard]
   },
   {
     path: 'applicant-resgister',
-    loadChildren: () => import('./applicant-resgister/applicant-resgister.module').then( m => m.ApplicantResgisterPageModule)
+    loadChildren: () => import('./applicant-resgister/applicant-resgister.module').then( m => m.ApplicantResgisterPageModule),
+    canActivate: [PreventUrlEntryGuard]
   },
   {
     path: 'applicant-login',
     loadChildren: () => import('./applicant-login/applicant-login.module').then( m => m.ApplicantLoginPageModule)
-  },
+},
   {
     path: 'all-applicants',
     loadChildren: () => import('./all-applicants/all-applicants.module').then( m => m.AllApplicantsPageModule)
@@ -113,9 +124,11 @@ const routes: Routes = [
   {
     path: 'manageposts',
     loadChildren: () => import('./manageposts/manageposts.module').then( m => m.ManagepostsPageModule)
-  },  {
+  },
+  {
     path: 'today-interviews',
-    loadChildren: () => import('./today-interviews/today-interviews.module').then( m => m.TodayInterviewsPageModule)
+    loadChildren: () => import('./today-interviews/today-interviews.module').then( m => m.TodayInterviewsPageModule),
+    canActivate: [PreventUrlEntryGuard] // Add the guard here
   },
 
 

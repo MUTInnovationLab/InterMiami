@@ -1,5 +1,5 @@
 <ion-content >
-  <div class="container">
+  <div class="container" >
     <div class="centered-container">
       <div class="image-container">
         <img src="assets/logo.jpg" alt="Logo" class="logo">
@@ -16,8 +16,12 @@
         <ion-item class="custom-input rounded">
           <ion-input type="password" name="password" [(ngModel)]="password"></ion-input>
         </ion-item>
-    
+        
+        
+      
+
         <button class="butSubmit" expand="block" (click)="log()" >LOGIN</button>
+        
         <div class="custom-links">
           <ion-label>Don't have an account?</ion-label>
           <ion-label class="custom-link" (click)="goToSignUp()">Sign Up</ion-label>

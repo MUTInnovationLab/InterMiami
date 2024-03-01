@@ -17,46 +17,39 @@
     <!-- First ion-content -->
     <!-- <ion-content class="container1"> -->
     <ion-list style="margin-left: -5px;margin-top:-5px;margin-bottom:-5px;width: 250px;" no-lines>
-        <ion-card style="display:flex;background-color:#0f86aa;color:white">
-            <ion-icon name="person-circle-outline" style="font-size: 60px; color: rgb(15, 76, 126);" ></ion-icon>
+        <div style="display:flex;color:black; border:none">
+            <ion-icon name="person-circle-outline" style="font-size: 60px; color:  #065D78;" ></ion-icon>
           
             <!-- <ion-list lines="none"> -->
               <!-- <ion-item style="width:100%"> -->
                 <ion-label id="label_1" class="label_1">Panel Member</ion-label>
-           <br>
+                <hr>
                 <ion-label id="label_2" class="label_2">Email Address</ion-label>
               <!-- </ion-item> -->
             <!-- </ion-list> -->
-          </ion-card>
+        </div>
           <ion-item style="height: 50px;" class="custom-background">
             <ion-label style="color:black">Upcoming Interviews</ion-label>
             </ion-item>
+
             <ion-content>
-              <ion-list *ngFor="let group of groupedInterviewees | keyvalue let i = index"  (click)="handleItemClick(i)" [class.selected]="i === selectedRowIndex">
-              <ion-item-divider class="table">
-                <ion-label>{{ group.key === todayDateString ? 'Today' : group.key }}</ion-label>
-                <button class="submitBtn" (click)="start()">
-                    Start
-                    <svg fill="white" viewBox="0 0 448 512" height="1em" class="arrow"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg>
-                  </button>
-              </ion-item-divider>
-              <ion-item *ngFor="let item of group.value">
-                <!-- Your card content here -->
-                <ion-card  class="custom-card" [class.selected]="i === selectedRowIndex">
-                   
-                  <ion-card-content>
-                    <p>ID: {{ item.int_id }}</p>
-                    <p>Name: {{ item.name }}</p>
-                    <p>Surname:{{ item.surname }}</p>
-                    <p>Email: {{ item.email }}</p>
-                    <p>Date: {{ item.date }}</p> 
-                    <p>Status: {{ item.Status }}</p>
-                  
-                  </ion-card-content>
-              </ion-card>
-              </ion-item>
-            </ion-list>
-            </ion-content>
+  <ion-list *ngFor="let group of groupedInterviewees | keyvalue; let i = index" (click)="handleItemClick(i)" [class.selected]="i === selectedRowIndex">
+    <ion-item-divider >
+     {{ group.key === todayDateString ? 'Today' : group.key }}
+      
+    </ion-item-divider>
+   
+      <ion-card *ngFor="let item of group.value" class="custom-card" [class.selected]="i === selectedRowIndex">
+        <ion-card-content (click)="handleCardClick(item)">
+          <p><ion-icon name='person-outline'></ion-icon>{{ item.name }} {{ item.surname }}</p>
+          <p><ion-icon name='mail-outline'></ion-icon>{{ item.email }}</p>
+          <p><ion-icon name='disc'></ion-icon>{{ item.Status }}</p>
+        </ion-card-content>
+      </ion-card>
+   
+  </ion-list>
+</ion-content>
+
             
     </ion-list>
             <ion-list>
@@ -65,72 +58,15 @@
         
   
 
-    <!-- Second ion-content -->
- 
-      <!-- <ion-card class="score-card">
-        <ion-grid >
-
-
-          <ion-row class="input-row">
-            <ion-col>
-              <ion-item style="width:250px">
-                  <ion-label class="score-label">Introduction</ion-label>
-
-                  <ion-input slot="end" class="score-input" type="number" [(ngModel)]="introduction" (ionChange)="calculateTotal()"></ion-input>
-                
-              </ion-item>
-             </ion-col>
-            <ion-col>
-              <ion-label class="score-label">Teamwork</ion-label>
-              <ion-input class="score-input" type="number" [(ngModel)]="teamwork" (ionChange)="calculateTotal()"></ion-input>
-            </ion-col>
-          </ion-row>
-
-          <ion-row class="input-row">
-            <ion-col>
-              <ion-label class="score-label">adaptability</ion-label>
-              <ion-input class="score-input" type="number" [(ngModel)]="adaptability"  (ionChange)="calculateTotal()"></ion-input>
-            </ion-col>
-           
-          </ion-row>
-          <ion-row class="input-row">
-            <ion-col>
-              <ion-label class="score-label">Problem Solving</ion-label>
-              <ion-input class="score-input" type="number" [(ngModel)]="problemSolving" (ionChange)="calculateTotal()"></ion-input>
-            </ion-col>
-            <ion-col>
-              <ion-label class="score-label">Communication Skills</ion-label>
-              <ion-input class="score-input" type="number" [(ngModel)]="communicationSkills" (ionChange)="calculateTotal()"></ion-input>
-            </ion-col>
-          </ion-row>
-          <ion-row class="input-row">
-            <ion-col>
-              <ion-label class="score-label">Job Specific Skills </ion-label>
-              <ion-input class="score-input" type="number" [(ngModel)]="jobSpecificSkills" (ionChange)="calculateTotal()"></ion-input>
-            </ion-col>
-            <ion-col>
-              <ion-label class="score-label">Leadership Skills</ion-label>
-              <ion-input class="score-input" type="number" [(ngModel)]="leadershipSkills" (ionChange)="calculateTotal()"></ion-input>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-        <ion-label class="custom-label">Total</ion-label>
-        <ion-row class="total-row">
-          <ion-col class="total-col">
-            <ion-input class="score-input" [value]="total"></ion-input>
-          </ion-col>
-        </ion-row>
-      </ion-card> -->
-      <!-- <ion-card class="score-card"> -->
-          <!-- style="margin-top: -15px" -->
+    
         <ion-card class="former">
-          <figure [ngClass]="{'loader': selectedRowIndex !== -1, 'selected-loader': selectedRowIndex !== -1}">
+          <!-- <figure [ngClass]="{'loader': selectedRowIndex !== -1, 'selected-loader': selectedRowIndex !== -1}">
             <div class="dot white"></div>
             <div class="dot"></div>
             <div class="dot"></div>
             <div class="dot"></div>
             <div class="dot"></div>
-        </figure>
+        </figure> -->
           <ion-grid >
             <ion-row>
               <ion-col size="6">

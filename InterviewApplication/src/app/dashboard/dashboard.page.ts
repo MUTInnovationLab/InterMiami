@@ -93,7 +93,7 @@ export class DashboardPage implements OnInit {
 
         if (!querySnapshot.empty) {
           this.userDocument = querySnapshot.docs[0].data();
-          console.log(this.userDocument);
+          
         }
       } catch (error) {
         console.error('Error getting user document:', error);
@@ -245,6 +245,7 @@ export class DashboardPage implements OnInit {
       ]
     });
     await alert.present();
+    console
   }
 
 

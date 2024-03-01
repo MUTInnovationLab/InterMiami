@@ -145,65 +145,7 @@ export class ScoreCapturePage implements OnInit {
 
   }
 
-  // submitForm() {
-  //    const selectedTable = this.tables$[this.selectedRowIndex];
-
-  //    if (!selectedTable) {
-  //     alert('Please select interview candidate.');
-  //   }else{
-
-  //     this.calculateTotal();
-
-  //   alert('Introduction:'+ this.introduction + '\n'
-  //   + 'Teamwork:'+ this.teamwork + '\n'
-  //    + 'Overall Impression:'+ this.overallImpression + '\n' 
-  //    + 'Leadership Skills:'+ this.leadershipSkills + '\n'
-  //    + 'Adaptability:'+ this.adaptability + '\n'
-  //    + 'Communication Skills:'+ this.communicationSkills + '\n'
-  //    + 'Job Specific Skills:'+ this.jobSpecificSkills + '\n'
-  //    + 'Problem-Solving:'+ this.problemSolving + '\n'
-  //    + 'Total:'+ this.total);
-
-  //    const {int_id, name} = selectedTable;
-
-  //    const label1Element = document.getElementById("label_1");
-  //    const label2Element = document.getElementById("label_2");
-
-  //     const label1 = label1Element ? label1Element.textContent : null;
-  //     const label2 = label2Element ? label2Element.textContent : null;
-
-  //   // Now you can proceed with adding the data to Firestore if needed
-  //   const formData = {
-  //     introduction: this.introduction,
-  //     teamwork: this.teamwork,
-  //     overallImpression: this.overallImpression,
-  //     leadershipSkills: this.leadershipSkills,
-  //     adaptability: this.adaptability,
-  //     communicationSkills: this.communicationSkills,
-  //     jobSpecificSkills: this.jobSpecificSkills,
-  //     problemSolving: this.problemSolving,
-  //     total: this.total,
-  //     ID: int_id,
-  //     name: name,
-  //     status: status,
-  //     panelMember: label1,
-  //     panelEmail: label2
-      
-  //   };
-
-  //   this.firestore
-  //     .collection('feedback')
-  //     .add(formData)
-  //     .then(() => {
-        
-  //       // Data added successfully
-  //       console.log('Form data added to Firestore!');
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error adding form data to Firestore:', error);
-  //     });
-  //   }
-  // }
+ 
 
 
   submitForm() {
@@ -297,6 +239,12 @@ export class ScoreCapturePage implements OnInit {
       // Sort the grouped interviewees by date
       this.sortIntervieweesByDate();
     });
+  }
+  
+
+  handleCardClick(item: any) {
+    this.inProgressInterviewee = item;
+    this.start();
   }
   
 
