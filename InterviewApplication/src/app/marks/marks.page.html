@@ -8,30 +8,46 @@
 
 <ion-content>
   <ion-card>
-    <ion-card-header>
-      Interview Data
-    </ion-card-header>
-    <ion-card-content>
-      <ion-list>
-        <ion-item-divider class="header-row">
-          <ion-label class="center-label">ID</ion-label>
-          <ion-label class="center-label">Interviewee Name</ion-label>
-          <ion-label class="center-label">Interviewee Surname</ion-label>
-          <ion-label class="center-label">Email Address</ion-label>
-          <ion-label class="center-label">Score</ion-label>
-        </ion-item-divider>
+   
+    <table class="bordered">
+      <thead class="color">
+        <tr>
+            <th>
+              <ion-icon name="person"></ion-icon>
+              <br>
+              IntervieweeName
+            </th>
 
-        <ion-item class="data-row" *ngFor="let item of interviewData">
-          <ion-label class="center-label">223</ion-label>
-          <ion-label class="center-label">Amahle</ion-label>
-          <ion-label class="center-label">Ghost</ion-label>
-          <ion-label class="center-label">hlehle@outlook.com</ion-label>
-          <ion-label class="center-label">89</ion-label>
-        </ion-item>
-      </ion-list>
-    </ion-card-content>
-  </ion-card>
-</ion-content>
+            <th>
+              <ion-icon name="mail"></ion-icon>
+              <br>
+              IntervieweeEmail
+            </th>
+
+            <th>
+              <ion-icon name="list"></ion-icon>
+              <br>
+              Score
+            </th>
+            
+
+          
+            <th>
+              <ion-icon name="checkmark-circle-outline"></ion-icon>
+              <br>
+              Actions
+            </th>
+        </tr>
+
+      </thead>
+
+        <tbody class="body">
+      
+        </tbody>
+
+        </table>
+      </ion-card>
+    </ion-content>
 
 
 

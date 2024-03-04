@@ -26,9 +26,9 @@ export class MarksPage implements OnInit {
       this.interviewData = data.map(item => ({
         id: item.id,
         intervieweeName: item.intervieweeName,
-        intervieweeSurname: item.intervieweeSurname,
+        // intervieweeSurname: item.intervieweeSurname,
         emailAddress: item.emailAddress,
-        score: item.Score
+        score: item.score
       }));
     });
   

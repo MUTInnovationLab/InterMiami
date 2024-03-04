@@ -24,13 +24,8 @@ export class DeclineModalPage implements OnInit {
 
   async Send() {
     const emailParams={ 
-<<<<<<< HEAD
-      email_to: 'thandekan7t36@gmail.com',
-      from_email:'thandekan73t6@gmail.com',
-=======
       email_to: 'hlehlerhamahle@gmail.com',
       //from_email:'thandekan736@gmail.com',
->>>>>>> d891c0aafc1cdacb9dd3bb3a792b6fe993dce8b1
       subject:'Regret Unsuccessful',
       message:this.reason
     };
