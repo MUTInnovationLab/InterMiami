@@ -68,6 +68,13 @@ ion-menu-button:hover {
     margin-top: 10px;
   }
   
+  .body{
+    border-collapse: collapse;
+    th, td{
+      padding:10px;
+      
+    }
+  }
   .bordered {
     border-collapse: collapse;
     width: 100%;

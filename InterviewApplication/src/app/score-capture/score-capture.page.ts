@@ -145,7 +145,6 @@ export class ScoreCapturePage implements OnInit {
 
   }
 
- 
 
 
   submitForm() {
@@ -159,12 +158,12 @@ export class ScoreCapturePage implements OnInit {
       name: this.name,
       email: this.email,
       Status: this.Statuss,
+      int_id: this.int_id
       
     };
   
     // Separate numeric values
     const numericData = {
-      //int_id: this.int_id,
       introduction: this.introduction,
       teamwork: this.teamwork,
       overallImpression: this.overallImpression,
@@ -255,7 +254,8 @@ export class ScoreCapturePage implements OnInit {
 
   start() {
     if (this.inProgressInterviewee) {
-      const { name, surname, email, Status } = this.inProgressInterviewee;
+      const { name, surname, email, Status, int_id } = this.inProgressInterviewee;
+      this.int_id = int_id;
       this.name = name;
       this.surname= surname;
       this.email = email;

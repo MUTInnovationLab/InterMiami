@@ -1,52 +1,56 @@
 <ion-header>
-  <ion-toolbar >
-    <ion-buttons slot="start">
-      <ion-menu-toggle>
-      </ion-menu-toggle>
-    </ion-buttons>
-    <ion-title class="header-title">
-      All Interviews
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-
-
-<ion-content>
-    Filter By:
-    <select class="input" [(ngModel)]="selectedStatus" (change)="Filtering()">
-      <option placeholer="Status" disabled selected hidden>Status</option>
-      <option value="op1">Interviewed</option>
-      <option value="op2">In progress</option>
-      <option value="op3">Waiting</option>
-    </select>
-  <ion-list *ngFor="let group of groupedInterviewees | keyvalue">
-    <ion-item-divider class="table">
-      <ion-label>{{ group.key === todayDateString ? 'Today' : group.key }}</ion-label>
-    </ion-item-divider>
-    <ion-item *ngFor="let item of group.value">
-      <!-- Your card content here -->
-      <ion-card class="custom-card">
-        <ion-card-content>
-          <p>ID: {{item.int_id }}</p>
-          <p>Name: {{item.name }}</p>
-          <p>Email: {{item.email }}</p>
-          <p>Date: {{item.date }}</p> 
-          <p>Status: {{item.Status }}</p>
-            <ion-col>
-            <!-- Display ion-select if showSelect property is true -->
-            <ion-select [(ngModel)]="item.selectedOption" (ionChange)="updateField(item.int_id,item.selectedOption)" placeholder="Update Status">
-              <ion-select-option value="In Progress">In Progress</ion-select-option>
-              <ion-select-option value="Interviewed">Interviewed</ion-select-option>
-              <ion-select-option value="Waiting">Waiting</ion-select-option>
-            </ion-select>
-          </ion-col>
-        </ion-card-content>
-    </ion-card>
-    </ion-item>
-  </ion-list>
-</ion-content>
-<ion-footer class="custom-footer">
-  Designed by @<b>MUT INNOVATIONLAB</b>
-</ion-footer>
-
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-toggle>
+        </ion-menu-toggle>
+      </ion-buttons>
+      <ion-title class="header-title">
+        All Interviews
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content style="--background: rgb(255, 255, 255);">
+    <div class="filter-container">
+      Filter By:
+      <select class="input" [(ngModel)]="selectedStatus" (change)="Filtering()">
+        <option placeholer="Status" disabled selected hidden>Status</option>
+        <option value="op1">Interviewed</option>
+        <option value="op2">In progress</option>
+        <option value="op3">Waiting</option>
+      </select>
+    </div>
+    <div class="grid-container">
+      <ion-row *ngFor="let group of groupedInterviewees | keyvalue">
+               <ion-item class="table bg-transparent" color=transparent>
+            <ion-label style="color: black;">{{ group.key === todayDateString ? 'Today' : group.key }}</ion-label>
+          </ion-item>
+        <ion-col size="6"   *ngFor="let item of group.value">
+   
+            <ion-card class="custom-card">
+                <ion-icon name="woman-outline" style="size: 100%;"></ion-icon>
+              <ion-card-content style="color:white;">
+                <p  style="color:white;">ID: {{item.int_id }}</p>
+                <p  style="color:white;">Name: {{item.name }}</p>
+                <p  style="color:white;">Email: {{item.email }}</p>
+                <p  style="color:white;">Date: {{item.date }}</p> 
+                <p  style="color:white;">Status: {{item.Status }}</p>
+                <ion-col>
+                  <ion-select [(ngModel)]="item.selectedOption" (ionChange)="updateField(item.int_id,item.selectedOption)" placeholder="Update Status">
+                    <ion-select-option value="In Progress">In Progress</ion-select-option>
+                    <ion-select-option value="Interviewed">Interviewed</ion-select-option>
+                    <ion-select-option value="Waiting">Waiting</ion-select-option>
+                  </ion-select>
+                </ion-col>
+              </ion-card-content>
+            </ion-card>
+         
+        </ion-col>
+      </ion-row>
+    </div>
+  </ion-content>
+  
+  <ion-footer class="custom-footer">
+    Designed by @<b>MUT INNOVATIONLAB</b>
+  </ion-footer>
+  

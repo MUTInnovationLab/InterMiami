@@ -66,10 +66,10 @@
           </thead>
           <tbody class="body">
             <tr *ngFor="let data of tableData">
-              <td class="ion-text-center white-text">{{ data.Name }}</td>
-              <td class="ion-text-center white-text">{{ data.email }}</td>
-              <td class="ion-text-center white-text">{{ data.position }}</td>
-              <td class="ion-text-center white-text">{{ data.staffNumber }}</td>
+              <td class="ion-text-left white-text" style="width: 10%; border-collapse: collapse;" >{{ data.Name }}</td>
+              <td class="ion-text-left white-text" style="width: 15%;">{{ data.email }}</td>
+              <td class="ion-text-left white-text">{{ data.position }}</td>
+              <td class="ion-text-center white-text" style="width: 15%;">{{ data.staffNumber }}</td>
               <td class="ion-text-center white-text">{{ data.role.score }}</td>
               <td class="ion-text-center white-text">{{ data.role.upcomingInterviews }}</td>
               <td class="ion-text-center white-text">{{ data.role.marks }}</td>

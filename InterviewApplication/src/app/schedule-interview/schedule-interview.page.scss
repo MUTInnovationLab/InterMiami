@@ -34,14 +34,23 @@ ion-img.logo {
 /* Styling for the content */
 ion-card.constant {
   padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 60px;
+  margin-left: 100px;
+  margin-right: 100px;
+
+  border-radius: 4px;
+  background: #ffffff;
+  box-shadow:  6px 6px 14px #8f8f8f,
+               -6px -6px 14px #ffffff;
 }
 
-h1.section-title {
+.header{
   font-size: 24px;
-  margin-bottom: 20px;
-  color: #333333; /* Adjust the color as needed */
+  // margin-bottom: 20px;
+  color: #ffffff; /* Adjust the color as needed */
+  background-color: #065D78;
+  border-radius: 4px;
+  // height: 30px;
 }
 
 ion-item.input-item {
@@ -70,11 +79,27 @@ b {
   border: none;
   padding: 1rem;
   font-size: 1rem;
-  width: 100%;
+  width: 200px;
   border-radius: 1rem;
   color: rgb(255, 255, 255);
   box-shadow: 0 0.4rem #dfd9d9;
   cursor: pointer;
+ 
+  margin-left: 25%;
+ }
+
+ .butSubmit1{
+  background-color:#065D78;
+  border: none;
+  padding: 1rem;
+  font-size: 1rem;
+  width: 200px;
+  border-radius: 1rem;
+  color: rgb(255, 255, 255);
+  box-shadow: 0 0.4rem #dfd9d9;
+  cursor: pointer;
+  margin: 20px;
+  
  }
  
  .butSubmit:active {
@@ -93,4 +118,31 @@ b {
  .butSubmit:disabled {
   cursor: auto;
   color: grey;
+ }
+
+// Another
+.butSubmit1:active {
+  color: white;
+  box-shadow: 0 0.2rem #dfd9d9;
+  transform: translateY(0.2rem);
+ }
+ 
+ .butSubmit1:hover:not(:disabled) {
+  background: #cee8f0;
+  //background: #0d45a5;
+  color: white;
+  text-shadow: 0 0.1rem #bcb4b4;
+ }
+ 
+ .butSubmit1:disabled {
+  cursor: auto;
+  color: grey;
+ }
+
+ 
+ @media(max-width:540px){
+   ion-card.constant{
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+   }
  }

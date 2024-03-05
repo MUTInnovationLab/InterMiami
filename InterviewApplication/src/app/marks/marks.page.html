@@ -16,17 +16,17 @@
         <ion-item-divider class="header-row">
           <ion-label class="center-label">ID</ion-label>
           <ion-label class="center-label">Interviewee Name</ion-label>
-          <ion-label class="center-label">Interviewee Surname</ion-label>
           <ion-label class="center-label">Email Address</ion-label>
+          <ion-label class="center-label">Status</ion-label>
           <ion-label class="center-label">Score</ion-label>
         </ion-item-divider>
 
         <ion-item class="data-row" *ngFor="let item of interviewData">
-          <ion-label class="center-label">223</ion-label>
-          <ion-label class="center-label">Amahle</ion-label>
-          <ion-label class="center-label">Ghost</ion-label>
-          <ion-label class="center-label">hlehle@outlook.com</ion-label>
-          <ion-label class="center-label">89</ion-label>
+          <ion-label class="center-label">{{item.int_id}}</ion-label>
+          <ion-label class="center-label">{{item.name}}</ion-label>
+          <ion-label class="center-label">{{item.email}}</ion-label>
+          <ion-label class="center-label">{{item.status}}</ion-label>
+          <ion-label class="center-label">{{item.total}}</ion-label>
         </ion-item>
       </ion-list>
     </ion-card-content>

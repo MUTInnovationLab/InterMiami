@@ -10,11 +10,13 @@ ion-item-divider {
 }
 
 ion-card.custom-card {
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin: 10px;
   width:90%;
-
+  color:white;
+  border-radius: 11px;
+background: #065D78;
+box-shadow:  6px 6px 12px #bdbdbd,
+             -6px -6px 12px #ffffff;
 }
 
 ion-card-content {
@@ -57,6 +59,10 @@ ion-item-divider{
   padding: 2px;
 }
 
+
+.grid-container{
+  background-color: #ffffff;
+}
 ion-header {
   display: flex;
   justify-content: center;
@@ -73,5 +79,8 @@ ion-header {
   font-weight: bold;
   animation: textFadeIn 1.5s ease-in-out;
 }
+.table{
+  width:100%;
 
+}
 

@@ -12,33 +12,34 @@
 
 <ion-content class="content-container">
   <ion-card class="constant">
-    <h1 class="section-title">Interview Schedule</h1>
+    <ion-card-header class="header">
+       Interview Schedule
+    </ion-card-header>
 
     <ion-item class="input-item">
       <ion-icon name="person" slot="start"></ion-icon>
-      <ion-input
-        placeholder="Interviewee ID"
-        type="text"
-        [(ngModel)]="int_id"
+      <ion-label position="floating">Interview ID</ion-label>
+      <ion-input  type="text" [(ngModel)]="int_id"
+      required="required"
         maxlength="13"
       ></ion-input>
     </ion-item>
 
     <ion-item class="input-item">
       <ion-icon name="person" slot="start"></ion-icon>
+      <ion-label position="floating">Name</ion-label>
       <ion-input
-        placeholder="First Name"
         type="text"
         [(ngModel)]="name"
-        id="f_name"
         required
+        id="f_name"
       ></ion-input>
     </ion-item>
 
     <ion-item class="input-item">
       <ion-icon name="mail" slot="start"></ion-icon>
+      <ion-label position="floating">Email</ion-label>
       <ion-input
-        placeholder="Email Address"
         type="email"
         [(ngModel)]="email"
         required="required"
@@ -60,6 +61,7 @@
       Schedule
     </ion-button> -->
     <button class="butSubmit" (click)="submit()">Schedule</button>
+    <button class="butSubmit1" (click)="submit()">Clear</button>
   </ion-card>
 </ion-content>
 

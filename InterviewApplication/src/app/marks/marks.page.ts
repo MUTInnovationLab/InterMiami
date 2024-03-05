@@ -23,13 +23,13 @@ export class MarksPage implements OnInit {
   
   getScoreData() {
     this.firestore.collection('feedback').valueChanges().subscribe((data: any[]) => {
-      this.interviewData = data.map(item => ({
-        id: item.id,
-        intervieweeName: item.intervieweeName,
-        intervieweeSurname: item.intervieweeSurname,
-        emailAddress: item.emailAddress,
-        score: item.Score
-      }));
-    });
-  
-}}
+        this.interviewData = data.map(item => ({
+            int_id: item.stringData.int_id,
+            name: item.stringData.name,
+            email: item.stringData.email,
+            status: item.stringData.Status,
+            total: item.numericData.total
+        }));
+           });
+}
+}
