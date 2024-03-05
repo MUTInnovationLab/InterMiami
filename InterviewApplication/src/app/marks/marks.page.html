@@ -19,7 +19,7 @@
           <ion-label class="center-label">Email Address</ion-label>
           <ion-label class="center-label">Status</ion-label>
           <ion-label class="center-label">Score</ion-label>
-          <ion-label class="center-label">Send Email</ion-label>
+          <ion-label class="center-label">Action</ion-label>
         </ion-item-divider>
 
         <ion-item class="data-row" *ngFor="let item of interviewData">
@@ -28,13 +28,17 @@
           <ion-label class="center-label">{{item.email}}</ion-label>
           <ion-label class="center-label">{{item.status}}</ion-label>
           <ion-label class="center-label">{{item.total}}</ion-label>
-          <ion-label class="center-label">Send</ion-label>
+          
+          <button ion-button (click)="Send(item.email, item.name)" class="horizontal-button approve-button" style="color: green;">
+            Send Email
+        </button>
+        
         </ion-item>
       </ion-list>
     </ion-card-content>
   </ion-card>
-</ion-content>
 
+</ion-content>
 <ion-footer class="custom-footer">
   Designed by @<b>MUT INNOVATIONLAB</b>
 </ion-footer>
