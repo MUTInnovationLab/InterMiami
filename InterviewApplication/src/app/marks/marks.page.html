@@ -8,7 +8,6 @@
 
 <ion-content>
   <ion-card>
-<<<<<<< HEAD
     <ion-card-header>
       Interview Data
     </ion-card-header>
@@ -20,6 +19,7 @@
           <ion-label class="center-label">Email Address</ion-label>
           <ion-label class="center-label">Status</ion-label>
           <ion-label class="center-label">Score</ion-label>
+          <ion-label class="center-label">Send Email</ion-label>
         </ion-item-divider>
 
         <ion-item class="data-row" *ngFor="let item of interviewData">
@@ -28,47 +28,10 @@
           <ion-label class="center-label">{{item.email}}</ion-label>
           <ion-label class="center-label">{{item.status}}</ion-label>
           <ion-label class="center-label">{{item.total}}</ion-label>
+          <ion-label class="center-label">Send</ion-label>
         </ion-item>
       </ion-list>
     </ion-card-content>
-=======
-    <table class="bordered">
-      <thead class="color">
-        <tr>
-          <th>
-            <ion-icon name="person"></ion-icon>
-            <br>
-            IntervieweeName
-          </th>
-          <th>
-            <ion-icon name="mail"></ion-icon>
-            <br>
-            IntervieweeEmail
-          </th>
-          <th>
-            <ion-icon name="list"></ion-icon>
-            <br>
-            Score
-          </th>
-          <th>
-            <ion-icon name="checkmark-circle-outline"></ion-icon>
-            <br>
-            Actions
-          </th>
-        </tr>
-      </thead>
-      <tbody class="body">
-        <tr *ngFor="let interviewee of interviewData">
-          <td>{{ interviewee.name }}</td>
-          <td>{{ interviewee.email }}</td>
-          <td>{{ interviewee.total }}</td>
-          <!-- Add actions column here if needed -->
-        </tr>
-        
-        
-      </tbody>
-    </table>
->>>>>>> 871109d9fed80750c948039078377f155b022603
   </ion-card>
 </ion-content>
 
