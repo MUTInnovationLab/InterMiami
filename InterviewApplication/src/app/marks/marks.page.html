@@ -8,6 +8,7 @@
 
 <ion-content>
   <ion-card>
+<<<<<<< HEAD
     <ion-card-header>
       Interview Data
     </ion-card-header>
@@ -30,10 +31,46 @@
         </ion-item>
       </ion-list>
     </ion-card-content>
+=======
+    <table class="bordered">
+      <thead class="color">
+        <tr>
+          <th>
+            <ion-icon name="person"></ion-icon>
+            <br>
+            IntervieweeName
+          </th>
+          <th>
+            <ion-icon name="mail"></ion-icon>
+            <br>
+            IntervieweeEmail
+          </th>
+          <th>
+            <ion-icon name="list"></ion-icon>
+            <br>
+            Score
+          </th>
+          <th>
+            <ion-icon name="checkmark-circle-outline"></ion-icon>
+            <br>
+            Actions
+          </th>
+        </tr>
+      </thead>
+      <tbody class="body">
+        <tr *ngFor="let interviewee of interviewData">
+          <td>{{ interviewee.name }}</td>
+          <td>{{ interviewee.email }}</td>
+          <td>{{ interviewee.total }}</td>
+          <!-- Add actions column here if needed -->
+        </tr>
+        
+        
+      </tbody>
+    </table>
+>>>>>>> 871109d9fed80750c948039078377f155b022603
   </ion-card>
 </ion-content>
-
-
 
 <ion-footer class="custom-footer">
   Designed by @<b>MUT INNOVATIONLAB</b>
