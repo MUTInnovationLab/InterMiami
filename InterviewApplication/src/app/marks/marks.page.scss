@@ -1,256 +1,81 @@
-
-.bordered {
-  border-collapse: collapse;
-  width: 100%;
-}
-
-/* Footer */
-.custom-footer {
-  text-align: center;
-  background-color: #065D78; /* Footer background color */
-  padding: 2px;
-}
-
-/* Header styles */
-.color th {
-  background-color: #065D78;
-  color: white;
-  font-weight: bold;
-}
-
-/* Row styles */
-.body tr:nth-child(even) {
-  background-color: #7A726A;
-}
-
-.body tr:nth-child(odd) {
-  background-color: #EBDDDD;
-}
-
-/* Cell styles */
-.cent td, .cent th {
-  text-align: center;
-  padding: 8px;
-}
-
-/* Icon styles */
-.cent ion-icon {
-  margin-right: 5px;
-}
-
-.logout-button {
-  margin-right: 10px;
-  --color: white; /* Sets the color of the button text to white */
-  --ion-color-base: white; /* Sets the background color of the button to white */
-}
-
-.total-text {
-  font-weight: bold;
-  margin-top: 10px;
-}
-
-.horizontal-button {
-  display: inline-block;
-  width: 60px;
-  height: 40px;
-  margin-right: 10px;
-  padding: 0;
-  border-radius: 0;
-}
-
-.horizontal-button.approve-button {
-  --background: green;
-  --color: white; /* Set the text color to white for contrast */
-}
-
-.horizontal-button.decline-button {
-  --background: red;
-  --color: white; /* Set the text color to white for contrast */
-}
-
-/* Tooltip styles */
-.tooltip {
-  position: relative;
-  display: inline-block;
-  cursor: pointer; /* Add a pointer cursor for interaction */
-}
-
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: 200px;
-  background-color: #000;
-  color: #fff;
-  text-align: center;
-  padding: 5px;
-  border-radius: 5px;
-  position: absolute;
-  z-index: 1;
-  bottom: 125%;
-  left: 50%;
-  margin-left: -100px;
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-  opacity: 1;
-}
-
-/* Update ion-content background */
 ion-content {
   --background: #ECF0F6;
 }
 
-/* Pagination styles */
-.pagination {
-  display: flex;
-  justify-content: center;
-}
+ion-card {
+  background-color: #FFFFFF;
+  color: #222428;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 20px;
 
-.pagination-button {
-  background-color: #c42e2e;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px;
-  cursor: pointer;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.pagination-button:enabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
-
-/* Menu styles */
-img {
-  width: 100px;
-  height: 60px;
-}
-
-ion-header {
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  align-items: center;
+ion-card-header {
   background-color: #065D78;
-  color: white;
-  height: 70px;
-  animation: headerFadeIn 1s ease-in;
-}
-
-#popover-button {
-  color: black;
-}
-
-.header-title {
-  margin: 0 auto;
-  text-align: center;
-  color: black;
+  color: #FFFFFF;
   font-weight: bold;
-}
-.number-icon{
-  font-size: 24px;
-}
-.menu {
-  color: #000000;
-  font-family: Arial;
-  height: 50px; /* Set the desired height value */
-  cursor: pointer;
+  text-align: center;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
-ion-menu-button {
-  color: black;
+ion-card-content {
+  padding: 16px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+
+.header-row {
+  display: flex;
+  align-items: center; 
+  background-color: #065D78;
+  color: #FFFFFF;
+  font-weight: bold;
+  padding: 10px 0;
+  line-height: 1.5;
+  border-radius: 10px;
+}
+
+
+.center-label {
+  flex: 1;
+  text-align: center;
+}
+
+
+.data-row {
+  display: flex; 
+  align-items: center; 
+  background-color: #F2F2F2;
+  padding: 10px 0;
+  line-height: 1.5;
+  border-radius: 10px;
+}
+
+
+.horizontal-button {
+  background-color: #65C466; 
+  color: #FFFFFF; 
+  border: none;
+  border-radius: 5px;
+  padding: 8px 16px;
   cursor: pointer;
+  transition: background-color 0.3s ease; 
+}
+
+.horizontal-button:hover {
+  background-color: #4CAF50; 
 }
 
 
 .custom-footer {
   text-align: center;
-  background-color: #065D78; /* Footer background color */
-  padding: 2px;
-}
-.custom-card {
-  --background: #000; 
-  color: white; 
-}
-
-
-
-//NEW DESIGN
-
-ion-card {
-  background-color: #F2F2F2;
-  color: #222428;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  padding: 16px;
-}
-
-ion-card-header {
   background-color: #065D78;
-  color: #F2F2F2;
+  color: #FFFFFF;
+  padding: 10px;
+}
+
+.custom-footer b {
   font-weight: bold;
-  text-align: center;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  padding: 16px;
 }
-
-ion-card-content {
-  padding: 16px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
- 
-}
-
-.header-row {
-  background-color: #065D78;
-  color: #F2F2F2;
-  font-weight: bold;
-  padding: 10px 0;
-  line-height: 1.5; 
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  
-}
-
-.data-row {
-  // height:100px;
-  background-color: #F2F2F2;
-  padding: 10px 0;
-  line-height: 1.5; 
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-}
-
-/* Style for hover effect on data rows */
-.data-row:hover {
-  background-color: #065D78;
-}
-
-
-.header-row ion-label {
-  vertical-align: top;
-}
-.header-row {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-
-.center-label {
-  flex: 1;
-  text-align: center;
-
-    display: block;
-    text-align: center;
 }
