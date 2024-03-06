@@ -35,7 +35,10 @@ ion-header {
  #popover-button{
   color: black;
  }
- 
+ .feild-input{
+  margin-left: 25%;
+  margin-bottom: 50px;
+ }
 
  .title{
     text-align: center;
@@ -114,7 +117,7 @@ line-height: 1.5;
 margin: 0;
 -webkit-mask-image: -webkit-radial-gradient(#000, #fff);
 padding: 0;
-width: 100%;
+width: 50%;
 }
 
 .buttonH:disabled {
@@ -183,6 +186,11 @@ width: 0;
 .buttonH:hover:after {
 -webkit-animation: progress-bar 1.2s;
 animation: progress-bar 1.2s;
+}
+.EA,.dropdown {
+  width:50%;
+  margin-left: 25%;
+  margin-bottom: 50px;
 }
 
 @-webkit-keyframes progress-bar {
@@ -311,6 +319,8 @@ to {
   flex-direction: column; /* Change to a row layout */
   text-align: center; /* Center text in each container */
   width: auto;
+  margin-left: 15%;
+  margin-bottom: 40px;
 }
 
 @media (max-width: 768px) {
@@ -413,6 +423,11 @@ to {
  // background-color: #ffffff;
   border-radius: 20px;
   position: relative;
+  width:50%; /* Adjust the width as needed */
+  margin-bottom: 20px; /* Add some space between cards */
+  margin-left: 25%;
+  margin-bottom: 50px; /* Add some space between cards */
+  
 }
 
 .Crd2 {
@@ -429,6 +444,9 @@ to {
    text-align: center;
    overflow: hidden;
    color: var(--glow-color);
+   width:50%;
+   margin-left: 25%;
+   margin-bottom: 50px;
    //background-color: #ffffff;
   // border-radius: 20px;
   // position: relative;

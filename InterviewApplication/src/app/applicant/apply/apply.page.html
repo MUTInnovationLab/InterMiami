@@ -360,12 +360,12 @@
     </ion-card>
 -->
 
-  <ion-card>
+  <ion-card class="EA">
     <button class="buttonH" (click)="addQualification()"><span>Add Education</span></button>
   </ion-card>
 
 
-    <ion-card *ngFor="let qualification of qualifications; ">
+    <ion-card *ngFor="let qualification of qualifications; " class="EA">
       <ion-card-header>
         Qualification {{ qualifications.indexOf(qualification) + 1 }}
         <ion-icon name="trash" (click)="removeQualification(qualification)"></ion-icon>
@@ -412,7 +412,7 @@
     </ion-card>
 
 
-    <ion-card>
+    <ion-card class="EA">
       <button class="buttonH" (click)="addExperience()"><span>Add Experience</span></button>
     </ion-card>
 
@@ -446,7 +446,7 @@
       </ion-card-content>
     </ion-card>
 
-    <ion-card>
+    <ion-card class="EA">
       <ion-item>
         <ion-label position="stacked">Total Years of Experience</ion-label>
         <ion-input type="text" color="black" [(ngModel)]="TotalExperience"  name="fullname" required (input)=" fullNameError= null;"></ion-input>
@@ -455,24 +455,24 @@
     </ion-card>
 
 
-    <ion-card>
+    <ion-card class="EA" text-center padding>
       <button class="buttonH" (click)="addSkill()"><span>Add Skills</span></button>
     </ion-card>
 
-    <ion-card *ngFor="let skill of skills; " class="Crd">
+    <ion-card *ngFor="let skill of skills; " class="Crd" text-center padding>
       <ion-card-header>
         Skills{{ skills.indexOf(skill) + 1 }}
         <ion-icon name="trash" (click)="removeSkill(skill)"></ion-icon>
       </ion-card-header>
       <ion-card-content>
         <ion-item>
-          <ion-input [(ngModel)]="skill.skilln"  color="black"></ion-input>
+          <ion-input [(ngModel)]="skill.skilln"  style="color: black;"></ion-input>
         </ion-item>
       </ion-card-content>
     </ion-card>
    
 
-    <ion-card *ngFor="let language of languages; ">
+    <ion-card *ngFor="let language of languages; "  class="field-input">
       <ion-card-header>
         Licence{{languages.indexOf(language) + 1 }}
         <ion-icon name="trash" (click)="removeLanguage(language)"></ion-icon>
@@ -484,7 +484,7 @@
       </ion-card-content>
     </ion-card>
 
-    <ion-card>
+    <ion-card class="EA">
       <button class="buttonH" (click)="addReference()"><span>Add Reference</span></button>
     </ion-card>
 
