@@ -126,7 +126,7 @@ const routes: Routes = [
     loadChildren: () => import('./createpost/createpost.module').then( m => m.CreatepostPageModule)
   },
   {
-    path: 'manageposts',
+    path: 'createpost',
     loadChildren: () => import('./manageposts/manageposts.module').then( m => m.ManagepostsPageModule)
   },
   {

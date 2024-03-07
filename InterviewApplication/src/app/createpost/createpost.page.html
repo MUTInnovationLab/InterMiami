@@ -19,16 +19,7 @@
       <div class="custom-select">
       <select class="input" placeholder="Department" [(ngModel)]="jobfaculty"  [ngModelOptions]="{ standalone: true }" type="select" required="" (change)="updateJobPosition()">
         <option *ngFor="let option of departmentOptions" [value]="option.value">{{ option.text }}</option>
-        <!-- <option value="CHEM">Chemical Engeneering</option>
-        <option value="ELEC">Electrical Engeneering</option>
-        <option value="ICT">Information Communications & Technology</option>
-        <option value="ACC">Accounting</option>
-        <option value="HR">Human Resources</option>
-        <option value="ANIPRO">Animal Production</option>
-        <option value="PLPRO">Plant Production</option>
-        <option value="AGRI">Agriculture</option>
-        <option value="OFT">Office Technology</option>
-        <option value="PA">Public Admin</option> -->
+      
       </select>
       </div>
     </label>

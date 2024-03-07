@@ -77,6 +77,7 @@ export class ViewPage implements OnInit {
 
     }
 
+
     getStatusBoxStyle(status: string): string {
       let statusClass = 'status-box';
   
