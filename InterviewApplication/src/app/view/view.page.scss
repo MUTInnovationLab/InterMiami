@@ -26,7 +26,7 @@ ion-card {
     height: 500px;
     --background:rgb(233, 20, 20);
     --background:#0f86aa;
-    
+    color: white;
   }
   ion-card-content{
     font-size: medium;
@@ -263,6 +263,29 @@ ion-card {
     
   }
 
+
+  .message {
+    position: fixed;
+    bottom: 20px; /* Adjust the position as needed */
+    left: 50%; /* Adjust the position as needed */
+    transform: translateX(-50%);
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: opacity 0.3s ease;
+}
+
+.message.show {
+    opacity: 1;
+}
+
+.message.hidden {
+    display: none;
+}
+
+
   .socket {
     position: fixed;
     top: 0;
@@ -270,51 +293,6 @@ ion-card {
     width: 100%;
     height: 100%;
     z-index: -1;
-  }
-  
-  .hex-brick {
-    background: violet;
-    width: 300px;
-    height: 170px;
-    position: absolute;
-    top: 5px;
-    animation-name: fade00;
-    animation-duration: 2s;
-    animation-iteration-count: infinite;
-    -webkit-animation-name: fade00;
-    -webkit-animation-duration: 2s;
-    -webkit-animation-iteration-count: infinite;
-  }
-  
-  .h2 {
-    transform: rotate(60deg);
-    -webkit-transform: rotate(60deg);
-  }
-  
-  .h3 {
-    transform: rotate(-60deg);
-    -webkit-transform: rotate(-60deg);
-  }
-  
-  .gel {
-    height: 300px;
-    width: 300px;
-    transition: all .7s;
-    -webkit-transition: all .7s;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-  }
-  
-  .center-gel {
-    margin-left: -150px;
-    margin-top: -150px;
-    animation-name: pulse00;
-    animation-duration: 6s;
-    animation-iteration-count: infinite;
-    -webkit-animation-name: pulse00;
-    -webkit-animation-duration: 6s;
-    -webkit-animation-iteration-count: infinite;
   }
   
   .c1 {

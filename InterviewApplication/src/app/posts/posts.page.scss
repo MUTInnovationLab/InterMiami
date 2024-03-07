@@ -17,6 +17,8 @@
   transition: transform 0.3s ease-in-out;
   height: 100%; /* Set a fixed height for equal size */
   color: #fff;
+
+ 
 }
 
 .custom-card:hover {
@@ -108,50 +110,10 @@ ion-card-subtitle{
   z-index: -1;
 }
 
-.hex-brick {
-  background: violet;
-  width: 300px;
-  height: 170px;
-  position: absolute;
-  top: 5px;
-  animation-name: fade00;
-  animation-duration: 2s;
-  animation-iteration-count: infinite;
-  -webkit-animation-name: fade00;
-  -webkit-animation-duration: 2s;
-  -webkit-animation-iteration-count: infinite;
-}
 
-.h2 {
-  transform: rotate(60deg);
-  -webkit-transform: rotate(60deg);
-}
 
-.h3 {
-  transform: rotate(-60deg);
-  -webkit-transform: rotate(-60deg);
-}
 
-.gel {
-  height: 300px;
-  width: 300px;
-  transition: all .7s;
-  -webkit-transition: all .7s;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-}
 
-.center-gel {
-  margin-left: -150px;
-  margin-top: -150px;
-  animation-name: pulse00;
-  animation-duration: 6s;
-  animation-iteration-count: infinite;
-  -webkit-animation-name: pulse00;
-  -webkit-animation-duration: 6s;
-  -webkit-animation-iteration-count: infinite;
-}
 
 .c1 {
   margin-left: -470px;
