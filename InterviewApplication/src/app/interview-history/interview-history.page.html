@@ -1,8 +1,23 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>interviewHistory</ion-title>
+    <ion-title>Interview History</ion-title>
   </ion-toolbar>
 </ion-header>
+
+<!-- <ion-content>
+  <ion-list>
+    <ion-item *ngFor="let interview of interviews">
+      <ion-label>
+        <h2>{{ interview.id }} - {{ interview.name }}</h2>
+        <p>Email: {{ interview.email }}</p>
+        <p>Position: {{ interview.position }}</p>
+        <p>Date: {{ interview.date | date:'medium' }}</p>
+        <p>Status: {{ interview.status }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content> -->
+
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
