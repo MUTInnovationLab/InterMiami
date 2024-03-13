@@ -27,7 +27,7 @@ ion-card-content {
 
 .header-row {
   display: flex;
-  align-items: center; 
+  align-items: center;
   background-color: #065D78;
   color: #FFFFFF;
   font-weight: bold;
@@ -42,8 +42,8 @@ ion-card-content {
 }
 
 .data-row {
-  display: flex; 
-  align-items: center; 
+  display: flex;
+  align-items: center;
   background-color: #F2F2F2;
   padding: 10px 0;
   line-height: 1.5;
@@ -51,17 +51,17 @@ ion-card-content {
 }
 
 .horizontal-button {
-  background-color: #65C466; 
-  color: #FFFFFF; 
+  background-color: #65C466;
+  color: #FFFFFF;
   border: none;
   border-radius: 5px;
   padding: 8px 16px;
   cursor: pointer;
-  transition: background-color 0.3s ease; 
+  transition: background-color 0.3s ease;
 }
 
 .horizontal-button:hover {
-  background-color: #4CAF50; 
+  background-color: #4CAF50;
 }
 
 .custom-footer {
@@ -80,7 +80,8 @@ ion-card-content {
   width: 100%;
 }
 
-.bordered th, .bordered td {
+.bordered th,
+.bordered td {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: center;
@@ -104,6 +105,9 @@ ion-card-content {
   color: white;
 }
 
-// .white-text {
-//   color: #ffffff;
-// }
+@media only screen and (max-width: 768px) {
+  .ion-toolbar {
+    flex-direction: column;
+  }
+}
+            
