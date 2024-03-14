@@ -1,0 +1,180 @@
+ion-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #065D78;
+    color: white;
+    height: 70px;
+    animation: headerFadeIn 1s ease-in;
+  }
+
+  .prof{
+    font-size: 500px;
+    color: #592521;
+  }
+
+ion-content{
+  --background: #044154;
+}
+
+  .c{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 500px;
+  }
+
+  .header-title {
+    margin: 0;
+    text-align: center;
+    font-weight: bold;
+    animation: textFadeIn 1.5s ease-in-out;
+  }
+
+  ion-card-title {
+    font-size: 2.2em; 
+    font-weight: bold; 
+    color: #333; 
+    padding: 10px; 
+    margin-bottom: 10px; 
+    background-color: #f5f5f5; 
+    border-bottom: 2px solid #ccc; 
+  }
+  
+
+
+.image-size {
+    width: 100px; 
+    height: 60px; 
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+
+
+  .info-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .info-item {
+    width: 50%; 
+    box-sizing: border-box;
+  }
+  
+  .info-item p {
+    margin: 0;
+  }
+  
+  .show-all-details {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+
+
+  .vertical-buttons {
+    position: fixed;
+    align-items: center;
+    justify-content: center;
+    bottom: 40px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-top: 180px;
+  }
+
+
+
+  .background-image {
+  --background: #006281;
+ 
+  }
+
+
+  .custom-footer {
+    text-align: center;
+    background-color: #592521; 
+    padding: 2px;
+  }
+
+
+  .status-box {
+    display: inline-block;
+    padding: 8px 12px;
+    border-radius: 4px;
+    perspective: 100px; 
+    transition: background-color 0.3s ease-in-out; 
+  }
+
+
+  .pending-box {
+    background-color: #ffc107; 
+  }
+  
+  .active-box {
+    background-color: #4caf50; 
+    animation: glowing 2s infinite; 
+  }
+  
+  .recommended-box {
+    background-color: #2196f3; 
+  }
+  
+  .placed-box {
+    background-color: #9c27b0; 
+  }
+  
+  .declined-box {
+    background-color: #f44336; 
+  }
+
+
+  @keyframes pulse00 {
+    0% {
+      -webkit-transform: scale(1);
+      transform: scale(1);
+    }
+  
+    50% {
+      -webkit-transform: scale(0.01);
+      transform: scale(0.01);
+    }
+  
+    100% {
+      -webkit-transform: scale(1);
+      transform: scale(1);
+    }
+  }
+  
+  @keyframes fade00 {
+    0% {
+      background: rgba(108, 151, 245, 0.781);
+    }
+  
+    50% {
+      background: #065D78;
+    }
+  
+    100% {
+      background: rgba(123, 246, 255, 0.781);
+    }
+  }
+
+
+  @media (max-width: 576px) {
+    ion-card {
+      width: 90%;
+    }
+  
+    ion-card-content {
+      font-size: small;
+    }
+  
+    td,
+    th {
+      padding-right: 10px;
+    }
+  }
+
