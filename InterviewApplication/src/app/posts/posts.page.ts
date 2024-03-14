@@ -48,7 +48,7 @@ export class PostsPage implements OnInit {
   }
 
   goToView(): void {
-    this.router.navigate(['/view']);
+    this.router.navigate(['/views']);
   }
   async presentToast() {
     const toast = await this.toastController.create({
@@ -104,7 +104,7 @@ export class PostsPage implements OnInit {
         this.tables$ = data;
         for (const item of data) {
           console.log(item.jobfaculty);
-          // Now, you can calculate the counter value based on item.jobfaculty and navigate to the "view" page
+          // Now, you can calculate the counter value based on item.jobfaculty and navigate to the "views" page
           const counterValue = item.jobfaculty;
           // this.navigateToViewPage(counterValue);
         }
@@ -115,8 +115,8 @@ export class PostsPage implements OnInit {
     // Calculate the counter value by merging jobfaculty with 0000001
     const counterValue = jobfaculty;
 
-    // Navigate to the "view" page and pass the counter value as a parameter
-    this.router.navigate(['/view', { counter: counterValue }]);
+    // Navigate to the "views" page and pass the counter value as a parameter
+    this.router.navigate(['/views', { counter: counterValue }]);
   }
 
   getAllDocuments2() {

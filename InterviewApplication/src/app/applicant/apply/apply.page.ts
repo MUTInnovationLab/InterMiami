@@ -644,7 +644,7 @@ municipalities:any[]=[];
 
         loader.dismiss();
         alert('Information successfully saved');
-        this.navCtrl.navigateForward('/view');
+        this.navCtrl.navigateForward('/views');
       } else {
         loader.dismiss();
         throw new Error('User not found');
@@ -815,7 +815,7 @@ municipalities:any[]=[];
         loader.dismiss();
         alert('Information successfully saved');
         //this.navCtrl.navigateForward('/home');
-        this.navCtrl.navigateForward('/view', {
+        this.navCtrl.navigateForward('/views', {
         queryParams: { reference: this.fullname, data: this.data, source: 'buttons' },
         });
       } else {
@@ -1337,7 +1337,7 @@ console.log('update cv ' + this.cvUrl);
   }
 
   goToView() {
-    this.navCtrl.navigateForward('/view');
+    this.navCtrl.navigateForward('/views');
   }
 
   arrayOn = false;
