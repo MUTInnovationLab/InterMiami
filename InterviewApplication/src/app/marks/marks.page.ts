@@ -46,7 +46,7 @@ export class MarksPage implements OnInit {
 
           if (total >= 40) {
             message = 'Congratulations on passing your interview';
-          } else if (total >= 0 && total < 40) {
+          } else if (total >= 0 && total < 35) {
             message = 'Thank you for your time. Unfortunately, you did not pass the interview.';
           } else {
             console.error('Invalid score:', total);

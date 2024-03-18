@@ -19,7 +19,7 @@ export class InterviewHistoryPage implements OnInit {
   getInterviewHistory() {
     this.firestore.collection('feedback').valueChanges().subscribe((data: any[]) => {
       this.interviewHistory = data.map(item => ({
-          int_id: item.stringData.int_id,
+        int_id: item.stringData.int_id,
           name: item.stringData.name,
           email: item.stringData.email,
           status: item.stringData.Status,

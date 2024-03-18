@@ -21,6 +21,13 @@
               <br>
               Interviewee Name
             </th>
+
+            <th>
+              <ion-icon name="person"></ion-icon>
+              <br>
+              Interviewer Name
+            </th>
+
             <th>
               <ion-icon name="document-text-outline"></ion-icon>
               <br>
@@ -36,12 +43,14 @@
               <br>
               Status
             </th>
+
           </tr>
         </thead>
         <tbody class="body">
           <tr *ngFor="let data of interviewHistory">
             <td class="white-text">{{data.name}}</td>
-            <td class="white-text">{{data.id}}</td>
+            <td class="white-text">{{data.namer}}</td>
+            <td class="white-text">{{data.int_id}}</td>
             <td class="white-text">{{data.email}}</td>
             <td class="white-text">{{data.status}}</td>
           </tr>
@@ -55,3 +64,4 @@
 <ion-footer class="custom-footer">
   Designed by @<b>MUT INNOVATIONLAB</b>
 </ion-footer>
+
