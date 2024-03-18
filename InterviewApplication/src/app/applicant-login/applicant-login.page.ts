@@ -181,4 +181,21 @@ export class ApplicantLoginPage implements OnInit {
     
   }
 
+
+
+  
+  async getUserData(email: string) {
+    try {
+      const snapshot = await this.db.collection("registeredStudents").ref.where("email", "==", email).get();
+      if (!snapshot.empty) {
+        const userData = snapshot.docs[0].data();
+        return userData;
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+      return null;
+    }
+  }
 }

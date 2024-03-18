@@ -1395,7 +1395,7 @@ console.log('update cv ' + this.cvUrl);
             this.selectedMaspala=userDocument.municipality;
             this.idURL = userDocument.idURL,
             this.letterURL =userDocument.letterURL
-            console.log('old data :', data);
+           
 
             this.db
               .collection(this.faculty, (ref) => ref.where('course', '>', ''))

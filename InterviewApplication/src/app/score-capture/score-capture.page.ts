@@ -10,6 +10,12 @@ import { Observable, of } from 'rxjs';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 
+interface User {
+  email: string;
+  name: string;
+  // Add other properties as needed
+}
+
 @Component({
   selector: 'app-score-capture',
   templateUrl: './score-capture.page.html',
@@ -17,6 +23,8 @@ import 'firebase/compat/firestore';
 })
 export class ScoreCapturePage implements OnInit {
   groupedInterviewees: Map<string, any[]> = new Map();
+
+  userData: User = {email:"default@gmail.com",name:"your name"} ;
 
 
   int_id! :number;
@@ -62,7 +70,7 @@ export class ScoreCapturePage implements OnInit {
 
   tableData: any[] = [];
 
-  userData: any;
+  // userData: any;
   currentPage: number = 1;
   rowsPerPage: number = 10;
   recipient: any;
@@ -96,6 +104,8 @@ export class ScoreCapturePage implements OnInit {
   ngOnInit() {
     // this.getAllDocuments2();
     this.fetchData();
+    // getUserData();
+    
   }
 
 
@@ -105,15 +115,7 @@ export class ScoreCapturePage implements OnInit {
 
   
 
-  // getAllDocuments2() {
-  //   this.firestore
-  //     .collection('Interviewees')
-  //     .valueChanges()
-  //     .subscribe((data) => {
-  //       this.tables$ = data;
-  //       console.log(this.tables$);
-  //     });
-  // }
+ 
 
   calculateTotal() {
     this.total =
