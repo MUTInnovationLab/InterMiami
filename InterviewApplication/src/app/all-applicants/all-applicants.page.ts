@@ -107,7 +107,7 @@ export class AllApplicantsPage implements OnInit {
             // Update the status in the found document
             doc.ref.update({ status: updatedStatus })
               .then(() => {
-                console.log('Approved!!!');
+                
                 this.showToast('Approved!!!');
                 this.sendApproveNotification(email);
               })
