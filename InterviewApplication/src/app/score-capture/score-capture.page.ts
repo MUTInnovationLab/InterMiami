@@ -267,7 +267,7 @@ export class ScoreCapturePage implements OnInit {
       if (confirmation) {
         // Proceed with saving the data to the database
         // this.submitForm();
-
+        this.Status = 'In Progress';
         console.log('The interview has started');
       }
     } else {
