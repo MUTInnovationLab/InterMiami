@@ -162,31 +162,36 @@ ion-label{
 
 .submitBtn,
 .clearBtn {
-  width: 140px;
-  height: 40px;
-  border-radius: 30px;
-  border: none;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  cursor: pointer;
-  color: #fff;
+  background-color: grey; /* Set background color */
+  color: white; /* Set text color */
+  border: none; /* Remove border */
+  padding: 10px 20px; /* Adjust padding */
+  margin: 5px; /* Adjust margin */
+  margin-left: 200px;
+  cursor: pointer; /* Add cursor pointer */
+  display: flex; /* Use flexbox */
+  justify-content: center; /* Center content horizontally */
+  align-items: center; /* Center content vertically */
 }
 
-.submitBtn {
-  background: linear-gradient(to right, rgb(39, 27, 2), rgb(110, 80, 13));
+.submitBtn:hover{
+  background-color:green;
 }
-
-.clearBtn {
-  background: linear-gradient(to left, #7A231F, rgb(83, 20, 17));
-}
-
-.submitBtn:hover,
 .clearBtn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  background-color:red; /* Change background color on hover */
+}
+
+.submitBtn svg,
+.clearBtn svg {
+  margin-left: 5px; /* Add margin to SVG icon */
+}
+
+/* Adjust styles for mobile view */
+@media screen and (max-width: 768px) {
+  .submitBtn,
+  .clearBtn {
+    width: 100%; /* Make buttons full width */
+  }
 }
 
 .innovation-lab {
@@ -254,6 +259,42 @@ ion-label{
   flex-direction: column;
 }
 
+@media screen and (max-width: 768px) { /* Adjust the max-width as per your phone screen size */
+  .main-grid {
+    display: flex; /* Use flexbox */
+    flex-direction: column; /* Stack items vertically */
+    height: auto; /* Allow height to adjust based on content */
+  }
+  .mobile-col {
+    width: 100%; /* Take full width */
+  }
+  .submitBtn,
+  .clearBtn {
+  background-color: grey; /* Set background color */
+  color: white; /* Set text color */
+  border: none; /* Remove border */
+  padding: 10px 20px; /* Adjust padding */
+  margin: 5px; /* Adjust margin */
+  margin-right: 200px;
+  cursor: pointer; /* Add cursor pointer */
+  display: flex; /* Use flexbox */
+  justify-content: center; /* Center content horizontally */
+  align-items: center; /* Center content vertically */
+}
+
+.submitBtn:hover{
+  background-color:green;
+}
+.clearBtn:hover {
+  background-color:red; /* Change background color on hover */
+}
+
+}
+
+
+
+
+
 
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>> New CSS Animation
 
@@ -265,6 +306,7 @@ ion-label{
  margin-top: -3.5px;
  margin-right: -6px;
  padding: 10px;
+ overflow-y: auto;
 }
 
 // .loader {

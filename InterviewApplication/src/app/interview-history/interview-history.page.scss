@@ -110,4 +110,15 @@ ion-card-content {
     flex-direction: column;
   }
 }
+
+@media(min-width:100px) and (max-width:1400px){
+  .sc{
+    overflow-x: auto; /* Enable horizontal scrolling */
+    white-space: nowrap; /* Prevent content from wrapping */
+  }
+
+  .sc.ion-grid {
+    width: 100%; /* Ensure the grid takes up the full width */
+  }
+}
             

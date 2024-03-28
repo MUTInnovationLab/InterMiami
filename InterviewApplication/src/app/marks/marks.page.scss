@@ -24,14 +24,14 @@ ion-card-content {
   border-bottom-right-radius: 10px;
 }
 
-
+/* Styles for header row */
 .header-row {
   display: flex;
   align-items: center; 
   background-color: #065D78;
   color: #FFFFFF;
   font-weight: bold;
-  padding: 10px 0;
+  padding: 10px;
   line-height: 1.5;
   border-radius: 10px;
 }
@@ -47,7 +47,36 @@ ion-card-content {
   display: flex; 
   align-items: center; 
   background-color: #F2F2F2;
-  padding: 10px 0;
+  padding: 10px;
+  line-height: 1.5;
+  border-radius: 10px;
+}
+
+
+/* Styles for header row */
+.header-row {
+  display: flex;
+  align-items: center; 
+  background-color: #065D78;
+  color: #FFFFFF;
+  font-weight: bold;
+  padding: 10px;
+  line-height: 1.5;
+  border-radius: 10px;
+}
+
+
+.center-label {
+  flex: 1;
+  text-align: center;
+}
+
+
+.data-row {
+  display: flex; 
+  align-items: center; 
+  background-color: #F2F2F2;
+  padding: 10px;
   line-height: 1.5;
   border-radius: 10px;
 }
@@ -67,6 +96,58 @@ ion-card-content {
   background-color: #4CAF50; 
 }
 
+.mobile{
+  display: none;
+}
+
+
+
+@media screen and (max-width: 768px) {
+  .header-row, .data-row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .mobile {
+    display: block;
+}
+
+
+  .theadd{
+    display: none;
+  }
+
+  .fihla{
+    display: none;
+  }
+}
+
+
+
+/* Additional styles for table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 10px;
+  text-align: center;
+}
+
+th {
+  background-color: #065D78;
+  color: #FFFFFF;
+}
+
+tr:nth-child(even) {
+  background-color: #F2F2F2;
+}
+
+tr:hover {
+  background-color: #CCCCCC;
+}
+
 
 .custom-footer {
   text-align: center;
@@ -78,4 +159,9 @@ ion-card-content {
 .custom-footer b {
   font-weight: bold;
 }
+}
+@media(max-width: 797){
+
+  
+
 }

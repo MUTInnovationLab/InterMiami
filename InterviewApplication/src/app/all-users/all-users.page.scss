@@ -93,4 +93,27 @@ ion-menu-button:hover {
   background-color: #065D78; /* Footer background color */
   padding: 2px;
 }
-  
+// @media (min-width:350px) and (max-width: 760px) {
+// .cent .bordered .color .header-cell .bodytotal-text .ion-text-left {
+//     width: 100%;
+//     overflow-x: auto; /* Enable horizontal scrolling */
+//     white-space: nowrap; /* Prevent content from wrapping */
+//   }
+// }
+// @media (min-width:760px) and (max-width: 1200px) {
+//   .cent .bordered .color .header-cell .bodytotal-text .ion-text-left {
+//     width: 100%;
+//     overflow-x: auto; /* Enable horizontal scrolling */
+//     white-space: nowrap; /* Prevent content from wrapping */
+//   }
+// }
+@media (min-width: 100px) and (max-width: 1200px) {
+  .scrollable-content {
+    overflow-x: auto; /* Enable horizontal scrolling */
+    white-space: nowrap; /* Prevent content from wrapping */
+  }
+
+  .scrollable-content .ion-grid {
+    width: 100%; /* Ensure the grid takes up the full width */
+  }
+}
