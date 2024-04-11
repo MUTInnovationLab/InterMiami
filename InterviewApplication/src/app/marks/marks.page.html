@@ -7,12 +7,12 @@
 </ion-header>
 
 <ion-content>
-  <ion-card>
+  <ion-card class="hide">
     <ion-card-header>
       Interview Data
     </ion-card-header>
-    <ion-card-content>
-      <ion-list>
+    <ion-card-content >
+      <ion-list >
         <ion-item-divider class="header-row">
           <ion-label class="center-label">ID</ion-label>
           <ion-label class="center-label">Interviewee Name</ion-label>
@@ -35,6 +35,28 @@
 
         </ion-item>
       </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+
+
+  <ion-card class="scroll1">
+      <ion-card-header>
+io          Interview Data
+        </ion-card-header>
+    <ion-card-content class="scroll2">
+      <ion-card class="scroll3" *ngFor="let item of interviewData">
+        <ion-label class="center-label">ID: {{item.int_id}}</ion-label> <br>
+        <ion-label class="center-label">Interviewee Name: {{item.name}}</ion-label><br>
+        <ion-label class="center-label">Email Address: {{item.email}}</ion-label><br>
+        <ion-label class="center-label">Status: {{item.status}}</ion-label><br>
+        <ion-label class="center-label">Action: {{item.total}}</ion-label><br>
+
+        <button ion-button (click)="Send(item.email, item.name,item.total)" class="horizontal-button approve-button" style="color: green;">
+            Send Email
+        </button>
+      </ion-card>
+
     </ion-card-content>
   </ion-card>
 

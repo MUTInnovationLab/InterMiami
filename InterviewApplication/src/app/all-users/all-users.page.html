@@ -12,9 +12,10 @@
 
 
 <ion-content [fullscreen]="true" style="--background: url('assets/tiny.jpg') no-repeat center / cover;">
-  <div class="ion-text-center" class="cent">
+  <div class="ion-text-center "class="cent" >
     <ion-card>
       <ion-card-content>
+        <ion-grid class="scrollable-content">
         <table class="bordered">
           <thead class="color">
             <tr>
@@ -81,8 +82,11 @@
           </tbody>
         </table>
         <p class="total-text ion-text-left">Total Users: {{tableData.length}}</p>
+      </ion-grid>
       </ion-card-content>
+   
     </ion-card>
+  
     
     
   </div>

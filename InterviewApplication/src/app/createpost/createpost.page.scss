@@ -15,6 +15,7 @@
   gap: 1.5em 1em;
   padding: 1em;
   position: relative;
+  bottom: fixed;
   max-width: 100%;
   max-height: 90px;
   transition: background .3s ease-out, max-height .3s ease-out;
@@ -23,6 +24,16 @@
 
 span{
   color: white;
+}
+@media (min-width: 100px) and (max-width: 1500px) {
+  .form {
+    overflow-x: auto; /* Enable horizontal scrolling */
+    white-space: nowrap; /* Prevent content from wrapping */
+  }
+
+  .form {
+    width: 100%; /* Ensure the grid takes up the full width */
+  }
 }
 
 

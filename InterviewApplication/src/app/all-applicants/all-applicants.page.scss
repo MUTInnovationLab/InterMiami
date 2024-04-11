@@ -172,3 +172,50 @@ ion-menu-button {
 ion-toolbar {
   --background: #ffffff; /* White background */
 }
+
+
+
+@media (min-width: 100px) and (max-width:  767px) {
+  .cent {
+    overflow-x: auto; 
+    white-space: nowrap; 
+    
+  }
+}
+
+@media (min-width: 767px) and (max-width: 1140px) {
+
+  .cent {
+    overflow-x: auto; 
+    // white-space: normal; 
+    
+  }
+   th, td{
+    font-size: 30px;
+
+  }
+
+  .horizontal-button.approve-button{
+    height: 50px;
+    width: 250px;
+    font-size: 30px;
+    
+  }
+
+  ion-badge{
+    font-size: 20px;
+  }
+
+  .horizontal-button.decline-button{
+    height: 50px;
+    width: 250px;
+    font-size: 30px;
+    
+  }
+}
+
+
+
+
+
+

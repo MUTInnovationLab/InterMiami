@@ -11,15 +11,6 @@
   </ion-header>
   
   <ion-content style="--background: rgb(255, 255, 255);">
-    <div class="filter-container">
-      Filter By:
-      <select class="input" [(ngModel)]="selectedStatus" (change)="Filtering()">
-        <option placeholer="Status" disabled selected hidden>Status</option>
-        <option value="op1">Interviewed</option>
-        <option value="op2">In progress</option>
-        <option value="op3">Waiting</option>
-      </select>
-    </div>
     <div class="grid-container">
       <ion-row *ngFor="let group of groupedInterviewees | keyvalue">
                <ion-item class="table bg-transparent" color=transparent>
