@@ -162,6 +162,10 @@ ion-content{
     }
   }
 
+  .profilee{
+  width: 500px;
+  margin: 0 auto;
+  }
 
   @media (max-width: 576px) {
     ion-card {
@@ -176,5 +180,32 @@ ion-content{
     th {
       padding-right: 10px;
     }
+  }
+
+  @media (min-width: 100px) and (max-width: 1281px) {
+
+    .profilee{
+      width: 310px;
+    }
+
+    .prof{
+      width: 300px;
+      margin: 0 auto;
+    }
+
+    
+    .vertical-buttons {
+      // position: fixed;
+      align-items: center;
+      justify-content: center;
+      bottom: 40px;
+      width: 100%;
+      display: flex;
+      flex-direction: column; 
+      gap: 10px;
+      margin-top: 180px;
+    }
+    
+
   }
 

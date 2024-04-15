@@ -16,10 +16,7 @@ ion-header {
   animation: headerFadeIn 1s ease-in;
 }
 
-ion-toolbar {
-  --background: #ffffff; 
-  color: #111;
-}
+
 ion-input{
   width: 20% !important;
   height: 100px;
@@ -44,8 +41,6 @@ ion-label{
 .skill_card{
   margin-top: -5px;
   --background: #C9911A !important;
- 
-
 
 }
 .custom-background {
@@ -121,7 +116,6 @@ ion-label{
   border-radius: 10px;
  // background-color: #933c3c;
   color: rgb(48, 47, 47);
-  
 }
 
 .score-label {
@@ -162,36 +156,31 @@ ion-label{
 
 .submitBtn,
 .clearBtn {
-  background-color: grey; /* Set background color */
-  color: white; /* Set text color */
-  border: none; /* Remove border */
-  padding: 10px 20px; /* Adjust padding */
-  margin: 5px; /* Adjust margin */
-  margin-left: 200px;
-  cursor: pointer; /* Add cursor pointer */
-  display: flex; /* Use flexbox */
-  justify-content: center; /* Center content horizontally */
-  align-items: center; /* Center content vertically */
+  width: 140px;
+  height: 40px;
+  border-radius: 30px;
+  border: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  cursor: pointer;
+  color: #fff;
 }
 
-.submitBtn:hover{
-  background-color:green;
+.submitBtn {
+  background: linear-gradient(to left, #0f86aa, #065D78);
 }
+
+.clearBtn {
+  background: linear-gradient(to left, #0f86aa, #065D78);
+}
+
+.submitBtn:hover,
 .clearBtn:hover {
-  background-color:red; /* Change background color on hover */
-}
-
-.submitBtn svg,
-.clearBtn svg {
-  margin-left: 5px; /* Add margin to SVG icon */
-}
-
-/* Adjust styles for mobile view */
-@media screen and (max-width: 768px) {
-  .submitBtn,
-  .clearBtn {
-    width: 100%; /* Make buttons full width */
-  }
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .innovation-lab {
@@ -203,9 +192,8 @@ ion-label{
 /* Footer */
 .custom-footer {
   text-align: center;
-  background-color: rgb(63, 13, 10); /* Footer background color */
+  background-color: #065D78; /* Footer background color */
   padding: 2px;
-  color: white;
 }
 
 /* Center the label horizontally */
@@ -219,22 +207,20 @@ ion-label{
   font-size: 24px; /* You can adjust the value as needed */
 }
 
-// .card:hover {
-//   transform: translateY(-5px);
-//   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-// }
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
 
-// .card:hover::before {
-//   opacity: 1;
-// }
+.card:hover::before {
+  opacity: 1;
+}
 
 .custom-card {
   width: 100%;
-  background-color: #065D78;
+  background-color: #0f86aa;;
   color: white;
- 
- 
-
+  margin-bottom: 10px; 
 }
 
 .custom-icon {
@@ -259,249 +245,208 @@ ion-label{
   flex-direction: column;
 }
 
-@media screen and (max-width: 768px) { /* Adjust the max-width as per your phone screen size */
-  .main-grid {
-    display: flex; /* Use flexbox */
-    flex-direction: column; /* Stack items vertically */
-    height: auto; /* Allow height to adjust based on content */
-  }
-  .mobile-col {
-    width: 100%; /* Take full width */
-  }
-  .submitBtn,
-  .clearBtn {
-  background-color: grey; /* Set background color */
-  color: white; /* Set text color */
-  border: none; /* Remove border */
-  padding: 10px 20px; /* Adjust padding */
-  margin: 5px; /* Adjust margin */
-  margin-right: 200px;
-  cursor: pointer; /* Add cursor pointer */
-  display: flex; /* Use flexbox */
-  justify-content: center; /* Center content horizontally */
-  align-items: center; /* Center content vertically */
-}
 
-.submitBtn:hover{
-  background-color:green;
-}
-.clearBtn:hover {
-  background-color:red; /* Change background color on hover */
-}
-
-}
-
-
-
-
-
-//mike 
-
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>> New CSS Animation
 
 .former{
   height: 100%;
-  border: 10px;
-  border: 0;
- background-color: #065D78;
- margin-top: -3.5px;
- margin-right: -6px;
- padding: 10px;
- overflow-y: auto;
+  border-radius: 10px;
+  border: 2px dashed#0f86aa;
 }
 
-// .loader {
-//   position: absolute;
-//   margin: auto;
-//   top: 0;
-//   bottom: 0;
-//   left: 0;
-//   right: 0;
-//   width: 30.250em;
-//   height: 30.250em;
-//   animation: rotate5123 2.4s linear infinite;
-// }
+.loader {
+  position: absolute;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 30.250em;
+  height: 30.250em;
+  animation: rotate5123 2.4s linear infinite;
+}
 
-// .white {
-//   top: 0;
-//   bottom: 0;
-//   left: 0;
-//   right: 0;
-//   background: white;
-//   animation: flash 10.4s linear infinite;
-//   opacity: 0;
-// }
+.white {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  animation: flash 10.4s linear infinite;
+  opacity: 0;
+}
 
-// .dot {
-//   position: absolute;
-//   margin: auto;
-//   width: 20.4em;
-//   height: 20.4em;
-//   border-radius: 100%;
-//   transition: all 3s ease;
-// }
+.dot {
+  position: absolute;
+  margin: auto;
+  width: 20.4em;
+  height: 20.4em;
+  border-radius: 100%;
+  transition: all 3s ease;
+}
 
-// .dot:nth-child(2) {
-//   top: 0;
-//   bottom: 0;
-//   left: 0;
-//   background:#33B5E5;
-//   animation: dotsY 10.4s linear infinite;
-// }
+.dot:nth-child(2) {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  background:#33B5E5;
+  animation: dotsY 10.4s linear infinite;
+}
 
-// .dot:nth-child(3) {
-//   left: 0;
-//   right: 0;
-//   top: 0;
-//   background: #33B5E5;
-//   animation: dotsX 10.4s linear infinite;
-// }
+.dot:nth-child(3) {
+  left: 0;
+  right: 0;
+  top: 0;
+  background: #33B5E5;
+  animation: dotsX 10.4s linear infinite;
+}
 
-// .dot:nth-child(4) {
-//   top: 0;
-//   bottom: 0;
-//   right: 0;
-//   background: #33B5E5;
-//   animation: dotsY 10.4s linear infinite;
-// }
+.dot:nth-child(4) {
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background: #33B5E5;
+  animation: dotsY 10.4s linear infinite;
+}
 
-// .dot:nth-child(5) {
-//   left: 0;
-//   right: 0;
-//   bottom: 0;
-//   background: #33B5E5;
-//   animation: dotsX 10.4s linear infinite;
-// }
+.dot:nth-child(5) {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #33B5E5;
+  animation: dotsX 10.4s linear infinite;
+}
 
-// @keyframes rotate5123 {
-//   0% {
-//     transform: rotate( 0 );
-//   }
+@keyframes rotate5123 {
+  0% {
+    transform: rotate( 0 );
+  }
 
-//   10% {
-//     width: 50.250em;
-//     height: 50.250em;
-//   }
+  10% {
+    width: 50.250em;
+    height: 50.250em;
+  }
 
-//   66% {
-//     width: 20.4em;
-//     height: 20.4em;
-//   }
+  66% {
+    width: 20.4em;
+    height: 20.4em;
+  }
 
-//   100% {
-//     transform: rotate(360deg);
-//     width: 30.250em;
-//     height: 30.250em;
-//   }
-// }
+  100% {
+    transform: rotate(360deg);
+    width: 30.250em;
+    height: 30.250em;
+  }
+}
 
-// @keyframes dotsY {
-//   66% {
-//     opacity: .1;
-//     width: 20.4em;
-//   }
+@keyframes dotsY {
+  66% {
+    opacity: .1;
+    width: 20.4em;
+  }
 
-//   77% {
-//     opacity: 1;
-//     width: 0;
-//   }
-// }
+  77% {
+    opacity: 1;
+    width: 0;
+  }
+}
 
-// @keyframes dotsX {
-//   66% {
-//     opacity: .1;
-//     height: 20.4em;
-//   }
+@keyframes dotsX {
+  66% {
+    opacity: .1;
+    height: 20.4em;
+  }
 
-//   77% {
-//     opacity: 1;
-//     height: 0;
-//   }
-// }
+  77% {
+    opacity: 1;
+    height: 0;
+  }
+}
 
-// @keyframes flash {
-//   33% {
-//     opacity: 0;
-//     border-radius: 0%;
-//   }
+@keyframes flash {
+  33% {
+    opacity: 0;
+    border-radius: 0%;
+  }
 
-//   55% {
-//     opacity: 4.6;
-//     border-radius: 100%;
-//   }
+  55% {
+    opacity: 4.6;
+    border-radius: 100%;
+  }
 
-//   66% {
-//     opacity: 0;
-//   }
-// }
+  66% {
+    opacity: 0;
+  }
+}
 
 
 //?card>>>>>>>>>>>>>>
 
 
-// .custom-card.selected {
-//   position: relative;
-//   width: 300px;
-//   height: 110px;
-//   border-radius: 14px;
-//   z-index: 1111;
-//   overflow: hidden;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   justify-content: center;
-//   box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
-//   background: radial-gradient(circle, #0f86aa, #023646);
+.custom-card.selected {
+  position: relative;
+  width: 300px;
+  height: 110px;
+  border-radius: 14px;
+  z-index: 1111;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
+  background: radial-gradient(circle, #0f86aa, #023646);
 
-// }
+}
 
-// .bg.selected {
-//   position: absolute;
-//   top: 5px;
-//   left: 5px;
-//   width: 190px;
-//   height: 240px;
-//   z-index: 2;
-//   background: rgba(255, 255, 255, .95);
-//   backdrop-filter: blur(24px);
-//   border-radius: 10px;
-//   overflow: hidden;
-//   outline: 2px solid white;
-// }
+.bg.selected {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 190px;
+  height: 240px;
+  z-index: 2;
+  background: rgba(255, 255, 255, .95);
+  backdrop-filter: blur(24px);
+  border-radius: 10px;
+  overflow: hidden;
+  outline: 2px solid white;
+}
 
-// .blob.selected {
-//   position: absolute;
-//   z-index: 1;
-//   top: 50%;
-//   left: 50%;
-//   width: 150px;
-//   height: 150px;
-//   border-radius: 50%;
-//   background-color: #ff0000;
-//   opacity: 1;
-//   filter: blur(12px);
-//   animation: blob-bounce 5s infinite ease;
-// }
+.blob.selected {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background-color: #ff0000;
+  opacity: 1;
+  filter: blur(12px);
+  animation: blob-bounce 5s infinite ease;
+}
 
-// @keyframes blob-bounce {
-//   0% {
-//     transform: translate(-100%, -100%) translate3d(0, 0, 0);
-//   }
+@keyframes blob-bounce {
+  0% {
+    transform: translate(-100%, -100%) translate3d(0, 0, 0);
+  }
 
-//   25% {
-//     transform: translate(-100%, -100%) translate3d(100%, 0, 0);
-//   }
+  25% {
+    transform: translate(-100%, -100%) translate3d(100%, 0, 0);
+  }
 
-//   50% {
-//     transform: translate(-100%, -100%) translate3d(100%, 100%, 0);
-//   }
+  50% {
+    transform: translate(-100%, -100%) translate3d(100%, 100%, 0);
+  }
 
-//   75% {
-//     transform: translate(-100%, -100%) translate3d(0, 100%, 0);
-//   }
+  75% {
+    transform: translate(-100%, -100%) translate3d(0, 100%, 0);
+  }
 
-//   100% {
-//     transform: translate(-100%, -100%) translate3d(0, 0, 0);
-//   }
-// }
+  100% {
+    transform: translate(-100%, -100%) translate3d(0, 0, 0);
+  }
+}
 
 

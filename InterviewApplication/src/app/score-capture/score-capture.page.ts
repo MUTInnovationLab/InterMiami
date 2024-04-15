@@ -33,6 +33,7 @@ export class ScoreCapturePage implements OnInit {
   email!: string;
   Status!: string;
   Statuss: string = 'Interviewed';
+  Statusss: string = 'In Progress';
   introduction: number = 0;
   teamwork: number = 0;
   overallImpression: number = 0;
@@ -213,6 +214,23 @@ export class ScoreCapturePage implements OnInit {
     });
   }
   
+
+  updateStatuss() {
+    const intervieweeRef = this.firestore.collection('Interviewees', ref => ref.where('name', '==', this.name));
+    
+    intervieweeRef.get().subscribe((querySnapshot: firebase.firestore.QuerySnapshot<any>) => {
+      querySnapshot.forEach(doc => {
+        // Update the "Status" field
+        doc.ref.update({ Status: this.Statusss }) // Replace 'New Status' with the desired status
+          .then(() => {
+            alert('Status updated successfully');
+          })
+          .catch(error => {
+            console.error('Error updating status:', error);
+          });
+      });
+    });
+  }
   
   fetchData() {
     this.firestore.collection('Interviewees', ref => ref.where('Status', 'in', ['Waiting', 'In Progress'])).valueChanges().subscribe((data: any[]) => {
@@ -254,22 +272,64 @@ export class ScoreCapturePage implements OnInit {
     return this.groupedInterviewees.get(this.todayDateString) || [];
   }
 
-  start() {
+  // start() {
+  //   if (this.inProgressInterviewee) {
+  //     const { name, surname, email, Status, int_id } = this.inProgressInterviewee;
+  //     this.int_id = int_id;
+  //     this.name = name;
+  //     this.surname= surname;
+  //     this.email = email;
+  //     this.Status = Status;
+  //     // Display a message box with the details of the person with "In Progress" status
+  //     const confirmation = window.confirm(`Start interview with ${name} ${surname} (${email})?`);
+  //     if (confirmation) {
+  //       // Proceed with saving the data to the database
+  //       // this.submitForm();
+  //       this.updateStatuss();
+  //       // this.groupedInterviewees.clear();
+  //       this.fetchData();
+  //       console.log('The interview has started');
+  //     }
+  //   } else {
+  //     alert('No person with "In Progress" status found.');
+  //   }
+  // }
+
+  async start() {
     if (this.inProgressInterviewee) {
       const { name, surname, email, Status, int_id } = this.inProgressInterviewee;
       this.int_id = int_id;
       this.name = name;
-      this.surname= surname;
+      this.surname = surname;
       this.email = email;
       this.Status = Status;
-      // Display a message box with the details of the person with "In Progress" status
-      const confirmation = window.confirm(`Start interview with ${name} ${surname} (${email})?`);
-      if (confirmation) {
-        // Proceed with saving the data to the database
-        // this.submitForm();
-        this.Status = 'In Progress';
-        console.log('The interview has started');
-      }
+  
+      const alert = await this.alertController.create({
+        header: 'Start Interview',
+        message: `Start interview with ${name} ${surname} (${email})?`,
+        buttons: [
+          {
+            text: 'Cancel',
+            role: 'cancel',
+            cssClass: 'secondary',
+            handler: () => {
+              console.log('Interview start cancelled');
+            }
+          }, {
+            text: 'Start',
+            handler: () => {
+              // Proceed with saving the data to the database
+              // this.submitForm();
+              this.updateStatuss();
+              // this.groupedInterviewees.clear();
+              this.fetchData();
+              console.log('The interview has started');
+            }
+          }
+        ]
+      });
+  
+      await alert.present();
     } else {
       alert('No person with "In Progress" status found.');
     }

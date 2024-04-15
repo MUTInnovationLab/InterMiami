@@ -58,17 +58,6 @@ body {
   background-color: #ffffff; /* Your desired background color */
 }
 
-// .grid-container {
-//   padding: 10px;
-// }
-
-
-
-// .card-column {
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-// }
 
 ion-card {
   // width: 90%; /* Adjust width as needed */
@@ -122,6 +111,28 @@ ion-button {
   margin-top: 10px;
   transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
+
+@media (min-width: 100px) and (max-width: 767px) {
+
+  ion-grid{
+    overflow-x: auto; 
+  }
+
+
+
+  .card-column{
+    width: 320px; 
+    margin-left: 10px;
+  }
+
+      .card-column1{
+        width: 320px; 
+        margin-left: 10px;
+      }
+}
+
+
+
 
 
 /* Keyframe Animations */
