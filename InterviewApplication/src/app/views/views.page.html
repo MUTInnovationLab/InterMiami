@@ -14,7 +14,7 @@
     
     <div >
         <div *ngIf="!(user$ | async); else profileCard">
-      <ion-card style="width: 500px; margin: 0 auto;">
+      <ion-card class="profilee" >
         <ion-card-header>
           <ion-card-title>
             MY PROFILE
@@ -29,7 +29,7 @@
     </div>
       
       <ng-template #profileCard style="display: flex; justify-content: center; align-content: center;">
-        <ion-card *ngIf="user$ | async as user" style="width: 500px; margin: 0 auto;">
+        <ion-card *ngIf="user$ | async as user" class="profilee" >
             <ion-card-header>
                 <ion-card-title style="display: flex; justify-content: center; align-content: center;">{{ user.fullName }}</ion-card-title>
                 <ion-card-subtitle style="display: flex; justify-content: center; align-content: center;">{{ user.email }}</ion-card-subtitle>
@@ -118,6 +118,33 @@
           </ion-select>
         </ion-item>
       </ion-row>
+
+      <div div class="vertical-buttons" >
+  
+        <ion-button class="col11" expand="block" color="primary" routerLink="/edit-profile" (click)="goToCreate()" title="click to edit your details" [disabled]="isButtonDisabled()">
+          <ion-icon name="pencil"></ion-icon>
+          {{ detProfile ? 'Update Profile' : 'Apply'}}
+        </ion-button>
+    
+        <ion-button class="col11" expand="block" color="success" (click)="toggleAllDetails()" title="click to view all your details">
+          <ion-icon name="list"></ion-icon>
+          {{ showAll ? 'Hide Details' : 'View All Details' }}
+        </ion-button>
+    
+        <ion-button class="col11" expand="block" color="danger" (click)="confermDelete()" title="click to delete your profile" [disabled]="isButtonDisabled()">
+          <ion-icon name="trash"></ion-icon>
+          Delete
+        </ion-button>
+    
+        <ion-button class="col11" expand="block" color="medium" (click)="presentConfirmationAlert()" title="click to LogOut">
+          <ion-icon name="exit"></ion-icon>
+          Exit
+        </ion-button>
+
+       
+
+      </div>
+
     </div>
   
   
@@ -125,28 +152,7 @@
       
   
   
-    <div class="vertical-buttons">
-  
-      <ion-button class="col11" expand="block" color="primary" routerLink="/edit-profile" (click)="goToCreate()" title="click to edit your details" [disabled]="isButtonDisabled()">
-        <ion-icon name="pencil"></ion-icon>
-        {{ detProfile ? 'Update Profile' : 'Apply'}}
-      </ion-button>
-  
-      <ion-button class="col11" expand="block" color="success" (click)="toggleAllDetails()" title="click to view all your details">
-        <ion-icon name="list"></ion-icon>
-        {{ showAll ? 'Hide Details' : 'View All Details' }}
-      </ion-button>
-  
-      <ion-button class="col11" expand="block" color="danger" (click)="confermDelete()" title="click to delete your profile" [disabled]="isButtonDisabled()">
-        <ion-icon name="trash"></ion-icon>
-        Delete
-      </ion-button>
-  
-      <ion-button class="col11" expand="block" color="medium" (click)="presentConfirmationAlert()" title="click to LogOut">
-        <ion-icon name="exit"></ion-icon>
-        Exit
-      </ion-button>
-    </div>
+   
   
   
   </ion-content>

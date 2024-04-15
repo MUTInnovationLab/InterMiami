@@ -1,61 +1,66 @@
 <ion-header>
-    <ion-toolbar>
-      <ion-title class="header-title">
-        View Interview Marks
-      </ion-title>
-    </ion-toolbar>
-  </ion-header>
-  
-  <ion-content>
-    <ion-card>
+  <ion-toolbar>
+    <ion-title class="header-title">
+      View Interview Marks
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card class="hide">
+    <ion-card-header>
+      Interview Data
+    </ion-card-header>
+    <ion-card-content >
+      <ion-list >
+        <ion-item-divider class="header-row">
+          <ion-label class="center-label">ID</ion-label>
+          <ion-label class="center-label">Interviewee Name</ion-label>
+          <ion-label class="center-label">Email Address</ion-label>
+          <ion-label class="center-label">Status</ion-label>
+          <ion-label class="center-label">Score</ion-label>
+          <ion-label class="center-label">Action</ion-label>
+        </ion-item-divider>
+
+        <ion-item class="data-row" *ngFor="let item of interviewData">
+          <ion-label class="center-label">{{item.int_id}}</ion-label>
+          <ion-label class="center-label">{{item.name}}</ion-label>
+          <ion-label class="center-label">{{item.email}}</ion-label>
+          <ion-label class="center-label">{{item.status}}</ion-label>
+          <ion-label class="center-label">{{item.total}}</ion-label>
+          
+          <button ion-button (click)="Send(item.email, item.name,item.total)" class="horizontal-button approve-button" style="color: green;">
+            Send Email
+        </button>
+
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+
+
+  <ion-card class="scroll1">
       <ion-card-header>
-        Interview Data
-      </ion-card-header>
-      <ion-card-content>
-        <table>
-          <thead class="theadd">
-            <tr class="header-row">
-              <th class="center-label">ID</th>
-              <th class="center-label">Interviewee Name</th>
-              <th class="center-label">Email Address</th>
-              <th class="center-label">Status</th>
-              <th class="center-label">Score</th>
-              <th class="center-label">Action</th>
-            </tr>
-          </thead>
-          <tbody class="fihla">
-            <tr class="data-row" *ngFor="let item of interviewData">
-              <td class="center-label">{{item.int_id}}</td>
-              <td class="center-label">{{item.name}}</td>
-              <td class="center-label">{{item.email}}</td>
-              <td class="center-label">{{item.status}}</td>
-              <td class="center-label">{{item.total}}</td>
-              <td class="center-label">
-                <button ion-button (click)="Send(item.email, item.name,item.total)" class="horizontal-button approve-button" style="color: green;">
-                  Send Email
-                </button>
-              </td>
-            </tr>
-          </tbody>
-          <tbody class="mobile">
-            <tr class="data-row" *ngFor="let item of interviewData">
-              <td class="center-label">ID:  {{item.int_id}}</td>
-              <td class="center-label">Name:  {{item.name}}</td>
-              <td class="center-label">Email:  {{item.email}}</td>
-              <td class="center-label">Status:  {{item.status}}</td>
-              <td class="center-label">Total Score:  {{item.total}}</td>
-              <td class="center-label">
-                <button ion-button (click)="Send(item.email, item.name,item.total)" class="horizontal-button approve-button" style="color: green;">
-                  Send Email
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </ion-card-content>
-    </ion-card>
-  </ion-content>
-  <ion-footer class="custom-footer">
-    Designed by @<b>MUT INNOVATIONLAB</b>
-  </ion-footer>
-  
+io          Interview Data
+        </ion-card-header>
+    <ion-card-content class="scroll2">
+      <ion-card class="scroll3" *ngFor="let item of interviewData">
+        <ion-label class="center-label">ID: {{item.int_id}}</ion-label> <br>
+        <ion-label class="center-label">Interviewee Name: {{item.name}}</ion-label><br>
+        <ion-label class="center-label">Email Address: {{item.email}}</ion-label><br>
+        <ion-label class="center-label">Status: {{item.status}}</ion-label><br>
+        <ion-label class="center-label">Action: {{item.total}}</ion-label><br>
+
+        <button ion-button (click)="Send(item.email, item.name,item.total)" class="horizontal-button approve-button" style="color: green;">
+            Send Email
+        </button>
+      </ion-card>
+
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>
+<ion-footer class="custom-footer">
+  Designed by @<b>MUT INNOVATIONLAB</b>
+</ion-footer>

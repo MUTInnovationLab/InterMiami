@@ -3,9 +3,6 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <!-- <ion-buttons slot="start" class="phuto" (click)="goToHomePage()">
-      <img src="assets\MUT LOGO.png" >
-    </ion-buttons> -->
     <h2 class="header-title">View Interview History</h2>
   </ion-toolbar>
 </ion-header>
@@ -14,49 +11,50 @@
   <ion-grid class="sc">
   <div class="cent">
     <ion-grid>
-      <table class="bordered">
-        <thead class="color">
-          <tr>
-            <th>
-              <ion-icon name="person"></ion-icon>
-              <br>
-              Interviewee Name
-            </th>
+      <div class="table-wrapper">
+        <table class="bordered">
+          <thead class="color">
+            <tr>
+              <th>
+                <ion-icon name="person"></ion-icon>
+                <br>
+                Interviewee Name
+              </th>
 
-            <th>
-              <ion-icon name="person"></ion-icon>
-              <br>
-              Interviewer Name
-            </th>
+              <th>
+                <ion-icon name="person"></ion-icon>
+                <br>
+                Interviewer Name
+              </th>
 
-            <th>
-              <ion-icon name="document-text-outline"></ion-icon>
-              <br>
-              Interviewee ID
-            </th>
-            <th>
-              <ion-icon name="mail"></ion-icon>
-              <br>
-              Email Address
-            </th>
-            <th>
-              <ion-icon name="stats-chart-outline"></ion-icon>
-              <br>
-              Status
-            </th>
-
-          </tr>
-        </thead>
-        <tbody class="body">
-          <tr *ngFor="let data of interviewHistory">
-            <td class="white-text">{{data.name}}</td>
-            <td class="white-text">{{data.namer}}</td>
-            <td class="white-text">{{data.int_id}}</td>
-            <td class="white-text">{{data.email}}</td>
-            <td class="white-text">{{data.status}}</td>
-          </tr>
-        </tbody>
-      </table>
+              <th>
+                <ion-icon name="document-text-outline"></ion-icon>
+                <br>
+                Interviewee ID
+              </th>
+              <th>
+                <ion-icon name="mail"></ion-icon>
+                <br>
+                Email Address
+              </th>
+              <th>
+                <ion-icon name="stats-chart-outline"></ion-icon>
+                <br>
+                Status
+              </th>
+            </tr>
+          </thead>
+          <tbody class="body">
+            <tr *ngFor="let data of interviewHistory">
+              <td class="white-text">{{data.name}}</td>
+              <td class="white-text">{{data.namer}}</td>
+              <td class="white-text">{{data.int_id}}</td>
+              <td class="white-text">{{data.email}}</td>
+              <td class="white-text">{{data.status}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
       <p class="total-text ion-text-left">Total Interviews: {{interviewHistory.length}}</p>
     </ion-grid>
   </div>
@@ -66,4 +64,3 @@
 <ion-footer class="custom-footer">
   Designed by @<b>MUT INNOVATIONLAB</b>
 </ion-footer>
-

@@ -13,7 +13,7 @@
       </ion-row>
       <ion-row>
         <ion-col size="6" class="card-column">
-          <ion-card class="cardcenter">
+          <ion-card class="cardcenter card-column">
             <ion-card-header>
               <ion-card-title text-align="center">Add User Info</ion-card-title>
             </ion-card-header>
@@ -51,24 +51,13 @@
           </ion-card>
 
          
-            <button class="butSubmit" expand="block" (click)="Validation()" >
-                <ion-icon slot="start" name="add-outline"></ion-icon>
-                Assign
-              </button>
-            <button class="btnHover2" expand="block" (click)="Validation()" (click)="updateUser()" >
-              <ion-icon slot="start" name="pencil-outline"></ion-icon>
-              Update
-            </button>
-            <button  class="btnHover1"  expand="block" (click)="Validation()" (click)="deleteUser()">
-                <ion-icon slot="start" name="trash-outline"></ion-icon>
-                Remove
-              </button>
+           
 
             
         </ion-col>
   
-        <ion-col size="6" class="card-column">
-          <ion-card class="cardcenter">
+        <ion-col size="6" class="card-column1">
+          <ion-card class="cardcenter card-column1">
             <ion-card-header>
               <ion-card-title text-align="center">Add Role</ion-card-title>
             </ion-card-header>
@@ -146,6 +135,20 @@
         </ion-col>
       </ion-row>
     </ion-grid>
+
+    <button class="butSubmit" expand="block" (click)="Validation()" >
+      <ion-icon slot="start" name="add-outline"></ion-icon>
+      Assign
+    </button>
+  <button class="btnHover2" expand="block" (click)="Validation()" (click)="updateUser()" >
+    <ion-icon slot="start" name="pencil-outline"></ion-icon>
+    Update
+  </button>
+  <button  class="btnHover1"  expand="block" (click)="Validation()" (click)="deleteUser()">
+      <ion-icon slot="start" name="trash-outline"></ion-icon>
+      Remove
+    </button>
+    
   </ion-content>
   
   <ion-footer class="custom-footer">

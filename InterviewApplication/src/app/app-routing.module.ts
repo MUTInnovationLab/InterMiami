@@ -78,10 +78,6 @@ const routes: Routes = [
     loadChildren: () => import('./add-user/add-user.module').then( m => m.AddUserPageModule)
   },
   {
-    path: 'view',
-    loadChildren: () => import('./view/view.module').then( m => m.ViewPageModule)
-  },
-  {
     path: 'staffprofile',
     loadChildren: () => import('./staffprofile/staffprofile.module').then( m => m.StaffprofilePageModule)
   },
@@ -133,7 +129,8 @@ const routes: Routes = [
     path: 'today-interviews',
     loadChildren: () => import('./today-interviews/today-interviews.module').then( m => m.TodayInterviewsPageModule),
     canActivate: [PreventUrlEntryGuard] // Add the guard here
-  },  {
+  },
+  {
     path: 'views',
     loadChildren: () => import('./views/views.module').then( m => m.ViewsPageModule)
   },
