@@ -259,46 +259,15 @@ ion-label{
   flex-direction: column;
 }
 
-
-@media screen and (min-width: 769px) {
+@media screen and (max-width: 768px) { /* Adjust the max-width as per your phone screen size */
   .main-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: flex-start;
-    
-  }
-  .mobile-col {
-    width: 100%;
-    margin-bottom: 20px;
-    
-  }
-}
-//changing pages in a phone
-@media screen and (max-width: 768px) {
-  .main-grid {
-    display: flex;
+    display: flex; /* Use flexbox */
     flex-direction: column; /* Stack items vertically */
-    align-items: flex-start; /* Align items to the top */
+    height: auto; /* Allow height to adjust based on content */
   }
   .mobile-col {
     width: 100%; /* Take full width */
-    margin-bottom: 20px;
   }
-}
-//responsive
-@media (min-width: 100px) and (max-width: 1200px) {
-  .main-grid {
-    overflow-x: auto; /* Enable horizontal scrolling */
-    white-space: nowrap; /* Prevent content from wrapping */
-  }
-
-  .scrollable-content .ion-grid {
-    width: 100%; /* Ensure the grid takes up the full width */
-  }
-}
-
-
   .submitBtn,
   .clearBtn {
   background-color: grey; /* Set background color */
@@ -320,7 +289,7 @@ ion-label{
   background-color:red; /* Change background color on hover */
 }
 
-
+}
 
 
 
@@ -534,5 +503,3 @@ ion-label{
 //     transform: translate(-100%, -100%) translate3d(0, 0, 0);
 //   }
 // }
-
-
