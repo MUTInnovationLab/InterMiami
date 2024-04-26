@@ -26,7 +26,7 @@ export class ScoreCapturePage implements OnInit {
 
   userData: User = {email:"default@gmail.com",name:"your name"} ;
 
-
+  intervieweeEmail!: string;
   int_id! :number;
   name!:string;
   surname!: string;
@@ -45,6 +45,7 @@ export class ScoreCapturePage implements OnInit {
   total: number = 0;
   label1= Text;
   label2=Text;
+
 
 
   todayDateString: string;
@@ -70,6 +71,7 @@ export class ScoreCapturePage implements OnInit {
   };
 
   tableData: any[] = [];
+  
 
   // userData: any;
   currentPage: number = 1;
@@ -78,6 +80,7 @@ export class ScoreCapturePage implements OnInit {
   userEmailArray: string[] = [];
   userDocument: any;
   navController: any;
+  userEmail: any;
 
   sortIntervieweesByDate() {
     // Sort the grouped interviewees by date (keys)
@@ -97,8 +100,9 @@ export class ScoreCapturePage implements OnInit {
     private router: Router) {
 
     this.todayDateString = new Date().toDateString();
-
-    
+   
+  
+  
 
   }
 
@@ -106,6 +110,7 @@ export class ScoreCapturePage implements OnInit {
     // this.getAllDocuments2();
     this.fetchData();
     // getUserData();
+    this.auths();
     
   }
 
@@ -113,8 +118,9 @@ export class ScoreCapturePage implements OnInit {
   
 
   
-
   
+  
+
 
  
 
@@ -150,19 +156,37 @@ export class ScoreCapturePage implements OnInit {
 
 
 
+  async auths() {
+    const currentUser = await this.auth.currentUser;
+    if (currentUser) {
+      this.userEmail = currentUser.email;
+      this.userEmailArray.push(this.userEmail);
+      console.log(this.userEmailArray);
+  
+      // Add the user's email to the database
+      this.firestore.collection('UserEmails').doc(currentUser.uid).set({
+        email: this.userEmail
+      })
+      .then(() => {
+        console.log('User email added to database');
+      })
+      .catch(error => {
+        console.error('Error adding user email to database:', error);
+      });
+    }
+  }
+
   submitForm() {
     this.calculateTotal();
-    
-    
+  
     alert(`Introduction: ${this.introduction}\nTeamwork: ${this.teamwork}\n...\nName: ${this.name}`);
-    
-   
+  
     const stringData = {
-      name: this.name,
+      // name: this.name,
       email: this.email,
       Status: this.Statuss,
-      int_id: this.int_id
-      
+      int_id: this.int_id,
+      userEmail : this.userEmail
     };
   
     // Separate numeric values
@@ -189,16 +213,67 @@ export class ScoreCapturePage implements OnInit {
       .then(() => {
         // Data added successfully
         console.log('Form data added to Firestore!');
+        this.deleteCurrentUserFromUserEmails(); // Call function to delete current user from UserEmails
       })
       .catch((error) => {
         console.error('Error adding form data to Firestore:', error);
       });
-      this.updateStatus();
   }
+  
+ async deleteCurrentUserFromUserEmails() {
+  
+    const currentUser = await this.auth.currentUser;
+    if (currentUser) {
+      const currentUserEmail = currentUser.email;
+      this.firestore.collection('UserEmails').doc(currentUser.uid).delete()
+        .then(() => {
+          console.log('Current user removed from UserEmails');
+          this.checkAndSetInterviewedStatus(); // Call the function to check and update status
+        })
+        .catch(error => {
+          console.error('Error removing current user from UserEmails:', error);
+        });
+    }
+  }
+  
+  checkAndSetInterviewedStatus() {
+    // Get all users from UserEmails collection
+    this.firestore.collection('UserEmails').get().subscribe((querySnapshot: firebase.firestore.QuerySnapshot<any>) => {
+      const userEmailsCount = querySnapshot.size; // Get the count of user emails
+  
+      // If only one user left, update statuses
+      if (userEmailsCount === 0) {
+        this.updateStatusForAll(); // Call function to update status for all users
+      }
+    });
+  }
+  
+  
+  
+ 
+  
+  // updateStatusForAll() {
+  //   // Update status for all users to "Interviewed"
+  //   this.firestore.collection('Interviewees').get().subscribe((querySnapshot: firebase.firestore.QuerySnapshot<any>) => {
+  //     querySnapshot.forEach(doc => {
+  //       doc.ref.update({ Status: this.Statuss })
+  //         .then(() => {
+  //           console.log('Status updated successfully');
+  //         })
+  //         .catch(error => {
+  //           console.error('Error updating status:', error);
+  //         });
+  //     });
+  //   });
+  // }
+  
+
+
+
  
 
-  updateStatus() {
-    const intervieweeRef = this.firestore.collection('Interviewees', ref => ref.where('name', '==', this.name));
+  updateStatusForAll() {
+    const intervieweeRef = this.firestore.collection('Interviewees', ref => ref.where('email', '==', this.intervieweeEmail));
     
     intervieweeRef.get().subscribe((querySnapshot: firebase.firestore.QuerySnapshot<any>) => {
       querySnapshot.forEach(doc => {
@@ -295,45 +370,55 @@ export class ScoreCapturePage implements OnInit {
   //   }
   // }
 
-  async start() {
-    if (this.inProgressInterviewee) {
-      const { name, surname, email, Status, int_id } = this.inProgressInterviewee;
-      this.int_id = int_id;
-      this.name = name;
-      this.surname = surname;
-      this.email = email;
-      this.Status = Status;
-  
-      const alert = await this.alertController.create({
-        header: 'Start Interview',
-        message: `Start interview with ${name} ${surname} (${email})?`,
-        buttons: [
-          {
-            text: 'Cancel',
-            role: 'cancel',
-            cssClass: 'secondary',
-            handler: () => {
-              console.log('Interview start cancelled');
-            }
-          }, {
-            text: 'Start',
-            handler: () => {
-              // Proceed with saving the data to the database
-              // this.submitForm();
-              this.updateStatuss();
-              // this.groupedInterviewees.clear();
-              this.fetchData();
-              console.log('The interview has started');
-            }
+  // Define a class variable to store the email
+
+
+async start() {
+  if (this.inProgressInterviewee) {
+    const { name, surname, email, Status, int_id } = this.inProgressInterviewee;
+    this.int_id = int_id;
+    this.name = name;
+    this.surname = surname;
+    this.email = email;
+    this.Status = Status;
+
+    // Store the email in the class variable
+    this.intervieweeEmail = email;
+
+    const alert = await this.alertController.create({
+      header: 'Start Interview',
+      message: `Start interview with ${name} ${surname} (${email})?`,
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Interview start cancelled');
           }
-        ]
-      });
-  
-      await alert.present();
-    } else {
-      alert('No person with "In Progress" status found.');
-    }
+        }, {
+          text: 'Start',
+          handler: () => {
+            // Proceed with saving the data to the database
+            // this.submitForm();
+            // this.updateStatuss();
+            // this.groupedInterviewees.clear();
+            this.fetchData();
+            console.log('The interview has started');
+
+            // Now you can use the intervieweeEmail variable elsewhere
+            console.log('Interviewee Email:', this.intervieweeEmail);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  } else {
+    alert('No person with "In Progress" status found.');
   }
+}
+
 
   Clear() {
     this.introduction = 0;
@@ -347,6 +432,12 @@ export class ScoreCapturePage implements OnInit {
     this.total = 0;
   }
 
-
+  async presentToast(message: string) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 3000
+    });
+    toast.present();
+  }
   
 }

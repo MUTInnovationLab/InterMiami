@@ -43,9 +43,8 @@ ion-label{
 }
 .skill_card{
   margin-top: -5px;
-  --background: #C9911A !important;
- 
-
+  // --background: #C9911A !important;
+  background-color: #C9911A;
 
 }
 .custom-background {
@@ -72,6 +71,11 @@ ion-label{
   flex-direction: row;
   justify-content: space-between;
 
+}
+
+.dismiss{
+  font-size: 8px;
+  
 }
 
 .container1 {
@@ -105,6 +109,7 @@ ion-label{
   margin: 8px 0;
 }
 
+
 .user-list b {
   font-size: 18px;
 }
@@ -131,6 +136,8 @@ ion-label{
 
 .score-input {
   width: 40px;
+  font-size: 15px;
+  font-weight: bold;;
 }
 
 .total-row {
@@ -162,7 +169,7 @@ ion-label{
 
 .submitBtn,
 .clearBtn {
-  background-color: grey; /* Set background color */
+  background-color: rgb(63, 13, 10); /* Set background color */
   color: white; /* Set text color */
   border: none; /* Remove border */
   padding: 10px 20px; /* Adjust padding */
@@ -503,3 +510,5 @@ ion-label{
 //     transform: translate(-100%, -100%) translate3d(0, 0, 0);
 //   }
 // }
+
+

@@ -22,7 +22,7 @@
             
                 <ion-label id="label_1" class="label_1">Panel Member</ion-label>
                 <hr>
-                <ion-label id="label_2" class="label_2">Email Address</ion-label>
+                <ion-label id="label_2" class="label_2" style="font-size: 15px; font-weight: bold;">{{userEmail}}</ion-label>
              
         </div>
           <ion-item style="height: 50px;" class="custom-background">
@@ -41,6 +41,7 @@
           <p><ion-icon name='person-outline'></ion-icon>{{ item.name }} {{ item.surname }}</p>
           <p><ion-icon name='mail-outline'></ion-icon>{{ item.email }}</p>
           <p><ion-icon name='disc'></ion-icon>{{ item.Status }}</p>
+          <ion-button class="dismiss" (click)="updateStatuss()">Dismiss</ion-button>
          
         </ion-card-content>
       </ion-card>
@@ -54,16 +55,16 @@
             
             </ion-list>
         
-            
-            
+  
+
     
         <ion-card class="former">
-        
+          
           <ion-grid >
             <ion-row>
                 <ion-col size="6" class="mobile-col">
                   <ion-card class="skill_card">
-                      <ion-item>
+                      <ion-item >
                           <ion-label class="score-label">Introduction</ion-label>
         
                           <ion-input  class="score-input" type="number" [(ngModel)]="introduction" (ionChange)="calculateTotal()"></ion-input>
