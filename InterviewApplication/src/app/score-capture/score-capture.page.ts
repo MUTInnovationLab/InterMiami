@@ -112,6 +112,7 @@ export class ScoreCapturePage implements OnInit {
     // getUserData();
     this.auths();
     
+    
   }
 
 
@@ -152,6 +153,12 @@ export class ScoreCapturePage implements OnInit {
   handleItemClick(index: number) {
     this.selectedRowIndex = index;
 
+  }
+
+
+
+  logBack(){
+    this.deleteCurrentUserFromUserEmails();
   }
 
 
@@ -214,6 +221,7 @@ export class ScoreCapturePage implements OnInit {
         // Data added successfully
         console.log('Form data added to Firestore!');
         this.deleteCurrentUserFromUserEmails(); // Call function to delete current user from UserEmails
+        this.totalScore();
       })
       .catch((error) => {
         console.error('Error adding form data to Firestore:', error);
@@ -243,11 +251,32 @@ export class ScoreCapturePage implements OnInit {
   
       // If only one user left, update statuses
       if (userEmailsCount === 0) {
+        this.totalScore();
         this.updateStatusForAll(); // Call function to update status for all users
+        
       }
     });
   }
   
+  
+  totalScore() {
+    const intervieweeRef = this.firestore.collection('feedback', ref => ref.where('stringData.email', '==', this.intervieweeEmail));
+      
+    intervieweeRef.get().subscribe((querySnapshot: firebase.firestore.QuerySnapshot<any>) => {
+      let total = 0;
+      let count = 0;
+      querySnapshot.forEach(doc => {
+        // Retrieve the total from each document and add it to the total
+        const data = doc.data();
+        total += data.numericData.total;
+        count++;
+      });
+  
+      // Calculate the average total score
+      const averageTotalScore = count > 0 ? total / count : 0;
+      console.log('Average Total Score for Interviewee:', averageTotalScore);
+    });
+  }
   
   
  
@@ -270,7 +299,8 @@ export class ScoreCapturePage implements OnInit {
 
 
 
- 
+
+
 
   updateStatusForAll() {
     const intervieweeRef = this.firestore.collection('Interviewees', ref => ref.where('email', '==', this.intervieweeEmail));

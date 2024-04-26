@@ -1,9 +1,12 @@
 <!-- index.html -->
 <ion-header>
   <ion-toolbar >
-    <ion-buttons slot="start">
+    <!-- <ion-buttons slot="start">
       <ion-menu-toggle>
       </ion-menu-toggle>
+    </ion-buttons> -->
+    <ion-buttons slot="start">
+      <ion-back-button (click)="logBack()"></ion-back-button>
     </ion-buttons>
     <ion-title class="header-title">
       Score Capture
