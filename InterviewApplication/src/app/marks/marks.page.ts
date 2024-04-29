@@ -20,21 +20,25 @@ export class MarksPage implements OnInit {
   }
 
   ngOnInit() {}
-
   getScoreData() {
+    const uniqueIntIds = new Set(); // To store unique int_ids
     this.firestore.collection('feedback').valueChanges().subscribe((data: any[]) => {
-        this.interviewData = data.map(item => ({
-            int_id: item.stringData.int_id,
-            name: item.stringData.name,
-            email: item.stringData.email,
-            status: item.stringData.Status,
-            total: item.numericData.total
-        }));
-           });
-
-        
-           
+        this.interviewData = [];
+        data.forEach(item => {
+            if (!uniqueIntIds.has(item.stringData.int_id)) {
+                uniqueIntIds.add(item.stringData.int_id);
+                this.interviewData.push({
+                    int_id: item.stringData.int_id,
+                    name: item.stringData.name,
+                    email: item.stringData.email,
+                    status: item.stringData.Status,
+                    total: item.numericData.total
+                });
+            }
+        });
+    });
 }
+
         async Send(email: string, name: string, total: number) {
         
           if (!email) {
