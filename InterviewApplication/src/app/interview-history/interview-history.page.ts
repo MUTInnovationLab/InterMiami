@@ -17,17 +17,27 @@ export class InterviewHistoryPage implements OnInit {
   }
 
   getInterviewHistory() {
+    const uniqueIntIds = new Set(); 
     this.firestore.collection('feedback').valueChanges().subscribe((data: any[]) => {
-      this.interviewHistory = data.map(item => ({
-        int_id: item.stringData.int_id,
+      this.interviewHistory = data
+        .filter(item => {
+          if (!uniqueIntIds.has(item.stringData.int_id)) {
+            uniqueIntIds.add(item.stringData.int_id);
+            return true; // Include the item if it's not a duplicate
+          }
+          return false; // Exclude the item if it's a duplicate
+        })
+        .map(item => ({
+          int_id: item.stringData.int_id,
           name: item.stringData.name,
           email: item.stringData.email,
           status: item.stringData.Status,
-      
-      }));
-         })
-
-        }
+          interviewerEmail: item.stringData.userEmail,
+          date: new Date(item.stringData.date).toISOString().split('T')[0] // Extract date part only
+        }));
+    });
+  }
+  
 }
 
 

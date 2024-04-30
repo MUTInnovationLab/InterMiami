@@ -32,8 +32,8 @@
             <ion-label style="color:black">Upcoming Interviews</ion-label>
             </ion-item>
 
-            <ion-content>
-  <ion-list *ngFor="let group of groupedInterviewees | keyvalue; let i = index" (click)="handleItemClick(i)" [class.selected]="i === selectedRowIndex">
+            <ion-content color="primary">
+  <ion-list  *ngFor="let group of groupedInterviewees | keyvalue; let i = index" (click)="handleItemClick(i)" [class.selected]="i === selectedRowIndex">
     <ion-item-divider >
      {{ group.key === todayDateString ? 'Today' : group.key }}
       
@@ -44,7 +44,7 @@
           <p><ion-icon name='person-outline'></ion-icon>{{ item.name }} {{ item.surname }}</p>
           <p><ion-icon name='mail-outline'></ion-icon>{{ item.email }}</p>
           <p><ion-icon name='disc'></ion-icon>{{ item.Status }}</p>
-          <ion-button class="dismiss" (click)="updateStatuss()">Dismiss</ion-button>
+          
          
         </ion-card-content>
       </ion-card>
@@ -54,10 +54,7 @@
 
             
     </ion-list>
-            <ion-list>
             
-            </ion-list>
-        
   
 
     
@@ -135,6 +132,9 @@
                         </ion-item>
                       </ion-card>
                       </ion-col>
+
+                      
+
                   </ion-row>
                   <ion-row class="button-row">
                       <ion-col>

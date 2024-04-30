@@ -15,22 +15,32 @@
         <table class="bordered">
           <thead class="color">
             <tr>
+
               <th>
-                <ion-icon name="person"></ion-icon>
+                <ion-icon name="calendar"></ion-icon>
                 <br>
-                Interviewee Name
+                
+                Date
               </th>
 
               <th>
                 <ion-icon name="person"></ion-icon>
                 <br>
-                Interviewer Name
+                
+                Interviewer Address
+              </th>
+
+              <th>
+                <ion-icon name="person"></ion-icon>
+                <br>
+                Interviewee ID
+               
               </th>
 
               <th>
                 <ion-icon name="document-text-outline"></ion-icon>
                 <br>
-                Interviewee ID
+                Interviewee Name
               </th>
               <th>
                 <ion-icon name="mail"></ion-icon>
@@ -46,10 +56,11 @@
           </thead>
           <tbody class="body">
             <tr *ngFor="let data of interviewHistory">
-              <td class="white-text">{{data.name}}</td>
-              <td class="white-text">{{data.namer}}</td>
+              <td class="white-text">{{data.date}}</td>
+              <td class="white-text">{{data.interviewerEmail}}</td>
               <td class="white-text">{{data.int_id}}</td>
-              <td class="white-text">{{data.email}}</td>
+              <td class="white-text">{{data.name}}</td>
+               <td class="white-text">{{data.email}}</td>
               <td class="white-text">{{data.status}}</td>
             </tr>
           </tbody>

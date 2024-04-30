@@ -26,6 +26,7 @@ export class ScoreCapturePage implements OnInit {
 
   userData: User = {email:"default@gmail.com",name:"your name"} ;
 
+ 
   intervieweeEmail!: string;
   int_id! :number;
   name!:string;
@@ -115,16 +116,6 @@ export class ScoreCapturePage implements OnInit {
     
   }
 
-
-  
-
-  
-  
-  
-
-
- 
-
   calculateTotal() {
     this.total =
       this.limitToTen(this.introduction) +
@@ -187,16 +178,17 @@ export class ScoreCapturePage implements OnInit {
     this.calculateTotal();
   
     alert(`Introduction: ${this.introduction}\nTeamwork: ${this.teamwork}\n...\nName: ${this.name}`);
-  
+    
     const stringData = {
-      // name: this.name,
+      name: this.name,
       email: this.email,
       Status: this.Statuss,
       int_id: this.int_id,
-      userEmail : this.userEmail
+      userEmail : this.userEmail,
+      date: new Date().toISOString() 
     };
-  
-    // Separate numeric values
+
+    // Include averageTotalScore in numericData
     const numericData = {
       introduction: this.introduction,
       teamwork: this.teamwork,
@@ -207,7 +199,7 @@ export class ScoreCapturePage implements OnInit {
       jobSpecificSkills: this.jobSpecificSkills,
       problemSolving: this.problemSolving,
       total: this.total,
-      // Include other numeric fields as needed
+      
     };
   
     // Now, you can proceed with adding the data to Firestore
@@ -221,12 +213,19 @@ export class ScoreCapturePage implements OnInit {
         // Data added successfully
         console.log('Form data added to Firestore!');
         this.deleteCurrentUserFromUserEmails(); // Call function to delete current user from UserEmails
-        this.totalScore();
+        
       })
       .catch((error) => {
         console.error('Error adding form data to Firestore:', error);
       });
   }
+  
+ 
+
+ 
+ 
+  
+
   
  async deleteCurrentUserFromUserEmails() {
   
@@ -275,8 +274,28 @@ export class ScoreCapturePage implements OnInit {
       // Calculate the average total score
       const averageTotalScore = count > 0 ? total / count : 0;
       console.log('Average Total Score for Interviewee:', averageTotalScore);
+  
+      // Add average total score to Firestore
+      this.firestore
+        .collection('IntervieweeAverage')
+        .add({
+          averageTotalScore: averageTotalScore, 
+          email: this.intervieweeEmail,
+          int_id: this.int_id, 
+          Status: this. Statuss, 
+          name: this.name
+          
+        })
+        .then(() => {
+          console.log('Average data added to Firestore!');
+         
+        })
+        .catch((error) => {
+          console.error('Error adding Average data to Firestore:', error);
+        });
     });
   }
+  
   
   
  
@@ -298,7 +317,11 @@ export class ScoreCapturePage implements OnInit {
   
 
 
-
+  executeBothMethods() {
+    this.submitForm();
+    
+  }
+  
 
 
 
@@ -431,7 +454,7 @@ async start() {
           handler: () => {
             // Proceed with saving the data to the database
             // this.submitForm();
-            // this.updateStatuss();
+            this.updateStatuss();
             // this.groupedInterviewees.clear();
             this.fetchData();
             console.log('The interview has started');

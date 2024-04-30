@@ -45,10 +45,15 @@ ion-label{
   margin-top: -5px;
   // --background: #C9911A !important;
   background-color: #C9911A;
+  
 
 }
 .custom-background {
   --background: rgba(136, 35, 35, 0);
+}
+
+ion-list {
+  height: 100vh;
 }
 
 .text-container {
