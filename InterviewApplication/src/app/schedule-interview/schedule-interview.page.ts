@@ -238,6 +238,33 @@ export class ScheduleInterviewPage {
       });
     }
 
+    async cancel() {
+      const alert = await this.alertController.create({
+        header: 'Confirmation',
+        message: 'Are you sure you want to cancel scheduling the interview?',
+        buttons: [
+          {
+            text: 'No',
+            role: 'cancel',
+            cssClass: 'secondary',
+            handler: () => {
+              console.log('Cancel clicked');
+            }
+          }, {
+            text: 'Yes',
+            handler: () => {
+              console.log('Confirm cancel');
+              // Navigate back to the dashboard
+              this.router.navigate(['/dashboard']);
+            }
+          }
+        ]
+      });
+    
+      await alert.present();
+    }
+    
+
 
     async submit() {
       if (!this.emailRegex.test(this.email)) {
@@ -320,6 +347,7 @@ function isValidInput(input: any, any: any) {
 }
   // You can implement the checkScheduledInterviews() method here
  
-
+  
+  
 
 

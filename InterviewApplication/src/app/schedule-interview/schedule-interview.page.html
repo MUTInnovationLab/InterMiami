@@ -1,6 +1,7 @@
 <ion-header>
   <ion-toolbar >
     <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
       <ion-menu-toggle>
       </ion-menu-toggle>
     </ion-buttons>
@@ -61,7 +62,7 @@
       Schedule
     </ion-button> -->
     <button class="butSubmit" (click)="submit()">Schedule</button>
-    <button class="butSubmit1" (click)="submit()">Clear</button>
+    <button class="butSubmit1" (click)="cancel()">Cancel</button>
   </ion-card>
 </ion-content>
 

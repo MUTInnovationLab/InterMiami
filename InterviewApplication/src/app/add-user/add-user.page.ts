@@ -113,53 +113,65 @@ export class AddUserPage implements OnInit {
   
   
   async Validation() {
- 
-
+    // Check if the specific role is selected
+    if (
+      this.role.history === 'off' &&
+      this.role.score === 'off' &&
+      this.role.allApplicants === 'off' &&
+      this.role.addUser === 'off' &&
+      this.role.marks === 'off' &&
+      this.role.upcomingInterviews === 'off' &&
+      this.role.allUsers === 'off' &&
+      this.role.scheduleInterview === 'off'
+    ) {
+      alert('Please select at least one role.');
+      return;
+    }
+  
+    // Proceed with other validation checks
     this.emailError = null;
     this.staffError = null;
     this.positionError = null;
     this.nameError = null;
-
-
-   
-
+  
     if (!this.name) {
       this.nameError = 'Please enter name.';
-      alert("Please enter name");
+      alert('Please enter name');
       return;
     }
-
-
-
+  
     if (!this.email) {
       this.emailError = 'Please enter email.';
-      alert("Please enter email");
+      alert('Please enter email');
       return;
     }
-
+  
     if (!this.emailRegex.test(this.email)) {
       this.emailError = 'Please enter a valid email Address.';
       alert('please enter a valid Address.');
       return;
     }
-
+  
     if (!this.position) {
       this.positionError = 'Please enter position.';
       alert('Please enter position.');
       return;
     }
-
+  
     if (!this.staffNumber) {
       this.staffError = 'Please enter staff number.';
       alert('Please enter staff number.');
       return;
     }
-
+  
     const loader = await this.loadingController.create({
       message: 'Assigning',
       cssClass: 'custom-loader-class'
     });
     await loader.present();
+  
+   
+  
    
     this.auth.createUserWithEmailAndPassword(this.email, this.staffNumber)
     .then(userCredential => {
