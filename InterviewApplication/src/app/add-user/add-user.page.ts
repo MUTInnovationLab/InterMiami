@@ -112,103 +112,91 @@ export class AddUserPage implements OnInit {
   }
   
   
-  async Validation() {
-    // Check if the specific role is selected
-    if (
-      this.role.history === 'off' &&
-      this.role.score === 'off' &&
-      this.role.allApplicants === 'off' &&
-      this.role.addUser === 'off' &&
-      this.role.marks === 'off' &&
-      this.role.upcomingInterviews === 'off' &&
-      this.role.allUsers === 'off' &&
-      this.role.scheduleInterview === 'off'
-    ) {
-      alert('Please select at least one role.');
-      return;
-    }
-  
-    // Proceed with other validation checks
-    this.emailError = null;
-    this.staffError = null;
-    this.positionError = null;
-    this.nameError = null;
-  
-    if (!this.name) {
-      this.nameError = 'Please enter name.';
-      alert('Please enter name');
-      return;
-    }
-  
-    if (!this.email) {
-      this.emailError = 'Please enter email.';
-      alert('Please enter email');
-      return;
-    }
-  
-    if (!this.emailRegex.test(this.email)) {
-      this.emailError = 'Please enter a valid email Address.';
-      alert('please enter a valid Address.');
-      return;
-    }
-  
-    if (!this.position) {
-      this.positionError = 'Please enter position.';
-      alert('Please enter position.');
-      return;
-    }
-  
-    if (!this.staffNumber) {
-      this.staffError = 'Please enter staff number.';
-      alert('Please enter staff number.');
-      return;
-    }
-  
-    const loader = await this.loadingController.create({
-      message: 'Assigning',
-      cssClass: 'custom-loader-class'
-    });
-    await loader.present();
-  
+  // async Validation() {
+ 
+
+  //   this.emailError = null;
+  //   this.staffError = null;
+  //   this.positionError = null;
+  //   this.nameError = null;
+
+
    
-  
+
+  //   if (!this.name) {
+  //     this.nameError = 'Please enter name.';
+  //     alert("Please enter name");
+  //     return;
+  //   }
+
+
+
+  //   if (!this.email) {
+  //     this.emailError = 'Please enter email.';
+  //     alert("Please enter email");
+  //     return;
+  //   }
+
+  //   if (!this.emailRegex.test(this.email)) {
+  //     this.emailError = 'Please enter a valid email Address.';
+  //     alert('please enter a valid Address.');
+  //     return;
+  //   }
+
+  //   if (!this.position) {
+  //     this.positionError = 'Please enter position.';
+  //     alert('Please enter position.');
+  //     return;
+  //   }
+
+  //   if (!this.staffNumber) {
+  //     this.staffError = 'Please enter staff number.';
+  //     alert('Please enter staff number.');
+  //     return;
+  //   }
+
+  //   const loader = await this.loadingController.create({
+  //     message: 'Assigning',
+  //     cssClass: 'custom-loader-class'
+  //   });
+  //   await loader.present();
    
-    this.auth.createUserWithEmailAndPassword(this.email, this.staffNumber)
-    .then(userCredential => {
-      if (userCredential.user) {
+  //   this.auth.createUserWithEmailAndPassword(this.email, this.staffNumber)
+  //   .then(userCredential => {
+  //     if (userCredential.user) {
    
-      this.db.collection('registeredStaff').add({
-         Name:this.name,
-         email:this.email,
-         staffNumber:this.staffNumber,
-         position:this.position,
-         role:this.role
+  //     this.db.collection('registeredStaff').add({
+  //        Name:this.name,
+  //        email:this.email,
+  //        staffNumber:this.staffNumber,
+  //        position:this.position,
+  //        role:this.role
   
       
-      }).then(() => {
-        loader.dismiss();
-        alert("Staff registered successfully");
-        // Clear the field values
-        this.name = '';
-        this.email = '';
-        this.position = '';
-        this.staffNumber = ''; 
+  //     }).then(() => {
+  //       loader.dismiss();
+  //       alert("Staff registered successfully");
+  //       // Clear the field values
+  //       this.name = '';
+  //       this.email = '';
+  //       this.position = '';
+  //       this.staffNumber = ''; 
   
-      }).catch((error:any) => {
-        loader.dismiss();
-        const errorMessage = error.message;
-        alert(errorMessage);
-      });
-    } else {
-      loader.dismiss();
-      alert('User not found');
-    }
-  }).catch((error) => {
-    loader.dismiss();
-  });
+  //     }).catch((error:any) => {
+  //       loader.dismiss();
+  //       const errorMessage = error.message;
+  //       alert(errorMessage);
+  //     });
+  //   } else {
+  //     loader.dismiss();
+  //     alert('User not found');
+  //   }
+  // }).catch((error) => {
+  //   loader.dismiss();
+  // });
 
 
-  }
+  // }
 
 
 
@@ -505,6 +493,96 @@ async presentConfirmationAlert() {
   });
   await alert.present();
 }
+
+
+
+
+async Validation() {
+  this.emailError = null;
+  this.staffError = null;
+  this.positionError = null;
+  this.nameError = null;
+
+  if (!this.name) {
+    this.nameError = 'Please enter name.';
+    alert("Please enter name");
+    return;
+  }
+
+  if (!this.email) {
+    this.emailError = 'Please enter email.';
+    alert("Please enter email");
+    return;
+  }
+
+  if (!this.emailRegex.test(this.email)) {
+    this.emailError = 'Please enter a valid email Address.';
+    alert('please enter a valid Address.');
+    return;
+  }
+
+  if (!this.position) {
+    this.positionError = 'Please enter position.';
+    alert('Please enter position.');
+    return;
+  }
+
+  if (!this.staffNumber) {
+    this.staffError = 'Please enter staff number.';
+    alert('Please enter staff number.');
+    return;
+  }
+
+  const loader = await this.loadingController.create({
+    message: 'Assigning',
+    cssClass: 'custom-loader-class'
+  });
+  await loader.present();
+ 
+  this.auth.createUserWithEmailAndPassword(this.email, this.staffNumber)
+  .then(userCredential => {
+    if (userCredential.user) {
+      // Do not automatically sign in the user here
+      // Instead, navigate to your desired page after signing in
+      this.signInUser(this.email, this.staffNumber, loader);
+    } else {
+      loader.dismiss();
+      alert('User not found');
+    }
+  }).catch((error) => {
+    loader.dismiss();
+  });
+}
+
+async signInUser(email: string, password: string, loader: HTMLIonLoadingElement) {
+  this.auth.signInWithEmailAndPassword(email, password)
+    .then(() => {
+      this.db.collection('registeredStaff').add({
+        Name:this.name,
+        email:this.email,
+        staffNumber:this.staffNumber,
+        position:this.position,
+        role:this.role
+      }).then(() => {
+        loader.dismiss();
+        alert("Staff registered successfully");
+        // Clear the field values
+        this.name = '';
+        this.email = '';
+        this.position = '';
+        this.staffNumber = ''; 
+      }).catch((error:any) => {
+        loader.dismiss();
+        const errorMessage = error.message;
+        alert(errorMessage);
+      });
+    })
+    .catch((error) => {
+      loader.dismiss();
+    });
+}
+
+
 
 async presentToast() {
   const toast = await this.toastController.create({
