@@ -255,7 +255,7 @@ export class ScheduleInterviewPage {
             handler: () => {
               console.log('Confirm cancel');
               // Navigate back to the dashboard
-              this.router.navigate(['/dashboard']);
+              this.router.navigate(['/all-applicants']);
             }
           }
         ]

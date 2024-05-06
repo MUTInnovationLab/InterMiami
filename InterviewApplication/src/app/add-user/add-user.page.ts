@@ -498,6 +498,22 @@ async presentConfirmationAlert() {
 
 
 async Validation() {
+  // Check if the specific role is selected
+  if (
+    this.role.history === 'off' &&
+    this.role.score === 'off' &&
+    this.role.allApplicants === 'off' &&
+    this.role.addUser === 'off' &&
+    this.role.marks === 'off' &&
+    this.role.upcomingInterviews === 'off' &&
+    this.role.allUsers === 'off' &&
+    this.role.scheduleInterview === 'off'
+  ) {
+    alert('Please select at least one role.');
+    return;
+  }
+
+  // Proceed with other validation checks
   this.emailError = null;
   this.staffError = null;
   this.positionError = null;
@@ -505,13 +521,13 @@ async Validation() {
 
   if (!this.name) {
     this.nameError = 'Please enter name.';
-    alert("Please enter name");
+    alert('Please enter name');
     return;
   }
 
   if (!this.email) {
     this.emailError = 'Please enter email.';
-    alert("Please enter email");
+    alert('Please enter email');
     return;
   }
 
@@ -538,20 +554,37 @@ async Validation() {
     cssClass: 'custom-loader-class'
   });
   await loader.present();
- 
+
   this.auth.createUserWithEmailAndPassword(this.email, this.staffNumber)
-  .then(userCredential => {
-    if (userCredential.user) {
-      // Do not automatically sign in the user here
-      // Instead, navigate to your desired page after signing in
-      this.signInUser(this.email, this.staffNumber, loader);
-    } else {
+    .then(userCredential => {
+      if (userCredential.user) {
+        this.db.collection('registeredStaff').add({
+          Name: this.name,
+          email: this.email,
+          staffNumber: this.staffNumber,
+          position: this.position,
+          role: this.role
+        }).then(() => {
+          loader.dismiss();
+          alert("Staff registered successfully");
+          // Clear the field values
+          this.name = '';
+          this.email = '';
+          this.position = '';
+          this.staffNumber = '';
+
+        }).catch((error: any) => {
+          loader.dismiss();
+          const errorMessage = error.message;
+          alert(errorMessage);
+        });
+      } else {
+        loader.dismiss();
+        alert('User not found');
+      }
+    }).catch((error) => {
       loader.dismiss();
-      alert('User not found');
-    }
-  }).catch((error) => {
-    loader.dismiss();
-  });
+    });
 }
 
 async signInUser(email: string, password: string, loader: HTMLIonLoadingElement) {
