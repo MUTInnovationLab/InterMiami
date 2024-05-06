@@ -1,37 +1,39 @@
-<ion-content >
-  <div class="container" >
+<ion-content>
+  <div class="container">
     <div class="centered-container">
       <div class="image-container">
         <img src="assets/logo.jpg" alt="Logo" class="logo">
       </div>
-  </div>
-  <ion-card class="custom-card">
-    <ion-card-content>
-      <div class="custom-form">
-        <ion-label class="custom-label">Email Address</ion-label>
-        <ion-item class="custom-input rounded">
-          <ion-input type="email" name="email" [(ngModel)]="email"></ion-input>
-        </ion-item>
-        <ion-label class="custom-label">Password</ion-label>
-        <ion-item class="custom-input rounded">
-          <ion-input type="password" name="password" [(ngModel)]="password"></ion-input>
-        </ion-item>
-        
-        
-      
+    </div>
+    <ion-card class="custom-card">
+      <ion-card-content>
+        <div class="custom-form">
+          <!-- Email Address -->
+          <ion-label class="custom-label">Email Address</ion-label>
+          <ion-item class="custom-input rounded">
+            <ion-input type="email" name="email" [(ngModel)]="email"></ion-input>
+          </ion-item>
+          <!-- <ion-label *ngIf="emailError" class="error-message">{{ emailError }}</ion-label> -->
+          
+          <!-- Password -->
+          <ion-label class="custom-label">Password</ion-label>
+          <ion-item class="custom-input rounded">
+            <ion-input type="password" name="password" [(ngModel)]="password"></ion-input>
+          </ion-item>
+          <!-- <ion-label *ngIf="passwordError" class="error-message">{{ passwordError }}</ion-label> -->
 
-        <button class="butSubmit" expand="block" (click)="log()" >LOGIN</button>
-        
-        <div class="custom-links">
-          <ion-label>Don't have an account?</ion-label>
-          <ion-label class="custom-link" (click)="goToSignUp()">Sign Up</ion-label>
+          <button class="butSubmit" expand="block" (click)="validate()">LOGIN</button>
+          
+          <div class="custom-links">
+            <ion-label>Don't have an account?</ion-label>
+            <ion-label class="custom-link" (click)="goToSignUp()">Sign Up</ion-label>
+          </div>
+          <ion-label class="custom-forgot-link">Forgot Password?</ion-label>
+          <ion-label class="custom-link" (click)="reset()">Reset</ion-label>
         </div>
-        <ion-label class="custom-forgot-link">Forgot Password?</ion-label>
-        <ion-label class="custom-link" (click)="reset()">Reset</ion-label>
-      </div>
-    </ion-card-content>
-  </ion-card>
-</div>
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>
 <ion-footer class="custom-footer">
   Designed with ❤️ by <b>MUT INNOVATIONLAB</b>
