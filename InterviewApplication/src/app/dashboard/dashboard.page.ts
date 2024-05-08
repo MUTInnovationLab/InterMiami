@@ -74,6 +74,10 @@ export class DashboardPage implements OnInit {
   goToView(): void {
     this.navController.navigateBack('/staffprofile');
   }
+
+  goToCreatePost(){
+    this.navController.navigateBack('/createpost');
+  }
   ionViewDidEnter() {
     this.getUser();
   }
@@ -142,6 +146,10 @@ export class DashboardPage implements OnInit {
              authorized = this.userDocument.role.scheduleInterview === 'on';
              message = 'Unauthorized user for Schedule Interview page.';
             break;
+            case 'createpost':
+              authorized = this.userDocument.role.createpost === 'on';
+              message = 'Unauthorized user for create post page.';
+             break;
           default:
             authorized = false;
             message = 'Invalid page.';

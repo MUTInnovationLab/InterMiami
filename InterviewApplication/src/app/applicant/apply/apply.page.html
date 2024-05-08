@@ -58,7 +58,8 @@
           <ion-label position="stacked">Last Name</ion-label>
           <ion-input type="text" color="black" [(ngModel)]="lastname"  name="lastname" required (input)=" lastNameError= null;"></ion-input>
         </ion-item>
-        <div class="error-message" *ngIf="lastNameError">{{  lastNameError }}</div>
+     <div class="error-message" *ngIf="lastNameError">{{ lastNameError }}</div>
+
 
        <!-- <ion-item>
           <ion-label position="stacked">Student Number</ion-label>
@@ -77,6 +78,7 @@
 
         <ion-item fill="outline">
           <ion-label>Date of Birth</ion-label>
+          <input type="text" [(ngModel)]="birthdate" name="birthdate" placeholder="Date of Birth">
           <ion-datetime-button  datetime="birthDatee"></ion-datetime-button>
           <ion-modal [keepContentsMounted]="true">
             <ng-template>
@@ -265,7 +267,7 @@
       </ion-card-header>
       <ion-card-content class="field-input">
         <ion-item>
-          <ion-input color="black" [(ngModel)]="language.languagen"></ion-input>
+          <ion-input color="black" [(ngModel)]="license"></ion-input>
         </ion-item>
       </ion-card-content>
     </ion-card>

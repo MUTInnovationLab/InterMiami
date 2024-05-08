@@ -38,7 +38,13 @@
               </ion-item>
   
               <ion-item>
-                <ion-label position="floating">Position</ion-label>
+                  <ion-select label="Position" label-placement="floating">
+                    <ion-select-option value="Admin">Admin</ion-select-option>
+                    <ion-select-option value="Interviewer">Interviewer</ion-select-option>
+                    <ion-select-option value="Clerk">Clerk</ion-select-option>
+                    <ion-select-option value="Panel Member">Panel Member</ion-select-option>
+                  </ion-select>
+               
                 <ion-icon name="briefcase" slot="start"></ion-icon>
                 <ion-input type="text" name="position" [(ngModel)]="position" (input)="positionError = null;"></ion-input>
                 <div class="error-message" *ngIf="positionError">{{ positionError }}</div>

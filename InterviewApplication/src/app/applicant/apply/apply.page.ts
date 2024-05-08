@@ -225,6 +225,7 @@ municipalities:any[]=[];
     this.genderError = null;
     this.fullNameError = null;
     this.emailError = null;
+    this.lastNameError = null;
     this.phoneError = null;
     this.addressError = null;
     this.cityError = null;
@@ -1369,7 +1370,9 @@ console.log('update cv ' + this.cvUrl);
             this.arrayOn = true;
             console.log('allToUpdate ' + this.userDocumentt);
             this.fullname = userDocument.fullName;
+            this.lastname = userDocument.lastName;
             this.gender = userDocument.gender;
+            this.gradeAverage = userDocument.gradeAverage;
             this.city = userDocument.city;
             this.birthdate = userDocument.birthdate;
             this.email = userDocument.email;
@@ -1378,10 +1381,12 @@ console.log('update cv ' + this.cvUrl);
             this.code = userDocument.postalCode;
             this.country = userDocument.country;
             this.studentno = userDocument.studentno;
+            this.license = userDocument.license;
             this.province = userDocument.province;
+            this.qualifications = userDocument.studyField;
             this.graduationYear = userDocument.graduationYear;
             this.faculty = userDocument.faculty;
-            this.TotalExperience = userDocument.TotalExperience;
+            this.TotalExperience = userDocument.tTotalExperience;
             this.level = userDocument.level;
             this.selectedOption = userDocument.course;
             this.certificate = userDocument.certificate;
@@ -1395,6 +1400,17 @@ console.log('update cv ' + this.cvUrl);
             this.selectedMaspala=userDocument.municipality;
             this.idURL = userDocument.idURL,
             this.letterURL =userDocument.letterURL
+
+            if (userDocument.qualifications && Array.isArray(userDocument.qualifications)) {
+              this.qualifications = userDocument.qualifications.map((qualification: { Qdescription: any; degree: any; studyField: any; universityOrCollege: any; gradeAverage: any; graduationYear: any; }) => ({
+                Qdescription: qualification.Qdescription || '',
+                degree: qualification.degree || '',
+                studyField: qualification.studyField || '',
+                universityOrCollege: qualification.universityOrCollege || '',
+                gradeAverage: qualification.gradeAverage || '',
+                graduationYear: qualification.graduationYear || '' 
+              }));
+            }
            
 
             this.db
@@ -1422,7 +1438,7 @@ console.log('update cv ' + this.cvUrl);
 
 
 
-  
+
   
 // filteredMunicipalities: string[] = [];
 

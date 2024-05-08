@@ -238,9 +238,9 @@ label:has(select:valid) {
   background-color: var(--col1);
 }
 
-.form:hover:valid * {
-  color: var(--col2);
-}
+// .form:hover:valid * {
+//   color: var(--col2);
+// }
 
 // .form:hover:valid input,
 // .form:hover:valid select {

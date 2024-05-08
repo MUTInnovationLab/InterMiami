@@ -24,14 +24,24 @@ export class HomePage {
   
   public alertButtons = [
     {
-      text: 'No',
+      text: 'Register',
       cssClass: 'alert-button-cancel',
-    },
-    {
-      text: 'Yes',
-      cssClass: 'alert-button-confirm',
       handler: () => {
         this.navController.navigateForward("/applicant-resgister");
+      }
+    },
+    {
+      text: 'Login',
+      cssClass: 'alert-button-cancel',
+      handler: () => {
+        this.navController.navigateForward("/applicant-login");
+      }
+    },
+    {
+      text: 'Explore',
+      cssClass: 'alert-button-confirm',
+      handler: () => {
+        this.navController.navigateForward("/posts");
       }
 
     },
