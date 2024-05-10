@@ -55,22 +55,25 @@
 
 
       <ion-col size="12" size-md="4">
-        <ion-card class="dashboard-card animated custom-color-3" (click)="goToScheduledInterviews()">
+        <ion-card class="dashboard-card animated custom-color-1" (click)="goToScheduledInterviews()">
           <ion-icon name="calendar"></ion-icon>
+
+          <ion-select placeholder="Select View" style="position:absolute;top:0;" (ionChange)="onViewChange($event)">
+            <ion-select-option value="all">All</ion-select-option>
+            <ion-select-option value="today">Today</ion-select-option>
+          </ion-select>
+
           <ion-card-content>
             <h2>Check Scheduled Interviews</h2>
-            <ion-item lines="none">
-              <ion-select placeholder="Select View" (ionChange)="onViewChange($event)">
-                <ion-select-option value="all">All</ion-select-option>
-                <ion-select-option value="today">Today</ion-select-option>
-              </ion-select>
-            </ion-item>
+            <!-- <ion-item lines="none">
+         
+            </ion-item> -->
           </ion-card-content>
         </ion-card>
       </ion-col>
 
       <ion-col size="12" size-md="4">
-        <ion-card class="dashboard-card animated custom-color-2"  (click)="goToGraded()">
+        <ion-card class="dashboard-card animated custom-color-3"  (click)="goToGraded()">
           <ion-icon name="stats-chart"></ion-icon>
           <ion-card-content>
             <h2>Graded Interviews</h2>
@@ -89,7 +92,7 @@
 
       
       <ion-col size="12" size-md="4">
-        <ion-card class="dashboard-card animated custom-color-1"  (click)="goToCreatePost()">
+        <ion-card class="dashboard-card animated custom-color-2"  (click)="goToCreatePost()">
           <ion-icon name="add"></ion-icon>
           <ion-card-content>
             <h2>Create Post</h2>
@@ -106,6 +109,16 @@
         </ion-card>
       </ion-col>
 
+      <ion-col size="12" size-md="4" >
+        <ion-card class="dashboard-card animated custom-color-3"  (click)="goToAssignInterviewers()">
+          <!-- <ion-icon name="timer"></ion-icon> -->
+          <ion-icon name="create"></ion-icon>
+          <!-- <img src="/assets/interviewere.png" alt=""/> -->
+          <ion-card-content>
+            <h2>Assign Interviewers</h2>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
       <!-- Add more cards and customize their colors using custom CSS classes -->
       
     </ion-row>

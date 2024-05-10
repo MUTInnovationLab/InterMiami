@@ -1,0 +1,158 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+  <ion-buttons slot="start">
+    <ion-back-button defaultHref="/applicant-login"></ion-back-button>
+  </ion-buttons>
+  <h2 class="header-title">Assign Interviewers</h2>
+
+
+  </ion-toolbar>
+
+</ion-header>
+<ion-content [fullscreen]="true">
+  <div class="top-bar">
+
+
+
+<div class="search">
+  <ion-searchbar placeholder="Search" ></ion-searchbar>
+</div>
+<div class="forbutton">
+ <ion-button  id="popover-button" fill="clear" class="button-filter"><ion-icon color="dark" name="filter"></ion-icon></ion-button>
+
+ <ion-popover trigger="popover-button" [dismissOnSelect]="true">
+  <ng-template>
+    <ion-content>
+      <ion-list >
+        <ion-item lines="none" [button]="true" [detail]="false"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-mortarboard-fill" viewBox="0 0 16 16">
+          <path d="M8.211 2.047a.5.5 0 0 0-.422 0l-7.5 3.5a.5.5 0 0 0 .025.917l7.5 3a.5.5 0 0 0 .372 0L14 7.14V13a1 1 0 0 0-1 1v2h3v-2a1 1 0 0 0-1-1V6.739l.686-.275a.5.5 0 0 0 .025-.917z"/>
+          <path d="M4.176 9.032a.5.5 0 0 0-.656.327l-.5 1.7a.5.5 0 0 0 .294.605l4.5 1.8a.5.5 0 0 0 .372 0l4.5-1.8a.5.5 0 0 0 .294-.605l-.5-1.7a.5.5 0 0 0-.656-.327L8 10.466z"/>
+        </svg><p>Candidate</p></ion-item>
+        <ion-item lines="none" [button]="true" [detail]="false"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-workspace" viewBox="0 0 16 16">
+          <path d="M4 16s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-5.95a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/>
+          <path d="M2 1a2 2 0 0 0-2 2v9.5A1.5 1.5 0 0 0 1.5 14h.653a5.4 5.4 0 0 1 1.066-2H1V3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v9h-2.219c.554.654.89 1.373 1.066 2h.653a1.5 1.5 0 0 0 1.5-1.5V3a2 2 0 0 0-2-2z"/>
+        </svg><p>Interviewer</p></ion-item>
+      </ion-list>
+    </ion-content>
+  </ng-template>
+</ion-popover>
+<!-- <ion-button fill="clear" class="button-filter" [popover-trigger]="'popover-button'"><ion-icon color="dark" name="ellipsis-vertical"></ion-icon></ion-button> -->
+</div>
+  </div>
+  <div class="main-content">
+    <div class="intervieweesList">
+      <ion-list>
+        <ion-item style="border-bottom: 4px solid rgb(122, 0, 0);">
+          <ion-label style="font-weight: bold;">Candidates</ion-label>
+        </ion-item>
+        <ion-item-divider>
+          04-Jul-2024
+        </ion-item-divider>
+        <ion-item>
+          <ion-label>Wandile Khumalo</ion-label>
+          <span>10:00 - 11:00</span>
+        </ion-item>
+        <ion-item>
+          <ion-label>Wandile Khumalo</ion-label>
+          <span>10:00 - 11:00</span>
+        </ion-item>
+        <ion-item>
+          <ion-label>Wandile Khumalo</ion-label>
+          <span>10:00 - 11:00</span>
+        </ion-item>
+        <ion-item>
+          <ion-label>Wandile Khumalo</ion-label>
+          <span>10:00 - 11:00</span>
+        </ion-item>
+        <ion-item-divider>
+          05-Jul-2024
+        </ion-item-divider>
+        <ion-item>
+          <ion-label>Wandile Khumalo</ion-label>
+          <span>10:00 - 11:00</span>
+        </ion-item>
+        
+
+      </ion-list>
+    </div>
+
+
+    <div class="assign-container">
+      <div>
+        <div class="topic">
+      <ion-label class="label-title">Selected Candidate</ion-label>
+      <!-- <a href=""class="submit"><ion-icon name="checkmark-done"></ion-icon></a> -->
+    </div><ion-card style="padding:10px;">
+        
+          <strong> Wandile Khumalo</strong>
+          <a href="" style="float: right;"><ion-icon name="chevron-forward"></ion-icon></a>
+        <br><br>
+        <em>
+          date and time : 05-Jul-2024 11:00am
+        </em>
+      </ion-card>
+    </div>
+      <hr/>
+      <div>
+        <ion-label class="label-title">Selected Interviewers</ion-label>
+        <ion-card style="padding:10px;">
+        
+          <strong> Nduduzo Ndlovu</strong>
+          <a href="" style="float: right;"><ion-icon name="chevron-forward"></ion-icon></a>
+        <br><br>
+        <em>
+          email: nduduzondlovu635@gmail.com
+        </em>
+      </ion-card>
+        <ion-card style="padding:10px;">
+        
+          <strong> Nduduzo Ndlovu</strong>
+          <a href="" style="float: right;"><ion-icon name="chevron-forward"></ion-icon></a>
+        <br><br>
+        <em>
+          email: nduduzondlovu635@gmail.com
+        </em>
+      </ion-card>
+      </div>
+      <ion-button expand="block" class="submit"><ion-icon name="checkmark"></ion-icon>Submit</ion-button>
+    </div>
+
+
+    <div class="interviewersList">
+      <ion-list>
+        <ion-item style="border-bottom: 4px solid rgb(122, 0, 0);">
+          <ion-label style="font-weight: bold;">Interviewers</ion-label>
+        </ion-item>
+        <ion-item-divider></ion-item-divider>
+        <ion-item>
+          <ion-label>Wandile Khumalo</ion-label>
+          <span>10:00 - 11:00</span>
+        </ion-item>
+        <ion-item>
+          <ion-label>Wandile Khumalo</ion-label>
+          <span>10:00 - 11:00</span>
+        </ion-item>
+        <ion-item>
+          <ion-label>Wandile Khumalo</ion-label>
+          <span>10:00 - 11:00</span>
+        </ion-item>
+        <ion-item>
+          <ion-label>Wandile Khumalo</ion-label>
+          <span>10:00 - 11:00</span>
+        </ion-item>
+        <ion-item>
+          <ion-label>Wandile Khumalo</ion-label>
+          <span>10:00 - 11:00</span>
+        </ion-item>
+      </ion-list>
+
+    </div>
+
+
+
+
+
+
+  </div>
+
+</ion-content>

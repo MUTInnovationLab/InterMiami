@@ -187,6 +187,9 @@ export class DashboardPage implements OnInit {
   goToScores(): Promise<void> {
     return this.navigateBasedOnRole('score-capture');
   }
+  goToAssignInterviewers(){
+    this.navController.navigateForward('/assign-interviewer');
+  }
 
   goToAddUser(): Promise<void> {
     return this.navigateBasedOnRole('add-user');
