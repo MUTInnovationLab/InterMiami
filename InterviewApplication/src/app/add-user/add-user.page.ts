@@ -39,7 +39,8 @@ export class AddUserPage implements OnInit {
     marks: 'off',
     upcomingInterviews: 'off',
     allUsers: 'off',
-    scheduleInterview: 'off'
+    scheduleInterview: 'off',
+    createPost: 'off'
   };
 
   constructor(
@@ -107,97 +108,17 @@ export class AddUserPage implements OnInit {
     console.log(this.role);
   }
 
+  getCreatePost(event: any) {
+    const toggleValue = event.target.checked ? 'on' : 'off';
+    this.role.createPost = toggleValue;
+    console.log(this.role);
+  }
+
   goToStaffProfile(): void {
     this.navController.navigateBack('/staffprofile');
   }
   
   
-  // async Validation() {
- 
-
-  //   this.emailError = null;
-  //   this.staffError = null;
-  //   this.positionError = null;
-  //   this.nameError = null;
-
-
-   
-
-  //   if (!this.name) {
-  //     this.nameError = 'Please enter name.';
-  //     alert("Please enter name");
-  //     return;
-  //   }
-
-
-
-  //   if (!this.email) {
-  //     this.emailError = 'Please enter email.';
-  //     alert("Please enter email");
-  //     return;
-  //   }
-
-  //   if (!this.emailRegex.test(this.email)) {
-  //     this.emailError = 'Please enter a valid email Address.';
-  //     alert('please enter a valid Address.');
-  //     return;
-  //   }
-
-  //   if (!this.position) {
-  //     this.positionError = 'Please enter position.';
-  //     alert('Please enter position.');
-  //     return;
-  //   }
-
-  //   if (!this.staffNumber) {
-  //     this.staffError = 'Please enter staff number.';
-  //     alert('Please enter staff number.');
-  //     return;
-  //   }
-
-  //   const loader = await this.loadingController.create({
-  //     message: 'Assigning',
-  //     cssClass: 'custom-loader-class'
-  //   });
-  //   await loader.present();
-   
-  //   this.auth.createUserWithEmailAndPassword(this.email, this.staffNumber)
-  //   .then(userCredential => {
-  //     if (userCredential.user) {
-   
-  //     this.db.collection('registeredStaff').add({
-  //        Name:this.name,
-  //        email:this.email,
-  //        staffNumber:this.staffNumber,
-  //        position:this.position,
-  //        role:this.role
-  
-      
-  //     }).then(() => {
-  //       loader.dismiss();
-  //       alert("Staff registered successfully");
-  //       // Clear the field values
-  //       this.name = '';
-  //       this.email = '';
-  //       this.position = '';
-  //       this.staffNumber = ''; 
-  
-  //     }).catch((error:any) => {
-  //       loader.dismiss();
-  //       const errorMessage = error.message;
-  //       alert(errorMessage);
-  //     });
-  //   } else {
-  //     loader.dismiss();
-  //     alert('User not found');
-  //   }
-  // }).catch((error) => {
-  //   loader.dismiss();
-  // });
-
-
-  // }
-
 
 
 
@@ -452,6 +373,27 @@ async goToScheduleInterview(): Promise<void> {
   }
 }
 
+async goToCreatePost(): Promise<void> {
+
+  try {
+    await this.getUser();
+
+    if (this.userDocument && this.userDocument.role && this.userDocument.role.createPost === 'on') {
+      // Navigate to the desired page
+      this.navController.navigateForward('/createpost');
+    } else {
+      const toast = await this.toastController.create({
+        message: 'Unauthorized user.',
+        duration: 2000,
+        position: 'top'
+      });
+      toast.present();
+    }
+  } catch (error) {
+    console.error('Error navigating to Create post Page:', error);
+  }
+}
+
 
 goToMenuPage(): void {
   this.navController.navigateForward('/dashboard').then(() => {
@@ -507,7 +449,8 @@ async Validation() {
     this.role.marks === 'off' &&
     this.role.upcomingInterviews === 'off' &&
     this.role.allUsers === 'off' &&
-    this.role.scheduleInterview === 'off'
+    this.role.scheduleInterview === 'off' &&
+    this.role.createPost === 'off'
   ) {
     alert('Please select at least one role.');
     return;

@@ -1,14 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { AlertController, IonicModule } from '@ionic/angular';
-import { NavController } from '@ionic/angular';
-
-
+import { AlertController, NavController, ToastController } from '@ionic/angular';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { ToastController } from '@ionic/angular';
-
 
 @Component({
   selector: 'app-dashboard',
@@ -18,72 +11,51 @@ import { ToastController } from '@ionic/angular';
 export class DashboardPage implements OnInit {
 
   navController: NavController;
-  userDocument:any
-  
+  userDocument: any;
 
-  constructor(private alertController: AlertController,private toastController: ToastController,private navCtrl: NavController,  private auth:AngularFireAuth,private db: AngularFirestore) {
+  constructor(
+    private alertController: AlertController,
+    private toastController: ToastController,
+    private navCtrl: NavController,
+    private auth: AngularFireAuth,
+    private db: AngularFirestore
+  ) {
     this.getUser();
     this.navController = navCtrl;
-   }
+  }
 
-   ngOnInit() {
-  
+  ngOnInit() {
     //this.Interviwees=this.firestore.collection('Interviwees').valueChanges();
   }
-  onViewChange(event: any) {
+
+  async onViewChange(event: any) {
     const selectedView = event.detail.value;
-    
+
     // Navigate to another page based on the selected view
     if (selectedView === 'all') {
       this.navCtrl.navigateForward('/scheduled-interviews'); // Replace with your desired route
     } else if (selectedView === 'today') {
-     this.navCtrl.navigateForward('/today-interviews'); // Replace with your desired route
+      this.navCtrl.navigateForward('/today-interviews'); // Replace with your desired route
     }
   }
-  // this.router.navigate(['/schedule-interview']);
-  async nav(){
+
+  async nav() {
     this.navCtrl.navigateForward('/schedule-interview');
   }
-  
+
   async retrieveData() {
     this.navCtrl.navigateForward('/scheduled');
   }
-
- 
-
   
-    // const today=new Date();
-    // const qDate=new Date(today.getFullYear(),today.getMonth(), today.getDate());
-
-    // this.firestore.collection('Interviwees', (ref)=> ref.where('date', '>=', qDate)).valueChanges().pipe(map((data: any[]) => data.sort((a,b)=>a.date - b.date))).subscribe((data) =>{
-    //   this.Interviwees = data;
-    // });
-    // this.firestore.collection('Interviwees').doc('m12d7BgoICoPHDT2a0po').get()
-    // .subscribe(doc => {
-    //   if (doc.exists) {
-    //     this.formData = doc.data();
-    //   } else {
-    //     console.log('Document not found.');
-    //   }
-    // });
-
- 
-
- 
-
   goToView(): void {
     this.navController.navigateBack('/staffprofile');
   }
 
-  goToCreatePost(){
-    this.navController.navigateBack('/createpost');
-  }
+ 
+
   ionViewDidEnter() {
     this.getUser();
   }
-  
-
-  
 
   async getUser(): Promise<void> {
     const user = await this.auth.currentUser;
@@ -97,7 +69,6 @@ export class DashboardPage implements OnInit {
 
         if (!querySnapshot.empty) {
           this.userDocument = querySnapshot.docs[0].data();
-          
         }
       } catch (error) {
         console.error('Error getting user document:', error);
@@ -130,26 +101,26 @@ export class DashboardPage implements OnInit {
             authorized = this.userDocument.role.allUsers === 'on';
             message = 'Unauthorized user for all users page.';
             break;
-            case 'interview-history':
+          case 'interview-history':
             authorized = this.userDocument.role.history === 'on';
             message = 'Unauthorized user for history page.';
             break;
-            case 'scheduled-interviews':
-              authorized = this.userDocument.role.upcomingInterviews === 'on';
-              message = 'Unauthorized user for scheduled interviews page.';
+          case 'scheduled-interviews':
+            authorized = this.userDocument.role.upcomingInterviews === 'on';
+            message = 'Unauthorized user for scheduled interviews page.';
             break;
-            case 'score-capture':
-             authorized = this.userDocument.role.score === 'on';
-             message = 'Unauthorized user for score capture page.';
+          case 'score-capture':
+            authorized = this.userDocument.role.score === 'on';
+            message = 'Unauthorized user for score capture page.';
             break;
-            case 'schedule-interview':
-             authorized = this.userDocument.role.scheduleInterview === 'on';
-             message = 'Unauthorized user for Schedule Interview page.';
+          case 'schedule-interview':
+            authorized = this.userDocument.role.scheduleInterview === 'on';
+            message = 'Unauthorized user for Schedule Interview page.';
             break;
-            case 'createpost':
-              authorized = this.userDocument.role.createpost === 'on';
-              message = 'Unauthorized user for create post page.';
-             break;
+          case 'createpost':
+            authorized = this.userDocument.role.createpost === 'on';
+            message = 'Unauthorized user for create post page.';
+            break;
           default:
             authorized = false;
             message = 'Invalid page.';
@@ -191,34 +162,34 @@ export class DashboardPage implements OnInit {
   goToAddUser(): Promise<void> {
     return this.navigateBasedOnRole('add-user');
   }
+
   goToInterviewHistory(): Promise<void> {
     return this.navigateBasedOnRole('interview-history');
   }
+
+  goToCreatePost(): Promise<void> {
+    return this.navigateBasedOnRole('createpost');
+  }
+
   goToGraded(): Promise<void> {
     return this.navigateBasedOnRole('marks');
   }
+
   goToAllUsers(): Promise<void> {
     return this.navigateBasedOnRole('all-users');
   }
+
   goToScheduleInterview(): Promise<void> {
     return this.navigateBasedOnRole('schedule-interview');
   }
-
 
   goToStaffProfile() {
     this.navController.navigateForward('/staffprofile');
   }
 
-
-
-
   goToHomePage(): void {
     this.navController.navigateBack('/home');
   }
-
- 
-
-
 
   async presentConfirmationAlert() {
     const alert = await this.alertController.create({
@@ -228,26 +199,18 @@ export class DashboardPage implements OnInit {
         {
           text: 'Cancel',
           role: 'cancel',
-         cssClass: 'my-custom-alert',
+          cssClass: 'my-custom-alert',
           handler: () => {
             console.log('Confirmation canceled');
           }
         }, {
           text: 'Confirm',
           handler: () => {
-           
-            
             this.auth.signOut().then(() => {
-              this. navCtrl.navigateForward("/applicant-login");
+              this.navCtrl.navigateForward("/applicant-login");
               this.presentToast();
-        
-        
             }).catch(() => {
-            
             });
-
-
-
           }
         }
       ]
@@ -256,34 +219,13 @@ export class DashboardPage implements OnInit {
     console
   }
 
-
   async presentToast() {
     const toast = await this.toastController.create({
       message: 'SIGNED OUT!',
       duration: 1500,
       position: 'top',
-    
     });
 
     await toast.present();
   }
-
-
-
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
