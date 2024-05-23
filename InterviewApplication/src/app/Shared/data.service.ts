@@ -2,17 +2,20 @@ import { Injectable } from '@angular/core';
 import { User } from '../model/user';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore} from '@angular/fire/compat/firestore';
-
+// import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
   constructor(private afs : AngularFirestore,
-    private auth: AngularFireAuth
+    private auth: AngularFireAuth,
+   
     )
      { }
   
-  
+     submitInterview(interviewConduct: any, candidateUid: string) {
+      return this.afs.collection('interviews').doc(candidateUid).set(interviewConduct);
+    }
     
     addUser(user : User) {
       user.id = this.afs.createId();
@@ -22,6 +25,14 @@ export class DataService {
   // get all students
   getAllUser() {
     return this.afs.collection('/User').snapshotChanges();
+  }
+
+  getAllStaff() {
+    return this.afs.collection('/registeredStaff').snapshotChanges();
+  }
+
+  getAllInterviews() {
+    return this.afs.collection('/Interviewees').snapshotChanges();
   }
 
   // delete student

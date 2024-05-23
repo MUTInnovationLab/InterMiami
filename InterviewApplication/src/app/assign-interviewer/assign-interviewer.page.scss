@@ -1,8 +1,17 @@
-ion-header {
+* {
+  scroll-behavior: smooth;
+  overflow: hidden;
+}
+.search-item{
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+ion-header{
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(122, 0, 0);
+    background-color: rgb(141, 0, 0);
     color: rgb(0, 0, 0);
     height: 70px;
     animation: headerFadeIn 1s ease-in;
@@ -11,16 +20,20 @@ ion-header {
     --background: #ffffff;
     color:black;
   }
+  ion-item:hover{
+    --background: #f0f0f0;
+  }
   .top-bar{
     display: flex;
     align-items: center;
+    justify-content: center;
     height: auto;
-    background-color: #ffffff;
   }
  ion-icon{
-    color: rgb(122, 0, 0);
+    color: rgb(141, 0, 0);
     font-size: 30px;
     font-weight: bold;
+    cursor: pointer;
   }
   
   .header-title {
@@ -32,6 +45,7 @@ ion-header {
   .label-title{
     font-weight:bold;
   }
+  
 .button-filter{
     box-shadow:  5px 5px 0px #fafafa,
                  -5px -5px 0px #ffffff;
@@ -49,74 +63,80 @@ ion-header {
   .intervieweesList{
   width:100%;
   height:74vh;
-//   background-color: red;
-overflow-y: auto;
+  overflow-y: auto;
   }
-  .assign-container{
-    width:100%; 
-     height:74vh;
-    //  background-color: rgb(123, 255, 0);
-     padding:10px 7px;
-     overflow-y: auto;
-
-  }
-  .interviewersList{
-    width:100%;  height:74vh;
-    // background-color: rgb(255, 208, 0);
+  .assign-container {
+    width: 100%;
+    height: 74vh;
+    padding: 10px 7px;
     overflow-y: auto;
-      }
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .assign-container::-webkit-scrollbar {
+    display: none;
+  }
+  ion-icon#close:hover{
+    color:rgb(0, 132, 255);
+  }
+.interviewersList{
+width:100%; 
+  height:74vh;
+  }
+.scrollable{
+  overflow-y: auto;
+  scrollbar-width: none;
+  width:100%;
+  height:60vh;
+}
+.scrollable::-webkit-scrollbar {
+  display: none;
+}
+.topic{
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding:0 20px 0 0;
+}
+.submit{
+--background: rgb(141, 0, 0);
+color:white;
+}
 
-      .topic{
-        // background-color: red;
-        display: flex;
-        justify-content: space-between;
-                      align-items: center;
-                      padding:0 20px 0 0;
-      }
-      .submit{
-        --background: rgb(122, 0, 0);
-                      color:white;
-      }
 
-    
-    .submit ion-icon{
-        color:white;}
-    
-        .submit:hover {
-            --background: rgb(1, 107, 228);
-                          color:rgb(255, 0, 0);
-                        //   border-radius:50%;    
-        }
-        .submit:hover ion-icon{
-          color:rgb(255, 0, 0);}
-       p{
-        padding: 5px;
-       }
-      @media(max-width:600px) {
+.submit ion-icon{
+color:white;}
 
-        .main-content{
-                display:block;
-            }
-            .assign-container{
-                max-height:450px;
-                border-top:2px solid rgb(122, 0, 0);
-                padding:10px 7px;
-            }
-             .top-bar{
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: auto;
-            background-color: #ffffff;
-            }
+.submit:hover {
+--background:  rgb(97, 2, 2);;    
+}
+p{
+padding: 5px;
+}
+@media(max-width:600px) {
 
-            .search{
-                width:80%;
-                padding: 5px;
-            }
-
-            .intervieweesList{
-                height: auto;
-                max-height:300px;
-                }
-    }
+.main-content{
+    display:block;
+}
+.assign-container{
+    max-height:450px;
+    border-top:2px solid rgb(122, 0, 0);
+    padding:10px 7px;
+}
+  .top-bar{
+display: flex;
+justify-content: space-between;
+align-items: center;
+height: auto;
+background-color: #ffffff;
+}
+.search{
+    width:80%;
+    padding: 5px;
+}
+.intervieweesList{
+height: auto;
+max-height:300px;
+}
+}

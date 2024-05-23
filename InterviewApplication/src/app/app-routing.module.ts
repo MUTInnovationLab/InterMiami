@@ -137,6 +137,10 @@ const routes: Routes = [
     path: 'assign-interviewer',
     loadChildren: () => import('./assign-interviewer/assign-interviewer.module').then( m => m.AssignInterviewerPageModule)
   },
+  {
+    path: 'interview-list',
+    loadChildren: () => import('./interview-list/interview-list.module').then( m => m.InterviewListPageModule)
+  },
 
 
 
