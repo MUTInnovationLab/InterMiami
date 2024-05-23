@@ -225,7 +225,7 @@ export class ScheduleInterviewPage {
         }
       });
     }
-submit
+
     getPassedData() {
       this.route.queryParams.subscribe((params: Params) => {
         if (params && params['userData']) {
