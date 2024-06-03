@@ -40,6 +40,7 @@
               <ion-item>
                 <ion-label position="floating">Position</ion-label>
                 <ion-select [(ngModel)]="position" name="position" (ionChange)="positionError = null">
+                  <ion-select-option value="HR">HR</ion-select-option>
                   <ion-select-option value="Admin">Admin</ion-select-option>
                   <ion-select-option value="Interviewer">Interviewer</ion-select-option>
                   <ion-select-option value="Clerk">Clerk</ion-select-option>

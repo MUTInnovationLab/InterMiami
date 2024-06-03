@@ -121,6 +121,10 @@ export class DashboardPage implements OnInit {
             authorized = this.userDocument.role.createpost === 'on';
             message = 'Unauthorized user for create post page.';
             break;
+          case 'assign-interviewer':
+            authorized = this.userDocument.position === 'HR';
+            message = 'Unauthorized user for create post page.';
+            break;
           default:
             authorized = false;
             message = 'Invalid page.';
@@ -158,8 +162,9 @@ export class DashboardPage implements OnInit {
   goToScores(): Promise<void> {
     return this.navigateBasedOnRole('score-capture');
   }
-  goToAssignInterviewers(){
-    this.navController.navigateForward('/assign-interviewer');
+  goToAssignInterviewers(): Promise<void>{
+    // this.navController.navigateForward('/assign-interviewer');
+    return this.navigateBasedOnRole('assign-interviewer');
   }
 
   goToAddUser(): Promise<void> {
@@ -177,7 +182,9 @@ export class DashboardPage implements OnInit {
   goToGraded(): Promise<void> {
     return this.navigateBasedOnRole('marks');
   }
-
+  admin(): Promise<void> {
+    return this.navigateBasedOnRole('marks');
+  }
   goToAllUsers(): Promise<void> {
     return this.navigateBasedOnRole('all-users');
   }

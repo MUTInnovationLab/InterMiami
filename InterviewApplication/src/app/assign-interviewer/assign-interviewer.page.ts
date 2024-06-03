@@ -159,7 +159,10 @@ import { DataService } from '../Shared/data.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { daysToWeeks, format } from 'date-fns';
-
+// import { NavController } from '@ionic/angular';
+import { AlertController, NavController, ToastController } from '@ionic/angular';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 @Component({
   selector: 'app-assign-interviewer',
   templateUrl: './assign-interviewer.page.html',
@@ -177,13 +180,46 @@ export class AssignInterviewerPage implements OnInit {
   search: string = "";
   showIcon:boolean = true;
   showCard: boolean = true; // Variable to control card visibility
-
-  constructor(private data: DataService) { }
+  navController: NavController;
+  userDocument: any;
+  constructor(private data: DataService,
+    private alertController: AlertController,
+    private toastController: ToastController,
+    private navCtrl: NavController,
+    private auth: AngularFireAuth,
+    private db: AngularFirestore
+  ) {
+    this.getUser();
+    this.navController = navCtrl;
+   }
 
   ngOnInit() {
     this.loadStaff();
     this.loadInterviewees();
   }
+  ionViewDidEnter() {
+    this.getUser();
+  }
+
+  async getUser(): Promise<void> {
+    const user = await this.auth.currentUser;
+
+    if (user) {
+      try {
+        const querySnapshot = await this.db
+          .collection('registeredStaff')
+          .ref.where('email', '==', user.email)
+          .get();
+
+        if (!querySnapshot.empty) {
+          this.userDocument = querySnapshot.docs[0].data();
+        }
+      } catch (error) {
+        console.error('Error getting user document:', error);
+      }
+    }
+  }
+
 
   dateformat(datetime: any) {
     const timeString = datetime;
@@ -205,7 +241,7 @@ export class AssignInterviewerPage implements OnInit {
       this.filteredStaff = this.staffList;
     });
   }
-
+ 
   loadInterviewees() {
     let count = 0;
     const DateConstructor = Date;
@@ -321,6 +357,7 @@ export class AssignInterviewerPage implements OnInit {
   
   hide(){
     this.loadInterviewees();
+    this.loadStaff();
     this.showIcon=true;
   }
 
@@ -333,7 +370,7 @@ export class AssignInterviewerPage implements OnInit {
     );
     if (this.filteredStaff.length === 0) {
       this.loadStaff();
-      alert("-----------------------------------")
+   
     } else {
       this.showIcon = false;
     }
