@@ -476,7 +476,7 @@ async Validation() {
 
   if (!this.emailRegex.test(this.email)) {
     this.emailError = 'Please enter a valid email Address.';
-    alert('please enter a valid Address.');
+    alert('Please enter a valid email Address.');
     return;
   }
 
@@ -498,65 +498,41 @@ async Validation() {
   });
   await loader.present();
 
-  this.auth.createUserWithEmailAndPassword(this.email, this.staffNumber)
-    .then(userCredential => {
-      if (userCredential.user) {
-        this.db.collection('registeredStaff').add({
-          Name: this.name,
-          email: this.email,
-          staffNumber: this.staffNumber,
-          position: this.position,
-          role: this.role
-        }).then(() => {
-          loader.dismiss();
-          alert("Staff registered successfully");
-          // Clear the field values
-          this.name = '';
-          this.email = '';
-          this.position = '';
-          this.staffNumber = '';
-
-        }).catch((error: any) => {
-          loader.dismiss();
-          const errorMessage = error.message;
-          alert(errorMessage);
-        });
-      } else {
-        loader.dismiss();
-        alert('User not found');
-      }
-    }).catch((error) => {
-      loader.dismiss();
-    });
-}
-
-async signInUser(email: string, password: string, loader: HTMLIonLoadingElement) {
-  this.auth.signInWithEmailAndPassword(email, password)
-    .then(() => {
-      this.db.collection('registeredStaff').add({
-        Name:this.name,
-        email:this.email,
-        staffNumber:this.staffNumber,
-        position:this.position,
-        role:this.role
-      }).then(() => {
-        loader.dismiss();
-        alert("Staff registered successfully");
-        // Clear the field values
-        this.name = '';
-        this.email = '';
-        this.position = '';
-        this.staffNumber = ''; 
-      }).catch((error:any) => {
-        loader.dismiss();
-        const errorMessage = error.message;
-        alert(errorMessage);
+  try {
+    const userCredential = await this.auth.createUserWithEmailAndPassword(this.email, this.staffNumber);
+    if (userCredential.user) {
+      await this.db.collection('registeredStaff').add({
+        Name: this.name,
+        email: this.email,
+        staffNumber: this.staffNumber,
+        position: this.position,
+        role: this.role
       });
-    })
-    .catch((error) => {
-      loader.dismiss();
-    });
+      alert("Staff registered successfully");
+
+      // Clear the field values
+      this.name = '';
+      this.email = '';
+      this.position = '';
+      this.staffNumber = '';
+
+      // Sign out the newly created user
+      await this.auth.signOut();
+
+      // Optionally, re-authenticate the original user if needed
+      // await this.auth.signInWithEmailAndPassword(originalUserEmail, originalUserPassword);
+    } else {
+      alert('User not found');
+    }
+  } catch (error: any ) {
+    const errorMessage = error.message;
+    alert(errorMessage);
+  } finally {
+    loader.dismiss();
+  }
 }
+
+
 
 
 

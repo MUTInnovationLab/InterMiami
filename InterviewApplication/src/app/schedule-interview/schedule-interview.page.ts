@@ -190,7 +190,7 @@ export class ScheduleInterviewPage {
     }
   
     generateUniqueId(): string {
-      const randomDigits = Math.floor(Math.random() * 10000000000000).toString(); // Generate random 13-digit number
+      const randomDigits = Math.floor(Math.random() * 1000000000000).toString(); // Generate random 13-digit number
       return randomDigits;
     }
 
@@ -279,7 +279,7 @@ export class ScheduleInterviewPage {
     
       if (this.int_id.toString().length !== 13) {
         const toast = await this.toastController.create({
-          message: 'ID must be exactly 13 digits, Refresh the page',
+          message: 'ID must be exactly 12 digits, Refresh the page',
           duration: 2000,
           position: 'top',
           color: 'danger'

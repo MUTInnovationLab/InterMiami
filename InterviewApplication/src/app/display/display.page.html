@@ -1,0 +1,20 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>display</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div *ngIf="assignedInterviewers.length > 0">
+    <h3>Assigned Interviewers:</h3>
+    <ul>
+      <li *ngFor="let interviewer of assignedInterviewers">
+        {{ interviewer.name }} - {{ interviewer.email }}
+      </li>
+    </ul>
+  </div>
+  <div *ngIf="assignedInterviewers.length === 0">
+    <p>No interviewers assigned yet.</p>
+  </div>
+  
+</ion-content>

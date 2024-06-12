@@ -6,15 +6,31 @@ import { Router } from '@angular/router';
 import { AlertController, LoadingController, NavController, ToastController } from '@ionic/angular';
 //import * as firebase from 'firebase/compat';
 import 'firebase/auth';
-import { Observable, of } from 'rxjs';
+import { Observable, map, of } from 'rxjs';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
+import { DataService } from '../Shared/data.service';
 
 interface User {
   email: string;
   name: string;
   // Add other properties as needed
 }
+
+interface Staff {
+  email: string;
+}
+
+interface Interview {
+  date: string | number | Date;
+  status: string;
+}
+
+interface Data {
+  interview: Interview;
+  selectedStaff: Staff[];
+}
+
 
 @Component({
   selector: 'app-score-capture',
@@ -32,7 +48,7 @@ export class ScoreCapturePage implements OnInit {
   name!:string;
   surname!: string;
   email!: string;
-  Status!: string;
+  status!: string;
   Statuss: string = 'Interviewed';
   Statusss: string = 'In Progress';
   introduction: number = 0;
@@ -46,6 +62,7 @@ export class ScoreCapturePage implements OnInit {
   total: number = 0;
   label1= Text;
   label2=Text;
+  assignedInterviewers: any[] = [];
 
 
 
@@ -98,7 +115,8 @@ export class ScoreCapturePage implements OnInit {
     private alertController: AlertController,
     private db: AngularFirestore,
     private toastController: ToastController,
-    private router: Router) {
+    private router: Router,
+    private dataService: DataService) {
 
     this.todayDateString = new Date().toDateString();
    
@@ -149,7 +167,7 @@ export class ScoreCapturePage implements OnInit {
 
 
   logBack(){
-    this.deleteCurrentUserFromUserEmails();
+    // this.deleteCurrentUserFromUserEmails();
   }
 
 
@@ -158,19 +176,21 @@ export class ScoreCapturePage implements OnInit {
     const currentUser = await this.auth.currentUser;
     if (currentUser) {
       this.userEmail = currentUser.email;
-      this.userEmailArray.push(this.userEmail);
-      console.log(this.userEmailArray);
-  
+      console.log(this.userEmail);
+    
       // Add the user's email to the database
-      this.firestore.collection('UserEmails').doc(currentUser.uid).set({
-        email: this.userEmail
-      })
-      .then(() => {
-        console.log('User email added to database');
-      })
-      .catch(error => {
-        console.error('Error adding user email to database:', error);
-      });
+    //   this.firestore.collection('UserEmails').doc(currentUser.uid).set({
+    //     email: this.userEmail
+    //   })
+    //   .then(() => {
+    //     console.log('User email added to database');
+    //   })
+    //   .catch(error => {
+    //     console.error('Error adding user email to database:', error);
+    //   });
+  
+    //   // Once the user's email is set, fetch data
+    //   this.fetchData();
     }
   }
 
@@ -182,7 +202,7 @@ export class ScoreCapturePage implements OnInit {
     const stringData = {
       name: this.name,
       email: this.email,
-      Status: this.Statuss,
+      status: this.Statuss,
       int_id: this.int_id,
       userEmail : this.userEmail,
       date: new Date().toISOString() 
@@ -282,7 +302,7 @@ export class ScoreCapturePage implements OnInit {
           averageTotalScore: averageTotalScore, 
           email: this.intervieweeEmail,
           int_id: this.int_id, 
-          Status: this. Statuss, 
+          status: this. Statuss, 
           name: this.name
           
         })
@@ -300,22 +320,7 @@ export class ScoreCapturePage implements OnInit {
   
  
   
-  // updateStatusForAll() {
-  //   // Update status for all users to "Interviewed"
-  //   this.firestore.collection('Interviewees').get().subscribe((querySnapshot: firebase.firestore.QuerySnapshot<any>) => {
-  //     querySnapshot.forEach(doc => {
-  //       doc.ref.update({ Status: this.Statuss })
-  //         .then(() => {
-  //           console.log('Status updated successfully');
-  //         })
-  //         .catch(error => {
-  //           console.error('Error updating status:', error);
-  //         });
-  //     });
-  //   });
-  // }
-  
-
+ 
 
   executeBothMethods() {
     this.submitForm();
@@ -330,10 +335,10 @@ export class ScoreCapturePage implements OnInit {
     
     intervieweeRef.get().subscribe((querySnapshot: firebase.firestore.QuerySnapshot<any>) => {
       querySnapshot.forEach(doc => {
-        // Update the "Status" field
-        doc.ref.update({ Status: this.Statuss }) // Replace 'New Status' with the desired status
+        // Update the "status" field
+        doc.ref.update({ status: this.Statuss }) // Replace 'New status' with the desired status
           .then(() => {
-            alert('Status updated successfully');
+            alert('status updated successfully');
           })
           .catch(error => {
             console.error('Error updating status:', error);
@@ -348,10 +353,10 @@ export class ScoreCapturePage implements OnInit {
     
     intervieweeRef.get().subscribe((querySnapshot: firebase.firestore.QuerySnapshot<any>) => {
       querySnapshot.forEach(doc => {
-        // Update the "Status" field
-        doc.ref.update({ Status: this.Statusss }) // Replace 'New Status' with the desired status
+        // Update the "status" field
+        doc.ref.update({ status: this.Statusss }) // Replace 'New status' with the desired status
           .then(() => {
-            alert('Status updated successfully');
+            alert('status updated successfully');
           })
           .catch(error => {
             console.error('Error updating status:', error);
@@ -360,9 +365,91 @@ export class ScoreCapturePage implements OnInit {
     });
   }
   
+  // fetchData() {
+  //   this.firestore.collection('Interviewees', ref => ref.where('status', 'in', ['Waiting', 'In Progress'])).valueChanges().subscribe((data: any[]) => {
+  //     this.groupedInterviewees = data.reduce((result, interviewee) => {
+  //       const itemDate = new Date(interviewee.date);
+  //       const dateKey = itemDate.toDateString();
+  
+  //       if (dateKey === this.todayDateString) {
+  //         interviewee.date = dateKey;
+  
+  //         if (!result.has(dateKey)) {
+  //           result.set(dateKey, []);
+  //         }
+  //         result.get(dateKey).push(interviewee);
+  
+  //         // Check for "In Progress" status
+  //         if (interviewee.status === 'Waiting') {
+  //           this.inProgressInterviewee = interviewee;
+  //         }
+  //       }
+  
+  //       return result;
+  //     }, new Map<string, any[]>());
+  
+  //     // Sort the grouped interviewees by date
+  //     this.sortIntervieweesByDate();
+  //   });
+  // }
+
+
+
+
+  // fetchData() {
+  //   this.dataService.getAllInterviewes().pipe(
+  //     map(actions => actions.map((a: any) => {
+  //       const data: any = a.payload.doc.data();
+  //       return data.selectedStaff;
+  //     }))
+  //   ).subscribe(data => {
+  //     this.groupedInterviewees = data.reduce((result: { has: (arg0: string) => any; set: (arg0: string, arg1: never[]) => void; get: (arg0: string) => any[]; }, interviewee: { date: string | number | Date; status: string; }) => {
+  //       const itemDate = new Date(interviewee.date);
+  //       const dateKey = itemDate.toDateString();
+  
+  //       if (dateKey === this.todayDateString) {
+  //         interviewee.date = dateKey;
+  
+  //         if (!result.has(dateKey)) {
+  //           result.set(dateKey, []);
+  //         }
+  //         result.get(dateKey).push(interviewee);
+  
+  //         // Check for "In Progress" status
+  //         if (interviewee.status === 'Waiting') {
+  //           this.inProgressInterviewee = interviewee;
+  //         }
+  //       }
+  
+  //       return result;
+  //     }, new Map<string, any[]>());
+  
+  //     // Sort the grouped interviewees by date
+  //     this.sortIntervieweesByDate();
+  //   });
+  // }
+
+
   fetchData() {
-    this.firestore.collection('Interviewees', ref => ref.where('Status', 'in', ['Waiting', 'In Progress'])).valueChanges().subscribe((data: any[]) => {
-      this.groupedInterviewees = data.reduce((result, interviewee) => {
+    if (!this.userEmail) {
+      console.error('User email is not set. Ensure auths() has been called.');
+      return;
+    }
+  
+    this.dataService.getAllInterviewes().pipe(
+      map(actions => actions.map((a: any) => {
+        const data: any = a.payload.doc.data();
+        return {
+          interview: data.Interviewee.interview,
+          selectedStaff: data.selectedStaff
+        } as Data;
+      }))
+    ).subscribe((data: Data[]) => {
+      const filteredInterviews = data
+        .filter((item: Data) => item.selectedStaff.some((staff: Staff) => staff.email === this.userEmail))
+        .map((item: Data) => item.interview);
+  
+      this.groupedInterviewees = filteredInterviews.reduce((result: Map<string, Interview[]>, interviewee: Interview) => {
         const itemDate = new Date(interviewee.date);
         const dateKey = itemDate.toDateString();
   
@@ -372,22 +459,38 @@ export class ScoreCapturePage implements OnInit {
           if (!result.has(dateKey)) {
             result.set(dateKey, []);
           }
-          result.get(dateKey).push(interviewee);
+  
+          const intervieweesForDate = result.get(dateKey);
+          if (intervieweesForDate) {
+            intervieweesForDate.push(interviewee);
+          }
   
           // Check for "In Progress" status
-          if (interviewee.Status === 'Waiting') {
+          if (interviewee.status === 'Waiting') {
             this.inProgressInterviewee = interviewee;
           }
         }
   
         return result;
-      }, new Map<string, any[]>());
+      }, new Map<string, Interview[]>());
   
       // Sort the grouped interviewees by date
       this.sortIntervieweesByDate();
     });
   }
+
   
+  loadAssignedInterviewers() {
+    this.dataService.getAllInterviewes().pipe(
+      map(actions => actions.map((a: any) => {
+        const data: any = a.payload.doc.data();
+        return data.selectedStaff;
+      }))
+    ).subscribe(assignedInterviewers => {
+      this.assignedInterviewers = assignedInterviewers.flat();
+    });
+  }
+ 
 
   handleCardClick(item: any) {
     this.inProgressInterviewee = item;
@@ -400,40 +503,16 @@ export class ScoreCapturePage implements OnInit {
     return this.groupedInterviewees.get(this.todayDateString) || [];
   }
 
-  // start() {
-  //   if (this.inProgressInterviewee) {
-  //     const { name, surname, email, Status, int_id } = this.inProgressInterviewee;
-  //     this.int_id = int_id;
-  //     this.name = name;
-  //     this.surname= surname;
-  //     this.email = email;
-  //     this.Status = Status;
-  //     // Display a message box with the details of the person with "In Progress" status
-  //     const confirmation = window.confirm(`Start interview with ${name} ${surname} (${email})?`);
-  //     if (confirmation) {
-  //       // Proceed with saving the data to the database
-  //       // this.submitForm();
-  //       this.updateStatuss();
-  //       // this.groupedInterviewees.clear();
-  //       this.fetchData();
-  //       console.log('The interview has started');
-  //     }
-  //   } else {
-  //     alert('No person with "In Progress" status found.');
-  //   }
-  // }
-
-  // Define a class variable to store the email
-
+  
 
 async start() {
   if (this.inProgressInterviewee) {
-    const { name, surname, email, Status, int_id } = this.inProgressInterviewee;
+    const { name, surname, email, status, int_id } = this.inProgressInterviewee;
     this.int_id = int_id;
     this.name = name;
     this.surname = surname;
     this.email = email;
-    this.Status = Status;
+    this.status = status;
 
     // Store the email in the class variable
     this.intervieweeEmail = email;

@@ -141,6 +141,10 @@ const routes: Routes = [
     path: 'interview-list',
     loadChildren: () => import('./interview-list/interview-list.module').then( m => m.InterviewListPageModule)
   },
+  {
+    path: 'display',
+    loadChildren: () => import('./display/display.module').then( m => m.DisplayPageModule)
+  },
 
 
 
