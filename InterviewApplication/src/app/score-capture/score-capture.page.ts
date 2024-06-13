@@ -120,16 +120,14 @@ export class ScoreCapturePage implements OnInit {
 
     this.todayDateString = new Date().toDateString();
    
-  
-  
-
   }
 
   ngOnInit() {
+    this.auths();
     // this.getAllDocuments2();
     this.fetchData();
     // getUserData();
-    this.auths();
+    
     
     
   }
@@ -177,20 +175,6 @@ export class ScoreCapturePage implements OnInit {
     if (currentUser) {
       this.userEmail = currentUser.email;
       console.log(this.userEmail);
-    
-      // Add the user's email to the database
-    //   this.firestore.collection('UserEmails').doc(currentUser.uid).set({
-    //     email: this.userEmail
-    //   })
-    //   .then(() => {
-    //     console.log('User email added to database');
-    //   })
-    //   .catch(error => {
-    //     console.error('Error adding user email to database:', error);
-    //   });
-  
-    //   // Once the user's email is set, fetch data
-    //   this.fetchData();
     }
   }
 
@@ -231,9 +215,7 @@ export class ScoreCapturePage implements OnInit {
       })
       .then(() => {
         // Data added successfully
-        console.log('Form data added to Firestore!');
-        this.deleteCurrentUserFromUserEmails(); // Call function to delete current user from UserEmails
-        
+        console.log('Form data added to Firestore!'); 
       })
       .catch((error) => {
         console.error('Error adding form data to Firestore:', error);
@@ -241,27 +223,6 @@ export class ScoreCapturePage implements OnInit {
   }
   
  
-
- 
- 
-  
-
-  
- async deleteCurrentUserFromUserEmails() {
-  
-    const currentUser = await this.auth.currentUser;
-    if (currentUser) {
-      const currentUserEmail = currentUser.email;
-      this.firestore.collection('UserEmails').doc(currentUser.uid).delete()
-        .then(() => {
-          console.log('Current user removed from UserEmails');
-          this.checkAndSetInterviewedStatus(); // Call the function to check and update status
-        })
-        .catch(error => {
-          console.error('Error removing current user from UserEmails:', error);
-        });
-    }
-  }
   
   checkAndSetInterviewedStatus() {
     // Get all users from UserEmails collection
@@ -365,76 +326,13 @@ export class ScoreCapturePage implements OnInit {
     });
   }
   
-  // fetchData() {
-  //   this.firestore.collection('Interviewees', ref => ref.where('status', 'in', ['Waiting', 'In Progress'])).valueChanges().subscribe((data: any[]) => {
-  //     this.groupedInterviewees = data.reduce((result, interviewee) => {
-  //       const itemDate = new Date(interviewee.date);
-  //       const dateKey = itemDate.toDateString();
-  
-  //       if (dateKey === this.todayDateString) {
-  //         interviewee.date = dateKey;
-  
-  //         if (!result.has(dateKey)) {
-  //           result.set(dateKey, []);
-  //         }
-  //         result.get(dateKey).push(interviewee);
-  
-  //         // Check for "In Progress" status
-  //         if (interviewee.status === 'Waiting') {
-  //           this.inProgressInterviewee = interviewee;
-  //         }
-  //       }
-  
-  //       return result;
-  //     }, new Map<string, any[]>());
-  
-  //     // Sort the grouped interviewees by date
-  //     this.sortIntervieweesByDate();
-  //   });
-  // }
-
-
-
-
-  // fetchData() {
-  //   this.dataService.getAllInterviewes().pipe(
-  //     map(actions => actions.map((a: any) => {
-  //       const data: any = a.payload.doc.data();
-  //       return data.selectedStaff;
-  //     }))
-  //   ).subscribe(data => {
-  //     this.groupedInterviewees = data.reduce((result: { has: (arg0: string) => any; set: (arg0: string, arg1: never[]) => void; get: (arg0: string) => any[]; }, interviewee: { date: string | number | Date; status: string; }) => {
-  //       const itemDate = new Date(interviewee.date);
-  //       const dateKey = itemDate.toDateString();
-  
-  //       if (dateKey === this.todayDateString) {
-  //         interviewee.date = dateKey;
-  
-  //         if (!result.has(dateKey)) {
-  //           result.set(dateKey, []);
-  //         }
-  //         result.get(dateKey).push(interviewee);
-  
-  //         // Check for "In Progress" status
-  //         if (interviewee.status === 'Waiting') {
-  //           this.inProgressInterviewee = interviewee;
-  //         }
-  //       }
-  
-  //       return result;
-  //     }, new Map<string, any[]>());
-  
-  //     // Sort the grouped interviewees by date
-  //     this.sortIntervieweesByDate();
-  //   });
-  // }
 
 
   fetchData() {
-    if (!this.userEmail) {
-      console.error('User email is not set. Ensure auths() has been called.');
-      return;
-    }
+    // if (!this.userEmail) {
+    //   console.error('User email is not set. Ensure auths() has been called.');
+    //   return;
+    // }
   
     this.dataService.getAllInterviewes().pipe(
       map(actions => actions.map((a: any) => {
