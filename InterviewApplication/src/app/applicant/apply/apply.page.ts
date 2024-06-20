@@ -44,8 +44,10 @@ export class ApplyPage implements OnInit {
   phone = '';
   address = '';
   city = '';
-  province = "";
-  country = '';
+  province: string = '';
+  country: string = '';
+  provinceError: string | null = null;
+  countryError: string | null = null;
   gradeAverage='';
   studentno='';
   certificate='';
@@ -76,7 +78,7 @@ export class ApplyPage implements OnInit {
   options: any;
   references: any[] = [];
   experiences: any[] = [];
-  skills: any[] = [];
+  skills: { skilln: string, skillLevel: string, skillDescription: string }[] = [];
   qualifications: any[] = [];
   languages: any[] = [];
   acardemicRrdUpload: AngularFireUploadTask | undefined;
@@ -92,14 +94,14 @@ export class ApplyPage implements OnInit {
   userDocumentt: any;
   cityError: any;
   genderError: any;
-  countryError: any;
+
   code = '';
   codeError: any;
   fullNameError:any;
   lastNameError:any;
   TotalExperienceError: any;
   coursedata : any[]=[];
-  provinceError:any;
+  
  bithDateError:any;
  studyFieldError:any;
  gradeaverageError:any;
@@ -176,6 +178,8 @@ municipalities:any[]=[];
       });
   }
 
+
+  
   addReference() {
     this.references.push({
       name: '',
@@ -185,10 +189,9 @@ municipalities:any[]=[];
     });
   }
 
+ 
   addSkill() {
-    this.skills.push({
-      skilln: '',
-    });
+    this.skills.push({ skilln: '', skillLevel: '', skillDescription: '' });
   }
 
   addLanguage() {
@@ -208,16 +211,26 @@ municipalities:any[]=[];
    
   }
 
+  onProvinceChange(event: any) {
+    const selectedProvince = event.detail.value;
+    if (selectedProvince === 'International') {
+      this.country = '';
+    } else {
+      this.country = 'South Africa';
+    }
+  }
+
+
+
   addQualification() {
     this.qualifications.push({
-      Qdescription:'',
-      degree: '',
+      certificate: '',
       studyField: '',
+      Qdescription: '',
       universityOrCollege: '',
       gradeAverage: '',
-      graduationYear:'' 
+      graduationYear: '',
     });
-   
   }
 
   async Validation() {
@@ -393,6 +406,8 @@ municipalities:any[]=[];
       this.skills.splice(index, 1);
     }
   }
+
+  
 
   removeLanguage(language: any) {
     const index = this.languages.indexOf(language);

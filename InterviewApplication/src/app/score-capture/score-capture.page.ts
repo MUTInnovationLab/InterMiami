@@ -2,10 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
-import {  Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AlertController, LoadingController, NavController, ToastController } from '@ionic/angular';
-//import * as firebase from 'firebase/compat';
-import 'firebase/auth';
 import { Observable, map, of } from 'rxjs';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
@@ -19,18 +17,20 @@ interface User {
 
 interface Staff {
   email: string;
+  Name: string; // Ensure name property is present in the Staff interface
 }
 
 interface Interview {
   date: string | number | Date;
   status: string;
+  email: string; // Add email property
+  name: string;  // Add name property
 }
 
 interface Data {
   interview: Interview;
   selectedStaff: Staff[];
 }
-
 
 @Component({
   selector: 'app-score-capture',
@@ -40,12 +40,12 @@ interface Data {
 export class ScoreCapturePage implements OnInit {
   groupedInterviewees: Map<string, any[]> = new Map();
 
-  userData: User = {email:"default@gmail.com",name:"your name"} ;
+  userData: User = { email: "default@gmail.com", name: "your name" };
 
   assignedInterviewers: any[] = [];
   intervieweeEmail!: string;
-  int_id! :number;
-  name!:string;
+  int_id!: number;
+  name!: string;
   surname!: string;
   email!: string;
   Status!: string;
@@ -60,19 +60,16 @@ export class ScoreCapturePage implements OnInit {
   jobSpecificSkills: number = 0;
   problemSolving: number = 0;
   total: number = 0;
-  label1= Text;
-  label2=Text;
-
-
+  label1 = Text;
+  label2 = Text;
 
   todayDateString: string;
-  selectedOption: any;// Variable to store the selected option
+  selectedOption: any; // Variable to store the selected option
   inProgressInterviewee: any = null; // Store the person with "In Progress" status
-
 
   data: any;
   tables$: any;
-  jobfaculty:any;
+  jobfaculty: any;
 
   selectedRowIndex: number = -1;
 
@@ -88,7 +85,6 @@ export class ScoreCapturePage implements OnInit {
   };
 
   tableData: any[] = [];
-  
 
   // userData: any;
   currentPage: number = 1;
@@ -98,12 +94,12 @@ export class ScoreCapturePage implements OnInit {
   userDocument: any;
   navController: any;
   userEmail: any;
+  staffName: string = ''; // Add staffName property
 
   sortIntervieweesByDate() {
     // Sort the grouped interviewees by date (keys)
     this.groupedInterviewees = new Map([...this.groupedInterviewees.entries()].sort());
   }
-
 
   constructor(private firestore: AngularFirestore,
     private loadingController: LoadingController,
@@ -118,10 +114,6 @@ export class ScoreCapturePage implements OnInit {
     private dataService: DataService) {
 
     this.todayDateString = new Date().toDateString();
-   
-  
-  
-
   }
 
   ngOnInit() {
@@ -129,8 +121,6 @@ export class ScoreCapturePage implements OnInit {
     this.fetchData();
     // getUserData();
     this.auths();
-    
-    
   }
 
   calculateTotal() {
@@ -151,58 +141,79 @@ export class ScoreCapturePage implements OnInit {
 
   checkMaxValue(event: any) {
     const value = parseInt(event.target.value, 10);
-    if (isNaN(value)) return; 
+    if (isNaN(value)) return;
     if (value > 10) {
-      event.preventDefault(); 
-      event.stopPropagation(); 
+      event.preventDefault();
+      event.stopPropagation();
     }
   }
 
   handleItemClick(index: number) {
     this.selectedRowIndex = index;
-
   }
 
-
-
-  logBack(){
+  logBack() {
     this.deleteCurrentUserFromUserEmails();
   }
-
-
 
   async auths() {
     const currentUser = await this.auth.currentUser;
     if (currentUser) {
       this.userEmail = currentUser.email;
-      this.userEmailArray.push(this.userEmail);
-      console.log(this.userEmailArray);
-  
-      // Add the user's email to the database
-      this.firestore.collection('UserEmails').doc(currentUser.uid).set({
-        email: this.userEmail
-      })
-      .then(() => {
-        console.log('User email added to database');
-      })
-      .catch(error => {
-        console.error('Error adding user email to database:', error);
+
+      // Check if the user's email has an interview scheduled for today
+      const todayDateString = new Date().toDateString();
+      let hasInterviewToday = false;
+
+      // Fetch interview data
+      this.dataService.getAllInterviewes().pipe(
+        map(actions => actions.map((a: any) => {
+          const data: any = a.payload.doc.data();
+          return {
+            interview: data.Interviewee.interview,
+            selectedStaff: data.selectedStaff
+          } as Data;
+        }))
+      ).subscribe((data: Data[]) => {
+        // Check if there is an interview scheduled for today with the user's email
+        hasInterviewToday = data.some((item: Data) => {
+          return item.interview.email === this.userEmail && new Date(item.interview.date).toDateString() === todayDateString;
+        });
+
+        if (hasInterviewToday) {
+          // Add the user's email to the database
+          this.firestore.collection('UserEmails').doc(currentUser.uid).set({
+            email: this.userEmail
+          })
+            .then(() => {
+              console.log('User email added to database');
+            })
+            .catch(error => {
+              console.error('Error adding user email to database:', error);
+            });
+        } else {
+          // Display alert when no interview is scheduled for today
+          alert("You do not have interview scheduled for today");
+        }
       });
     }
   }
 
+ 
+
   submitForm() {
     this.calculateTotal();
-  
+
     alert(`Introduction: ${this.introduction}\nTeamwork: ${this.teamwork}\n...\nName: ${this.name}`);
-    
+
     const stringData = {
       name: this.name,
       email: this.email,
+      staffName: this.staffName, // Use the stored staff name
       Status: this.Statuss,
       int_id: this.int_id,
-      userEmail : this.userEmail,
-      date: new Date().toISOString() 
+      userEmail: this.userEmail,
+      date: new Date().toISOString()
     };
 
     // Include averageTotalScore in numericData
@@ -216,9 +227,8 @@ export class ScoreCapturePage implements OnInit {
       jobSpecificSkills: this.jobSpecificSkills,
       problemSolving: this.problemSolving,
       total: this.total,
-      
     };
-  
+
     // Now, you can proceed with adding the data to Firestore
     this.firestore
       .collection('feedback')
@@ -230,22 +240,14 @@ export class ScoreCapturePage implements OnInit {
         // Data added successfully
         console.log('Form data added to Firestore!');
         this.deleteCurrentUserFromUserEmails(); // Call function to delete current user from UserEmails
-        
+
       })
       .catch((error) => {
         console.error('Error adding form data to Firestore:', error);
       });
   }
-  
- 
 
- 
- 
-  
-
-  
- async deleteCurrentUserFromUserEmails() {
-  
+  async deleteCurrentUserFromUserEmails() {
     const currentUser = await this.auth.currentUser;
     if (currentUser) {
       const currentUserEmail = currentUser.email;
@@ -259,25 +261,23 @@ export class ScoreCapturePage implements OnInit {
         });
     }
   }
-  
+
   checkAndSetInterviewedStatus() {
     // Get all users from UserEmails collection
     this.firestore.collection('UserEmails').get().subscribe((querySnapshot: firebase.firestore.QuerySnapshot<any>) => {
       const userEmailsCount = querySnapshot.size; // Get the count of user emails
-  
+
       // If only one user left, update statuses
       if (userEmailsCount === 0) {
         this.totalScore();
         this.updateStatusForAll(); // Call function to update status for all users
-        
       }
     });
   }
-  
-  
+
   totalScore() {
     const intervieweeRef = this.firestore.collection('feedback', ref => ref.where('stringData.email', '==', this.intervieweeEmail));
-      
+
     intervieweeRef.get().subscribe((querySnapshot: firebase.firestore.QuerySnapshot<any>) => {
       let total = 0;
       let count = 0;
@@ -287,123 +287,66 @@ export class ScoreCapturePage implements OnInit {
         total += data.numericData.total;
         count++;
       });
-  
+
       // Calculate the average total score
       const averageTotalScore = count > 0 ? total / count : 0;
       console.log('Average Total Score for Interviewee:', averageTotalScore);
-  
+
       // Add average total score to Firestore
       this.firestore
         .collection('IntervieweeAverage')
         .add({
-          averageTotalScore: averageTotalScore, 
+          averageTotalScore: averageTotalScore,
           email: this.intervieweeEmail,
-          int_id: this.int_id, 
-          Status: this. Statuss, 
+          int_id: this.int_id,
+          Status: this.Statuss,
           name: this.name
-          
+
         })
         .then(() => {
           console.log('Average data added to Firestore!');
-         
         })
         .catch((error) => {
           console.error('Error adding Average data to Firestore:', error);
         });
     });
   }
-  
-  
-  
- 
-  
-  // updateStatusForAll() {
-  //   // Update status for all users to "Interviewed"
-  //   this.firestore.collection('Interviewees').get().subscribe((querySnapshot: firebase.firestore.QuerySnapshot<any>) => {
-  //     querySnapshot.forEach(doc => {
-  //       doc.ref.update({ Status: this.Statuss })
-  //         .then(() => {
-  //           console.log('Status updated successfully');
-  //         })
-  //         .catch(error => {
-  //           console.error('Error updating status:', error);
-  //         });
-  //     });
-  //   });
-  // }
-  
-
 
   executeBothMethods() {
     this.submitForm();
-    
   }
-  
-
-
 
   updateStatusForAll() {
-    const intervieweeRef = this.firestore.collection('Interviewees', ref => ref.where('email', '==', this.intervieweeEmail));
-    
-    intervieweeRef.get().subscribe((querySnapshot: firebase.firestore.QuerySnapshot<any>) => {
-      querySnapshot.forEach(doc => {
-        // Update the "Status" field
-        doc.ref.update({ Status: this.Statuss }) // Replace 'New Status' with the desired status
-          .then(() => {
-            alert('Status updated successfully');
-          })
-          .catch(error => {
-            console.error('Error updating status:', error);
-          });
+    this.firestore.collection('interviews', ref => ref.where('Interviewee.interview.email', '==', this.intervieweeEmail))
+      .get()
+      .subscribe(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          doc.ref.update({ 'Interviewee.interview.status': this.Statuss }) // Update status to Interviewed
+            .then(() => {
+              console.log('Status updated successfully');
+            })
+            .catch(error => {
+              console.error('Error updating status:', error);
+            });
+        });
       });
-    });
   }
-  
 
   updateStatuss() {
-    const intervieweeRef = this.firestore.collection('Interviewees', ref => ref.where('name', '==', this.name));
-    
-    intervieweeRef.get().subscribe((querySnapshot: firebase.firestore.QuerySnapshot<any>) => {
-      querySnapshot.forEach(doc => {
-        // Update the "Status" field
-        doc.ref.update({ Status: this.Statusss }) // Replace 'New Status' with the desired status
-          .then(() => {
-            alert('Status updated successfully');
-          })
-          .catch(error => {
-            console.error('Error updating status:', error);
-          });
+    this.firestore.collection('interviews', ref => ref.where('Interviewee.interview.name', '==', this.name))
+      .get()
+      .subscribe(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          doc.ref.update({ 'Interviewee.interview.status': this.Statusss }) // Update status to In Progress
+            .then(() => {
+              console.log('Status updated successfully');
+            })
+            .catch(error => {
+              console.error('Error updating status:', error);
+            });
+        });
       });
-    });
   }
-  
-  // fetchData() {
-  //   this.firestore.collection('Interviewees', ref => ref.where('Status', 'in', ['Waiting', 'In Progress'])).valueChanges().subscribe((data: any[]) => {
-  //     this.groupedInterviewees = data.reduce((result, interviewee) => {
-  //       const itemDate = new Date(interviewee.date);
-  //       const dateKey = itemDate.toDateString();
-  
-  //       if (dateKey === this.todayDateString) {
-  //         interviewee.date = dateKey;
-  
-  //         if (!result.has(dateKey)) {
-  //           result.set(dateKey, []);
-  //         }
-  //         result.get(dateKey).push(interviewee);
-  
-  //         // Check for "In Progress" status
-  //         if (interviewee.Status === 'Waiting') {
-  //           this.inProgressInterviewee = interviewee;
-  //         }
-  //       }
-  
-  //       return result;
-  //     }, new Map<string, any[]>());
-  
-  //     // Sort the grouped interviewees by date
-  //     this.sortIntervieweesByDate();
-  //   });
-  // }
 
   loadAssignedInterviewers() {
     this.dataService.getAllInterviewes().pipe(
@@ -417,11 +360,6 @@ export class ScoreCapturePage implements OnInit {
   }
 
   fetchData() {
-    // if (!this.userEmail) {
-    //   console.error('User email is not set. Ensure auths() has been called.');
-    //   return;
-    // }
-  
     this.dataService.getAllInterviewes().pipe(
       map(actions => actions.map((a: any) => {
         const data: any = a.payload.doc.data();
@@ -432,123 +370,101 @@ export class ScoreCapturePage implements OnInit {
       }))
     ).subscribe((data: Data[]) => {
       const filteredInterviews = data
+        .filter((item: Data) => {
+          // Filter only interviews with status 'Waiting' or 'In Progress'
+          return item.interview.status === 'Waiting' || item.interview.status === 'In Progress';
+        })
         .filter((item: Data) => item.selectedStaff.some((staff: Staff) => staff.email === this.userEmail))
-        .map((item: Data) => item.interview);
-  
+        .map((item: Data) => {
+          // Store the staff name in the class variable
+          this.staffName = item.selectedStaff.find((staff: Staff) => staff.email === this.userEmail)?.Name || '';
+
+          return item.interview;
+        });
+
       this.groupedInterviewees = filteredInterviews.reduce((result: Map<string, Interview[]>, interviewee: Interview) => {
         const itemDate = new Date(interviewee.date);
         const dateKey = itemDate.toDateString();
-  
+
         if (dateKey === this.todayDateString) {
           interviewee.date = dateKey;
-  
+
           if (!result.has(dateKey)) {
             result.set(dateKey, []);
           }
-  
+
           const intervieweesForDate = result.get(dateKey);
           if (intervieweesForDate) {
             intervieweesForDate.push(interviewee);
           }
-  
+
           // Check for "In Progress" status
           if (interviewee.status === 'Waiting') {
             this.inProgressInterviewee = interviewee;
           }
         }
-  
+
         return result;
       }, new Map<string, Interview[]>());
-  
+
       // Sort the grouped interviewees by date
       this.sortIntervieweesByDate();
     });
   }
-  
 
   handleCardClick(item: any) {
     this.inProgressInterviewee = item;
     this.start();
   }
-  
 
   // Function to filter only today's data
   getTodayData(): any[] {
     return this.groupedInterviewees.get(this.todayDateString) || [];
   }
 
-  // start() {
-  //   if (this.inProgressInterviewee) {
-  //     const { name, surname, email, Status, int_id } = this.inProgressInterviewee;
-  //     this.int_id = int_id;
-  //     this.name = name;
-  //     this.surname= surname;
-  //     this.email = email;
-  //     this.Status = Status;
-  //     // Display a message box with the details of the person with "In Progress" status
-  //     const confirmation = window.confirm(`Start interview with ${name} ${surname} (${email})?`);
-  //     if (confirmation) {
-  //       // Proceed with saving the data to the database
-  //       // this.submitForm();
-  //       this.updateStatuss();
-  //       // this.groupedInterviewees.clear();
-  //       this.fetchData();
-  //       console.log('The interview has started');
-  //     }
-  //   } else {
-  //     alert('No person with "In Progress" status found.');
-  //   }
-  // }
+  async start() {
+    if (this.inProgressInterviewee) {
+      const { name, surname, email, Status, int_id } = this.inProgressInterviewee;
+      this.int_id = int_id;
+      this.name = name;
+      this.surname = surname;
+      this.email = email;
+      this.Status = Status;
 
-  // Define a class variable to store the email
+      // Store the email in the class variable
+      this.intervieweeEmail = email;
 
+      const alert = await this.alertController.create({
+        header: 'Start Interview',
+        message: `Start interview with ${name} ${surname} (${email})?`,
+        buttons: [
+          {
+            text: 'Cancel',
+            role: 'cancel',
+            cssClass: 'secondary',
+            handler: () => {
+              console.log('Interview start cancelled');
+            }
+          }, {
+            text: 'Start',
+            handler: () => {
+              // Proceed with saving the data to the database
+              this.updateStatuss();
+              this.fetchData();
+              console.log('The interview has started');
 
-async start() {
-  if (this.inProgressInterviewee) {
-    const { name, surname, email, Status, int_id } = this.inProgressInterviewee;
-    this.int_id = int_id;
-    this.name = name;
-    this.surname = surname;
-    this.email = email;
-    this.Status = Status;
-
-    // Store the email in the class variable
-    this.intervieweeEmail = email;
-
-    const alert = await this.alertController.create({
-      header: 'Start Interview',
-      message: `Start interview with ${name} ${surname} (${email})?`,
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: () => {
-            console.log('Interview start cancelled');
+              // Now you can use the intervieweeEmail variable elsewhere
+              console.log('Interviewee Email:', this.intervieweeEmail);
+            }
           }
-        }, {
-          text: 'Start',
-          handler: () => {
-            // Proceed with saving the data to the database
-            // this.submitForm();
-            this.updateStatuss();
-            // this.groupedInterviewees.clear();
-            this.fetchData();
-            console.log('The interview has started');
+        ]
+      });
 
-            // Now you can use the intervieweeEmail variable elsewhere
-            console.log('Interviewee Email:', this.intervieweeEmail);
-          }
-        }
-      ]
-    });
-
-    await alert.present();
-  } else {
-    alert('No person with "In Progress" status found.');
+      await alert.present();
+    } else {
+      alert('No person with "In Progress" status found.');
+    }
   }
-}
-
 
   Clear() {
     this.introduction = 0;
@@ -569,5 +485,4 @@ async start() {
     });
     toast.present();
   }
-  
 }

@@ -30,6 +30,7 @@
         </div>
           <ion-item style="height: 50px;" class="custom-background">
             <ion-label style="color:black">Upcoming Interviews</ion-label>
+           
             </ion-item>
 
             <ion-content color="primary">
@@ -41,6 +42,8 @@
    
       <ion-card *ngFor="let item of group.value" class="custom-card" [class.selected]="i === selectedRowIndex">
         <ion-card-content (click)="handleCardClick(item)">
+         
+          <p><strong>Staff Name:</strong> {{ staffName }}</p>
           <p><ion-icon name='person-outline'></ion-icon>{{ item.name }} {{ item.surname }}</p>
           <p><ion-icon name='mail-outline'></ion-icon>{{ item.email }}</p>
           <p><ion-icon name='disc'></ion-icon>{{ item.status }}</p>

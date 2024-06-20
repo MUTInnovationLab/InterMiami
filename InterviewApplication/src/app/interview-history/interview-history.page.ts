@@ -30,6 +30,7 @@ export class InterviewHistoryPage implements OnInit {
         .map(item => ({
           int_id: item.stringData.int_id,
           name: item.stringData.name,
+          staff: item.stringData.staffName,
           email: item.stringData.email,
           status: item.stringData.Status,
           interviewerEmail: item.stringData.userEmail,

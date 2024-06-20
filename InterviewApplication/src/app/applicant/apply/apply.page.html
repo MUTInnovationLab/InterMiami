@@ -31,9 +31,6 @@
   
     <br>
 
-			
-
-
   <div class="jb">
     <ion-card class="Crd">
       <ion-card-header>
@@ -49,13 +46,13 @@
       </ion-card-content>
       <ion-card-content class="field-input">
         <ion-item>
-          <ion-label position="stacked">Full Name</ion-label>
+          <ion-label class="ion-label" position="stacked">Full Name</ion-label>
           <ion-input type="text" color="black" [(ngModel)]="fullname"  name="fullname" required (input)=" fullNameError= null;"></ion-input>
         </ion-item>
         <div class="error-message" *ngIf="fullNameError">{{  fullNameError }}</div>
 
         <ion-item>
-          <ion-label position="stacked">Last Name</ion-label>
+          <ion-label class="ion-label" position="stacked">Last Name</ion-label>
           <ion-input type="text" color="black" [(ngModel)]="lastname"  name="lastname" required (input)=" lastNameError= null;"></ion-input>
         </ion-item>
      <div class="error-message" *ngIf="lastNameError">{{ lastNameError }}</div>
@@ -67,7 +64,7 @@
         </ion-item>-->
 
         <ion-item class="dropdown" lines="none">
-          <ion-label>Gender
+          <ion-label >Gender
           <ion-select [(ngModel)]="gender"  name="fullname" required (input)="genderError= null;">
             <ion-select-option value="Male">Male</ion-select-option>
             <ion-select-option value="Female">Female</ion-select-option>
@@ -77,7 +74,7 @@
         <div class="error-message" *ngIf="genderError">{{  genderError }}</div>
 
         <ion-item fill="outline">
-          <ion-label>Date of Birth</ion-label>
+          <ion-label >Date of Birth</ion-label>
           <input type="text" [(ngModel)]="birthdate" name="birthdate" placeholder="Date of Birth">
           <ion-datetime-button  datetime="birthDatee"></ion-datetime-button>
           <ion-modal [keepContentsMounted]="true">
@@ -89,13 +86,13 @@
         <div class="error-message" *ngIf="bithDateError">{{ bithDateError }}</div>
 
         <ion-item>
-          <ion-label position="stacked">Email Address</ion-label>
+          <ion-label class="ion-label" position="stacked">Email Address</ion-label>
           <ion-input type="email" color="black" [(ngModel)]="email" name="email" (input)="emailError = null;" required ></ion-input>
         </ion-item>
         <div class="error-message" *ngIf="emailError">{{ emailError }}</div>
 
         <ion-item>
-          <ion-label position="stacked">Phone Number</ion-label>
+          <ion-label class="ion-label" position="stacked">Phone Number</ion-label>
           <ion-input type="tel" color="black" [(ngModel)]="phone" name="phone" (input)="phoneError = null;" required></ion-input>
         </ion-item>
         <div class="error-message" *ngIf="phoneError">{{ phoneError }}</div>
@@ -103,31 +100,58 @@
                  
 
         <ion-item>
-          <ion-label position="stacked">Address</ion-label>
+          <ion-label class="ion-label" position="stacked">Address</ion-label>
           <ion-input type="text" color="black" [(ngModel)]="address" name="address" (input)="addressError = null; " required></ion-input>
         </ion-item>
         <div class="error-message" *ngIf="addressError">{{ addressError }}</div>
 
         <ion-item>
-          <ion-label position="stacked">City</ion-label>
+          <ion-label class="ion-label" position="stacked">City</ion-label>
           <ion-input type="text" color="black"  [(ngModel)]="city" name="city" (input)="cityError = null;" required></ion-input>
         </ion-item>
         <div class="error-message" *ngIf="cityError">{{ cityError }}</div>
         <br>
         <ion-item>
-          <ion-label position="stacked">Province</ion-label>
-          <ion-input type="text" color="black" [(ngModel)]="province" name="province" (input)="provinceError = null;" required></ion-input>
+          <ion-label class="ion-label" position="stacked">Province</ion-label>
+          <ion-select 
+            type="text" 
+            color="black" 
+            [(ngModel)]="province" 
+            name="province" 
+            (input)="provinceError = null;" 
+            required  
+            (ionChange)="onProvinceChange($event)">
+            <ion-select-option value="KwaZulu-Natal">KwaZulu-Natal</ion-select-option>
+            <ion-select-option value="Mpumalanga">Mpumalanga</ion-select-option>
+            <ion-select-option value="Gauteng">Gauteng</ion-select-option>
+            <ion-select-option value="North West">North West</ion-select-option>
+            <ion-select-option value="Limpopo">Limpopo</ion-select-option>
+            <ion-select-option value="Western Cape">Western Cape</ion-select-option>
+            <ion-select-option value="Eastern Cape">Eastern Cape</ion-select-option>
+            <ion-select-option value="Free State">Free State</ion-select-option>
+            <ion-select-option value="Northern Cape">Northern Cape</ion-select-option>
+            <ion-select-option value="International">International</ion-select-option>
+          </ion-select>
+          <div class="error-message" *ngIf="provinceError">{{ provinceError }}</div>
         </ion-item>
-        <div class="error-message" *ngIf="provinceError">{{ provinceError }}</div>
+        
         <br>
         <ion-item>
-          <ion-label position="stacked">Country</ion-label>
-          <ion-input type="text" color="black" [(ngModel)]="country" name="country" (input)="countryError = null;" required></ion-input>
+          <ion-label class="ion-label" position="stacked">Country</ion-label>
+          <ion-input 
+            type="text" 
+            color="black" 
+            [(ngModel)]="country" 
+            name="country" 
+            (input)="countryError = null;" 
+            required>
+          </ion-input>
         </ion-item>
         <div class="error-message" *ngIf="countryError">{{ countryError }}</div>
+        
 
         <ion-item>
-          <ion-label position="stacked">Postal Code</ion-label>
+          <ion-label class="ion-label" position="stacked">Postal Code</ion-label>
           <ion-input type="number" color="black" [(ngModel)]="code" name="code" (input)="codeError = null;" required></ion-input>
         </ion-item>
         <div class="error-message" *ngIf="codeError">{{ codeError }}</div>
@@ -159,16 +183,21 @@
         <ion-icon name="trash" (click)="removeQualification(qualification)"></ion-icon>
       </ion-card-header>
       <ion-card-content class="field-input">
- 
         <ion-item class="dropdown" lines="none" style="max-width: 200px;">
-          <ion-label>Qualification</ion-label> 
-          <ion-select color="black" [(ngModel)]="certificate" interface="popover" style="width: 100%;">
-            <ion-select-option value="Doctorate">Doctoral Degree</ion-select-option>     
+          <ion-label>Qualification</ion-label>
+          <ion-select color="black" [(ngModel)]="qualification.certificate" interface="popover" style="width: 100%;">
+            <ion-select-option value="Doctorate">Doctoral Degree</ion-select-option>
             <ion-select-option value="Masters">Master's Degree</ion-select-option>
             <ion-select-option value="Honors">Honour's degree</ion-select-option>
             <ion-select-option value="Bachelor/advanced">Bachelor's Degree/advanced Diploma</ion-select-option>
-            <ion-select-option value="Diploma">National Diploma</ion-select-option>      
+            <ion-select-option value="Diploma">National Diploma/ Diploma</ion-select-option>
+            <ion-select-option value="Higher Certificate">Higher Certificate</ion-select-option>
+            <ion-select-option value="Senior Certificate">Senior Certificate</ion-select-option>
+            <ion-select-option value="Other">Other Qualification/Certificate</ion-select-option>
           </ion-select>
+        </ion-item>
+        <ion-item *ngIf="qualification.certificate === 'Other'">
+          <ion-input style="color: black;" placeholder="Other Qualification/Certificate" [(ngModel)]="qualification.otherCertificate"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label>Field of study:</ion-label>
@@ -187,7 +216,7 @@
           <div class="error-message" *ngIf="universityError">{{ universityError}}</div>
         </ion-item>
         <ion-item>
-          <ion-label position="stacked">Grade Avarage</ion-label>
+          <ion-label class="ion-label" position="stacked">Grade Avarage</ion-label>
           <ion-input  color="black" type="number" [(ngModel)]="gradeAverage" required></ion-input>
           <div class="error-message" *ngIf="gradeaverageError">{{ gradeaverageError }}</div>
         </ion-item>
@@ -236,7 +265,7 @@
 
     <ion-card class="EA">
       <ion-item>
-        <ion-label position="stacked">Total Years of Experience</ion-label>
+        <ion-label class="ion-label" position="stacked">Total Years of Experience</ion-label>
         <ion-input type="text" color="black" [(ngModel)]="TotalExperience"  name="fullname" required (input)=" fullNameError= null;"></ion-input>
       </ion-item>
       <div class="error-message" *ngIf="TotalExperienceError">{{  TotalExperienceError }}</div>
@@ -246,23 +275,37 @@
     <ion-card class="EA" text-center padding>
       <button class="buttonH" (click)="addSkill()"><span>Add Skills</span></button>
     </ion-card>
-
-    <ion-card *ngFor="let skill of skills; " class="Crd" text-center padding>
+    
+    <ion-card *ngFor="let skill of skills;" class="Crd" text-center padding>
       <ion-card-header>
         Skills{{ skills.indexOf(skill) + 1 }}
         <ion-icon name="trash" (click)="removeSkill(skill)"></ion-icon>
       </ion-card-header>
       <ion-card-content>
         <ion-item>
-          <ion-input [(ngModel)]="skill.skilln"  style="color: black;"></ion-input>
+          <ion-label class="ion-label" position="stacked">Skill Name</ion-label>
+          <ion-input [(ngModel)]="skill.skilln" style="color: black;"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label class="ion-label" position="stacked">Skill Level</ion-label>
+          <ion-select [(ngModel)]="skill.skillLevel">
+            <ion-select-option value="Junior">Junior</ion-select-option>
+            <ion-select-option value="Intermediate">Intermediate</ion-select-option>
+            <ion-select-option value="Expert">Expert</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label class="ion-label" position="stacked">Skill Description</ion-label>
+          <ion-textarea [(ngModel)]="skill.skillDescription" style="color: black;"></ion-textarea>
         </ion-item>
       </ion-card-content>
     </ion-card>
+    
    
 
     <ion-card *ngFor="let language of languages; "  class="field-input">
       <ion-card-header>
-        Licence{{languages.indexOf(language) + 1 }}
+       Licence{{languages.indexOf(language) + 1 }}
         <ion-icon name="trash" (click)="removeLanguage(language)"></ion-icon>
       </ion-card-header>
       <ion-card-content class="field-input">
@@ -307,7 +350,7 @@
 
 
     <ion-item class="dropdown" lines="none" style="max-width: 200px;">
-      <ion-label color="black" >License
+      <ion-label color="black" >Drivers License
       <ion-select color="black" [(ngModel)]="license" interface="popover" style="width: 100%;">       
         <ion-select-option value="Code 2">Code 2</ion-select-option>
         <ion-select-option value="Code 8">Code 8</ion-select-option>

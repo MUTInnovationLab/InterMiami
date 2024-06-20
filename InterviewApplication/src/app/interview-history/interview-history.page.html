@@ -9,67 +9,74 @@
 
 <ion-content>
   <ion-grid class="sc">
-  <div class="cent">
-    <ion-grid>
-      <div class="table-wrapper">
-        <table class="bordered">
-          <thead class="color">
-            <tr>
-
-              <th>
-                <ion-icon name="calendar"></ion-icon>
-                <br>
-                
-                Date
-              </th>
-
-              <th>
-                <ion-icon name="person"></ion-icon>
-                <br>
-                
-                Interviewer Address
-              </th>
-
-              <th>
-                <ion-icon name="person"></ion-icon>
-                <br>
-                Interviewee ID
-               
-              </th>
-
-              <th>
-                <ion-icon name="document-text-outline"></ion-icon>
-                <br>
-                Interviewee Name
-              </th>
-              <th>
-                <ion-icon name="mail"></ion-icon>
-                <br>
-                Email Address
-              </th>
-              <th>
-                <ion-icon name="stats-chart-outline"></ion-icon>
-                <br>
-                Status
-              </th>
-            </tr>
-          </thead>
-          <tbody class="body">
-            <tr *ngFor="let data of interviewHistory">
-              <td class="white-text">{{data.date}}</td>
-              <td class="white-text">{{data.interviewerEmail}}</td>
-              <td class="white-text">{{data.int_id}}</td>
-              <td class="white-text">{{data.name}}</td>
-               <td class="white-text">{{data.email}}</td>
-              <td class="white-text">{{data.status}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <p class="total-text ion-text-left">Total Interviews: {{interviewHistory.length}}</p>
-    </ion-grid>
-  </div>
-</ion-grid>
+    <div class="cent">
+      <ion-grid>
+        <div class="table-wrapper">
+          <table class="bordered">
+            <thead class="color">
+              <tr>
+                <th>
+                  <ion-icon name="calendar"></ion-icon>
+                  <br>
+                  Date
+                </th>
+                <th>
+                  <ion-icon name="person"></ion-icon>
+                  <br>
+                  Interviewer Address
+                </th>
+                <th>
+                  <ion-icon name="person"></ion-icon>
+                  <br>
+                  Interviewer Name
+                </th>
+                <th>
+                  <ion-icon name="document-text-outline"></ion-icon>
+                  <br>
+                  Interviewee Name
+                </th>
+                <th>
+                  <ion-icon name="mail"></ion-icon>
+                  <br>
+                  Email Address
+                </th>
+                <th>
+                  <ion-icon name="stats-chart-outline"></ion-icon>
+                  <br>
+                  Status
+                </th>
+              </tr>
+            </thead>
+            <tbody class="body">
+              <tr *ngFor="let data of interviewHistory">
+                <td class="white-text">{{data.date}}</td>
+                <td class="white-text">{{data.interviewerEmail}}</td>
+                <td class="white-text">{{data.staff}}</td>
+                <td class="white-text">{{data.name}}</td>
+                <td class="white-text">{{data.email}}</td>
+                <td class="white-text">{{data.status}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card-wrapper" *ngIf="interviewHistory.length > 0">
+          <ion-card *ngFor="let data of interviewHistory" class="card">
+            <ion-card-header>
+              Interview Date: {{data.date}}
+            </ion-card-header>
+            <ion-card-content>
+              <p><strong>Interviewer Address:</strong> {{data.interviewerEmail}}</p>
+              <p><strong>Interviewer Name:</strong> {{data.staff}}</p>
+              <p><strong>Interviewee Name:</strong> {{data.name}}</p>
+              <p><strong>Email Address:</strong> {{data.email}}</p>
+              <p><strong>Status:</strong> {{data.status}}</p>
+            </ion-card-content>
+          </ion-card>
+        </div>
+        <p class="total-text ion-text-left">Total Interviews: {{interviewHistory.length}}</p>
+      </ion-grid>
+    </div>
+  </ion-grid>
 </ion-content>
 
 <ion-footer class="custom-footer">

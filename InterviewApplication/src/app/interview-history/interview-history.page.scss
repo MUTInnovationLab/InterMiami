@@ -6,8 +6,6 @@ ion-content {
   --background: #ECF0F6;
 }
 
-
-
 ion-card {
   background-color: #FFFFFF;
   color: #222428;
@@ -122,39 +120,37 @@ ion-card-content {
   color: white;
 }
 
-
-
-/* Media queries for responsiveness */
-@media only screen and (max-width: 768px) {
-  .ion-toolbar {
-    flex-direction: column;
-    align-items: center;
+/* Media query for screens with width 900px or less */
+@media (max-width: 900px) {
+  .table-wrapper {
+    display: none;
   }
 
-  .header-title {
-    margin-top: 10px;
-    font-size: 18px;
+  .card-wrapper {
+    display: block;
+    padding: 1rem;
   }
 
-  .cent {
-    margin: 0 10px;
+  .card {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
   }
 
-  .total-text {
-    margin-top: 10px;
-    font-size: 20px;
+  .card ion-icon {
+    margin-right: 0.5rem;
+  }
+}
+
+/* Hide the card view when the screen width is greater than 900px */
+@media (min-width: 901px) {
+  .card-wrapper {
+    display: none;
   }
 
-  .bordered th,
-  .bordered td {
-    padding: 6px;
-    font-size: 20px; 
-  }
-
-  @media only screen and (max-width: 300px) {
-    .scrollable-content {
-      padding: 0 10px; 
-    }
-  
+  .table-wrapper {
+    display: block;
   }
 }

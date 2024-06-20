@@ -17,7 +17,8 @@ export class DataService {
      getAllInterviewes(): Observable<any> {
       return this.afs.collection('interviews').snapshotChanges();
     }
-  
+
+   
      submitInterview(interviewConduct: any, candidateUid: string) {
       return this.afs.collection('interviews').doc(candidateUid).set(interviewConduct);
     }
