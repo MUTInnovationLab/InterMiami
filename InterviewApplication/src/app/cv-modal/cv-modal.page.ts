@@ -16,7 +16,7 @@ export class CvModalPage implements OnInit {
   constructor(private modalController: ModalController,private sanitizer: DomSanitizer,private navParams: NavParams) { }
 
   ngOnInit() {
-    console.log(this.cvUrl);
+
     this.cvUrl = this.navParams.get('cvUrl');
     this.safePdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.cvUrl);
   }

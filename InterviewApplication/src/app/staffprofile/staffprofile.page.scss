@@ -1,30 +1,3 @@
-.profile-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 32px;
-   
-  }
-  
-  .profile-image-container {
-    margin-bottom: 24px;
-  }
-  
-  .profile-image {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    object-fit: cover;
-  }
-  
-  .profile-details {
-    width: 100%;
-    max-width: 450px;
-    background-color: #006281;
-    padding: 24px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
   
   .label {
     font-weight: bold;
@@ -97,7 +70,7 @@
     grid-column: span 1;
   }
   
-  /* Animation */
+
   @keyframes fadeIn {
     0% {
       opacity: 0;
@@ -107,74 +80,20 @@
     }
   }
   
-  .profile-container,
-  .profile-details,
-  ion-card {
-    animation: fadeIn 0.5s ease-in-out;
-  }
-  
-  /* ION CARD */
+
   ion-card-header,
   .task-col {
     color: white;
   }
   
-  .task-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-  }
-  
-  .task-row {
-    display: flex;
-    align-items: center;
-  }
-  
-  .task-col {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    font-size: 16px;
-    padding: 8px;
-    border-radius: 4px;
-    color: white; /* Added to change the font color */
-  }
-  
-  /* BACKGROUND */
+
   :root {
     --ion-background-color: #26425A;
   }
-  
-  .profile-details ion-list {
-    background-color: transparent; /* Set the list background color to transparent */
-    margin-top: -16px; /* Adjust the margin to overlap with the card header */
-  }
-  
-  .profile-details ion-item {
-    --highlight-background-focused: transparent;
-    --highlight-color-focused: transparent;
-    --background: transparent; /* Set the item background to transparent */
-    --color: white; /* Set the item text color to white */
-  }
-  
-  .profile-details ion-item ion-label.label {
-    color: white; /* Set the label text color to white */
-  }
 
-  
-  
-
-  //header
   .custom-toolbar {
     background-color: #333;
     color: white;
-  }
-  
-  .phuto img {
-    width: 110px;
-    height: 60px;
   }
 
   ion-menu-button {
@@ -185,9 +104,6 @@
     --background: white;
   }
   
-  
-  
-
   .card-content {
     height: 100%;
     display: flex;
@@ -196,11 +112,8 @@
     align-items: center;
   }
   
-
   .custom-footer {
     text-align: center;
     background-color: #065D78; /* Footer background color */
     padding: 2px;
   }
-
-  

@@ -1,205 +1,53 @@
-.header-title {
-  color: hsl(0, 0%, 0%);
-  font-size: 24px;
-  font-weight: bold;
-  text-align: center;
+.maroon {
+  background-color: rgb(247, 242, 242);
 }
 
-ion-header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #065D78;
-  color: white;
-  height: 70px;
-  animation: headerFadeIn 1s ease-in;
+img {
+  width: 100px; 
+  height: 60px; 
 }
 
-.maroon{
-    background-color: rgb(247, 242, 242);
- }
- img{
-  width: 100px; /* Adjust the desired width */
-  height: 60px; /* Adjust the desired height */
- }
- .menu {
-   background-color: lightgoldenrodyellow;
-   width: 98%;
-   //margin-left:.5px;
- 
-   border-radius: 20px;
-   box-shadow: 0px 0px 15px #f2efef;
-   height: auto;
- }
-
- #popover-button{
+#popover-button {
   color: black;
- }
- .feild-input{
-  margin-left: 25%;
-  margin-bottom: 50px;
- }
+}
 
- .title{
-    text-align: center;
-    margin-bottom:-10px;
-    font-family: Arial, Helvetica, sans-serif;
- }
- .dropdown{
-    --border-radius: 30px;
- }
- ion-content{
-   --background:#006281;
-    
+.title {
+  text-align: center;
+  margin-bottom: -10px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.dropdown {
+  --border-radius: 30px;
+}
+
+ion-content {
+  --background: #006281;
 }
 
 p {
   color: red;
 }
-.error-message{
-    color: red;
-    font-size: small;
-    font-family:Arial;
-  }
 
-
-.overlay-container {
-  position: relative;
-}
-
-.overlay-list {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 999;
-  background-color: #ffffff;
-}
 
 ion-searchbar,
 .search {
-  width: 100%  !important;
+  width: 100% !important;
   margin-top: 10px;
-
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-
-/* Footer */
 .custom-footer {
   text-align: center;
-  background-color: #065D78; /* Footer background color */
+  background-color: #065D78; 
   padding: 2px;
 }
-/// Collapsing Butoon
-.buttonH,
-.buttonH *,
-.buttonH :after,
-.buttonH :before,
-.buttonH:after,
-.buttonH:before {
-border: 0 solid;
-box-sizing: border-box;
-}
 
-.buttonH {
--webkit-tap-highlight-color: transparent;
--webkit-appearance: button;
-background-color: #000;
-background-image: none;
-color: #fff;
-cursor: pointer;
-font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-  Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif,
-  Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
-font-size: 100%;
-line-height: 1.5;
-margin: 0;
--webkit-mask-image: -webkit-radial-gradient(#000, #fff);
-padding: 0;
-width: 50%;
-}
-
-.buttonH:disabled {
-cursor: default;
-}
-
-.buttonH:-moz-focusring {
-outline: auto;
-}
-
-.buttonH svg {
-display: block;
-vertical-align: middle;
-}
-
-.buttonH [hidden] {
-display: none;
-}
-
-.buttonH {
-box-sizing: border-box;
-display: block;
-font-weight: 900;
--webkit-mask-image: none;
-padding: 2rem 5rem;
-perspective: 800px;
-position: relative;
-text-transform: uppercase;
-transform-style: preserve-3d;
-}
-
-.buttonH span {
-background: #fff;
-color: #000;
-display: grid;
-inset: 0;
-place-items: center;
-position: absolute;
-transform: rotateX(0deg);
-transform-origin: top center;
-transition: 0.2s;
-}
-
-.buttonH:hover span {
-transform: rotateX(35deg);
-}
-
-.buttonH:after,
-.buttonH:before {
-background: #0f86aa;
-content: "";
-height: 100%;
-left: 0;
-position: absolute;
-top: 0;
-transform: rotateX(0deg);
-width: 100%;
-z-index: -1;
-}
-
-.buttonH:after {
-background:#065D78;
-width: 0;
-}
-
-.buttonH:hover:after {
--webkit-animation: progress-bar 1.2s;
-animation: progress-bar 1.2s;
-}
-.EA,.dropdown {
-  width:50%;
-  margin-left: 25%;
-  margin-bottom: 50px;
-}
-
-
-
-// Button Submit code
-.ion-label{
+.ion-label {
   font-size: 20px;
 }
-.butSubmit{
+
+.butSubmit {
   background-color: #5A241F;
   border: none;
   padding: 1rem;
@@ -209,202 +57,31 @@ animation: progress-bar 1.2s;
   color: rgb(255, 255, 255);
   box-shadow: 0 0.4rem #dfd9d9;
   cursor: pointer;
- }
- 
- .butSubmit:active {
+}
+
+.butSubmit:active {
   color: white;
   box-shadow: 0 0.2rem #dfd9d9;
   transform: translateY(0.2rem);
- }
- 
- .butSubmit:hover:not(:disabled) {
+}
+
+.butSubmit:hover:not(:disabled) {
   background: #0f86aa;
   color: white;
   text-shadow: 0 0.1rem #bcb4b4;
- }
- 
- .butSubmit:disabled {
+}
+
+.butSubmit:disabled {
   cursor: auto;
   color: grey;
- }
-
- .card-content {
-  display: flex; /* Use flexbox to arrange forms side by side */
-  gap: 20px; /* Add spacing between forms */
-  flex-wrap: wrap; /* Allow forms to wrap to the next line if needed */
-}
-//Formas to upload Documents
-
-.form {
-  background-color: #fff;
-  box-shadow: 0 10px 60px rgb(218, 229, 255);
-  border: 1px solid rgb(159, 159, 160);
-  border-radius: 20px;
-  padding: 2rem .7rem .7rem .7rem;
-  text-align: center;
-  font-size: 1.125rem;
-  max-width: 400px;
-  flex-direction: column; /* Change to a row layout */
-  text-align: center; /* Center text in each container */
-  width: auto;
-  margin-left: 15%;
-  margin-bottom: 40px;
 }
 
-
-
-.form-title {
-  color: #000000;
-  font-size: 1.8rem;
-  font-weight: 500;
+.card-content {
+  display: flex; 
+  gap: 20px; 
+  flex-wrap: wrap; 
 }
 
-.form-paragraph {
-  margin-top: 10px;
-  font-size: 0.9375rem;
-  color: rgb(105, 105, 105);
-}
-
-.drop-container {
-  background-color: #fff;
-  position: relative;
-  display: flex;
-  gap: 10px;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 10px;
-  margin-top: 2.1875rem;
-  border-radius: 10px;
-  border: 2px dashed#0f86aa;
-  color: #444;
-  cursor: pointer;
-  transition: background .2s ease-in-out, border .2s ease-in-out;
-}
-
-
-
-.drop-container:hover {
-  background: rgba(0, 140, 255, 0.164);
-  border-color: rgba(17, 17, 17, 0.616);
-}
-
-.drop-container:hover .drop-title {
-  color: #222;
-}
-
-.drop-title {
-  color: #444;
-  font-size: 20px;
-  font-weight: bold;
-  text-align: center;
-  transition: color .2s ease-in-out;
-}
-
-#file-input {
-  width: 350px;
-  max-width: 100%;
-  color: #444;
-  padding: 2px;
-  background: #fff;
-  border-radius: 10px;
-  border: 1px solid rgba(8, 8, 8, 0.288);
-}
-
-#file-input::file-selector-button {
-  margin-right: 20px;
-  border: none;
-  background: #065D78;
-  padding: 10px 20px;
-  border-radius: 10px;
-  color: #fff;
-  cursor: pointer;
-  transition: background .2s ease-in-out;
-}
-
-#file-input::file-selector-button:hover {
-  background: #0f86aa;
-}
-
-//// Card layout
-
-.Crd {
- // --glow-color: #065D78;
-  --glow-color: #065D78;
-  --glow-spread-color: rgba(123, 246, 255, 0.781);
-  --enhanced-glow-color: rgba(8, 145, 155, 0.781);
-  --btn-color: rgba(65, 65, 65, 0.508);
-  border: 2px solid var(--glow-color);
-  padding: 2px;
-  display: flex;
-  max-width: 100%;
-  flex-direction: column;
-  text-align: center;
-  overflow: hidden;
-  color: var(--glow-color);
- // background-color: #ffffff;
-  border-radius: 20px;
-  position: relative;
-  width:50%; /* Adjust the width as needed */
-  margin-bottom: 20px; /* Add some space between cards */
-  margin-left: 25%;
-  margin-bottom: 50px; /* Add some space between cards */
-  
-}
-
-.Crd2 {
-  // --glow-color: #065D78;
-   --glow-color: #065D78;
-   --glow-spread-color: rgba(123, 246, 255, 0.781);
-   --enhanced-glow-color: rgba(8, 145, 155, 0.781);
-   --btn-color: rgba(65, 65, 65, 0.508);
-   border: 2px solid var(--glow-color);
-   padding: 2px;
-   display: flex;
-   max-width: 100%;
-   flex-direction: column;
-   text-align: center;
-   overflow: hidden;
-   color: var(--glow-color);
-   width:50%;
-   margin-left: 25%;
-   margin-bottom: 50px;
-   //background-color: #ffffff;
-  // border-radius: 20px;
-  // position: relative;
- }
-
-
-
-ion-item {
-  margin-top: 0.25rem;
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-}
-
-ion-item ion-label {
-  display: block;
-  color: rgb(0, 0, 0);
-  margin-bottom: 4px;
-}
-
-ion-item ion-input {
-  width: 100%;
-  border-radius: 0.375rem;
-  border: 1px solid #01181f;
-  outline: 0;
-  background-color: rgb(255, 255, 255);
-  padding: 0.75rem 1rem;
-  color: rgba(243, 244, 246, 1);
-}
-
-ion-item ion-input:focus {
-  border-color: rgba(167, 139, 250);
-}
-
-ion-label{
-  color: red;
-}
 @media (max-width: 900px) {
   .jb {
     display: flex;
@@ -425,6 +102,3 @@ ion-label{
   }
   
 }
-
-
-

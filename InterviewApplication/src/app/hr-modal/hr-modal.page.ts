@@ -40,14 +40,23 @@ async Send() {
        await emailjs.send('interviewEmailsAD','template_7x4kjte',
        emailParams,'TrFF8ofl4gbJlOhzB'
        );
-       console.log('email successfully sent');
+       this.showToast('email successfully sent');
        alert('email successfully sent');
     }
   catch(error){
-    console.error('error sending email', error);
+    this.showToast('error sending email'+ error);
     alert('error sending email');
   }
 
+  }
+
+  async showToast(message: string) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000, // Duration in milliseconds
+      position: 'top' // Toast position: 'top', 'bottom', 'middle'
+    });
+    toast.present();
   }
 
   public alertButtons = [

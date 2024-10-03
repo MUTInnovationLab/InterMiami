@@ -90,28 +90,28 @@ export class AddUserPage implements OnInit {
   getUpcomingValue(event: any) {
     const toggleValue = event.target.checked ? 'on' : 'off';
     this.role. upcomingInterviews = toggleValue;
-    console.log(this.role);
+    
   }
   getApplicantsValue(event: any) {
     const toggleValue = event.target.checked ? 'on' : 'off';
     this.role.allApplicants = toggleValue;
-    console.log(this.role);
+    
   }
   getAllUsersValue(event: any) {
     const toggleValue = event.target.checked ? 'on' : 'off';
     this.role.allUsers = toggleValue;
-    console.log(this.role);
+    
   }
   getScheduleInterviewValue(event: any) {
     const toggleValue = event.target.checked ? 'on' : 'off';
     this.role.scheduleInterview = toggleValue;
-    console.log(this.role);
+    
   }
 
   getCreatePost(event: any) {
     const toggleValue = event.target.checked ? 'on' : 'off';
     this.role.createPost = toggleValue;
-    console.log(this.role);
+    
   }
 
   goToStaffProfile(): void {
@@ -217,10 +217,16 @@ async getUser(): Promise<void> {
 
       if (!querySnapshot.empty) {
         this.userDocument = querySnapshot.docs[0].data();
-        console.log(this.userDocument);
+       
       }
     } catch (error) {
-      console.error('Error getting user document:', error);
+      const toast = await this.toastController.create({
+        message: 'Error getting user document:'+ error,
+        duration: 2000,
+        position: 'top'
+      });
+      toast.present();
+
     }
   }
 }
@@ -245,7 +251,12 @@ async goToAllUsers(): Promise<void> {
       toast.present();
     }
   } catch (error) {
-    console.error('Error navigating to All Users Page:', error);
+    const toast = await this.toastController.create({
+      message: 'Error navigating to All Users Page:'+ error,
+      duration: 2000,
+      position: 'top'
+    });
+    toast.present();
   }
 }
 
@@ -266,7 +277,13 @@ async goToAllApplicants(): Promise<void> {
       toast.present();
     }
   } catch (error) {
-    console.error('Error navigating to All Applicants Page:', error);
+    const toast = await this.toastController.create({
+      message: 'Error navigating to All Application Page:'+ error,
+      duration: 2000,
+      position: 'top'
+    });
+    toast.present();
+   
   }
 }
 
@@ -286,7 +303,13 @@ async goToHistory(): Promise<void> {
       toast.present();
     }
   } catch (error) {
-    console.error('Error navigating to History Page:', error);
+    const toast = await this.toastController.create({
+      message: 'Error navigating to All Users Page:'+ error,
+      duration: 2000,
+      position: 'top'
+    });
+    toast.present();
+    
   }
 }
 
@@ -306,7 +329,12 @@ async  goToStaff(): Promise<void> {
       toast.present();
     }
   } catch (error) {
-    console.error('Error navigating to All Staff members Page:', error);
+    const toast = await this.toastController.create({
+      message: 'Error navigating to All Satff Page:'+ error,
+      duration: 2000,
+      position: 'top'
+    });
+    toast.present();
   }
 }
 
@@ -327,7 +355,12 @@ async goToGraded(): Promise<void> {
       toast.present();
     }
   } catch (error) {
-    console.error('Error navigating to Graded interviews Page:', error);
+    const toast = await this.toastController.create({
+      message: 'Error navigating to Graded interviews Page:'+ error,
+      duration: 2000,
+      position: 'top'
+    });
+    toast.present();
   }
 }
 
@@ -348,7 +381,12 @@ async goToScheduled(): Promise<void> {
       toast.present();
     }
   } catch (error) {
-    console.error('Error navigating to Scheduled interviews Page:', error);
+    const toast = await this.toastController.create({
+      message: 'Error navigating to Scheduled interviews Page:'+ error,
+      duration: 2000,
+      position: 'top'
+    });
+    toast.present();
   }
 }
 
@@ -369,7 +407,12 @@ async goToScheduleInterview(): Promise<void> {
       toast.present();
     }
   } catch (error) {
-    console.error('Error navigating to Schedule interview Page:', error);
+    const toast = await this.toastController.create({
+      message: 'Error navigating to Schedule interview Page:'+ error,
+      duration: 2000,
+      position: 'top'
+    });
+    toast.present();
   }
 }
 
@@ -390,7 +433,12 @@ async goToCreatePost(): Promise<void> {
       toast.present();
     }
   } catch (error) {
-    console.error('Error navigating to Create post Page:', error);
+    const toast = await this.toastController.create({
+      message: 'Error navigating to Create post Page:'+ error,
+      duration: 2000,
+      position: 'top'
+    });
+    toast.present();
   }
 }
 
@@ -411,7 +459,6 @@ async presentConfirmationAlert() {
         role: 'cancel',
        cssClass: 'my-custom-alert',
         handler: () => {
-          console.log('Confirmation canceled');
         }
       }, {
         text: 'Confirm',

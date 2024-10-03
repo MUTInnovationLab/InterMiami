@@ -1,9 +1,9 @@
-<ion-header>
+<ion-header style=" display: flex;justify-content: center;align-items: center; background-color: #065D78;color: white;height: 70px;animation: headerFadeIn 1s ease-in;">
   <ion-toolbar>
     <ion-buttons slot="start" (click)="goToHomePage()">
       <img src="assets\MUT LOGO.png">
     </ion-buttons>
-    <ion-title class="header-title">Job Application Form</ion-title>
+    <ion-title style="color: hsl(0, 0%, 0%);font-size: 24px;font-weight: bold;text-align: center;">Job Application Form</ion-title>
     <ion-buttons slot="end">
       <ion-button>
         <ion-button id="popover-button" >
@@ -20,7 +20,7 @@
             </ion-content>
           </ng-template>
         </ion-popover>
-
+form
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -173,7 +173,8 @@
  
 
   <ion-card class="EA">
-    <button class="buttonH" (click)="addQualification()"><span>Add Education</span></button>
+    <button style="box-sizing: border-box;display: block;font-weight: 900;-webkit-mask-image: none;padding: 2rem 5rem;perspective: 800px;position: relative;text-transform: uppercase;transform-style: preserve-3d;
+" (click)="addQualification()"><span>Add Education</span></button>
   </ion-card>
 
 
@@ -230,7 +231,8 @@
 
 
     <ion-card class="EA">
-      <button class="buttonH" (click)="addExperience()"><span>Add Experience</span></button>
+      <button style="box-sizing: border-box;display: block;font-weight: 900;-webkit-mask-image: none;padding: 2rem 5rem;perspective: 800px;position: relative;text-transform: uppercase;transform-style: preserve-3d;
+" (click)="addExperience()"><span>Add Experience</span></button>
     </ion-card>
 
     <ion-card *ngFor="let experience of experiences; " class="Crd">
@@ -273,7 +275,8 @@
 
 
     <ion-card class="EA" text-center padding>
-      <button class="buttonH" (click)="addSkill()"><span>Add Skills</span></button>
+      <button style="box-sizing: border-box;display: block;font-weight: 900;-webkit-mask-image: none;padding: 2rem 5rem;perspective: 800px;position: relative;text-transform: uppercase;transform-style: preserve-3d;
+" (click)="addSkill()"><span>Add Skills</span></button>
     </ion-card>
     
     <ion-card *ngFor="let skill of skills;" class="Crd" text-center padding>
@@ -316,7 +319,8 @@
     </ion-card>
 
     <ion-card class="EA">
-      <button class="buttonH" (click)="addReference()"><span>Add Reference</span></button>
+      <button style="box-sizing: border-box;display: block;font-weight: 900;-webkit-mask-image: none;padding: 2rem 5rem;perspective: 800px;position: relative;text-transform: uppercase;transform-style: preserve-3d;
+" (click)="addReference()"><span>Add Reference</span></button>
     </ion-card>
 
     <ion-card *ngFor="let reference of references; " class="Crd">
@@ -371,7 +375,7 @@
         </ion-label>
        
 
-        <form class="form">
+        <form class="forms">
           <span class="form-title">Upload your Academic&nbsp;&nbsp;</span>
            <label for="file-input" class="drop-container">
           <span class="drop-title">Drop files here</span>
@@ -380,7 +384,7 @@
         </label>
         </form>
   
-        <form class="form">
+        <form class="forms">
           <span class="form-title">Upload your Certicates&nbsp;&nbsp;</span>
            <label for="file-input" class="drop-container">
           <span class="drop-title">Drop files here</span>
@@ -389,7 +393,7 @@
         </label>
         </form>
 
-        <form class="form">
+        <form class="forms">
           <span class="form-title">Upload Your ID&nbsp;&nbsp;</span>
            <label for="file-input" class="drop-container">
           <span class="drop-title">Drop files here</span>
@@ -398,7 +402,7 @@
         </label>
         </form>
   
-        <form class="form">
+        <form class="forms">
           <span class="form-title">Upload Additional Documents&nbsp;&nbsp;</span>
            <label for="file-input" class="drop-container">
           <span class="drop-title">Drop files here</span>

@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header class="ioon-header">
   <ion-toolbar>
     <ion-title class="header-title">
       RESET PASSWORD
@@ -7,9 +7,9 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" style="--background: url('assets/tiny.jpg') no-repeat center / cover;">
-  <div class="container2">
+  <div class="container3">
     <div class="centered-container">
-      <div class="image-container">
+      <div class="image-containeer">
         <img src="assets/logo.jpg" alt="Logo" class="logo">
       </div>
   </div>
@@ -22,7 +22,7 @@
           <ion-input type="email" name="email" [(ngModel)]="email" (input)="emailError = null;"></ion-input>
         </ion-item>
         <div class="error-message" *ngIf="emailError">{{ emailError }}</div>
-        <button expand="block" (click)="reset()" class="butSubmit">
+        <button expand="block" (click)="reset()" class="butSubmitt">
           <span class="span-mother">
             <span>R</span>
             <span>e</span>

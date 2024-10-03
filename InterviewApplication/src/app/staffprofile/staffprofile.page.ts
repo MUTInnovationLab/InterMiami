@@ -73,10 +73,9 @@ export class StaffprofilePage implements OnInit {
                 switchMap((documents: any[]) => {
                   if (documents.length > 0) {
                     const userProfile = documents[0];
-                    console.log(userProfile);
                     return of(userProfile);
                   } else {
-                    console.log('No matching documents.');
+                    this.showToast('No matching documents.');
                     return of(null);
                   }
                 })
@@ -89,7 +88,7 @@ export class StaffprofilePage implements OnInit {
       })
       .catch((error) => {
         // An error occurred while enabling persistence
-        console.error("Error enabling Firebase authentication persistence:", error);
+        this.showToast("Could'nt connect"+ error);
       });
   }
 
@@ -123,7 +122,7 @@ export class StaffprofilePage implements OnInit {
           role: 'cancel',
           cssClass: 'my-custom-alert',
           handler: () => {
-            console.log('Confirmation cancelled');
+            
           }
         }, {
           text: 'Confirm',
@@ -132,7 +131,7 @@ export class StaffprofilePage implements OnInit {
               this.navController.navigateForward("/applicant-login");
               this.presentToast();
             }).catch((error) => {
-              console.error('Error signing out:', error);
+              this.showToast('Error signing out:'+ error);
             });
           }
         }
@@ -157,6 +156,15 @@ export class StaffprofilePage implements OnInit {
 
   navigateBack(): void {
     this.navController.back();
+  }
+
+  async showToast(message: string) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000, // Duration in milliseconds
+      position: 'top' // Toast position: 'top', 'bottom', 'middle'
+    });
+    toast.present();
   }
 
 

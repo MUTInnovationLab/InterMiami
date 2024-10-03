@@ -186,14 +186,14 @@ export class ScoreCapturePage implements OnInit {
             email: this.userEmail
           })
             .then(() => {
-              console.log('User email added to database');
+            
             })
             .catch(error => {
-              console.error('Error adding user email to database:', error);
+              
             });
         } else {
           // Display alert when no interview is scheduled for today
-          alert("You do not have interview scheduled for today");
+          this.showToast("You do not have interview scheduled for today");
         }
       });
     }
@@ -238,12 +238,11 @@ export class ScoreCapturePage implements OnInit {
       })
       .then(() => {
         // Data added successfully
-        console.log('Form data added to Firestore!');
         this.deleteCurrentUserFromUserEmails(); // Call function to delete current user from UserEmails
 
       })
       .catch((error) => {
-        console.error('Error adding form data to Firestore:', error);
+        this.showToast('Error adding form data to Firestore:'+ error);
       });
   }
 
@@ -253,11 +252,9 @@ export class ScoreCapturePage implements OnInit {
       const currentUserEmail = currentUser.email;
       this.firestore.collection('UserEmails').doc(currentUser.uid).delete()
         .then(() => {
-          console.log('Current user removed from UserEmails');
           this.checkAndSetInterviewedStatus(); // Call the function to check and update status
         })
         .catch(error => {
-          console.error('Error removing current user from UserEmails:', error);
         });
     }
   }
@@ -290,7 +287,7 @@ export class ScoreCapturePage implements OnInit {
 
       // Calculate the average total score
       const averageTotalScore = count > 0 ? total / count : 0;
-      console.log('Average Total Score for Interviewee:', averageTotalScore);
+      this.showToast('Average Total Score for Interviewee:'+ averageTotalScore);
 
       // Add average total score to Firestore
       this.firestore
@@ -304,10 +301,10 @@ export class ScoreCapturePage implements OnInit {
 
         })
         .then(() => {
-          console.log('Average data added to Firestore!');
+    
         })
         .catch((error) => {
-          console.error('Error adding Average data to Firestore:', error);
+          this.showToast('Error adding Average data to Firestore:'+ error);
         });
     });
   }
@@ -323,10 +320,9 @@ export class ScoreCapturePage implements OnInit {
         querySnapshot.forEach(doc => {
           doc.ref.update({ 'Interviewee.interview.status': this.Statuss }) // Update status to Interviewed
             .then(() => {
-              console.log('Status updated successfully');
             })
             .catch(error => {
-              console.error('Error updating status:', error);
+              this.showToast('Error updating status:'+ error);
             });
         });
       });
@@ -339,10 +335,10 @@ export class ScoreCapturePage implements OnInit {
         querySnapshot.forEach(doc => {
           doc.ref.update({ 'Interviewee.interview.status': this.Statusss }) // Update status to In Progress
             .then(() => {
-              console.log('Status updated successfully');
+              
             })
             .catch(error => {
-              console.error('Error updating status:', error);
+              this.showToast('Error updating status:'+ error);
             });
         });
       });
@@ -443,7 +439,7 @@ export class ScoreCapturePage implements OnInit {
             role: 'cancel',
             cssClass: 'secondary',
             handler: () => {
-              console.log('Interview start cancelled');
+              
             }
           }, {
             text: 'Start',
@@ -451,10 +447,6 @@ export class ScoreCapturePage implements OnInit {
               // Proceed with saving the data to the database
               this.updateStatuss();
               this.fetchData();
-              console.log('The interview has started');
-
-              // Now you can use the intervieweeEmail variable elsewhere
-              console.log('Interviewee Email:', this.intervieweeEmail);
             }
           }
         ]
@@ -464,6 +456,15 @@ export class ScoreCapturePage implements OnInit {
     } else {
       alert('No person with "In Progress" status found.');
     }
+  }
+
+  async showToast(message: string) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000, // Duration in milliseconds
+      position: 'top' // Toast position: 'top', 'bottom', 'middle'
+    });
+    toast.present();
   }
 
   Clear() {

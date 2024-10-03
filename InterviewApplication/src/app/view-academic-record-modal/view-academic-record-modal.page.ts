@@ -20,7 +20,7 @@ export class ViewAcademicRecordModalPage implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.pdfUrl);
+
     this.pdfUrl = this.navParams.get('pdfUrl');
     this.safePdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.pdfUrl);
   }

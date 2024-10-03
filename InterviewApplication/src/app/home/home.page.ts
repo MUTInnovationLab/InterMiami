@@ -64,27 +64,5 @@ export class HomePage {
 
 
 
-  //  submitForm() {
-  //    // You can perform any necessary validation or form processing here
-  //    // For simplicity, we'll just log the form data in this example
-  //    console.log('Fullname:', this.fullname);
-  //    console.log('Email:', this.email);
-  //    console.log('Subject:', this.subject);
-  //    console.log('Message:', this.message);
  
-  //    // You can perform additional actions like sending the form data to a server, etc.
-  //    // For this example, we'll just reset the form fields after submission
-  //    this.fullname = '';
-  //    this.email = '';
-  //    this.subject = '';
-  //    this.message = '';
-  //  }
-
-  //  emailjs.send("service_hqx55ua","template_l6eqodi",{
-  //   from_name: "Celimpilo",
-  //   to_name: "Wandile",
-  //   from_email: "generalwandile41@gmail.com",
-  //   subject: "Test",
-  //   message: "Hi im testing my email service",
-  //   });
   }

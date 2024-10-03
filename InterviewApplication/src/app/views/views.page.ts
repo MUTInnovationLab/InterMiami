@@ -54,10 +54,9 @@ export class ViewsPage implements OnInit {
                     this.detProfile = documents[0];
                     this.pdfUrl = userProfile.AllInOnePdfURL;
                     this.status=userProfile.status;
-                    console.log(userProfile);
                     return of(userProfile);
                   } else {
-                    console.log('No matching documents.');
+                    this.showToast('No matching documents.');
                     return of(null);
                   }
                 })
@@ -70,14 +69,21 @@ export class ViewsPage implements OnInit {
       })
       .catch((error) => {
         
-        console.error("Error enabling Firebase authentication persistence:", error);
+        this.showToast("Error connecting:"+ error);
       });
     
     
 
     }
 
-
+    async showToast(message: string) {
+      const toast = await this.toastController.create({
+        message: message,
+        duration: 2000, // Duration in milliseconds
+        position: 'top' // Toast position: 'top', 'bottom', 'middle'
+      });
+      toast.present();
+    }
     getStatusBoxStyle(status: string): string {
       let statusClass = 'status-box';
   
@@ -169,7 +175,7 @@ isButtonDisabled(): boolean {
           role: 'cancel',
          cssClass: 'my-custom-alert',
           handler: () => {
-            console.log('Confirmation canceled');
+           
           }
         }, {
           text: 'Confirm',
@@ -294,7 +300,7 @@ isButtonDisabled(): boolean {
       .delete()
       .pipe(
         finalize(() => {
-          console.log('File deleted:', url);
+          this.showToast('File deleted:'+ url);
       
         })
       )
@@ -319,7 +325,7 @@ isButtonDisabled(): boolean {
           role: 'cancel',
          cssClass: 'my-custom-alert',
           handler: () => {
-            console.log('Confirmation canceled');
+          
           }
         }, {
           text: 'Confirm',
@@ -351,12 +357,12 @@ isButtonDisabled(): boolean {
     if (snapshot && snapshot.docs.length > 0) {
       const docRef = snapshot.docs[0].ref;
       await docRef.update({ status });
-      console.log('Status updated successfully');
+     
     } else {
-      console.log('No matching documents found');
+      this.showToast('No matching documents found');
     }
   } else {
-    console.log('User not logged in');
+    this.showToast('User not logged in');
   }
 }
 

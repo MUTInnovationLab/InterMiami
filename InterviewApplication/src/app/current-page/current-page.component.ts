@@ -12,7 +12,7 @@ export class CurrentPageComponent  implements OnInit {
     // Get the current route snapshot
     const snapshot = this.route.snapshot;
     // Here, you can use snapshot.url or snapshot.routeConfig.path to determine the active page
-    console.log('Active Page:', snapshot.url); // Example: Output the URL of the active page
+  
   }
 
   ngOnInit() {}

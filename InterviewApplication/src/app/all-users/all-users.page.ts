@@ -31,7 +31,6 @@ export class AllUsersPage implements OnInit {
       .subscribe(data =>{
         
       this.userData=data;  
-      console.log(data);
       this.tableData = data;
       
   
@@ -54,7 +53,7 @@ async presentConfirmationAlert() {
         role: 'cancel',
        cssClass: 'my-custom-alert',
         handler: () => {
-          console.log('Confirmation canceled');
+        
         }
       }, {
         text: 'Confirm',

@@ -59,11 +59,19 @@ export class AssignInterviewerPage implements OnInit {
           this.userDocument = querySnapshot.docs[0].data();
         }
       } catch (error) {
-        console.error('Error getting user document:', error);
+        this.showToast('Error getting user document:'+ error);
       }
     }
   }
 
+  async showToast(message: string) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000, // Duration in milliseconds
+      position: 'top' // Toast position: 'top', 'bottom', 'middle'
+    });
+    toast.present();
+  }
 
   dateformat(datetime: any) {
     const timeString = datetime;
@@ -148,7 +156,7 @@ export class AssignInterviewerPage implements OnInit {
       this.showCard = false;
     }
     else {
-      alert("Already exists");
+      this.showToast("Already exists");
     }
   }
 
@@ -158,7 +166,7 @@ export class AssignInterviewerPage implements OnInit {
       this.selectedStaff.splice(index, 1);
     }
     else {
-      alert("Not exists");
+      this.showToast("Not exists");
     }
   }
 
@@ -170,29 +178,27 @@ export class AssignInterviewerPage implements OnInit {
 
     this.data.submitInterview(interviewConduct, this.selectedCandidate.interview.id)
       .then(() => {
-        alert("Interviewers assigned Successfully" + this.selectedCandidate.interview.id);
+        this.showToast("Interviewers assigned Successfully" + this.selectedCandidate.interview.id);
         this.selectedStaff = [];
         this.selectedCandidate = null;
         this.showCard = true;
       })
       .catch((error) => {
-        console.error('Error submitting interview: ', error);
-        alert("Assignation was unsuccessfully");
+        this.showToast('Error submitting interview: '+ error);
       });
   }
 
   filterInterviews() {
     const searchTerm = this.search.toLowerCase();
-    alert(searchTerm);
-    alert(JSON.stringify(this.interviews));
+  
     this.filteredInterviews = this.interviews.filter(interview => 
       (interview.name?.toLowerCase().includes(searchTerm) || 
       interview.date.includes(searchTerm))
     );
-    alert(JSON.stringify(this.filteredInterviews));
+   
     this.groupInterviewsByDate();
     if (this.filteredInterviews.length === 0) {
-      alert("Search name not found");
+      this.showToast("Search name not found");
       this.loadInterviewees();
     } else {
       this.showIcon = false;
@@ -207,7 +213,7 @@ export class AssignInterviewerPage implements OnInit {
 
   filterStaff() {
     const searchTerm = this.search.toLowerCase();
-    alert(searchTerm);
+   
     this.filteredStaff = this.staffList.filter(staff =>
       staff.Name?.toLowerCase().includes(searchTerm) ||
       staff.email?.toLowerCase().includes(searchTerm)

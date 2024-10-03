@@ -48,15 +48,10 @@ export class AllApplicantsPage implements OnInit {
     private db: AngularFirestore, private modalController: ModalController) {
 
       this.tableData.sort((a, b) => {
-        console.log(`Sorting: ${a.tTotalExperience} vs ${b.tTotalExperience}`);
         return b.tTotalExperience - a.tTotalExperience;
       });
 
-      // this.db.collection("applicant-application").valueChanges().subscribe((data: any[]) => {
-      //   this.tableData = data;
-      //   this.filteredTableData = data;
-      // });
-
+  
         this.db.collection("applicant-application")
         .valueChanges()
         .subscribe((data: any[]) => {
@@ -99,7 +94,7 @@ export class AllApplicantsPage implements OnInit {
       this.db.collection('applicant-application', ref => ref.where('email', '==', email))
         .get()
         .toPromise()
-        .then(querySnapshot => {
+        .then(async querySnapshot => {
           if (querySnapshot && !querySnapshot.empty) {
             // Assuming there is only one document for the given email
             const doc = querySnapshot.docs[0];
@@ -111,15 +106,30 @@ export class AllApplicantsPage implements OnInit {
                 this.showToast('Approved!!!');
                 this.sendApproveNotification(email);
               })
-              .catch(error => {
-                console.error('Error updating status:', error);
+              .catch(async error => {
+                const toast = await this.toastController.create({
+                  message: 'Error updating status:'+ error,
+                  duration: 2000,
+                  position: 'top'
+                });
+                toast.present();
               });
           } else {
-            console.error('No document found for the given email:', email);
+            const toast = await this.toastController.create({
+              message: 'No document found for he given email'+ email,
+              duration: 2000,
+              position: 'top'
+            });
+            toast.present();
           }
         })
-        .catch(error => {
-          console.error('Error querying the database:', error);
+        .catch(async error => {
+          const toast = await this.toastController.create({
+            message: 'Error querying the database:'+ error,
+            duration: 2000,
+            position: 'top'
+          });
+          toast.present();
         });
     }
     
@@ -139,7 +149,7 @@ export class AllApplicantsPage implements OnInit {
             const docData = d.payload.doc.data() as any; // Cast docData as any type
             return { id, ...docData };
           });
-          console.log(this.userData);
+        
           this.tableData = this.userData;
 
           this.sortByGradeAverage();
@@ -216,7 +226,7 @@ export class AllApplicantsPage implements OnInit {
  
     this.db.collection('applicant-application').doc(applicantId).update({ status: updatedStatus })
       .then(() => {
-        console.log('Approved!!!');
+        
         this.showToast('Approved!!!');
         this.navCtrl.navigateForward('/schedule-interview', {
           queryParams: { data: data, source: 'cards' },
@@ -228,7 +238,7 @@ export class AllApplicantsPage implements OnInit {
         this.sendApproveNotification(email); // Pass the email to sendDeclineNotification method
       })
       .catch(error => {
-        console.error('Error updating status:', error);
+        this.showToast('Error updating status:'+ error);
       });
   }
 
@@ -247,11 +257,11 @@ export class AllApplicantsPage implements OnInit {
     this.http.get(url + '?' + query, { headers: headers })
       .subscribe(
         response => {
-          console.log(response + ' (notification)');
-          // Handle the response from the PHP file
+       
+          // // Handle the response from the PHP file
         },
         error => {
-          console.error('Error:', error + ' (notification)');
+          this.showToast('Error:'+ error + ' (notification)');
         }
       );
   }
@@ -271,22 +281,7 @@ export class AllApplicantsPage implements OnInit {
     return Math.ceil(this.tableData.length / this.rowsPerPage);
   }
 
-  // Update the status value to "active"
-  /*approve(studentId: string) {
- 
-    const updatedStatus = 'active';
-    
-    // Make the update in the database
-    this.db.collection('studentProfile').doc(studentId).update({ status: updatedStatus })
-      .then(() => {
-        console.log('Successfully Updated');
-        this.showToast('Successfully updated');
-      })
-      .catch(error => {
-        console.error('Error updating status:', error);
-      });
-  }*/
-  
+
   
   async showToast(message: string) {
     const toast = await this.toastController.create({
@@ -321,10 +316,10 @@ async getUser(): Promise<void> {
 
       if (!querySnapshot.empty) {
         this.userDocument = querySnapshot.docs[0].data();
-        // console.log(this.userDocument);
+        
       }
     } catch (error) {
-      console.error('Error getting user document:', error);
+      this.showToast('Error getting user document:'+ error);
     }
   }
 }
@@ -345,7 +340,7 @@ async goToScore(): Promise<void> {
       toast.present();
     }
   } catch (error) {
-    console.error('Error navigating to score capture Page:', error);
+    this.showToast('Error navigating to score capture Page:'+ error);
   }
 }
 
@@ -366,7 +361,7 @@ async goToAllApplicants(): Promise<void> {
       toast.present();
     }
   } catch (error) {
-    console.error('Error navigating All Applicants Page:', error);
+    this.showToast('Error navigating All Applicants Page:'+ error);
   }
 }
 
@@ -386,7 +381,7 @@ async goToHistory(): Promise<void> {
       toast.present();
     }
   } catch (error) {
-    console.error('Error navigating to History Page:', error);
+    this.showToast('Error navigating to History Page:'+ error);
   }
 }
 
@@ -406,7 +401,7 @@ async  goToStaff(): Promise<void> {
       toast.present();
     }
   } catch (error) {
-    console.error('Error navigating to All Staff members Page:', error);
+    this.showToast('Error navigating to All Staff members Page:'+ error);
   }
 }
 
@@ -427,7 +422,7 @@ async goToGraded(): Promise<void> {
       toast.present();
     }
   } catch (error) {
-    console.error('Error navigating to Graded interviews Page:', error);
+    this.showToast('Error navigating to Graded interviews Page:'+ error);
   }
 }
 
@@ -448,7 +443,7 @@ async goToScheduled(): Promise<void> {
       toast.present();
     }
   } catch (error) {
-    console.error('Error navigating to Scheduled interviews Page:', error);
+    this.showToast('Error navigating to Scheduled interviews Page:'+ error);
   }
 }
 
@@ -469,7 +464,7 @@ async presentConfirmationAlert() {
         role: 'cancel',
        cssClass: 'my-custom-alert',
         handler: () => {
-          console.log('Confirmation canceled');
+          
         }
       }, {
         text: 'Confirm',
@@ -528,7 +523,7 @@ async openDeclineModal() {
 
   async openValidateModal(academicRecordURl:any,cvUrl:any,idURL:any,letterURL:any){
 
-console.log(academicRecordURl);
+
   const modal = await this.modalController.create({
     component: ValidateDocsPage,
     componentProps: {

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { ToastController } from '@ionic/angular';
 import { where } from 'firebase/firestore';
 
 @Component({
@@ -16,7 +17,7 @@ export class ScheduledInterviewsPage implements OnInit {
   selectedOption: any;// Variable to store the selected option
   filteredData:any;
   selectedFilter:any;
-  constructor(private firestore: AngularFirestore) {
+  constructor(private firestore: AngularFirestore,  private toastController: ToastController) {
     this.todayDateString = new Date().toDateString();
   }
 
@@ -86,7 +87,7 @@ Filtering() {
     try {
       // Find the document with the matching int_id
       const querySnapshot = await this.firestore.collection('Interviewees', ref => ref.where('int_id', '==', int_id)).get().toPromise();
-   console.log(querySnapshot);
+ 
       // If a matching document is found, update its fields
       if (!querySnapshot?.empty) {
         const documentId = querySnapshot?.docs[0].id;
@@ -97,15 +98,24 @@ Filtering() {
           // Update other fields as needed
         });
   
-        console.log('Document updated successfully');
+        this.showToast('Document updated successfully');
       } else {
-        console.log('No matching document found');
+        this.showToast('No matching document found');
       }
     } catch (error) {
-      console.error('Error updating document:', error);
+      this.showToast('Error updating document:'+ error);
       // Display appropriate error message using toastController
     }
   } 
+
+  async showToast(message: string) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000, // Duration in milliseconds
+      position: 'top' // Toast position: 'top', 'bottom', 'middle'
+    });
+    toast.present();
+  }
 }
 
 

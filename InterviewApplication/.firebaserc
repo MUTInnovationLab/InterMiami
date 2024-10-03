@@ -1,5 +1,10 @@
 {
   "projects": {
-    "default": "interview-19997"
-  }
+    "default": "interview-e8fce",
+    "HOSTING": "interview-e8fce",
+    "interview": "interview-e8fce"
+  },
+  "targets": {},
+  "etags": {},
+  "dataconnectEmulatorConfig": {}
 }

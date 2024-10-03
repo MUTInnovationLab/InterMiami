@@ -71,7 +71,7 @@ export class ScheduleInterviewPage {
             role: 'cancel',
            cssClass: 'my-custom-alert',
             handler: () => {
-              console.log('Confirmation canceled');
+            
             }
           }, {
             text: 'Confirm',
@@ -111,42 +111,6 @@ export class ScheduleInterviewPage {
       this.navCtrl.navigateBack('/dashboard');
     }
 
-    // getOneDocumentData() {
-    //   if (this.email) {
-    //     this.db
-    //       .collection('applicant-application', (ref) =>
-    //         ref.where('email', '==', this.email)
-    //       )
-    //       .valueChanges()
-    //       .subscribe((data: any[]) => {
-    //         if (data && data.length > 0) {
-    //           this.checkIfDocumentExist = true;
-    //           const docData = data[0];
-    //           this.oneDocData = docData;
-    //           this.email=docData.email;
-    //           this.name=docData.fullName;
-    //           this.surname=docData.surname;
-    //           this.code_job=docData.code_job;
-              
-
-    //           const currentDate = new Date();
-    //           const day = currentDate.getDate().toString().padStart(2, '0');
-    //           const month = (currentDate.getMonth() + 1).toString().padStart(2, '0'); // Months are zero-based
-    //           const year = currentDate.getFullYear().toString();
-    //           const hours = currentDate.getHours().toString().padStart(2, '0');
-    //           const minutes = currentDate.getMinutes().toString().padStart(2, '0');
-    //           const seconds = currentDate.getSeconds().toString().padStart(2, '0');
-    //           const milliseconds = currentDate.getMilliseconds().toString().padStart(3, '0');
-    //           const formattedDate = `${hours}${minutes}${seconds}${milliseconds}${year}`;
-    //           this.datecode = `${formattedDate}${this.formatCounter(this.counter)}`;
-    //           this.int_id = this.code_job + this.datecode;
-
-    //           // Increment the counter for the next unique ID
-    //           this.counter++;
-    //         }
-    //       });
-    //   }
-    // }
 
 
     getOneDocumentData() {
@@ -215,7 +179,7 @@ export class ScheduleInterviewPage {
         if (params && params['userData']) {
           // Use the correct query parameter name (userData) to extract the data
           const userData = params['userData'];
-          console.log(userData);
+         
   
           // Assuming email is a key in the userData object, you can extract it like this:
           this.email = userData.email;
@@ -232,7 +196,7 @@ export class ScheduleInterviewPage {
           // Assuming you passed 'userData' as the query parameter
           const userData = params['userData'];
           this.email = userData.email; // Extract the email from userData (adjust this according to your data structure)
-          console.log(this.email);
+        
           this.getOneDocumentData();
         }
       });
@@ -248,12 +212,12 @@ export class ScheduleInterviewPage {
             role: 'cancel',
             cssClass: 'secondary',
             handler: () => {
-              console.log('Cancel clicked');
+              
             }
           }, {
             text: 'Yes',
             handler: () => {
-              console.log('Confirm cancel');
+              
               // Navigate back to the dashboard
               this.router.navigate(['/all-applicants']);
             }
@@ -264,7 +228,14 @@ export class ScheduleInterviewPage {
       await alert.present();
     }
     
-
+    async showToast(message: string) {
+      const toast = await this.toastController.create({
+        message: message,
+        duration: 2000, // Duration in milliseconds
+        position: 'top' // Toast position: 'top', 'bottom', 'middle'
+      });
+      toast.present();
+    }
 
     async submit() {
       if (!this.emailRegex.test(this.email)) {
@@ -322,10 +293,10 @@ export class ScheduleInterviewPage {
         };
     
         await emailjs.send('interviewEmailsAD', 'template_7x4kjte', emailParams, 'TrFF8ofl4gbJlOhzB');
-        console.log('Email successfully sent');
+        this.showToast('Email successfully sent');
         alert('Email successfully sent');
       } catch (error) {
-        console.error('Error:', error);
+        this.showToast('Error:'+ error);
         await loader.dismiss();
         // alert('Error: ' + error.message);
       }
@@ -335,6 +306,8 @@ export class ScheduleInterviewPage {
    
     
   }
+
+  
       
 function presentToast(message: any, string: any) {
   throw new Error('Function not implemented.');

@@ -83,12 +83,12 @@ export class ApplicantLoginPage implements OnInit {
     this.passwordError = null;
 
     if (!this.email) {
-      alert("Please enter your email");
+      this.showToast("Please enter your email");
       return;
     }
 
     if (!this.password) {
-      alert("Please enter a password");
+      this.showToast("Please enter a password");
       return;
     }
 
@@ -147,7 +147,7 @@ export class ApplicantLoginPage implements OnInit {
           (await toast).present();
           return;
         } else if (errorMessage === "Firebase: The email address is badly formatted. (auth/invalid-email).") {
-          alert("incorrectly formatted email");
+          this.showToast("incorrectly formatted email");
         }
       });
   }
@@ -162,8 +162,16 @@ export class ApplicantLoginPage implements OnInit {
         return null;
       }
     } catch (error) {
-      console.error("Error fetching user data:", error);
+      this.showToast("Error fetching user data:"+ error);
       return null;
     }
+  }
+  async showToast(message: string) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000, // Duration in milliseconds
+      position: 'top' // Toast position: 'top', 'bottom', 'middle'
+    });
+    toast.present();
   }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
 import emailjs from 'emailjs-com';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-marks',
@@ -14,7 +15,8 @@ export class MarksPage implements OnInit {
  
   constructor(
     private firestore: AngularFirestore,
-    private db: AngularFirestore
+    private db: AngularFirestore,
+    private toastController: ToastController
   ) {
     this.getScoreData();
   }
@@ -45,7 +47,7 @@ export class MarksPage implements OnInit {
   
   async Send(email: string, name: string, average: number) {
     if (!email) {
-      console.error('Recipient email address is empty');
+      this.showToast('Recipient email address is empty');
       return;
     }
   
@@ -56,7 +58,7 @@ export class MarksPage implements OnInit {
     } else if (average >= 0 && average < 35) {
       message = 'Thank you for your time. Unfortunately, you did not pass the interview.';
     } else {
-      console.error('Invalid score:', average);
+      this.showToast('Invalid score:'+ average);
       return; 
     }
   
@@ -73,11 +75,20 @@ export class MarksPage implements OnInit {
   
     try {
       await emailjs.send('interviewEmailsAD', 'template_7x4kjte', emailParams, 'TrFF8ofl4gbJlOhzB');
-      console.log('email successfully sent');
+      this.showToast('email successfully sent');
       alert('email successfully sent');
     } catch (error) {
-      console.error('error sending email', error);
+      this.showToast('error sending email'+ error);
       alert('error sending email');
     }
+  }
+
+  async showToast(message: string) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000, // Duration in milliseconds
+      position: 'top' // Toast position: 'top', 'bottom', 'middle'
+    });
+    toast.present();
   }
 }  

@@ -71,7 +71,7 @@ export class PostsPage implements OnInit {
           role: 'cancel',
          cssClass: 'my-custom-alert',
           handler: () => {
-            console.log('Confirmation canceled');
+            
           }
         }, {
           text: 'Confirm',
@@ -103,7 +103,7 @@ export class PostsPage implements OnInit {
       .subscribe((data: any[]) => {
         this.tables$ = data;
         for (const item of data) {
-          console.log(item.jobfaculty);
+        
           // Now, you can calculate the counter value based on item.jobfaculty and navigate to the "views" page
           const counterValue = item.jobfaculty;
           // this.navigateToViewPage(counterValue);
@@ -125,7 +125,6 @@ export class PostsPage implements OnInit {
       .valueChanges()
       .subscribe((data) => {
         this.tables$ = data;
-        console.log();
       });
   }
 

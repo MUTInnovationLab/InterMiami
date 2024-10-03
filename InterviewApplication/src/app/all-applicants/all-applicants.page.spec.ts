@@ -55,7 +55,7 @@ export class AllApplicantsPage implements OnInit {
       this.getAllData();
 
       this.tableData.sort((a, b) => {
-        console.log(`Sorting: ${a.gradeAverage} vs ${b.gradeAverage}`);
+      
         return b.gradeAverage - a.gradeAverage;
       });
      }
@@ -72,7 +72,7 @@ export class AllApplicantsPage implements OnInit {
             const docData = d.payload.doc.data() as any; // Cast docData as any type
             return { id, ...docData };
           });
-          console.log(this.userData);
+         
           this.tableData = this.userData;
 
           this.sortByGradeAverage();
@@ -147,12 +147,11 @@ export class AllApplicantsPage implements OnInit {
  
     this.db.collection('applicant-application').doc(applicantId).update({ status: updatedStatus })
       .then(() => {
-        console.log('Approved!!!');
+        
         this.showToast('Approved!!!');
         this.sendApproveNotification(email); // Pass the email to sendDeclineNotification method
       })
       .catch(error => {
-        console.error('Error updating status:', error);
       });
   }
 
@@ -171,11 +170,15 @@ export class AllApplicantsPage implements OnInit {
     this.http.get(url + '?' + query, { headers: headers })
       .subscribe(
         response => {
-          console.log(response + ' (notification)');
           // Handle the response from the PHP file
         },
-        error => {
-          console.error('Error:', error + ' (notification)');
+        async error => {
+          const toast = await this.toastController.create({
+            message: 'Error'+ error,
+            duration: 2000,
+            position: 'top'
+          });
+          toast.present();
         }
       );
   }
@@ -195,22 +198,6 @@ export class AllApplicantsPage implements OnInit {
     return Math.ceil(this.tableData.length / this.rowsPerPage);
   }
 
-  // Update the status value to "active"
-  /*approve(studentId: string) {
- 
-    const updatedStatus = 'active';
-    
-    // Make the update in the database
-    this.db.collection('studentProfile').doc(studentId).update({ status: updatedStatus })
-      .then(() => {
-        console.log('Successfully Updated');
-        this.showToast('Successfully updated');
-      })
-      .catch(error => {
-        console.error('Error updating status:', error);
-      });
-  }*/
-  
   
   async showToast(message: string) {
     const toast = await this.toastController.create({
@@ -223,13 +210,8 @@ export class AllApplicantsPage implements OnInit {
   
 
   ngOnInit() {
-    console.log("fuck this shit man");
     this.tableData.sort((a, b) => b.gradeAverage - a.gradeAverage);
-    console.log("DATA",this.tableData)
   }
-
-
-  //Previlages
 
 ionViewDidEnter() {
   this.getUser();
@@ -247,10 +229,15 @@ async getUser(): Promise<void> {
 
       if (!querySnapshot.empty) {
         this.userDocument = querySnapshot.docs[0].data();
-        console.log(this.userDocument);
+       
       }
     } catch (error) {
-      console.error('Error getting user document:', error);
+      const toast = await this.toastController.create({
+        message: 'Error getting user documents:'+ error,
+        duration: 2000,
+        position: 'top'
+      });
+      toast.present();
     }
   }
 }
@@ -271,7 +258,13 @@ async goToScore(): Promise<void> {
       toast.present();
     }
   } catch (error) {
-    console.error('Error navigating to score capture Page:', error);
+    const toast = await this.toastController.create({
+      message: 'Error navigating to Score Capture Page:'+ error,
+      duration: 2000,
+      position: 'top'
+    });
+    toast.present();
+    
   }
 }
 
@@ -292,7 +285,12 @@ async goToAllApplicants(): Promise<void> {
       toast.present();
     }
   } catch (error) {
-    console.error('Error navigating All Applicants Page:', error);
+    const toast = await this.toastController.create({
+      message: 'Error navigating to All Applicants Page:'+ error,
+      duration: 2000,
+      position: 'top'
+    });
+    toast.present();
   }
 }
 
@@ -312,7 +310,12 @@ async goToHistory(): Promise<void> {
       toast.present();
     }
   } catch (error) {
-    console.error('Error navigating to History Page:', error);
+    const toast = await this.toastController.create({
+      message: 'Error navigating to History Page:'+ error,
+      duration: 2000,
+      position: 'top'
+    });
+    toast.present();
   }
 }
 
@@ -332,7 +335,12 @@ async  goToStaff(): Promise<void> {
       toast.present();
     }
   } catch (error) {
-    console.error('Error navigating to All Staff members Page:', error);
+    const toast = await this.toastController.create({
+      message: 'Error navigating to All Staff members Page:'+ error,
+      duration: 2000,
+      position: 'top'
+    });
+    toast.present();
   }
 }
 
@@ -353,29 +361,18 @@ async goToGraded(): Promise<void> {
       toast.present();
     }
   } catch (error) {
-    console.error('Error navigating to Graded interviews Page:', error);
+    const toast = await this.toastController.create({
+      message: 'Error navigating to Graded interviews Page:'+ error,
+      duration: 2000,
+      position: 'top'
+    });
+    toast.present();
   }
 }
 
 goToScheduled(){
   this.navController.navigateForward('/scheduled-interviews');
-  // try {
-  //   await this.getUser();
-
-  //   if (this.userDocument && this.userDocument.role && this.userDocument.role.wil === 'on') {
-  //     // Navigate to the desired page
-  //     this.navController.navigateForward('/scheduled-interviews');
-  //   } else {
-  //     const toast = await this.toastController.create({
-  //       message: 'Unauthorized user.',
-  //       duration: 2000,
-  //       position: 'top'
-  //     });
-  //     toast.present();
-  //   }
-  // } catch (error) {
-  //   console.error('Error navigating to Scheduled interviews Page:', error);
-  // }
+ 
 }
 
 
@@ -395,7 +392,6 @@ async presentConfirmationAlert() {
         role: 'cancel',
        cssClass: 'my-custom-alert',
         handler: () => {
-          console.log('Confirmation canceled');
         }
       }, {
         text: 'Confirm',
@@ -453,8 +449,6 @@ async openDeclineModal() {
 
 
   async openValidateModal(academicRecordURl:any,cvUrl:any,idURL:any,letterURL:any){
-
-console.log(academicRecordURl);
   const modal = await this.modalController.create({
     component: ValidateDocsPage,
     componentProps: {

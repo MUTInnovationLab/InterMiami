@@ -256,20 +256,7 @@ municipalities:any[]=[];
 
    
   
-    /*if (!this.faculty) {
-      alert('Please select your faculty.');
-      return;
-    }
 
-    if (!this.selectedOption) {
-      alert('Please select your course.');
-      return;
-    }
-
-    if (!this.level) {
-      alert('Please select your level.');
-      return;
-    }*/
 
     if (!this.fullname) {
       this.fullNameError = 'Please enter your fullname.';
@@ -649,7 +636,7 @@ municipalities:any[]=[];
               // Update the local property
               this.code_job = newCodeJob;
             } else {
-              console.error('Could not find numeric part in code_job:', this.code_job);
+              this.showToast('Could not find numeric part in code_job:'+ this.code_job);
             }
           } 
         }
@@ -667,11 +654,20 @@ municipalities:any[]=[];
       }
     } catch (error: any) {
       loader.dismiss();
-      console.error(error);
+      this.showToast(error)
   
       const errorMessage = error.message || 'An error occurred';
       alert(errorMessage);
     }
+  }
+
+  async showToast(message: string) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000, // Duration in milliseconds
+      position: 'top' // Toast position: 'top', 'bottom', 'middle'
+    });
+    toast.present();
   }
   
 
@@ -688,7 +684,7 @@ municipalities:any[]=[];
         const fileRef = this.fStorage.storage.refFromURL(url);
         await fileRef.delete();
       } catch (error) {
-        console.error('Error deleting file:', error);
+       this.showToast('Error deleting file:'+ error);
       }
     }
   }
@@ -746,7 +742,7 @@ municipalities:any[]=[];
         const fileRefAll = this.fStorage.storage.refFromURL(this.userDocumentt.AllInOnePdfURL);
         await fileRefAll.delete();
       } catch (error) {
-        console.error('Error deleting merged file:', error);
+        this.showToast('Error deleting merged file:'+ error);
       }
 
         await this.generatePDF();
@@ -757,7 +753,7 @@ municipalities:any[]=[];
           ); // Delete the file
           await fileRefA.delete();
         } catch (error) {
-          console.error('Error deleting cv file:', error);
+          this.showToast('Error deleting cv file:'+ error);
         }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    
@@ -840,7 +836,7 @@ municipalities:any[]=[];
       }
     } catch (error: any) {
       loader.dismiss();
-      console.error(error);
+      this.showToast(error);
 
       const errorMessage = error.message || 'An error occurred';
       alert(errorMessage);
@@ -855,7 +851,7 @@ municipalities:any[]=[];
     const files = event.target.files;
     if (files && files.length > 0) {
       this.academicRrdFile = files[0];
-      console.log('File 1: ' + this.academicRrdFile.name);
+      this.showToast('File 1: ' + this.academicRrdFile.name);
     }
   }
 
@@ -863,14 +859,14 @@ municipalities:any[]=[];
     const files = event.target.files;
     if (files && files.length > 0) {
       this.CertificatesFile = files[0];
-      console.log('File 2: ' + this.CertificatesFile.name);
+      this.showToast('File 2: ' + this.CertificatesFile.name);
     }
   }
   uploadID(event: any) {
     const files = event.target.files;
     if (files && files.length > 0) {
       this.idFile = files[0];
-      console.log('File 3: ' + this.idFile.name);
+      this.showToast('File 3: ' + this.idFile.name);
     }
   }
   
@@ -878,7 +874,7 @@ municipalities:any[]=[];
     const files = event.target.files;
     if (files && files.length > 0) {
       this.letterFile = files[0];
-      console.log('File 4: ' + this.letterFile.name);
+      this.showToast('File 4: ' + this.letterFile.name);
     }
   }
 
@@ -1267,11 +1263,11 @@ for (let pageNumber = 0; pageNumber < maxIDPages; pageNumber++) {
   const snapshotMerged = await storageRef.put(mergedPdfBytes);
 
   this.AllInOnePdfURL = await snapshotMerged.ref.getDownloadURL();
-  console.log('Combined PDF file uploaded. Download URL:', this.AllInOnePdfURL);
+  this.showToast('Combined PDF file uploaded. Download URL:'+ this.AllInOnePdfURL);
 
 } catch (error:any) {
-  console.error('Error occurred while merging PDFs:', error);
-  alert('pdf error: ' + error.message);
+  this.showToast('Error occurred while merging PDFs:'+ error);
+  
 }
       // Continue with the rest of the code for updating the CV URL as before.
 const filename = `${this.fullname}__${Date.now()}_CV.pdf`;
@@ -1282,13 +1278,13 @@ const snapshot = await fileRef.put(blob);
 const downloadURL = await snapshot.ref.getDownloadURL();
 
 this.cvUrl = downloadURL;
-console.log('update cv ' + this.cvUrl);
+
 
 
 
   }catch (error:any) {
-    console.error('Error occurred while merging PDFs:', error);
-    alert('pdf error: ' + error.message);
+    this.showToast('Error occurred while merging PDFs:'+ error);
+    
   }
 }
   async getCourse(event: any) {
@@ -1320,7 +1316,7 @@ console.log('update cv ' + this.cvUrl);
           role: 'cancel',
           cssClass: 'my-custom-alert',
           handler: () => {
-            console.log('Confirmation canceled');
+            this.showToast('Confirmation canceled');
           },
         },
         {
@@ -1383,7 +1379,7 @@ console.log('update cv ' + this.cvUrl);
             this.userDocumentt = data[0];
 
             this.arrayOn = true;
-            console.log('allToUpdate ' + this.userDocumentt);
+            this.showToast('allToUpdate ' + this.userDocumentt);
             this.fullname = userDocument.fullName;
             this.lastname = userDocument.lastName;
             this.gender = userDocument.gender;

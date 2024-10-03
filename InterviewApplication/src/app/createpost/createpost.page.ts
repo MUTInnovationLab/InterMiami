@@ -42,7 +42,7 @@ export class CreatepostPage implements OnInit {
           role: 'cancel',
          cssClass: 'my-custom-alert',
           handler: () => {
-            console.log('Confirmation canceled');
+          
           }
         }, {
           text: 'Confirm',
@@ -92,7 +92,6 @@ export class CreatepostPage implements OnInit {
 
 
   async submit(){
-    console.log(this.jobpost)
 
     try 
     {
@@ -118,15 +117,23 @@ export class CreatepostPage implements OnInit {
         })
         .catch((error) => {
          // loader.dismiss();
-          console.error('Error adding document: ', error);
+         this.showToast('Error adding document: '+ error);
           alert('failed : ' + error);
         });
   
   }catch (error) {
     // Handle errors
-    console.error('Error:', error);
+    this.showToast('Error:'+ error);
     // Display appropriate error messages using toastController
   }
+}
+async showToast(message: string) {
+  const toast = await this.toastController.create({
+    message: message,
+    duration: 2000, // Duration in milliseconds
+    position: 'top' // Toast position: 'top', 'bottom', 'middle'
+  });
+  toast.present();
 }
 
 async presentToast() {

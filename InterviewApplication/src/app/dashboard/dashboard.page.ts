@@ -71,7 +71,7 @@ export class DashboardPage implements OnInit {
           this.userDocument = querySnapshot.docs[0].data();
         }
       } catch (error) {
-        console.error('Error getting user document:', error);
+        this.showToast('Error getting user document:'+ error);
       }
     }
   }
@@ -143,7 +143,7 @@ export class DashboardPage implements OnInit {
         toast.present();
       }
     } catch (error) {
-      console.error('Error navigating based on role:', error);
+      this.showToast('Error navigating based on role:'+ error);
     }
   }
 
@@ -211,7 +211,6 @@ export class DashboardPage implements OnInit {
           role: 'cancel',
           cssClass: 'my-custom-alert',
           handler: () => {
-            console.log('Confirmation canceled');
           }
         }, {
           text: 'Confirm',
@@ -226,7 +225,16 @@ export class DashboardPage implements OnInit {
       ]
     });
     await alert.present();
-    console
+    
+  }
+
+  async showToast(message: string) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000, // Duration in milliseconds
+      position: 'top' // Toast position: 'top', 'bottom', 'middle'
+    });
+    toast.present();
   }
 
   async presentToast() {

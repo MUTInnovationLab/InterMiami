@@ -19,7 +19,12 @@ export class ApplicantResgisterPage implements OnInit {
   emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // regular expression for email validation
   passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/; // regular expression for password validation
   
-  constructor(private db: AngularFirestore,private loadingController: LoadingController, navCtrl: NavController,private auth: AngularFireAuth,private navController: NavController) { }
+  constructor(private db: AngularFirestore,
+    private loadingController: LoadingController, 
+    navCtrl: NavController,
+    private auth: AngularFireAuth,
+    private navController: NavController,
+    private toastController: ToastController) { }
   ngOnInit() {
   }
   goToHomePage(): void {
@@ -30,6 +35,15 @@ export class ApplicantResgisterPage implements OnInit {
     this.navController.navigateForward("/applicant-login");
   
   }
+
+  async showToast(message: string) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000, // Duration in milliseconds
+      position: 'top' // Toast position: 'top', 'bottom', 'middle'
+    });
+    toast.present();
+  }
   async register() {
     // reset error messages
     this.emailError = null;
@@ -39,37 +53,37 @@ export class ApplicantResgisterPage implements OnInit {
     // validate input
     if (!this.email) {
       this.emailError = 'Please enter your email.';
-      alert("Please enter your email");
+      this.showToast("Please enter your email");
       return;
     }
   
     if (!this.password) {
       this.passwordError = 'Please enter a password.';
-      alert("Please enter a password");
+      this.showToast("Please enter a password");
       return;
     }
   
     if (!this.confirmPassword) {
       this.confirmPasswordError = 'Please confirm your password.';
-      alert("Please confirm your password");
+      this.showToast("Please confirm your password");
       return;
     }
     
     if (this.password !== this.confirmPassword) {
       this.confirmPasswordError = 'Passwords do not match.';
-      alert("Passwords do not match");
+      this.showToast("Passwords do not match");
       return;
     }
   
     if (!this.emailRegex.test(this.email)) {
       this.emailError = 'Please enter a valid email address.';
-      alert("Please enter a valid email address");
+      this.showToast("Please enter a valid email address");
       return;
     }
     
     if (!this.passwordRegex.test(this.password)) {
       this.confirmPasswordError = 'Password must contain at least 8 characters including uppercase, lowercase, and numbers.';
-      alert("Password must contain at least 8 characters including uppercase, lowercase, and numbers.");
+      this.showToast("Password must contain at least 8 characters including uppercase, lowercase, and numbers.");
       return;
     }
   
@@ -87,20 +101,20 @@ export class ApplicantResgisterPage implements OnInit {
             email: this.email,
           });
           loader.dismiss();
-          alert("Registered Successfully");
+          this.showToast("Registered Successfully");
           this.navController.navigateForward("applicant-login");
         } else {
           loader.dismiss();
-          alert('User not found');
+          this.showToast('User not found');
         }
       })
       .catch((error) => {
         loader.dismiss();
         const errorMessage = error.message;
         if (error.code === 'auth/email-already-in-use') {
-          alert('This email is already in use. Please use a different email.');
+          this.showToast('This email is already in use. Please use a different email.');
         } else {
-          alert(errorMessage);
+          this.showToast(errorMessage);
         }
       });
   }
