@@ -118,12 +118,12 @@ export class DashboardPage implements OnInit {
             message = 'Unauthorized user for Schedule Interview page.';
             break;
           case 'createpost':
-            authorized = this.userDocument.role.createpost === 'on';
+            authorized = this.userDocument.role.createPost === 'on';
             message = 'Unauthorized user for create post page.';
             break;
           case 'assign-interviewer':
-            authorized = this.userDocument.position === 'HR';
-            message = 'Unauthorized user for create post page.';
+            authorized = this.userDocument.role.assign === 'on';
+            message = 'Unauthorized user for assign interviewer page.';
             break;
           default:
             authorized = false;

@@ -22,6 +22,7 @@
     "@angular/platform-browser": "^16.2.11",
     "@angular/platform-browser-dynamic": "^16.2.11",
     "@angular/router": "^16.2.11",
+    "@capacitor/core": "^6.1.2",
     "@ionic/angular": "^7.5.2",
     "@types/jspdf": "^2.0.0",
     "@types/pdfmake": "^0.2.2",

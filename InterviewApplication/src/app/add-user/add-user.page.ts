@@ -40,7 +40,8 @@ export class AddUserPage implements OnInit {
     upcomingInterviews: 'off',
     allUsers: 'off',
     scheduleInterview: 'off',
-    createPost: 'off'
+    createPost: 'off',
+    assign: 'off',
   };
 
   constructor(
@@ -111,6 +112,12 @@ export class AddUserPage implements OnInit {
   getCreatePost(event: any) {
     const toggleValue = event.target.checked ? 'on' : 'off';
     this.role.createPost = toggleValue;
+    
+  }
+
+  getAssign(event: any) {
+    const toggleValue = event.target.checked ? 'on' : 'off';
+    this.role.assign = toggleValue;
     
   }
 
@@ -497,7 +504,8 @@ async Validation() {
     this.role.upcomingInterviews === 'off' &&
     this.role.allUsers === 'off' &&
     this.role.scheduleInterview === 'off' &&
-    this.role.createPost === 'off'
+    this.role.createPost === 'off' &&
+    this.role.assign === 'off'
   ) {
     alert('Please select at least one role.');
     return;
