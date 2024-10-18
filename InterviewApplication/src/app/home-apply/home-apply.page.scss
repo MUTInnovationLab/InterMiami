@@ -1,0 +1,100 @@
+
+  
+    .add-button {
+      --background: #065D78;
+      color: white;
+  
+      &:hover {
+        background-color: #0056b3;
+      }
+    }
+
+    .next {
+        --background: #065D78;
+        color: white;
+    
+        &:hover {
+          background-color: #0056b3;
+        }
+      }
+  
+    .remove-button {
+      --background: #dc3545;
+      color: white;
+  
+      &:hover {
+        background-color: #c82333;
+      }
+    }
+
+    .image{
+        --background: #065D78;
+        // background-image: url('/assets/img/MEDIA-RELATIONS-3.jpg');
+    }
+
+  
+      
+    
+    ion-card {
+        background: transparent; /* Makes the background transparent */
+        box-shadow: none; /* Removes the default shadow */
+        border: none; /* Removes any border */
+        backdrop-filter: blur(5px); /* Optional: adds a blur effect to the background */
+      }
+       
+   
+
+    .Crd2{
+        width: 100%;
+        margin-left: 0;
+        font-size: 2rem;
+      }
+      
+      .card-content {
+        display: flex; 
+        gap: 20px; 
+        flex-wrap: wrap; 
+      }
+
+      .info{
+        font-size: 16px;
+        color: #333;
+        margin-left: 870px;
+        top: 420px;
+        margin-top: 10px;
+        width: 460px;
+      }
+
+  /////////////////////////////
+  /// 
+  .form-group {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 16px 0;
+   
+
+    ion-label{
+        font-size: 1.2rem;
+    }
+  
+    ion-item {
+      flex: 1 1 calc(50% - 16px); /* Two items per row with space */
+      margin: 8px; /* Adjust margin as needed */
+      min-width: 250px; /* Ensure items don't get too small */
+    }
+  
+    ion-button {
+      margin-top: 16px; /* Space between button and fields */
+    }
+  }
+  
+  ion-list {
+    margin: 0; /* Remove margin from ion-list to align properly */
+  }
+  
+  @media (max-width: 600px) {
+    .form-group ion-item {
+      flex: 1 1 100%; /* Full width on small screens */
+    }
+  }
+  

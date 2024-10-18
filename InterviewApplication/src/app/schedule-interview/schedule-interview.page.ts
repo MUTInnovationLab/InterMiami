@@ -154,7 +154,7 @@ export class ScheduleInterviewPage {
     }
   
     generateUniqueId(): string {
-      const randomDigits = Math.floor(Math.random() * 1000000000000).toString(); // Generate random 13-digit number
+      const randomDigits = Math.floor(Math.random() * 1000000000000).toString(); // Generate random 12-digit number
       return randomDigits;
     }
 
@@ -238,6 +238,7 @@ export class ScheduleInterviewPage {
     }
 
     async submit() {
+      // Validate email
       if (!this.emailRegex.test(this.email)) {
         const toast = await this.toastController.create({
           message: "Please enter a valid email address.",
@@ -248,9 +249,21 @@ export class ScheduleInterviewPage {
         return;
       }
     
-      if (this.int_id.toString().length !== 13) {
+      // Validate date
+      if (!this.date) { // Check if date is not chosen
         const toast = await this.toastController.create({
-          message: 'ID must be exactly 12 digits, Refresh the page',
+          message: "Please choose a date and time.",
+          duration: 2000,
+          position: 'top'
+        });
+        toast.present();
+        return;
+      }
+    
+      // Validate ID length
+      if (this.int_id.toString().length !== 12) {
+        const toast = await this.toastController.create({
+          message: 'ID must be exactly 12 digits, Refresh the page.',
           duration: 2000,
           position: 'top',
           color: 'danger'
@@ -259,6 +272,7 @@ export class ScheduleInterviewPage {
         return;
       }
     
+      // Show loader
       const loader = await this.loadingController.create({
         message: 'Scheduling',
         cssClass: 'custom-loader-class'
@@ -266,11 +280,12 @@ export class ScheduleInterviewPage {
     
       await loader.present();
     
+      // Simulate a delay
       const delay = 2000;
       await new Promise(resolve => setTimeout(resolve, delay));
     
       try {
-       
+        // Add record to Firestore
         await this.db.collection('Interviewees').add({
           int_id: this.int_id,
           name: this.name,
@@ -282,7 +297,7 @@ export class ScheduleInterviewPage {
         await loader.dismiss();
         alert("Recorded");
     
-        // Sending email
+        // Sending email (uncomment if needed)
         const emailParams = {
           name: this.name,
           surname: this.surname,
@@ -296,9 +311,8 @@ export class ScheduleInterviewPage {
         this.showToast('Email successfully sent');
         alert('Email successfully sent');
       } catch (error) {
-        this.showToast('Error:'+ error);
+        this.showToast('Error: ' + error);
         await loader.dismiss();
-        // alert('Error: ' + error.message);
       }
     }
     

@@ -2,9 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule, ModalController } from '@ionic/angular';
-
-
-
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore, QueryDocumentSnapshot } from '@angular/fire/compat/firestore';
 import {  LoadingController,NavController, ToastController , AlertController} from '@ionic/angular';
@@ -13,8 +10,6 @@ import { ViewAcademicRecordModalPage } from '../view-academic-record-modal/view-
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { DeclineModalPage } from '../decline-modal/decline-modal.page';
 import { ValidateDocsPage } from '../validate-docs/validate-docs.page';
-
-
 
 @Component({
   selector: 'app-all-applicants',
@@ -50,9 +45,7 @@ export class AllApplicantsPage implements OnInit {
       this.tableData.sort((a, b) => {
         return b.tTotalExperience - a.tTotalExperience;
       });
-
-  
-        this.db.collection("applicant-application")
+      this.db.collection("applicant-application")
         .valueChanges()
         .subscribe((data: any[]) => {
           // Filter the data based on the "status" field

@@ -145,6 +145,18 @@ const routes: Routes = [
     path: 'display',
     loadChildren: () => import('./display/display.module').then( m => m.DisplayPageModule)
   },
+  {
+    path: 'track-applications',
+    loadChildren: () => import('./track-applications/track-applications.module').then( m => m.TrackApplicationsPageModule)
+  },
+  {
+    path: 'home-apply',
+    loadChildren: () => import('./home-apply/home-apply.module').then( m => m.HomeApplyPageModule)
+  },
+  {
+    path: 'my-profile',
+    loadChildren: () => import('./my-profile/my-profile.module').then( m => m.MyProfilePageModule)
+  },
 
 
 

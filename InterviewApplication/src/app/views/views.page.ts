@@ -12,7 +12,7 @@ import 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Certificate } from 'crypto';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-views',
@@ -21,8 +21,10 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ViewsPage implements OnInit {
   
-
-  user$: Observable<any> = of(null);
+  qualification:any
+  jobTitle:any;
+  jobdepartment:any;
+    user$: Observable<any> = of(null);
   showAll: boolean = false;
   detProfile:any;
   pdfUrl: any;
@@ -36,7 +38,7 @@ export class ViewsPage implements OnInit {
   jobfaculty:any;
 
   constructor(private loadingController: LoadingController,private storage: AngularFireStorage , private auth:AngularFireAuth,private navCtrl: NavController ,private afs: AngularFirestore,private alertController: AlertController,
-    private toastController: ToastController,private route: ActivatedRoute) {
+    private toastController: ToastController,private route: ActivatedRoute,  private router:Router) {
 
 
       firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
@@ -127,9 +129,7 @@ export class ViewsPage implements OnInit {
 
     ngOnInit() {
  
-      this.route.paramMap.subscribe(params => {
-        this.counter = params.get('counter');
-      });
+   
 
       this.getAllDocuments();
 
@@ -156,12 +156,22 @@ isButtonDisabled(): boolean {
     this.showAll = !this.showAll;
   }
   
-  
-  
-  goToCreate(){
-    const counterValue = this.counter;
 
-    this.navCtrl.navigateForward(['/apply', { counter: counterValue }]);
+  
+  goToCreate(jobfaculty: string, jobTitle: string, jobdepartment: string, qualification: string) {
+    // Prepare the parameters as an object
+    const navigationExtras = {
+      queryParams: {
+        counter: jobfaculty,
+        title: jobTitle,
+        dept: jobdepartment,
+        qualify: qualification
+      }
+    };
+  
+    // Navigate to the "apply" page and pass the parameters
+    this.router.navigate(['/apply'], navigationExtras);
+
   }
 
 

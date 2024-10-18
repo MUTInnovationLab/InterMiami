@@ -39,6 +39,11 @@
     <div class="profile-details">
       <ion-list lines="full">
         <ion-item>
+          <ion-label class="label">Availability Status</ion-label>
+          <ion-toggle [(ngModel)]="availabilityStatus" (ionChange)="onToggleChange($event)"></ion-toggle>
+        </ion-item>
+        
+        <ion-item>
           <ion-label class="label">Name</ion-label>
           <ion-text>{{ (user$ | async)?.Name }}</ion-text>
         </ion-item>

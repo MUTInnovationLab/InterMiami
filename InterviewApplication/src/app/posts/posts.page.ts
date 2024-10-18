@@ -50,6 +50,10 @@ export class PostsPage implements OnInit {
   goToView(): void {
     this.router.navigate(['/views']);
   }
+
+  goToApp(): void {
+    this.router.navigate(['/track-applications']);
+  }
   async presentToast() {
     const toast = await this.toastController.create({
       message: 'SIGNED OUT!',
@@ -103,21 +107,27 @@ export class PostsPage implements OnInit {
       .subscribe((data: any[]) => {
         this.tables$ = data;
         for (const item of data) {
-        
-          // Now, you can calculate the counter value based on item.jobfaculty and navigate to the "views" page
           const counterValue = item.jobfaculty;
-          // this.navigateToViewPage(counterValue);
+          
         }
       });
   }
 
-  navigateToViewPage(jobfaculty: string) {
-    // Calculate the counter value by merging jobfaculty with 0000001
-    const counterValue = jobfaculty;
-
-    // Navigate to the "views" page and pass the counter value as a parameter
-    this.router.navigate(['/views', { counter: counterValue }]);
+  navigateToViewPage(jobfaculty: string, jobTitle: string, jobdepartment: string, qualification: string) {
+    // Prepare the parameters as an object
+    const navigationExtras = {
+      queryParams: {
+        counter: jobfaculty,
+        title: jobTitle,
+        dept: jobdepartment,
+        qualify: qualification
+      }
+    };
+  
+    // Navigate to the "views" page and pass the parameters
+    this.router.navigate(['/home-apply'], navigationExtras);
   }
+  
 
   getAllDocuments2() {
     this.firestore

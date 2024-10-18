@@ -122,8 +122,8 @@
 
       <div div class="vertical-buttons" >
   
-        <ion-button class="col11" expand="block" color="primary" routerLink="/edit-profile" (click)="goToCreate()" title="click to edit your details" [disabled]="isButtonDisabled()">
-          <ion-icon name="pencil"></ion-icon>
+        <ion-button class="col11" expand="block" color="primary" (click)="goToCreate(jobfaculty, jobTitle, jobdepartment, qualification)" title="click to edit your details" [disabled]="isButtonDisabled()">
+              <ion-icon name="pencil"></ion-icon>
           {{ detProfile ? 'Update Profile' : 'Apply'}}
         </ion-button>
     

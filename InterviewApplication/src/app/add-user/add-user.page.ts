@@ -25,7 +25,7 @@ export class AddUserPage implements OnInit {
   email:any;
   position:any;
   staffNumber:any;
-
+  availabilityStatus:string = 'true';
   userDocument:any;
 
   navController: NavController;
@@ -560,6 +560,7 @@ async Validation() {
         Name: this.name,
         email: this.email,
         staffNumber: this.staffNumber,
+        availabilityStatus: this.availabilityStatus,
         position: this.position,
         role: this.role
       });

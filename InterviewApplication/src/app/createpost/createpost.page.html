@@ -1,12 +1,32 @@
-<ion-header class="ion-headeer">
+
+<ion-header class="ion-headers">
   <ion-toolbar>
-    <ion-title class="header-title">
-      Create Job Application Post
-    </ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/dashboard"></ion-back-button>
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="start" class="phuto" (click)="goToHomePage()">
+      <img src="assets\MUT LOGO.png" >
+    </ion-buttons>
+    <h2 class="header-title">Create Job Application Post</h2>
+    <ion-buttons slot="end">
+      <ion-button>
+          <ion-button id="popover-button"><ion-icon name="person"></ion-icon></ion-button>
+       
+        <ion-popover trigger="popover-button" [dismissOnSelect]="true">
+          <ng-template>
+            <ion-content>
+              <ion-list >
+                <ion-item lines="none" [button]="true" [detail]="false" (click)="goToView()" ><ion-icon name="eye" ></ion-icon> &nbsp;  Profile</ion-item>
+                <ion-item lines="none" [button]="true" [detail]="false"  (click)="presentConfirmationAlert()"><ion-icon color="danger" name="exit"></ion-icon>&nbsp;<p>LOGOUT</p></ion-item>
+              </ion-list>
+            </ion-content>
+          </ng-template>
+        </ion-popover>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
-
-
 
 <form class="form">
   <label>
