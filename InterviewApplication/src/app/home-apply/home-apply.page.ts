@@ -9,6 +9,7 @@ import { ValidationsService } from '../Shared/validations.service';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import { PDFDocument } from 'pdf-lib';
+import { AuthService } from '../Shared/auth.service';
 
 
 
@@ -48,6 +49,7 @@ export class HomeApplyPage implements OnInit {
   certicatesUrl = '';
   idURL = '';
   letterURL = '';
+  currentUser:any;
 
 
 
@@ -66,6 +68,16 @@ export class HomeApplyPage implements OnInit {
     status: 'pending'
    
   };
+
+  position = [
+    {
+      codeDept: '',
+      codeTitles: '',
+      code_job: '',
+      codeQualify: '',
+
+    }
+  ];
 
   educations = [
     {
@@ -86,6 +98,8 @@ export class HomeApplyPage implements OnInit {
       description: ''
     }
   ];
+
+  
 
   skills = [
     {
@@ -116,11 +130,20 @@ export class HomeApplyPage implements OnInit {
     private toastController: ToastController,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private valid: ValidationsService
+    private authService: AuthService
    
   ) {}
 
   ngOnInit() {
+    
+    this.currentUser = this.authService.currentUser; 
+     // Check if current user's email exists in the database
+     const email = this.authService.getCurrentUserEmail();
+     if (email) {
+      this.personalDetails.email = email;
+       this.checkUserEmail(email);
+       
+     }
     this.route.queryParams.subscribe(params => {
       this.counter = params['counter'];
       this.title = params['title'];
@@ -129,7 +152,43 @@ export class HomeApplyPage implements OnInit {
     });
     
     this.writeOn();
+
+   
+
   }
+
+  async checkUserEmail(email: string): Promise<boolean> {
+    const userRef = this.firestore.collection('applicant-application', ref => ref.where('personalDetails.email', '==', email));
+    
+    try {
+      const userSnapshot = await userRef.get().toPromise();
+  
+      // Check if userSnapshot is defined and not empty
+      if (userSnapshot && !userSnapshot.empty) {
+        // Email exists in the personalDetails array
+        console.log('User exists in the database.');
+        this.nextToEducationEmail();
+        return true; // User exists
+      } else {
+        console.log('User does not exist in the database.');
+        return false; // User does not exist
+      }
+    } catch (error) {
+      console.error('Error checking user email:', error);
+      return false; // Return false in case of error
+    }
+  }
+
+  nextToEducationEmail() {
+    if (!this.validatePersonalDetails()) {
+      this.currentStep = 1;
+    } else {
+      alert('User does not exist');
+    }
+  }
+  
+  
+  
 
   addEducation() {
     this.educations.push({
@@ -138,6 +197,15 @@ export class HomeApplyPage implements OnInit {
       institution: '',
       graduationYear: '',
       average: ''
+    });
+  }
+
+  addPosition() {
+    this.position.push({
+      codeDept: this.codeDept,
+      codeTitles: this.codeTitles,
+      code_job: this.code_job,
+      codeQualify: this.codeQualify,
     });
   }
 
@@ -213,18 +281,24 @@ export class HomeApplyPage implements OnInit {
     toast.present();
   }
 
-  writeOn(){
+  writeOn() {
     const counterValue = this.counter;
     this.code_job = counterValue;
-
+  
     const counterValueT = this.title;
     this.codeTitles = counterValueT;
-
+  
     const counterValueD = this.dept;
     this.codeDept = counterValueD;
-
+  
     const counterValueQ = this.qualify;
-    this.codeDept = counterValueQ;
+    this.codeQualify = counterValueQ;
+  
+    // Alert to confirm values
+    alert(`${this.code_job} code: ${this.codeTitles} ${this.codeDept} code: ${this.codeQualify}`);
+  
+    // Add position after writing the values
+    this.addPosition();
   }
 
   validatePersonalDetails() {
@@ -305,6 +379,8 @@ export class HomeApplyPage implements OnInit {
       alert('Please fill in all required fields in the Personal Details section.');
     }
   }
+
+  
 
   nextToExperience() {
     if (this.validateEducations()) {
@@ -433,10 +509,12 @@ export class HomeApplyPage implements OnInit {
   async submitForm() {
     
     if (this.nextToReferences()) {
+      
         await this.save(); // Wait for the save operation to complete
 
         if (this.AllInOnePdfURL) {
             const applicationData = {
+                position: this.position,
                 education: this.educations,
                 experience: this.experiences,
                 skills: this.skills,
