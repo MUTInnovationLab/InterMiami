@@ -21,9 +21,9 @@ import { AuthService } from '../Shared/auth.service';
 export class HomeApplyPage implements OnInit {
   currentStep: number = 0;
 
-  AllInOnePdfURL:any;
-  cvFile:any;
-  counter:any;
+  AllInOnePdfURL: any;
+  cvFile: any;
+  counter: any;
   code_job: any;
   title: any;
   codeTitles: any;
@@ -31,6 +31,8 @@ export class HomeApplyPage implements OnInit {
   codeDept: any;
   qualify: any;
   codeQualify: any;
+  jobType: any;
+  type: any;
 
   acardemicRrdUpload: AngularFireUploadTask | undefined;
   CerfUpload: AngularFireUploadTask | undefined;
@@ -42,21 +44,21 @@ export class HomeApplyPage implements OnInit {
   objective = '';
   academicRrdFile: any;
   CertificatesFile: any;
-  idFile:any;
-  letterFile:any;
+  idFile: any;
+  letterFile: any;
 
   academicRecordURl = '';
   certicatesUrl = '';
   idURL = '';
   letterURL = '';
-  currentUser:any;
+  currentUser: any;
 
 
 
- 
+
   combinedPdf: PDFDocument | null = null;
 
- 
+
 
   personalDetails = {
     fullName: '',
@@ -66,7 +68,7 @@ export class HomeApplyPage implements OnInit {
     email: '',
     phone: '',
     status: 'pending'
-   
+
   };
 
   position = [
@@ -75,7 +77,7 @@ export class HomeApplyPage implements OnInit {
       codeTitles: '',
       code_job: '',
       codeQualify: '',
-
+      jobType: ''
     }
   ];
 
@@ -99,7 +101,7 @@ export class HomeApplyPage implements OnInit {
     }
   ];
 
-  
+
 
   skills = [
     {
@@ -118,7 +120,7 @@ export class HomeApplyPage implements OnInit {
       company: ''
     }
   ];
-  
+
 
   constructor(private firestore: AngularFirestore,
     private navCtrl: NavController,
@@ -131,38 +133,64 @@ export class HomeApplyPage implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private authService: AuthService
-   
-  ) {}
+
+  ) { }
 
   ngOnInit() {
-    
-    this.currentUser = this.authService.currentUser; 
-     // Check if current user's email exists in the database
-     const email = this.authService.getCurrentUserEmail();
-     if (email) {
+
+    this.currentUser = this.authService.currentUser;
+    // Check if current user's email exists in the database
+    const email = this.authService.getCurrentUserEmail();
+    if (email) {
       this.personalDetails.email = email;
-       this.checkUserEmail(email);
-       
-     }
+      this.checkUserEmail(email);
+
+    }
     this.route.queryParams.subscribe(params => {
       this.counter = params['counter'];
       this.title = params['title'];
       this.dept = params['dept'];
       this.qualify = params['qualify'];
+      this.type = params['type'];
+      
     });
-    
+
     this.writeOn();
 
-   
+
 
   }
 
+  writeOn() {
+    const counterValue = this.counter;
+    this.code_job = counterValue;
+
+    const counterValueT = this.title;
+    this.codeTitles = counterValueT;
+
+    const counterValueD = this.dept;
+    this.codeDept = counterValueD;
+
+    const counterValueQ = this.qualify;
+    this.codeQualify = counterValueQ;
+
+    const counterValueJ = this.type;
+    this.type = counterValueJ;
+
+    // Alert to confirm values
+    alert(`${this.code_job} code: ${this.codeTitles} ${this.codeDept} ${this.type} code: ${this.codeQualify}`);
+
+    // Add position after writing the values
+    this.addPosition();
+  }
+
+
   async checkUserEmail(email: string): Promise<boolean> {
     const userRef = this.firestore.collection('applicant-application', ref => ref.where('personalDetails.email', '==', email));
-    
+
     try {
       const userSnapshot = await userRef.get().toPromise();
-  
+
       // Check if userSnapshot is defined and not empty
       if (userSnapshot && !userSnapshot.empty) {
         // Email exists in the personalDetails array
@@ -186,9 +214,9 @@ export class HomeApplyPage implements OnInit {
       alert('User does not exist');
     }
   }
-  
-  
-  
+
+
+
 
   addEducation() {
     this.educations.push({
@@ -206,6 +234,7 @@ export class HomeApplyPage implements OnInit {
       codeTitles: this.codeTitles,
       code_job: this.code_job,
       codeQualify: this.codeQualify,
+      jobType: this.jobType
     });
   }
 
@@ -261,13 +290,13 @@ export class HomeApplyPage implements OnInit {
     return await uploadTask.task.snapshot.ref.getDownloadURL();
   }
 
-  async  deleteFileIfExists(url: string): Promise<void> {
+  async deleteFileIfExists(url: string): Promise<void> {
     if (url) {
       try {
         const fileRef = this.fStorage.storage.refFromURL(url);
         await fileRef.delete();
       } catch (error) {
-       this.showToast('Error deleting file:'+ error);
+        this.showToast('Error deleting file:' + error);
       }
     }
   }
@@ -281,26 +310,7 @@ export class HomeApplyPage implements OnInit {
     toast.present();
   }
 
-  writeOn() {
-    const counterValue = this.counter;
-    this.code_job = counterValue;
   
-    const counterValueT = this.title;
-    this.codeTitles = counterValueT;
-  
-    const counterValueD = this.dept;
-    this.codeDept = counterValueD;
-  
-    const counterValueQ = this.qualify;
-    this.codeQualify = counterValueQ;
-  
-    // Alert to confirm values
-    alert(`${this.code_job} code: ${this.codeTitles} ${this.codeDept} code: ${this.codeQualify}`);
-  
-    // Add position after writing the values
-    this.addPosition();
-  }
-
   validatePersonalDetails() {
     return (
       this.personalDetails.fullName.trim() !== '' &&
@@ -311,19 +321,19 @@ export class HomeApplyPage implements OnInit {
       this.isValidPhone(this.personalDetails.phone)
     );
   }
-  
+
   isValidEmail(email: string): boolean {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   }
-  
+
   isValidPhone(phone: string): boolean {
     const phoneRegex = /^\d{10}$/; // Adjust regex based on your phone format
     return phoneRegex.test(phone);
   }
 
   validateEducations() {
-    return this.educations.every(edu => 
+    return this.educations.every(edu =>
       edu.qualification.trim() !== '' &&
       edu.fieldOfStudy.trim() !== '' &&
       edu.institution.trim() !== '' &&
@@ -333,7 +343,7 @@ export class HomeApplyPage implements OnInit {
   }
 
   validateExperiences() {
-    return this.experiences.every(exp => 
+    return this.experiences.every(exp =>
       exp.company.trim() !== '' &&
       exp.jobTitle.trim() !== '' &&
       exp.startDate !== '' &&
@@ -342,18 +352,18 @@ export class HomeApplyPage implements OnInit {
     );
   }
 
-  
+
   validateSkills() {
-    return this.skills.every(skill => 
+    return this.skills.every(skill =>
       skill.skillName.trim() !== '' &&
       skill.skillLevel !== '' &&
       skill.description.trim() !== ''
     );
   }
 
-  
+
   validateReferences() {
-    return this.references.every(ref => 
+    return this.references.every(ref =>
       ref.name.trim() !== '' &&
       ref.relationship.trim() !== '' &&
       this.isValidPhone(ref.phone) &&
@@ -380,7 +390,7 @@ export class HomeApplyPage implements OnInit {
     }
   }
 
-  
+
 
   nextToExperience() {
     if (this.validateEducations()) {
@@ -439,7 +449,7 @@ export class HomeApplyPage implements OnInit {
   getIonGraddate($event: any, index: number) {
     this.educations[index].graduationYear = $event.detail.value.split('T')[0];
   }
-  
+
 
   // Method to merge selected PDF into combinedPdf
   async mergePdfFiles(file: File) {
@@ -483,7 +493,7 @@ export class HomeApplyPage implements OnInit {
             const uploadTask = this.fStorage.upload(mergedPath, mergedBlob);
             await uploadTask;
             this.AllInOnePdfURL = await uploadTask.task.snapshot.ref.getDownloadURL();
-            alert( 'The all is here'+ this.AllInOnePdfURL);
+            alert('The all is here' + this.AllInOnePdfURL);
           }
 
           loader.dismiss();
@@ -507,81 +517,82 @@ export class HomeApplyPage implements OnInit {
 
   // Updated method to use the merged file URL
   async submitForm() {
-    
     if (this.nextToReferences()) {
-      
-        await this.save(); // Wait for the save operation to complete
-
-        if (this.AllInOnePdfURL) {
-            const applicationData = {
-                position: this.position,
-                education: this.educations,
-                experience: this.experiences,
-                skills: this.skills,
-                references: this.references,
-                allDocumentsUrl: this.AllInOnePdfURL,
-            };
-
-            const userRef = this.firestore.collection('applicant-application').doc(this.personalDetails.email);
-            const userDoc = await userRef.get().toPromise();
-            if (!userDoc || !userDoc.exists) {
-                await userRef.set({
-                    personalDetails: this.personalDetails,
-                    applications: [],
-                });
-            }
-
-            await userRef.update({
-                applications: firebase.firestore.FieldValue.arrayUnion(applicationData),
-            });
-
-            alert('Form submitted successfully!');
-        } else {
-            alert('Please fill in all required fields.');
+      await this.save(); // Wait for the save operation to complete
+  
+      if (this.AllInOnePdfURL) {
+        const applicationData = {
+          position: this.position || [],
+          education: this.educations || [],
+          experience: this.experiences || [],
+          skills: this.skills || [],
+          references: this.references || [],
+          allDocumentsUrl: this.AllInOnePdfURL,
+          submittedAt: firebase.firestore.FieldValue.serverTimestamp() 
+        };
+  
+        const userRef = this.firestore.collection('applicant-application').doc(this.personalDetails.email);
+        const userDoc = await userRef.get().toPromise();
+        
+        if (!userDoc || !userDoc.exists) {
+          await userRef.set({
+            personalDetails: this.personalDetails,
+            applications: [],
+          });
         }
+  
+        // Ensure applicationData is not undefined
+        await userRef.update({
+          applications: firebase.firestore.FieldValue.arrayUnion(applicationData)
+        });
+  
+        alert('Form submitted successfully!');
+      } else {
+        alert('Please fill in all required fields.');
+      }
     }
-}
+  }
 
 
 
 
   async save() {
     const loader = await this.loadingController.create({
-        message: 'Submitting...',
-        cssClass: 'custom-loader-class',
+      message: 'Submitting...',
+      cssClass: 'custom-loader-class',
     });
     await loader.present();
-    
+
     try {
-        const user = await this.auth.currentUser;
+      const user = await this.auth.currentUser;
 
-        if (user) {
-            const bothFilesSelected = this.academicRrdFile && this.idFile;
+      if (user) {
+        const bothFilesSelected = this.academicRrdFile && this.idFile;
 
-            if (bothFilesSelected) {
-                // Upload files logic...
+        if (bothFilesSelected) {
+          // Upload files logic...
 
-                // Wait for the merge and URL retrieval
-                await this.saveMerge(); // Wait here
+          // Wait for the merge and URL retrieval
+          await this.saveMerge(); // Wait here
 
-                loader.dismiss();
-                alert('Information successfully saved');
+          loader.dismiss();
+          alert('Information successfully saved');
 
-            } else {
-                loader.dismiss();
-                throw new Error('Please select the required files.');
-            }
         } else {
-            loader.dismiss();
-            throw new Error('User not found');
+          loader.dismiss();
+          throw new Error('Please select the required files.');
         }
-    } catch (error: any) {
+      } else {
         loader.dismiss();
-        this.showToast(error);
-        const errorMessage = error.message || 'An error occurred';
-        alert(errorMessage);
+        throw new Error('User not found');
+      }
+    } catch (error: any) {
+      loader.dismiss();
+      this.showToast(error);
+      const errorMessage = error.message || 'An error occurred';
+      alert(errorMessage);
     }
-}
+  }
 
 
 
@@ -608,7 +619,7 @@ export class HomeApplyPage implements OnInit {
       this.showToast('File 3: ' + this.idFile.name);
     }
   }
-  
+
   uploadLetter(event: any) {
     const files = event.target.files;
     if (files && files.length > 0) {
@@ -616,5 +627,5 @@ export class HomeApplyPage implements OnInit {
       this.showToast('File 4: ' + this.letterFile.name);
     }
   }
-  
+
 }

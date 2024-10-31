@@ -99,7 +99,6 @@ export class TrackApplicationsPage implements OnInit {
       if (doc?.exists) {
         const data = doc.data() as any;
 
-        // Safely handle the case where position array might be undefined
         if (!data || !Array.isArray(data.applications)) {
           console.log('No applications data found');
           this.userApplications = [];
@@ -108,31 +107,43 @@ export class TrackApplicationsPage implements OnInit {
           return;
         }
 
-        // Transform applications data with safety checks
+        // Modified transformation logic
         this.userApplications = data.applications.map((app: any) => {
-          // Safely access nested position array
-          const positions = Array.isArray(app.position) ? app.position : [];
-          const position = positions[0] || {};
+          // Log the raw application data for debugging
+          console.log('Raw application data:', app);
 
-          return {
-            companyName: position.codeDept || 'Not Specified',
-            jobTitle: position.codeTitles || 'Not Specified',
-            jobLocation: 'Not Specified', // Add this field to your database if needed
-            jobType: position.codeQualify || 'Not Specified',
-            submissionDate: new Date(), // Consider adding actual submission dates
-            status: ApplicationStatus.SUBMITTED, // Default status
-            isArchived: false,
-            timeline: [{
+          // Safely access the position array
+          const positions = Array.isArray(app.position) ? app.position : [];
+          
+          // Create the transformed application object
+          const transformedApp: Application = {
+            // Use the actual values if they exist, fallback to 'Not Specified'
+            companyName: app.companyName || positions[0]?.codeDept || 'Not Specified',
+            jobTitle: app.jobTitle || positions[0]?.codeTitles || 'Not Specified',
+            jobLocation: app.jobLocation || positions[0]?.code_job || 'Not Specified',
+            jobType: app.jobType || positions[0]?.codeQualify || 'Not Specified',
+            submissionDate: app.submissionDate ? new Date(app.submissionDate) : new Date(),
+            status: app.status || ApplicationStatus.SUBMITTED,
+            isArchived: app.isArchived || false,
+            timeline: Array.isArray(app.timeline) ? app.timeline.map((entry: any) => ({
+              date: entry.date ? new Date(entry.date) : new Date(),
+              status: entry.status || ApplicationStatus.SUBMITTED,
+              notes: entry.notes || ''
+            })) : [{
               date: new Date(),
               status: ApplicationStatus.SUBMITTED,
               notes: 'Application submitted'
             }],
             position: positions
           };
-        }).filter(Boolean); // Remove any null/undefined entries
+
+          // Log the transformed application for debugging
+          console.log('Transformed application:', transformedApp);
+
+          return transformedApp;
+        }).filter(Boolean);
 
         console.log('Loaded applications:', this.userApplications);
-
       } else {
         console.log('No document found for user');
         this.userApplications = [];

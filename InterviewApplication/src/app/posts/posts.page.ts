@@ -1,21 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { where } from 'firebase/firestore';
-
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { IonicModule, ModalController } from '@ionic/angular';
-
-
-
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { AngularFirestore, QueryDocumentSnapshot } from '@angular/fire/compat/firestore';
-import {  LoadingController,NavController, ToastController , AlertController} from '@ionic/angular';
-import { Observable } from 'rxjs';
-import { ViewAcademicRecordModalPage } from '../view-academic-record-modal/view-academic-record-modal.page';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { DeclineModalPage } from '../decline-modal/decline-modal.page';
-import { ValidateDocsPage } from '../validate-docs/validate-docs.page';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { LoadingController, NavController, ToastController, AlertController, ModalController } from '@ionic/angular';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-posts',
@@ -28,23 +16,23 @@ export class PostsPage implements OnInit {
   // selectedOption: any;
   data: any;
   tables$: any;
-  jobfaculty:any;
+  jobfaculty: any;
 
   constructor(private firestore: AngularFirestore,
-    private router:Router,
+    private router: Router,
     private http: HttpClient,
-    private loadingController: LoadingController, 
+    private loadingController: LoadingController,
     private navCtrl: NavController,
     private auth: AngularFireAuth,
     private toastController: ToastController,
     private alertController: AlertController,
     private navController: NavController,
     private db: AngularFirestore, private modalController: ModalController
-    ) { }
+  ) { }
 
   ngOnInit() {
     this.getAllDocuments();
-    this.getAllDocuments2();
+    // this.getAllDocuments2();
   }
 
   goToView(): void {
@@ -59,9 +47,9 @@ export class PostsPage implements OnInit {
       message: 'SIGNED OUT!',
       duration: 1500,
       position: 'top',
-    
+
     });
-  
+
     await toast.present();
   }
 
@@ -73,26 +61,26 @@ export class PostsPage implements OnInit {
         {
           text: 'Cancel',
           role: 'cancel',
-         cssClass: 'my-custom-alert',
+          cssClass: 'my-custom-alert',
           handler: () => {
-            
+
           }
         }, {
           text: 'Confirm',
           handler: () => {
-           
-            
+
+
             this.auth.signOut().then(() => {
               this.navController.navigateForward("/applicant-login");
               this.presentToast()
-        
-        
+
+
             }).catch((error) => {
-            
+
             });
-  
-  
-  
+
+
+
           }
         }
       ]
@@ -106,37 +94,34 @@ export class PostsPage implements OnInit {
       .valueChanges()
       .subscribe((data: any[]) => {
         this.tables$ = data;
-        for (const item of data) {
-          const counterValue = item.jobfaculty;
-          
-        }
+        console.log('Posts data:', this.tables$); // For debugging
       });
   }
 
-  navigateToViewPage(jobfaculty: string, jobTitle: string, jobdepartment: string, qualification: string) {
-    // Prepare the parameters as an object
+  navigateToViewPage(jobfaculty: string, jobTitle: string, jobdepartment: string, qualification: string, jobType: string) {
     const navigationExtras = {
       queryParams: {
         counter: jobfaculty,
         title: jobTitle,
         dept: jobdepartment,
-        qualify: qualification
+        qualify: qualification,
+        type: jobType  // Added job type to navigation params
+
       }
     };
-  
-    // Navigate to the "views" page and pass the parameters
+
     this.router.navigate(['/home-apply'], navigationExtras);
   }
-  
 
-  getAllDocuments2() {
-    this.firestore
-      .collection('Post')
-      .valueChanges()
-      .subscribe((data) => {
-        this.tables$ = data;
-      });
-  }
 
-  
+  // getAllDocuments2() {
+  //   this.firestore
+  //     .collection('Post')
+  //     .valueChanges()
+  //     .subscribe((data) => {
+  //       this.tables$ = data;
+  //     });
+  // }
+
+
 }
