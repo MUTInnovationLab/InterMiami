@@ -1,19 +1,35 @@
-import { Component, OnInit } from "@angular/core";
-import { AngularFireAuth } from "@angular/fire/compat/auth";
-import { AngularFirestore } from "@angular/fire/compat/firestore";
-import { ToastController } from "@ionic/angular";
+import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AlertController } from '@ionic/angular';
 
-// Interfaces
-interface Position {
-  codeDept: string;
-  codeQualify: string;
-  codeTitles: string;
-  code_job: string;
+export interface ApplicationData {
+  jobType: string;
+  position: string[];
+  education: any[];
+  experience: any[];
+  skills: string[];
+  references: any[];
+  allDocumentsUrl: string;
+  submittedAt: Date;
 }
 
-interface TimelineEntry {
-  date: Date;
+export interface Application {
+  id: string;
+  codeJob: string;
+  jobTitle: string;
+  jobLocation: string;
+  jobType: string;
   status: ApplicationStatus;
+  submissionDate: Date;
+  isArchived: boolean;
+  timeline: TimelineEvent[];
+  personalDetails: any;
+  applicationData: ApplicationData;
+}
+
+export interface TimelineEvent {
+  status: ApplicationStatus;
+  date: Date;
   notes?: string;
 }
 
@@ -21,211 +37,120 @@ export enum ApplicationStatus {
   SUBMITTED = 'Submitted',
   UNDER_REVIEW = 'Under Review',
   INTERVIEW_SCHEDULED = 'Interview Scheduled',
-  INTERVIEWED = 'Interviewed',
+  INTERVIEW_COMPLETED = 'Interview Completed',
   OFFER_MADE = 'Offer Made',
   ACCEPTED = 'Accepted',
   REJECTED = 'Rejected'
 }
 
-export interface Application {
-  companyName: string;
-  jobTitle: string;
-  jobLocation: string;
-  jobType: string;
-  submissionDate: Date;
-  status: ApplicationStatus;
-  isArchived: boolean;
-  timeline: TimelineEntry[];
-  position: Position[];
-}
-
-interface DashboardStats {
-  totalActive: number;
-  totalArchived: number;
-  recentUpdates: number;
-}
-
 @Component({
   selector: 'app-track-applications',
   templateUrl: './track-applications.page.html',
-  styleUrls: ['./track-applications.page.scss'],
+  styleUrls: ['./track-applications.page.scss']
 })
 export class TrackApplicationsPage implements OnInit {
-  userApplications: Application[] = [];
+  applications: Application[] = [];
   filteredApplications: Application[] = [];
-  dashboardStats: DashboardStats = {
-    totalActive: 0,
-    totalArchived: 0,
-    recentUpdates: 0
-  };
-
+  applicationStatuses = Object.values(ApplicationStatus);
   searchTerm: string = '';
   statusFilter: string = 'all';
   showArchived: boolean = false;
   showTimeline: boolean = false;
-  selectedApplication?: Application;
-  userEmail: string | null = null;
-
-  applicationStatuses = Object.values(ApplicationStatus);
-  ApplicationStatus = ApplicationStatus; // Make enum available to template
+  selectedApplication: Application | null = null;
+  
+  dashboardStats = {
+    totalActive: 0,
+    recentUpdates: 0,
+    scheduledInterviews: 0,
+    offersReceived: 0
+  };
 
   constructor(
-    private db: AngularFirestore,
-    private auth: AngularFireAuth,
-    private toastController: ToastController
-  ) { }
+    private firestore: AngularFirestore,
+    private alertController: AlertController
+  ) {}
 
   ngOnInit() {
-    this.auth.currentUser.then(user => {
-      if (user) {
-        this.userEmail = user.email;
-        this.loadUserApplications();
-      } else {
-        this.showToast('User not found');
-      }
+    this.loadApplications();
+  }
+
+  async loadApplications() {
+    this.firestore.collection('applications').snapshotChanges().subscribe(actions => {
+      this.applications = actions.map(action => {
+        const data = action.payload.doc.data() as any;
+        const id = action.payload.doc.id;
+        
+        // Convert Firestore timestamp to Date
+        const submissionDate = data.submissionDate?.toDate() || new Date();
+        
+        // Create timeline array if it doesn't exist
+        const timeline = data.timeline || [{
+          status: ApplicationStatus.SUBMITTED,
+          date: submissionDate
+        }];
+
+        return {
+          id,
+          codeJob: data.personalDetails?.company || 'Unknown Company',
+          jobTitle: Array.isArray(data.applicationData?.position) ? 
+            data.applicationData.position[0] : data.applicationData?.position || 'Unknown Position',
+          jobLocation: data.personalDetails?.location || 'Unknown Location',
+          jobType: data.applicationData?.jobType || 'Unknown Type',
+          status: data.status || ApplicationStatus.SUBMITTED,
+          submissionDate,
+          isArchived: data.isArchived || false,
+          timeline,
+          personalDetails: data.personalDetails,
+          applicationData: data.applicationData
+        };
+      });
+
+      this.updateDashboardStats();
+      this.filterApplications();
     });
   }
 
-  async loadUserApplications() {
-    if (!this.userEmail) {
-      console.log('No user email found');
-      return;
-    }
-
-    try {
-      const docRef = this.db.collection('applicant-application').doc(this.userEmail);
-      const doc = await docRef.get().toPromise();
-
-      if (doc?.exists) {
-        const data = doc.data() as any;
-
-        if (!data || !Array.isArray(data.applications)) {
-          console.log('No applications data found');
-          this.userApplications = [];
-          this.updateDashboardStats();
-          this.filterApplications();
-          return;
-        }
-
-        // Modified transformation logic
-        this.userApplications = data.applications.map((app: any) => {
-          // Log the raw application data for debugging
-          console.log('Raw application data:', app);
-
-          // Safely access the position array
-          const positions = Array.isArray(app.position) ? app.position : [];
-          
-          // Create the transformed application object
-          const transformedApp: Application = {
-            // Use the actual values if they exist, fallback to 'Not Specified'
-            companyName: app.companyName || positions[0]?.codeDept || 'Not Specified',
-            jobTitle: app.jobTitle || positions[0]?.codeTitles || 'Not Specified',
-            jobLocation: app.jobLocation || positions[0]?.code_job || 'Not Specified',
-            jobType: app.jobType || positions[0]?.codeQualify || 'Not Specified',
-            submissionDate: app.submissionDate ? new Date(app.submissionDate) : new Date(),
-            status: app.status || ApplicationStatus.SUBMITTED,
-            isArchived: app.isArchived || false,
-            timeline: Array.isArray(app.timeline) ? app.timeline.map((entry: any) => ({
-              date: entry.date ? new Date(entry.date) : new Date(),
-              status: entry.status || ApplicationStatus.SUBMITTED,
-              notes: entry.notes || ''
-            })) : [{
-              date: new Date(),
-              status: ApplicationStatus.SUBMITTED,
-              notes: 'Application submitted'
-            }],
-            position: positions
-          };
-
-          // Log the transformed application for debugging
-          console.log('Transformed application:', transformedApp);
-
-          return transformedApp;
-        }).filter(Boolean);
-
-        console.log('Loaded applications:', this.userApplications);
-      } else {
-        console.log('No document found for user');
-        this.userApplications = [];
-      }
-
-      this.updateDashboardStats();
-      this.filterApplications();
-
-    } catch (error) {
-      console.error('Error loading applications:', error);
-      this.showToast('Error loading applications');
-      this.userApplications = [];
-      this.updateDashboardStats();
-      this.filterApplications();
-    }
-  }
-
   updateDashboardStats() {
-    try {
-      this.dashboardStats = {
-        totalActive: this.userApplications.filter(app => !app.isArchived).length,
-        totalArchived: this.userApplications.filter(app => app.isArchived).length,
-        recentUpdates: this.userApplications.filter(app => {
-          try {
-            const lastUpdate = app.timeline[app.timeline.length - 1]?.date;
-            if (!lastUpdate) return false;
-            const oneWeekAgo = new Date();
-            oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
-            return lastUpdate >= oneWeekAgo;
-          } catch (e) {
-            console.error('Error calculating recent updates:', e);
-            return false;
-          }
-        }).length
-      };
-    } catch (e) {
-      console.error('Error updating dashboard stats:', e);
-      this.dashboardStats = {
-        totalActive: 0,
-        totalArchived: 0,
-        recentUpdates: 0
-      };
-    }
+    this.dashboardStats.totalActive = this.applications.filter(app => !app.isArchived).length;
+    this.dashboardStats.scheduledInterviews = this.applications.filter(app => 
+      app.status === ApplicationStatus.INTERVIEW_SCHEDULED && !app.isArchived).length;
+    this.dashboardStats.offersReceived = this.applications.filter(app =>
+      app.status === ApplicationStatus.OFFER_MADE && !app.isArchived).length;
+      
+    const oneWeekAgo = new Date();
+    oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+
+    
+    this.dashboardStats.recentUpdates = this.applications.filter(app => {
+      const lastUpdate = app.timeline[app.timeline.length - 1].date;
+      return lastUpdate >= oneWeekAgo;
+    }).length;
   }
 
   filterApplications() {
-    try {
-      this.filteredApplications = this.userApplications.filter(app => {
-        if (!app) return false;
+    this.filteredApplications = this.applications.filter(app => {
+      const matchesSearch = this.searchTerm ? 
+        (app.codeJob.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+         app.jobTitle.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+         app.jobLocation.toLowerCase().includes(this.searchTerm.toLowerCase())) : true;
 
-        const searchTerm = this.searchTerm?.toLowerCase() || '';
-        const matchesSearch = !searchTerm ||
-          (app.companyName?.toLowerCase()?.includes(searchTerm)) ||
-          (app.jobTitle?.toLowerCase()?.includes(searchTerm)) ||
-          (app.jobLocation?.toLowerCase()?.includes(searchTerm));
+      const matchesStatus = this.statusFilter === 'all' || app.status === this.statusFilter;
+      const matchesArchived = this.showArchived || !app.isArchived;
 
-        const matchesStatus = this.statusFilter === 'all' || app.status === this.statusFilter;
-        const matchesArchived = this.showArchived || !app.isArchived;
-
-        return matchesSearch && matchesStatus && matchesArchived;
-      });
-    } catch (e) {
-      console.error('Error filtering applications:', e);
-      this.filteredApplications = [];
-    }
+      return matchesSearch && matchesStatus && matchesArchived;
+    });
   }
 
   getStatusCount(status: ApplicationStatus): number {
-    try {
-      return this.userApplications.filter(app => app?.status === status).length;
-    } catch (e) {
-      console.error('Error getting status count:', e);
-      return 0;
-    }
+    return this.applications.filter(app => app.status === status && !app.isArchived).length;
   }
 
   getStatusColor(status: ApplicationStatus): string {
-    const colorMap: { [key in ApplicationStatus]: string } = {
+    const colorMap = {
       [ApplicationStatus.SUBMITTED]: 'primary',
       [ApplicationStatus.UNDER_REVIEW]: 'secondary',
       [ApplicationStatus.INTERVIEW_SCHEDULED]: 'tertiary',
-      [ApplicationStatus.INTERVIEWED]: 'warning',
+      [ApplicationStatus.INTERVIEW_COMPLETED]: 'warning',
       [ApplicationStatus.OFFER_MADE]: 'success',
       [ApplicationStatus.ACCEPTED]: 'success',
       [ApplicationStatus.REJECTED]: 'danger'
@@ -233,14 +158,31 @@ export class TrackApplicationsPage implements OnInit {
     return colorMap[status] || 'medium';
   }
 
+  async archiveApplication(application: Application) {
+    const newStatus = !application.isArchived;
+    await this.firestore.collection('applications').doc(application.id).update({
+      isArchived: newStatus
+    });
+  }
+
+  viewTimeline(application: Application) {
+    this.selectedApplication = application;
+    this.showTimeline = true;
+  }
+
+  viewApplication(application: Application) {
+    // Implement detailed view navigation
+    console.log('Viewing application:', application);
+  }
+
   getStatusIcon(status: ApplicationStatus): string {
-    const iconMap: { [key in ApplicationStatus]: string } = {
+    const iconMap = {
       [ApplicationStatus.SUBMITTED]: 'paper-plane',
-      [ApplicationStatus.UNDER_REVIEW]: 'eye',
+      [ApplicationStatus.UNDER_REVIEW]: 'hourglass',
       [ApplicationStatus.INTERVIEW_SCHEDULED]: 'calendar',
-      [ApplicationStatus.INTERVIEWED]: 'people',
-      [ApplicationStatus.OFFER_MADE]: 'mail-unread',
-      [ApplicationStatus.ACCEPTED]: 'checkmark-circle',
+      [ApplicationStatus.INTERVIEW_COMPLETED]: 'checkmark-circle',
+      [ApplicationStatus.OFFER_MADE]: 'mail',
+      [ApplicationStatus.ACCEPTED]: 'trophy',
       [ApplicationStatus.REJECTED]: 'close-circle'
     };
     return iconMap[status] || 'ellipse';
@@ -248,83 +190,14 @@ export class TrackApplicationsPage implements OnInit {
 
   isStatusReached(status: ApplicationStatus): boolean {
     if (!this.selectedApplication) return false;
-
-    const statusOrder = this.applicationStatuses;
-    const currentIndex = statusOrder.indexOf(this.selectedApplication.status);
-    const statusIndex = statusOrder.indexOf(status);
-
-    return statusIndex <= currentIndex;
+    const statusIndex = this.applicationStatuses.indexOf(status);
+    const currentStatusIndex = this.applicationStatuses.indexOf(this.selectedApplication.status);
+    return statusIndex <= currentStatusIndex;
   }
 
   getStatusDate(status: ApplicationStatus): Date | null {
-    if (!this.selectedApplication?.timeline) return null;
-
+    if (!this.selectedApplication) return null;
     const event = this.selectedApplication.timeline.find(e => e.status === status);
     return event ? event.date : null;
-  }
-
-  async updateApplicationStatus(newStatus: ApplicationStatus) {
-    if (!this.selectedApplication) return;
-
-    const now = new Date();
-
-    // Add new timeline event
-    this.selectedApplication.timeline.push({
-      date: now,
-      status: newStatus,
-      notes: `Status updated to ${newStatus}`
-    });
-
-    // Update current status
-    this.selectedApplication.status = newStatus;
-
-    // Here you would typically update the database
-
-    this.updateDashboardStats();
-    this.filterApplications();
-
-    await this.showToast(`Application status updated to ${newStatus}`);
-  }
-
-  viewTimeline(application: Application) {
-    if (!application) return;
-    this.selectedApplication = application;
-    this.showTimeline = true;
-  }
-
-  async archiveApplication(application: Application) {
-    if (!application) return;
-
-    try {
-      application.isArchived = !application.isArchived;
-      // Here you would typically update the database
-      this.updateDashboardStats();
-      this.filterApplications();
-
-      await this.showToast(
-        `Application ${application.isArchived ? 'archived' : 'unarchived'}`
-      );
-    } catch (e) {
-      console.error('Error archiving application:', e);
-      this.showToast('Error updating application status');
-    }
-  }
-
-  viewApplication(application: Application) {
-    if (!application) return;
-    console.log('Viewing application:', application);
-  }
-
-  async showToast(message: string) {
-    try {
-      const toast = await this.toastController.create({
-        message,
-        duration: 2000,
-        position: 'top',
-      });
-      await toast.present();
-    } catch (e) {
-      console.error('Error showing toast:', e);
-    }
   }
 }

@@ -31,7 +31,6 @@ export class HomeApplyPage implements OnInit {
   codeDept: any;
   qualify: any;
   codeQualify: any;
-  jobType: any;
   type: any;
 
   acardemicRrdUpload: AngularFireUploadTask | undefined;
@@ -77,7 +76,7 @@ export class HomeApplyPage implements OnInit {
       codeTitles: '',
       code_job: '',
       codeQualify: '',
-      jobType: ''
+      type: ''
     }
   ];
 
@@ -176,7 +175,6 @@ export class HomeApplyPage implements OnInit {
 
     const counterValueJ = this.type;
     this.type = counterValueJ;
-
     // Alert to confirm values
     alert(`${this.code_job} code: ${this.codeTitles} ${this.codeDept} ${this.type} code: ${this.codeQualify}`);
 
@@ -234,7 +232,7 @@ export class HomeApplyPage implements OnInit {
       codeTitles: this.codeTitles,
       code_job: this.code_job,
       codeQualify: this.codeQualify,
-      jobType: this.jobType
+      type: this.type
     });
   }
 
