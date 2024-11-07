@@ -85,7 +85,7 @@ export class DashboardPage implements OnInit {
 
       if (this.userDocument && this.userDocument.role) {
         switch (page) {
-          case 'all-applicants':
+          case 'all-applications':
             authorized = this.userDocument.role.allApplicants === 'on';
             message = 'Unauthorized user for all applicants page.';
             break;
@@ -152,7 +152,7 @@ export class DashboardPage implements OnInit {
   }
 
   goToAllApplicants(): Promise<void> {
-    return this.navigateBasedOnRole('all-applicants');
+    return this.navigateBasedOnRole('all-applications');
   }
 
   goToScheduledInterviews(): Promise<void> {

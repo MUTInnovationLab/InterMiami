@@ -157,6 +157,10 @@ const routes: Routes = [
     path: 'my-profile',
     loadChildren: () => import('./my-profile/my-profile.module').then( m => m.MyProfilePageModule)
   },
+  {
+    path: 'all-applications',
+    loadChildren: () => import('./all-applications/all-applications.module').then( m => m.AllApplicationsPageModule)
+  },
 
 
 
