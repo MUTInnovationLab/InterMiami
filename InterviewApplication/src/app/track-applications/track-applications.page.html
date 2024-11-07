@@ -21,7 +21,7 @@
       <ion-col size="6" size-md="3">
         <ion-card class="stat-card">
           <ion-card-content>
-            <h3>{{getStatusCount(ApplicationStatus.INTERVIEW_SCHEDULED)}}</h3>
+            <h3>{{dashboardStats.scheduledInterviews}}</h3>
             <p>Scheduled Interviews</p>
           </ion-card-content>
         </ion-card>
@@ -30,7 +30,7 @@
       <ion-col size="6" size-md="3">
         <ion-card class="stat-card">
           <ion-card-content>
-            <h3>{{getStatusCount(ApplicationStatus.OFFER_MADE)}}</h3>
+            <h3>{{dashboardStats.offersReceived}}</h3>
             <p>Offers Received</p>
           </ion-card-content>
         </ion-card>
@@ -84,16 +84,15 @@
       <ion-item (click)="viewTimeline(application)" class="application-item">
         <ion-label>
           <div class="application-header">
-            <h2 class="company-name">{{application.companyName}}</h2>
+            <h2 class="company-name">{{application.jobTitle}}</h2>
             <ion-badge [color]="getStatusColor(application.status)" class="status-badge">
               {{application.status}}
             </ion-badge>
           </div>
-          <h3 class="job-title">{{application.jobTitle}}</h3>
           <div class="application-info">
             <span class="job-location">
               <ion-icon name="location-outline"></ion-icon>
-              {{application.jobLocation}}
+              MUT
             </span>
             <span class="job-type">
               <ion-icon name="briefcase-outline"></ion-icon>
@@ -147,8 +146,7 @@
       <ion-content>
         <div class="timeline-container">
           <div class="application-info">
-            <h2>{{selectedApplication?.companyName}}</h2>
-            <p>{{selectedApplication?.jobTitle}}</p>
+            <h2>{{selectedApplication?.jobTitle}}</h2>
           </div>
 
           <div class="timeline">
