@@ -106,8 +106,10 @@ export class CreatepostPage implements OnInit {
 
 
       this.db
-        .collection('Post')
-        .add({
+      const docId = this.jobType + this.jobdepartment + this.date;
+
+      // Add record to Firestore with the custom document ID
+      await this.db.collection('Interviewees').doc(docId).set({
           jobpost: this.jobpost,
           jobfaculty: this.jobfaculty,
           jobdepartment: this.jobdepartment,

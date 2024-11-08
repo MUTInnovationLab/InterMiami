@@ -196,8 +196,10 @@ export class ScheduleInterviewPage {
       await new Promise(resolve => setTimeout(resolve, delay));
     
       try {
-        // Add record to Firestore
-        await this.db.collection('Interviewees').add({
+        const docId = this.name + this.email + this.date;
+
+        // Add record to Firestore with the custom document ID
+        await this.db.collection('Interviewees').doc(docId).set({
           int_id: this.int_id,
           name: this.name,
           email: this.email,
