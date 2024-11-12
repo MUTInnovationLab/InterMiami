@@ -13,6 +13,7 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 
 
 
@@ -24,7 +25,10 @@ import { FormsModule } from '@angular/forms';
     AngularFirestoreModule,
     AngularFireStorageModule,HttpClientModule,
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    SocialSharing
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

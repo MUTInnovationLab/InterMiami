@@ -4,6 +4,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { LoadingController, NavController, ToastController, AlertController, ModalController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 
 @Component({
   selector: 'app-posts',
@@ -11,14 +12,17 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./posts.page.scss'],
 })
 export class PostsPage implements OnInit {
-  // Allposts: Map<string, any[]> = new Map();
-  // todayDateString: string;
-  // selectedOption: any;
   data: any;
   tables$: any;
   jobfaculty: any;
+  isModalOpen = false;
+  selectedJob: any;
+  filteredTables$!: any[];
+  searchTerm: string = '';
+  selectedFilter: string = 'all';
 
-  constructor(private firestore: AngularFirestore,
+  constructor(
+    private firestore: AngularFirestore,
     private router: Router,
     private http: HttpClient,
     private loadingController: LoadingController,
@@ -27,12 +31,13 @@ export class PostsPage implements OnInit {
     private toastController: ToastController,
     private alertController: AlertController,
     private navController: NavController,
-    private db: AngularFirestore, private modalController: ModalController
+    private socialSharing: SocialSharing,
+    private db: AngularFirestore,
+    private modalController: ModalController
   ) { }
 
   ngOnInit() {
     this.getAllDocuments();
-    // this.getAllDocuments2();
   }
 
   goToView(): void {
@@ -42,14 +47,13 @@ export class PostsPage implements OnInit {
   goToApp(): void {
     this.router.navigate(['/track-applications']);
   }
+
   async presentToast() {
     const toast = await this.toastController.create({
       message: 'SIGNED OUT!',
       duration: 1500,
       position: 'top',
-
     });
-
     await toast.present();
   }
 
@@ -62,25 +66,14 @@ export class PostsPage implements OnInit {
           text: 'Cancel',
           role: 'cancel',
           cssClass: 'my-custom-alert',
-          handler: () => {
-
-          }
+          handler: () => { }
         }, {
           text: 'Confirm',
           handler: () => {
-
-
             this.auth.signOut().then(() => {
               this.navController.navigateForward("/applicant-login");
-              this.presentToast()
-
-
-            }).catch((error) => {
-
-            });
-
-
-
+              this.presentToast();
+            }).catch((error) => { });
           }
         }
       ]
@@ -94,8 +87,25 @@ export class PostsPage implements OnInit {
       .valueChanges()
       .subscribe((data: any[]) => {
         this.tables$ = data;
+        this.filterPosts();
         console.log('Posts data:', this.tables$); // For debugging
       });
+  }
+
+  filterPosts() {
+    interface Job {
+      jobfaculty: string;
+      jobpost: string;
+      jobdepartment: string;
+      qualification: string;
+      jobType: string;
+    }
+
+    this.filteredTables$ = this.tables$.filter((table: Job) => {
+      return (this.selectedFilter === 'all' || table.jobType === this.selectedFilter) &&
+             (table.jobpost.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+              table.jobdepartment.toLowerCase().includes(this.searchTerm.toLowerCase()));
+    });
   }
 
   navigateToViewPage(jobfaculty: string, jobTitle: string, jobdepartment: string, qualification: string, jobType: string) {
@@ -106,22 +116,41 @@ export class PostsPage implements OnInit {
         dept: jobdepartment,
         qualify: qualification,
         type: jobType  // Added job type to navigation params
-
       }
     };
-
     this.router.navigate(['/home-apply'], navigationExtras);
   }
 
+  openJobDetails(job: any) {
+    this.selectedJob = job;
+    this.isModalOpen = true;
+  }
 
-  // getAllDocuments2() {
-  //   this.firestore
-  //     .collection('Post')
-  //     .valueChanges()
-  //     .subscribe((data) => {
-  //       this.tables$ = data;
-  //     });
-  // }
+  closeModal() {
+    this.isModalOpen = false;
+  }
 
+  applyForJob(job: any) {
+    this.navigateToViewPage(job.jobfaculty, job.jobpost, job.jobdepartment, job.qualification, job.jobType);
+  }
 
+  shareJobOnPlatform(platform: string, job: any) {
+    const message = `Check out this job: ${job.jobpost} in ${job.jobdepartment}`;
+    const url = 'https://your-job-post-url.com'; // Replace with the actual job post URL
+
+    switch (platform) {
+      case 'facebook':
+        this.socialSharing.shareViaFacebook(message, undefined, url);
+        break;
+      case 'twitter':
+        this.socialSharing.shareViaTwitter(message, undefined, url);
+        break;
+      case 'linkedin':
+        this.socialSharing.share(message, undefined, undefined, url);
+        break;
+      default:
+        this.socialSharing.share(message, undefined, undefined, url);
+        break;
+    }
+  }
 }

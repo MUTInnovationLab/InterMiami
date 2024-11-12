@@ -31,11 +31,18 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="filterPosts()"></ion-searchbar>
+  <ion-select [(ngModel)]="selectedFilter" (ionChange)="filterPosts()">
+    <ion-select-option value="all">All</ion-select-option>
+    <ion-select-option value="faculty">Faculty</ion-select-option>
+    <ion-select-option value="department">Department</ion-select-option>
+    <ion-select-option value="jobType">Job Type</ion-select-option>
+  </ion-select>
+
   <ion-grid>
     <ion-row>
-      <ion-col size="12" size-md="6" size-lg="4" *ngFor="let table of tables$">
-        <ion-card class="custom-card"
-          (click)="navigateToViewPage(table.jobfaculty, table.jobpost, table.jobdepartment, table.qualification, table.jobType)">
+      <ion-col size="12" size-md="6" size-lg="4" *ngFor="let table of filteredTables$">
+        <ion-card class="custom-card">
           <ion-card-header style="--background: #79c2d0; color: #fff;">
             <ion-card-title>
               <ion-icon name="newspaper-outline"></ion-icon>
@@ -52,31 +59,11 @@
               <ion-label class="item-label">Code:</ion-label>
               <ion-text class="item-value">{{ table.jobdepartment }}</ion-text>
             </ion-item>
-            <!-- Added Job Type display -->
             <ion-item lines="none">
               <ion-label class="item-label">Job Type:</ion-label>
               <ion-text class="item-value">{{ table.jobType }}</ion-text>
             </ion-item>
-            <ion-item lines="none">
-              <ion-label class="item-label">Requirements:</ion-label>
-              <ion-text class="item-value">
-                <div *ngFor="let requirement of table.description.split('\n')">
-                  {{ requirement }}
-                </div>
-              </ion-text>
-            </ion-item>
-            <ion-item lines="none">
-              <ion-label class="item-label">Qualification:</ion-label>
-              <ion-text class="item-value">{{ table.qualification }}</ion-text>
-            </ion-item>
-            <ion-item lines="none">
-              <ion-label class="item-label">Experience:</ion-label>
-              <ion-text class="item-value">{{ table.required_exp }}</ion-text>
-            </ion-item>
-            <ion-item lines="none">
-              <ion-label class="item-label">End Date:</ion-label>
-              <ion-text class="item-value">{{ table.date }}</ion-text>
-            </ion-item>
+            <ion-button expand="full" (click)="openJobDetails(table)">See Job Details</ion-button>
           </ion-card-content>
         </ion-card>
       </ion-col>
@@ -87,3 +74,56 @@
 <ion-footer class="custom-footer">
   Designed with ❤️ by <b>MUT INNOVATIONLAB</b>
 </ion-footer>
+
+<ion-modal [isOpen]="isModalOpen" (didDismiss)="closeModal()">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>{{ selectedJob?.jobpost }}</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="closeModal()">Close</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-item lines="none">
+        <ion-label class="item-label">Department:</ion-label>
+        <ion-text class="item-value">{{ selectedJob?.jobfaculty }}</ion-text>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label class="item-label">Code:</ion-label>
+        <ion-text class="item-value">{{ selectedJob?.jobdepartment }}</ion-text>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label class="item-label">Job Type:</ion-label>
+        <ion-text class="item-value">{{ selectedJob?.jobType }}</ion-text>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label class="item-label">Requirements:</ion-label>
+        <ion-text class="item-value">
+          <div *ngFor="let requirement of selectedJob?.description.split('\n')">
+            {{ requirement }}
+          </div>
+        </ion-text>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label class="item-label">Qualification:</ion-label>
+        <ion-text class="item-value">{{ selectedJob?.qualification }}</ion-text>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label class="item-label">Experience:</ion-label>
+        <ion-text class="item-value">{{ selectedJob?.required_exp }}</ion-text>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label class="item-label">End Date:</ion-label>
+        <ion-text class="item-value">{{ selectedJob?.date }}</ion-text>
+      </ion-item>
+      <ion-button expand="full" (click)="applyForJob(selectedJob)">Apply</ion-button>
+      <div class="social-icons">
+        <ion-icon name="logo-facebook" (click)="shareJobOnPlatform('facebook', selectedJob)"></ion-icon>
+        <ion-icon name="logo-twitter" (click)="shareJobOnPlatform('twitter', selectedJob)"></ion-icon>
+        <ion-icon name="logo-linkedin" (click)="shareJobOnPlatform('linkedin', selectedJob)"></ion-icon>
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>
