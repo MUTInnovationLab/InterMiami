@@ -1,261 +1,245 @@
-// Application tracking page styles
-.stats-card {
-  margin-bottom: 16px;
-
-  .stat-item {
-    text-align: center;
-
-    h3 {
-      margin: 0;
-      font-size: 24px;
-      font-weight: bold;
-      color: var(--ion-color-primary);
-    }
-
-    p {
-      margin: 4px 0 0;
-      font-size: 12px;
-      color: var(--ion-color-medium);
-    }
-  }
+/* Dashboard Stats Styling */
+ion-toolbar{
+  --background: #065D78;
+  --color: white;
+  font-weight: bold;
+}
+.stat-card {
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
 }
 
-.filter-item {
-  --padding-start: 0;
-  --inner-padding-end: 0;
-
-  ion-select {
-    width: 100%;
-    max-width: 100%;
-  }
+.stat-card:hover {
+  transform: translateY(-2px);
 }
 
-.applications-list {
-  margin-top: 16px;
-
-  ion-item-divider {
-    --background: var(--ion-color-light);
-    --color: var(--ion-color-medium);
-    font-size: 14px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-}
-
-.application-item {
-  --padding-start: 8px;
-  --inner-padding-end: 8px;
-  margin: 8px 0;
-
-  .company-logo {
-    --size: 48px;
-    border-radius: 8px;
-    overflow: hidden;
-  }
-
-  .company-name {
-    font-weight: bold;
-    margin-bottom: 4px;
-  }
-
-  .job-title {
-    color: var(--ion-color-medium);
-    font-size: 14px;
-    margin-bottom: 2px;
-  }
-
-  .location {
-    font-size: 12px;
-    color: var(--ion-color-medium);
-  }
-
-  .status-date-container {
-    display: flex;
-    align-items: center;
-    margin-top: 8px;
-
-    .status-badge {
-      padding: 4px 8px;
-      border-radius: 12px;
-      font-size: 12px;
-      font-weight: normal;
-    }
-
-    .submission-date {
-      margin-left: 8px;
-      font-size: 12px;
-      color: var(--ion-color-medium);
-    }
-  }
-
-  .next-action {
-    display: flex;
-    align-items: center;
-    font-size: 12px;
-    color: var(--ion-color-primary);
-
-    ion-icon {
-      margin-right: 4px;
-    }
-  }
-}
-
-.empty-state {
+.stat-card ion-card-content {
+  padding: 16px;
   text-align: center;
-  padding: 48px 16px;
-
-  .empty-icon {
-    font-size: 48px;
-    color: var(--ion-color-medium);
-  }
-
-  h4 {
-    margin: 16px 0 8px;
-    color: var(--ion-color-dark);
-  }
-
-  p {
-    margin: 0;
-    color: var(--ion-color-medium);
-    font-size: 14px;
-  }
 }
 
-/* Application Timeline Styles */
-.timeline-container {
-  padding: 20px;
-
-  .application-info {
-    text-align: center;
-    margin-bottom: 30px;
-
-    h2 {
-      margin: 0;
-      font-size: 1.5rem;
-      font-weight: 600;
-      color: var(--ion-color-dark);
-    }
-
-    p {
-      margin: 5px 0 0;
-      color: var(--ion-color-medium);
-    }
-  }
+.stat-card h3 {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0 0 8px 0;
+  color: var(--ion-color-primary);
 }
 
-.timeline {
+.stat-card p {
+  margin: 0;
+  color: var(--ion-color-medium);
+  font-size: 14px;
+}
+
+/* Application List Styling */
+.application-item {
+  margin: 8px 0;
+  border-radius: 8px;
+  --background: var(--ion-color-light);
+}
+
+.application-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  padding: 20px 10px;
-  overflow-x: auto;
-  margin-bottom: 30px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.company-name {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--ion-color-dark);
+}
+
+.status-badge {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.application-info {
+  display: flex;
+  gap: 16px;
+  color: var(--ion-color-medium);
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.application-info ion-icon {
+  margin-right: 4px;
+  vertical-align: middle;
+}
+
+.application-dates {
+  display: flex;
+  gap: 16px;
+  color: var(--ion-color-medium);
+  font-size: 12px;
+}
+
+.application-dates ion-icon {
+  margin-right: 4px;
+  vertical-align: middle;
+}
+
+/* Timeline Modal Styling */
+.timeline-container {
+  padding: 20px;
+  align-items: center;
+}
+
+.timeline-container .application-info {
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.timeline-container h2 {
+  color: var(--ion-color-dark);
+  margin: 0;
+  font-size: 20px;
+}
+
+/* Vertical Timeline Styling */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 0;
+  position: relative;
+  margin-left: 170px;
 }
 
 .timeline-step {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   position: relative;
-  min-width: 100px;
-  flex: 1;
-
-  &.active {
-    .step-circle {
-      background-color: var(--ion-color-success);
-      border-color: var(--ion-color-success);
-
-      ion-icon {
-        color: white;
-      }
-    }
-  }
-
-  &.current {
-    .step-circle {
-      background-color: var(--ion-color-primary);
-      border-color: var(--ion-color-primary);
-      transform: scale(1.2);
-
-      ion-icon {
-        color: white;
-      }
-    }
-
-    .step-label {
-      color: var(--ion-color-primary);
-      font-weight: 600;
-    }
-  }
+  padding-left: 48px;
+  min-height: 80px;
 }
 
 .timeline-line-container {
   position: absolute;
-  top: 20px;
-  left: 50%;
-  width: 100%;
-  height: 2px;
+  left: 19px;
+  top: 40px;
+  bottom: -40px;
+  width: 2px;
 }
 
 .timeline-line {
-  position: absolute;
+  background-color: var(--ion-color-medium);
+  height: 100%;
   width: 100%;
-  height: 2px;
-  background-color: var(--ion-color-medium-shade);
+  transition: background-color 0.3s;
+}
 
-  &.active {
-    background-color: var(--ion-color-success);
-  }
+.timeline-line.active {
+  background-color: var(--ion-color-primary);
 }
 
 .step-circle {
+  position: absolute;
+  left: 0;
   width: 40px;
   height: 40px;
-  border-radius: 50%;
-  background-color: white;
+  background: var(--ion-color-light);
   border: 2px solid var(--ion-color-medium);
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 10px;
   z-index: 1;
-  transition: all 0.3s ease;
+}
 
-  ion-icon {
-    font-size: 20px;
-    color: var(--ion-color-medium);
-  }
+.timeline-step.active .step-circle {
+  background: var(--ion-color-primary);
+  border-color: var(--ion-color-primary);
+  color: white;
+}
+
+.timeline-step.current .step-circle {
+  background: white;
+  border-color: var(--ion-color-primary);
+  color: var(--ion-color-primary);
 }
 
 .step-label {
-  font-size: 0.85rem;
-  text-align: center;
-  color: var(--ion-color-medium);
-  margin-bottom: 5px;
-  white-space: nowrap;
+  font-weight: 500;
+  margin: 8px 0 4px;
+  color: var(--ion-color-dark);
 }
 
 .step-date {
-  font-size: 0.75rem;
+  font-size: 12px;
   color: var(--ion-color-medium);
-  white-space: nowrap;
 }
 
+/* Timeline Events List Styling */
 .timeline-events {
-  margin-top: 30px;
+  margin-top: 32px;
+  border-top: 1px solid var(--ion-color-light);
+  padding-top: 16px;
+}
 
-  ion-item {
-    --padding-start: 0;
+.timeline-events ion-item {
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --padding-top: 12px;
+  --padding-bottom: 12px;
+  --background: var(--ion-color-light);
+  margin-bottom: 8px;
+  border-radius: 8px;
+}
 
-    h3 {
-      font-weight: 600;
-      margin-bottom: 5px;
-    }
+.timeline-events h3 {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--ion-color-dark);
+  margin: 0 0 4px 0;
+}
 
-    p {
-      margin: 0;
-      font-size: 0.9rem;
-      color: var(--ion-color-medium);
-    }
+.timeline-events p {
+  font-size: 14px;
+  color: var(--ion-color-medium);
+  margin: 0;
+}
+
+/* Search and Filter Section Styling */
+ion-searchbar {
+  --border-radius: 8px;
+  --box-shadow: none;
+  --background: var(--ion-color-light);
+  padding: 0;
+  margin-bottom: 16px;
+}
+
+ion-select {
+  --border-radius: 8px;
+  --padding-start: 16px;
+  --padding-end: 16px;
+}
+
+ion-item {
+  --border-radius: 8px;
+  --background: var(--ion-color-light);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .stat-card {
+    margin-bottom: 16px;
+  }
+  
+  .application-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .application-info,
+  .application-dates {
+    flex-direction: column;
+    gap: 4px;
   }
 }
