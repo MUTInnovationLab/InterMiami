@@ -1,18 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-//import { AngularFireStorage } from '@angular/fire/storage';
-
-
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AlertController, LoadingController, ToastController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule, NavController } from '@ionic/angular';
-
 import { AngularFireStorage, AngularFireUploadTask} from '@angular/fire/compat/storage';
-
-//import jsPDF from 'jspdf';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import firebase from 'firebase/compat/app';
 import 'firebase/firestore';
@@ -124,7 +118,10 @@ code_job: any;
 
 counter:any;
 tables$:any;
-jobfaculty:any;
+
+title: any;
+dept: any;
+qualify: any;
 
 
 
@@ -161,7 +158,12 @@ municipalities:any[]=[];
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
-      this.counter = params.get('counter');
+      this.route.queryParams.subscribe(params => {
+        // this.counter = params['counter'];
+        // this.title = params['title'];
+        // this.dept = params['dept'];
+        // this.qualify = params['qualify'];
+      });
     });
 
     this.getAllDocuments();
