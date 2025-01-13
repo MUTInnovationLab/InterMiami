@@ -15,20 +15,60 @@ interface User {
   // Add other properties as needed
 }
 
+interface InterviewData {
+  selectedStaffEmails: string[];
+  staffNumber: number;
+  Interviewee: {
+    interview: {
+      email: string;
+      status: string;
+    };
+  };
+}
+
 interface Staff {
   email: string;
   Name: string; // Ensure name property is present in the Staff interface
 }
 
-interface Interview {
+interface Interviewer {
   date: string | number | Date;
   status: string;
   email: string; // Add email property
   name: string;  // Add name property
+  total: number;
 }
 
+
+
+interface FeedbackData {
+  stringData: {
+    name: string;
+    email: string;
+    staffName: string;
+    Status: string;
+    int_id: number;
+    userEmail: string;
+    date: string;
+    interviewDate: string;
+  };
+  numericData: {
+    introduction: number;
+    teamwork: number;
+    overallImpression: number;
+    leadershipSkills: number;
+    adaptability: number;
+    communicationSkills: number;
+    jobSpecificSkills: number;
+    problemSolving: number;
+    total: number;
+  };
+  interviewers: Interviewer[];
+}
+
+
 interface Data {
-  interview: Interview;
+  interview: Interviewer;
   selectedStaff: Staff[];
 }
 
@@ -153,7 +193,7 @@ export class ScoreCapturePage implements OnInit {
   }
 
   logBack() {
-    this.deleteCurrentUserFromUserEmails();
+    
   }
 
   async auths() {
@@ -171,7 +211,9 @@ export class ScoreCapturePage implements OnInit {
           const data: any = a.payload.doc.data();
           return {
             interview: data.Interviewee.interview,
-            selectedStaff: data.selectedStaff
+            selectedStaff: data.selectedStaff,
+            selectedStaffEmails: data.selectedStaffEmails,
+            staffNumber: data.staffNumber
           } as Data;
         }))
       ).subscribe((data: Data[]) => {
@@ -180,43 +222,31 @@ export class ScoreCapturePage implements OnInit {
           return item.interview.email === this.userEmail && new Date(item.interview.date).toDateString() === todayDateString;
         });
 
-        if (hasInterviewToday) {
-          // Add the user's email to the database
-          this.firestore.collection('UserEmails').doc(currentUser.uid).set({
-            email: this.userEmail
-          })
-            .then(() => {
-            
-            })
-            .catch(error => {
-              
-            });
-        } else {
-          // Display alert when no interview is scheduled for today
-          this.showToast("You do not have interview scheduled for today");
-        }
+      
       });
     }
   }
 
  
 
+ 
+
   submitForm() {
     this.calculateTotal();
-
+  
     alert(`Introduction: ${this.introduction}\nTeamwork: ${this.teamwork}\n...\nName: ${this.name}`);
-
+  
     const stringData = {
       name: this.name,
       email: this.email,
-      staffName: this.staffName, // Use the stored staff name
+      staffName: this.staffName,
       Status: this.Statuss,
       int_id: this.int_id,
       userEmail: this.userEmail,
-      date: new Date().toISOString()
+      date: new Date().toISOString(),
+      interviewDate: this.todayDateString // Add the interview date for easier querying
     };
-
-    // Include averageTotalScore in numericData
+  
     const numericData = {
       introduction: this.introduction,
       teamwork: this.teamwork,
@@ -228,90 +258,151 @@ export class ScoreCapturePage implements OnInit {
       problemSolving: this.problemSolving,
       total: this.total,
     };
-
-    // Now, you can proceed with adding the data to Firestore
+  
+    // Interviewer data
+    const interviewerData = {
+      email: this.userEmail,
+      name: this.staffName,
+      total: this.total,
+    };
+  
+    // Create a unique document ID using interview date and interviewee name
+    const docId = `${this.todayDateString}_${this.name}`;
+  
+    // Set feedback in Firestore under the created document ID
     this.firestore
       .collection('feedback')
-      .add({
+      .doc(docId) // Use the unique document ID
+      .set({
         stringData,
         numericData,
-      })
+        interviewers: firebase.firestore.FieldValue.arrayUnion(interviewerData) // Append to the array of interviewers
+      }, { merge: true }) // Use merge to update if the document exists
       .then(() => {
-        // Data added successfully
-        this.deleteCurrentUserFromUserEmails(); // Call function to delete current user from UserEmails
-
+        this.updateSelectedStaffEmailsAndStatus();
+        this.totalScore();
+        
       })
       .catch((error) => {
-        this.showToast('Error adding form data to Firestore:'+ error);
+        this.showToast('Error adding form data to Firestore: ' + error);
       });
   }
+  
+  
+  updateSelectedStaffEmailsAndStatus() {
+    const interviewRef = this.firestore.collection('interviews', ref => ref.where('Interviewee.interview.email', '==', this.intervieweeEmail));
+  
+    interviewRef.get().subscribe(querySnapshot => {
+      querySnapshot.forEach(doc => {
+        const data = doc.data() as InterviewData; // Cast data to InterviewData
+        const selectedStaffEmails = data.selectedStaffEmails || [];
+        const staffNumber = data.staffNumber || 0;
 
-  async deleteCurrentUserFromUserEmails() {
-    const currentUser = await this.auth.currentUser;
-    if (currentUser) {
-      const currentUserEmail = currentUser.email;
-      this.firestore.collection('UserEmails').doc(currentUser.uid).delete()
-        .then(() => {
-          this.checkAndSetInterviewedStatus(); // Call the function to check and update status
-        })
-        .catch(error => {
-        });
-    }
+        alert(selectedStaffEmails);
+        alert(staffNumber);
+
+
+  
+        // Remove current user's email from selectedStaffEmails
+        const updatedStaffEmails = selectedStaffEmails.filter(email => email !== this.userEmail);
+  
+        // Decrease staffNumber by 1
+        const updatedStaffNumber = staffNumber - 1;
+  
+        // Check if the last interviewer submitted their score
+        if (updatedStaffNumber === 0) {
+          // Change status to Interviewed
+          doc.ref.update({
+            selectedStaffEmails: updatedStaffEmails,
+            staffNumber: updatedStaffNumber,
+            'Interviewee.interview.status': this.Statuss // Update status to Interviewed
+          }).then(() => {
+            this.showToast('Status updated to Interviewed.');
+          }).catch(error => {
+            this.showToast('Error updating status: ' + error);
+          });
+        } else {
+          // Update without changing status
+          doc.ref.update({
+            selectedStaffEmails: updatedStaffEmails,
+            staffNumber: updatedStaffNumber
+          }).then(() => {
+            this.showToast('Feedback submitted. Staff updated.');
+          }).catch(error => {
+            this.showToast('Error updating staff: ' + error);
+          });
+        }
+      });
+    });
   }
+  
 
-  checkAndSetInterviewedStatus() {
-    // Get all users from UserEmails collection
-    this.firestore.collection('UserEmails').get().subscribe((querySnapshot: firebase.firestore.QuerySnapshot<any>) => {
-      const userEmailsCount = querySnapshot.size; // Get the count of user emails
+ 
 
-      // If only one user left, update statuses
-      if (userEmailsCount === 0) {
-        this.totalScore();
-        this.updateStatusForAll(); // Call function to update status for all users
+  totalScore() {
+    const docId = `${this.todayDateString}_${this.name}`; // Unique document ID
+  
+    this.firestore.collection('feedback').doc(docId).get().subscribe(doc => {
+      if (doc.exists) {
+        const data = doc.data() as FeedbackData; // Cast to FeedbackData
+        const interviewers = data.interviewers || []; // Use inferred type
+  
+        const total = interviewers.reduce((acc: number, interviewer: Interviewer) => {
+          return acc + interviewer.total; // Use explicit types for parameters
+        }, 0);
+  
+        const averageTotalScore = interviewers.length > 0 ? total / interviewers.length : 0;
+  
+        // Now save the average total score to the IntervieweeAverage collection
+        this.firestore
+          .collection('IntervieweeAverage')
+          .doc(docId) // Use the same unique document ID
+          .set({
+            averageTotalScore: averageTotalScore,
+            email: this.intervieweeEmail,
+            int_id: this.int_id,
+            Status: this.Statuss,
+            name: this.name,
+            interviewDate: this.todayDateString
+          }, { merge: true }) // Merge if the document already exists
+          .then(() => {
+            this.showToast('Average Total Score for Interviewee: ' + averageTotalScore);
+          })
+          .catch((error) => {
+            this.showToast('Error adding Average data to Firestore: ' + error);
+          });
+      } else {
+        this.showToast('No feedback found for this interviewee.');
       }
     });
   }
-
-  totalScore() {
-    const intervieweeRef = this.firestore.collection('feedback', ref => ref.where('stringData.email', '==', this.intervieweeEmail));
-
-    intervieweeRef.get().subscribe((querySnapshot: firebase.firestore.QuerySnapshot<any>) => {
-      let total = 0;
-      let count = 0;
-      querySnapshot.forEach(doc => {
-        // Retrieve the total from each document and add it to the total
-        const data = doc.data();
-        total += data.numericData.total;
-        count++;
-      });
-
-      // Calculate the average total score
-      const averageTotalScore = count > 0 ? total / count : 0;
-      this.showToast('Average Total Score for Interviewee:'+ averageTotalScore);
-
-      // Add average total score to Firestore
-      this.firestore
-        .collection('IntervieweeAverage')
-        .add({
-          averageTotalScore: averageTotalScore,
-          email: this.intervieweeEmail,
-          int_id: this.int_id,
-          Status: this.Statuss,
-          name: this.name
-
-        })
-        .then(() => {
-    
-        })
-        .catch((error) => {
-          this.showToast('Error adding Average data to Firestore:'+ error);
-        });
-    });
-  }
+  
+  
+  
 
   executeBothMethods() {
     this.submitForm();
   }
+
+  // retrieve(): void {
+  //   this.dataService.getAllInterviewes().pipe(
+  //     map(actions => actions.map((a: any) => {
+  //       const data: any = a.payload.doc.data();
+  //       return {
+  //         interview: data.Interviewee.interview,
+  //         selectedStaff: data.selectedStaff,
+  //         selectedStaffEmails: data.selectedStaffEmails,
+  //         staffNumber: data.staffNumber
+  //       } as Data;
+  //     }))
+  //   ).subscribe((data: Data[]) => {
+  //     // Handle the retrieved data here
+
+  //     this.updateStatusForAll()
+  //     console.log(data);
+  //   });
+  // }
+  
 
   updateStatusForAll() {
     this.firestore.collection('interviews', ref => ref.where('Interviewee.interview.email', '==', this.intervieweeEmail))
@@ -378,7 +469,7 @@ export class ScoreCapturePage implements OnInit {
           return item.interview;
         });
 
-      this.groupedInterviewees = filteredInterviews.reduce((result: Map<string, Interview[]>, interviewee: Interview) => {
+      this.groupedInterviewees = filteredInterviews.reduce((result: Map<string, Interviewer[]>, interviewee: Interviewer) => {
         const itemDate = new Date(interviewee.date);
         const dateKey = itemDate.toDateString();
 
@@ -401,7 +492,7 @@ export class ScoreCapturePage implements OnInit {
         }
 
         return result;
-      }, new Map<string, Interview[]>());
+      }, new Map<string, Interviewer[]>());
 
       // Sort the grouped interviewees by date
       this.sortIntervieweesByDate();

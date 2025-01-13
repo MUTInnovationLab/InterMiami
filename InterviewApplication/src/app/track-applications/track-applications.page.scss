@@ -1,0 +1,245 @@
+/* Dashboard Stats Styling */
+ion-toolbar{
+  --background: #065D78;
+  --color: white;
+  font-weight: bold;
+}
+.stat-card {
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+}
+
+.stat-card ion-card-content {
+  padding: 16px;
+  text-align: center;
+}
+
+.stat-card h3 {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0 0 8px 0;
+  color: var(--ion-color-primary);
+}
+
+.stat-card p {
+  margin: 0;
+  color: var(--ion-color-medium);
+  font-size: 14px;
+}
+
+/* Application List Styling */
+.application-item {
+  margin: 8px 0;
+  border-radius: 8px;
+  --background: var(--ion-color-light);
+}
+
+.application-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.company-name {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--ion-color-dark);
+}
+
+.status-badge {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.application-info {
+  display: flex;
+  gap: 16px;
+  color: var(--ion-color-medium);
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.application-info ion-icon {
+  margin-right: 4px;
+  vertical-align: middle;
+}
+
+.application-dates {
+  display: flex;
+  gap: 16px;
+  color: var(--ion-color-medium);
+  font-size: 12px;
+}
+
+.application-dates ion-icon {
+  margin-right: 4px;
+  vertical-align: middle;
+}
+
+/* Timeline Modal Styling */
+.timeline-container {
+  padding: 20px;
+  align-items: center;
+}
+
+.timeline-container .application-info {
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.timeline-container h2 {
+  color: var(--ion-color-dark);
+  margin: 0;
+  font-size: 20px;
+}
+
+/* Vertical Timeline Styling */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 0;
+  position: relative;
+  margin-left: 170px;
+}
+
+.timeline-step {
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+  padding-left: 48px;
+  min-height: 80px;
+}
+
+.timeline-line-container {
+  position: absolute;
+  left: 19px;
+  top: 40px;
+  bottom: -40px;
+  width: 2px;
+}
+
+.timeline-line {
+  background-color: var(--ion-color-medium);
+  height: 100%;
+  width: 100%;
+  transition: background-color 0.3s;
+}
+
+.timeline-line.active {
+  background-color: var(--ion-color-primary);
+}
+
+.step-circle {
+  position: absolute;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  background: var(--ion-color-light);
+  border: 2px solid var(--ion-color-medium);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.timeline-step.active .step-circle {
+  background: var(--ion-color-primary);
+  border-color: var(--ion-color-primary);
+  color: white;
+}
+
+.timeline-step.current .step-circle {
+  background: white;
+  border-color: var(--ion-color-primary);
+  color: var(--ion-color-primary);
+}
+
+.step-label {
+  font-weight: 500;
+  margin: 8px 0 4px;
+  color: var(--ion-color-dark);
+}
+
+.step-date {
+  font-size: 12px;
+  color: var(--ion-color-medium);
+}
+
+/* Timeline Events List Styling */
+.timeline-events {
+  margin-top: 32px;
+  border-top: 1px solid var(--ion-color-light);
+  padding-top: 16px;
+}
+
+.timeline-events ion-item {
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --padding-top: 12px;
+  --padding-bottom: 12px;
+  --background: var(--ion-color-light);
+  margin-bottom: 8px;
+  border-radius: 8px;
+}
+
+.timeline-events h3 {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--ion-color-dark);
+  margin: 0 0 4px 0;
+}
+
+.timeline-events p {
+  font-size: 14px;
+  color: var(--ion-color-medium);
+  margin: 0;
+}
+
+/* Search and Filter Section Styling */
+ion-searchbar {
+  --border-radius: 8px;
+  --box-shadow: none;
+  --background: var(--ion-color-light);
+  padding: 0;
+  margin-bottom: 16px;
+}
+
+ion-select {
+  --border-radius: 8px;
+  --padding-start: 16px;
+  --padding-end: 16px;
+}
+
+ion-item {
+  --border-radius: 8px;
+  --background: var(--ion-color-light);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .stat-card {
+    margin-bottom: 16px;
+  }
+  
+  .application-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .application-info,
+  .application-dates {
+    flex-direction: column;
+    gap: 4px;
+  }
+}

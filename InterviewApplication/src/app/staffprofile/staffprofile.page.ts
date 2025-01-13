@@ -44,7 +44,7 @@ export class StaffprofilePage implements OnInit {
   userDocument: any;
   navController: any;
 
-
+  availabilityStatus: boolean = false;
 
   constructor(
     private loadingController: LoadingController,
@@ -111,6 +111,37 @@ export class StaffprofilePage implements OnInit {
     this.router.navigateByUrl("/menu");
 
   }
+
+  onToggleChange(event: any) {
+    const status = event.detail.checked;
+    console.log('Availability Status:', status);
+    
+    // Update the status in Firestore
+    this.auth.currentUser.then(user => {
+      if (user) {
+        const userEmail = user.email; // Get the current user's email
+        
+        if (userEmail) { // Check if userEmail is not null
+          const userRef = this.afs.collection('registeredStaff').doc(userEmail); // Reference to the user's document
+  
+          // Update the availability status
+          userRef.update({ availabilityStatus: status })
+            .then(() => {
+              this.showToast('Availability status updated successfully.');
+            })
+            .catch(error => {
+              this.showToast('Error updating availability status: ' + error);
+            });
+        } else {
+          this.showToast('User email is not available.');
+        }
+      } else {
+        this.showToast('User not found.');
+      }
+    });
+  }
+  
+
 
   async presentConfirmationAlert() {
     const alert = await this.alertController.create({

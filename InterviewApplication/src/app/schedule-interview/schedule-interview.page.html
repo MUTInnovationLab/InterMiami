@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar >
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/all-applicants"></ion-back-button>
+      <ion-back-button defaultHref="/all-applications"></ion-back-button>
       <ion-menu-toggle>
       </ion-menu-toggle>
     </ion-buttons>
@@ -20,34 +20,27 @@
     <ion-item class="input-item">
       <ion-icon name="person" slot="start"></ion-icon>
       <ion-label position="floating">Interview ID</ion-label>
-      <ion-input  type="text" [(ngModel)]="int_id"
-      required="required"
-        maxlength="13"
-      ></ion-input>
+      <ion-input type="text" [(ngModel)]="int_id" required="required" maxlength="13"></ion-input>
     </ion-item>
-
+    
     <ion-item class="input-item">
       <ion-icon name="person" slot="start"></ion-icon>
       <ion-label position="floating">Name</ion-label>
-      <ion-input
-        type="text"
-        [(ngModel)]="name"
-        required
-        id="f_name"
-      ></ion-input>
+      <ion-input type="text" [(ngModel)]="name" required id="f_name"></ion-input>
     </ion-item>
-
+    
     <ion-item class="input-item">
       <ion-icon name="mail" slot="start"></ion-icon>
       <ion-label position="floating">Email</ion-label>
-      <ion-input
-        type="email"
-        [(ngModel)]="email"
-        required="required"
-        id="email"
-      ></ion-input>
+      <ion-input type="email" [(ngModel)]="email" required="required" id="email"></ion-input>
     </ion-item>
-
+    
+    <ion-item>
+      <ion-label> Job Position</ion-label>
+      <ion-select [(ngModel)]="selectedPosition">
+        <ion-select-option *ngFor="let pos of position" [value]="pos">{{ pos }}</ion-select-option>
+      </ion-select>
+    </ion-item>
     <ion-item class="input-item" fill="outline">
       <ion-icon name="calendar" slot="start"></ion-icon>
       <ion-datetime-button datetime="birthDatee"></ion-datetime-button>
@@ -57,10 +50,7 @@
         </ng-template>
       </ion-modal>
     </ion-item>
-<!-- 
-    <ion-button  class="butSubmit" (click)="submit()">
-      Schedule
-    </ion-button> -->
+
     <button class="butSubmit" (click)="submit()">Schedule</button>
     <button class="butSubmit1" (click)="cancel()">Cancel</button>
   </ion-card>

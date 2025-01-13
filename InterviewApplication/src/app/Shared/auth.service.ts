@@ -8,15 +8,25 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 })
 export class AuthService {
 
+  currentUser:any;
+
   
   constructor( private sanitizer: DomSanitizer,
   
   private toast: ToastController,
   private fauth: AngularFireAuth, 
-  private load: LoadingController) { }
+  private load: LoadingController,
+  private afAuth: AngularFireAuth) {
+
+    this.afAuth.authState.subscribe(user => {
+      this.currentUser = user; // Store the current user
+    });
+   }
   
 
-
+   getCurrentUserEmail(): string {
+    return this.currentUser ? this.currentUser.email : null;
+  }
   
 
   async registerUser(email:string, password:string){
@@ -183,6 +193,8 @@ resetPassword(email: string) {
       // Display an error message to the user or handle the error accordingly
     });
 }
+
+
 
 
 //-----------------------------------------------------------------------------------

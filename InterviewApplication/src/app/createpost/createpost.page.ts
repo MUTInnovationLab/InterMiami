@@ -14,16 +14,17 @@ export class CreatepostPage implements OnInit {
   jobpost: any;
   jobfaculty: any;
   jobdepartment: any;
+  jobType: any;
   description: any;
   qualification: any;
   required_exp: any;
   date: any;
 
 
-  constructor(private db: AngularFirestore,private router:Router,private toastController: ToastController,
-    private alertController: AlertController,private loadingController: LoadingController,
-     public navCtrl: NavController, private auth: AngularFireAuth,
-     private route: ActivatedRoute) { }
+  constructor(private db: AngularFirestore, private router: Router, private toastController: ToastController,
+    private alertController: AlertController, private loadingController: LoadingController,
+    public navCtrl: NavController, private auth: AngularFireAuth,
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
   }
@@ -40,26 +41,26 @@ export class CreatepostPage implements OnInit {
         {
           text: 'Cancel',
           role: 'cancel',
-         cssClass: 'my-custom-alert',
+          cssClass: 'my-custom-alert',
           handler: () => {
-          
+
           }
         }, {
           text: 'Confirm',
           handler: () => {
-           
-            
+
+
             this.auth.signOut().then(() => {
               this.navCtrl.navigateForward("/applicant-login");
               this.presentToast()
-        
-        
+
+
             }).catch((error) => {
-            
+
             });
-  
-  
-  
+
+
+
           }
         }
       ]
@@ -83,6 +84,13 @@ export class CreatepostPage implements OnInit {
     { value: 'OFT', text: 'Office Technology' },
     { value: 'PA', text: 'Public Admin' }
   ];
+  jobTypeOptions = [
+    { value: 'Full-time', text: 'Full Time' },
+    { value: 'Part-time', text: 'Part Time' },
+    { value: 'Contract', text: 'Contract' },
+    { value: 'Temporary', text: 'Temporary' },
+    { value: 'Internship', text: 'Internship' }
+  ];
 
   updateJobPosition() {
     // Update the jobdepartment variable with the selected department text
@@ -91,23 +99,25 @@ export class CreatepostPage implements OnInit {
   }
 
 
-  async submit(){
+  async submit() {
 
-    try 
-    {
+    try {
       // Check if the ID already exists in the Firestore collection
-    
-      
+
+
       this.db
-        .collection('Post')
-        .add({
-                jobpost:this.jobpost,
-                jobfaculty:this.jobfaculty,
-                jobdepartment:this.jobdepartment,
-                description: this.description,
-                qualification:this.qualification,
-                required_exp:this.required_exp,
-                date:this.date
+      const docId = this.jobType + this.jobdepartment + this.date;
+
+      // Add record to Firestore with the custom document ID
+      await this.db.collection('Interviewees').doc(docId).set({
+          jobpost: this.jobpost,
+          jobfaculty: this.jobfaculty,
+          jobdepartment: this.jobdepartment,
+          jobType: this.jobType,
+          description: this.description,
+          qualification: this.qualification,
+          required_exp: this.required_exp,
+          date: this.date
 
         })
         .then((docRef) => {
@@ -116,34 +126,34 @@ export class CreatepostPage implements OnInit {
 
         })
         .catch((error) => {
-         // loader.dismiss();
-         this.showToast('Error adding document: '+ error);
+          // loader.dismiss();
+          this.showToast('Error adding document: ' + error);
           alert('failed : ' + error);
         });
-  
-  }catch (error) {
-    // Handle errors
-    this.showToast('Error:'+ error);
-    // Display appropriate error messages using toastController
+
+    } catch (error) {
+      // Handle errors
+      this.showToast('Error:' + error);
+      // Display appropriate error messages using toastController
+    }
   }
-}
-async showToast(message: string) {
-  const toast = await this.toastController.create({
-    message: message,
-    duration: 2000, // Duration in milliseconds
-    position: 'top' // Toast position: 'top', 'bottom', 'middle'
-  });
-  toast.present();
-}
+  async showToast(message: string) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000, // Duration in milliseconds
+      position: 'top' // Toast position: 'top', 'bottom', 'middle'
+    });
+    toast.present();
+  }
 
-async presentToast() {
-  const toast = await this.toastController.create({
-    message: 'Success!',
-    duration: 1500,
-    position: 'top',
-  });
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'Success!',
+      duration: 1500,
+      position: 'top',
+    });
 
-  await toast.present();
-}
+    await toast.present();
+  }
 
 }

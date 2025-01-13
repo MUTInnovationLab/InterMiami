@@ -14,8 +14,7 @@ import { finalize } from 'rxjs';
 import { DatePipe } from '@angular/common';
 import { PDFDocument, StandardFonts } from 'pdf-lib';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
-
-
+import { ValidationsService } from 'src/app/Shared/validations.service';
 const pdfMake = require('pdfmake/build/pdfmake.js');
 
 
@@ -33,7 +32,7 @@ export class ApplyPage implements OnInit {
   lastname = '';
   gender = '';
   birthdate = '';
-  email = '';
+  email = ''; 
   searchText = '';
   phone = '';
   address = '';
@@ -126,6 +125,9 @@ qualify: any;
 
 
 
+
+
+
 municipalities:any[]=[];
 
   emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -140,7 +142,8 @@ municipalities:any[]=[];
     private alertController: AlertController,
     private toastController: ToastController,
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private valid: ValidationsService
    
   ) {
     this.getUserToUpdate();
@@ -172,16 +175,9 @@ municipalities:any[]=[];
   }
 
   getAllDocuments() {
-    this.db
-      .collection('Post')
-      .valueChanges()
-      .subscribe((data) => {
-        this.tables$ = data;
-      });
+    this.valid.getAllDocuments();
   }
 
-
-  
   addReference() {
     this.references.push({
       name: '',
@@ -190,12 +186,6 @@ municipalities:any[]=[];
       email: '',
     });
   }
-
- 
-  addSkill() {
-    this.skills.push({ skilln: '', skillLevel: '', skillDescription: '' });
-  }
-
   addLanguage() {
     this.languages.push({
       languagen: '',
@@ -222,8 +212,6 @@ municipalities:any[]=[];
     }
   }
 
-
-
   addQualification() {
     this.qualifications.push({
       certificate: '',
@@ -234,6 +222,10 @@ municipalities:any[]=[];
       graduationYear: '',
     });
   }
+  addSkill() {
+    this.skills.push({ skilln: '', skillLevel: '', skillDescription: '' });
+  }
+
 
   async Validation() {
     this.provinceError = null;
@@ -436,6 +428,8 @@ municipalities:any[]=[];
     this.code_job = counterValue;
   }
 
+ 
+
   async save() {
     const loader = await this.loadingController.create({
       message: 'submitting...',
@@ -540,26 +534,7 @@ municipalities:any[]=[];
           return;
         }
 
-        // if (this.code_job) {
-        //   const applicantRef = this.db.collection<any>('applicant-application');
-        //   const query = applicantRef.ref.where('code_job', '==', this.code_job);
-  
-        //   const matchingApplicants = await query.get();
-  
-        //   if (matchingApplicants.empty) {
-        //     const applicantDoc = matchingApplicants.docs[0];
-        //     const currentCount = applicantDoc.data().count || 0;
-        //     alert("ADDING BY 1");
-        //     await applicantRef.doc(applicantDoc.id).update({
-        //       count: currentCount + 1,
-        //     });
-        //   }
-        // }
-
-        
-        
-        
-        
+      
 
         const currentDate = firebase.firestore.Timestamp.now();
 
@@ -1448,38 +1423,6 @@ this.cvUrl = downloadURL;
       await this.save();
     }
   }
-
-
-
-
-  
-// filteredMunicipalities: string[] = [];
-
-// selectedMunicipality: string | null = null;
-
-
-// filterMunicipalities() {
-//   const searchTerm = this.searchText.toLowerCase();
-  
-//   if (searchTerm.trim() === '') {
-//     this.filteredMunicipalities = [];
-//   } else {
-//     this.filteredMunicipalities = this.municipalities.filter((municipality) =>
-//       municipality.toLowerCase().includes(searchTerm)
-//     );
-//   }
-
-//   if (!this.filteredMunicipalities.includes(this.searchText!)) {
-//     this.searchText = "";
-//   }
-// }
-
-
-// selectMunicipality(municipality: string) {
-//   this.searchText = municipality;
-//   this.filteredMunicipalities = []; // Clear the filtered municipalities
-// }
-
 
 
 }

@@ -1,0 +1,285 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Application Form</ion-title>
+  </ion-toolbar>
+</ion-header>
+<div class="info">
+  <ion-card>
+    <ion-card-header>
+      Position: {{codeTitles}}
+    </ion-card-header>
+    <ion-card-content>
+      Qualification: {{codeDept}}
+    </ion-card-content>
+    <ion-card-content>
+      <!-- Job Type: {{type}} -->
+    </ion-card-content>
+  </ion-card>
+</div>
+
+<ion-content>
+  <!-- Personal Details Section -->
+  <ion-card *ngIf="currentStep === 0">
+
+    <ion-card-header>
+      <ion-card-title>Personal Details</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content class="form-group">
+      <ion-item>
+        <ion-label position="stacked">Full Name</ion-label>
+        <ion-input [(ngModel)]="personalDetails.fullName"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Last Name</ion-label>
+        <ion-input [(ngModel)]="personalDetails.lastName"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Gender</ion-label>
+        <ion-select [(ngModel)]="personalDetails.gender">
+          <ion-select-option value="male">Male</ion-select-option>
+          <ion-select-option value="female">Female</ion-select-option>
+          <ion-select-option value="other">Other</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item fill="outline">
+        <ion-label>Date of Birth</ion-label>
+        <input [(ngModel)]="personalDetails.dob">
+        <ion-datetime-button datetime="dob"></ion-datetime-button>
+        <ion-modal [keepContentsMounted]="true">
+          <ng-template>
+            <ion-datetime id="dob" (ionChange)="getIonBirthdate($event)" presentation="date"></ion-datetime>
+          </ng-template>
+        </ion-modal>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Email Address</ion-label>
+        <ion-input [(ngModel)]="personalDetails.email"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Phone Number</ion-label>
+        <ion-input [(ngModel)]="personalDetails.phone"></ion-input>
+      </ion-item>
+      <ion-button class="next" expand="full" (click)="nextToEducation()">Next</ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Education Section -->
+  <ion-card *ngIf="currentStep === 1">
+    <ion-card-header>
+      <ion-card-title>Education</ion-card-title>
+    </ion-card-header>
+    <ion-card-content class="form-group">
+      <ng-container *ngFor="let education of educations; let i = index">
+        <ion-item>
+          <ion-label position="stacked">Qualification Name</ion-label>
+          <ion-input [(ngModel)]="education.qualification"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Field of Study</ion-label>
+          <ion-input [(ngModel)]="education.fieldOfStudy"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">University/College</ion-label>
+          <ion-input [(ngModel)]="education.institution"></ion-input>
+        </ion-item>
+        <ion-item fill="outline">
+          <ion-label>Graduation Year</ion-label>
+          <input [(ngModel)]="education.graduationYear">
+          <ion-datetime-button datetime="grad"></ion-datetime-button>
+          <ion-modal [keepContentsMounted]="true">
+            <ng-template>
+              <ion-datetime id="grad" (ionChange)="getIonGraddate($event, i)" presentation="date"></ion-datetime>
+            </ng-template>
+          </ion-modal>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Average</ion-label>
+          <ion-input type="number" [(ngModel)]="education.average"></ion-input>
+        </ion-item>
+        <ion-button (click)="removeEducation(i)">Remove</ion-button>
+      </ng-container>
+      <ion-button expand="full" (click)="addEducation()">Add Education</ion-button>
+      <ion-button class="next" expand="full" (click)="nextToExperience()">Next</ion-button>
+      <ion-button expand="full" (click)="backToPersonalDetails()">Back</ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Experience Section -->
+  <ion-card *ngIf="currentStep === 2">
+    <ion-card-header>
+      <ion-card-title>Experience</ion-card-title>
+    </ion-card-header>
+    <ion-card-content class="form-group">
+      <ng-container *ngFor="let experience of experiences; let i = index">
+        <ion-item>
+          <ion-label position="stacked">Company</ion-label>
+          <ion-input [(ngModel)]="experience.company"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Job Title</ion-label>
+          <ion-input [(ngModel)]="experience.jobTitle"></ion-input>
+        </ion-item>
+        <ion-item fill="outline">
+          <ion-label>Start Date</ion-label>
+          <input [(ngModel)]="experience.startDate">
+          <ion-datetime-button datetime="start"></ion-datetime-button>
+          <ion-modal [keepContentsMounted]="true">
+            <ng-template>
+              <ion-datetime id="start" (ionChange)="getIonStartdate($event, i)" presentation="date"></ion-datetime>
+            </ng-template>
+          </ion-modal>
+        </ion-item>
+        <ion-item fill="outline">
+          <ion-label>End Date</ion-label>
+          <input [(ngModel)]="experience.endDate">
+          <ion-datetime-button datetime="end"></ion-datetime-button>
+          <ion-modal [keepContentsMounted]="true">
+            <ng-template>
+              <ion-datetime id="end" (ionChange)="getIonEnddate($event, i)" presentation="date"></ion-datetime>
+            </ng-template>
+          </ion-modal>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Description</ion-label>
+          <ion-textarea [(ngModel)]="experience.description"></ion-textarea>
+        </ion-item>
+        <ion-button (click)="removeExperience(i)">Remove</ion-button>
+      </ng-container>
+      <ion-button expand="full" (click)="addExperience()">Add Experience</ion-button>
+      <ion-button class="next" expand="full" (click)="nextToSkills()">Next</ion-button>
+      <ion-button expand="full" (click)="backToEducation()">Back</ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Skills Section -->
+  <ion-card *ngIf="currentStep === 3">
+    <ion-card-header>
+      <ion-card-title>Skills</ion-card-title>
+    </ion-card-header>
+    <ion-card-content class="form-group">
+      <ng-container *ngFor="let skill of skills; let i = index">
+        <ion-item>
+          <ion-label position="stacked">Skill Name</ion-label>
+          <ion-input [(ngModel)]="skill.skillName"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Skill Level</ion-label>
+          <ion-select [(ngModel)]="skill.skillLevel">
+            <ion-select-option value="beginner">Beginner</ion-select-option>
+            <ion-select-option value="intermediate">Intermediate</ion-select-option>
+            <ion-select-option value="expert">Expert</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Skill Description</ion-label>
+          <ion-textarea [(ngModel)]="skill.description"></ion-textarea>
+        </ion-item>
+        <ion-button (click)="removeSkill(i)">Remove</ion-button>
+      </ng-container>
+      <ion-button expand="full" (click)="addSkill()">Add Skill</ion-button>
+      <ion-button class="next" expand="full" (click)="nextToReferences()">Next</ion-button>
+      <ion-button expand="full" (click)="backToExperience()">Back</ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- References Section -->
+  <ion-card *ngIf="currentStep === 4">
+    <ion-card-header>
+      <ion-card-title>References</ion-card-title>
+    </ion-card-header>
+    <ion-card-content class="form-group">
+      <ng-container *ngFor="let reference of references; let i = index">
+        <ion-item>
+          <ion-label position="stacked">Name</ion-label>
+          <ion-input [(ngModel)]="reference.name"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Relationship</ion-label>
+          <ion-input [(ngModel)]="reference.relationship"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Phone Number</ion-label>
+          <ion-input [(ngModel)]="reference.phone"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Email</ion-label>
+          <ion-input [(ngModel)]="reference.email"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Company</ion-label>
+          <ion-input [(ngModel)]="reference.company"></ion-input>
+        </ion-item>
+        <ion-button (click)="removeReference(i)">Remove</ion-button>
+      </ng-container>
+      <ion-button expand="full" (click)="addReference()">Add Reference</ion-button>
+      <ion-button expand="full" (click)="submitForm()">Submit</ion-button>
+      <ion-button expand="full" (click)="backToSkills()">Back</ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Submit files -->
+  <div>
+    <ion-card class="Crd2">
+      <ion-card-header>
+        <ion-card-title><b>Upload Documents</b></ion-card-title>
+      </ion-card-header>
+      <ion-card-content class="card-content">
+        <ion-label>NOTE:
+          Please ensure that the documents are not older than three months, Use High-Quality Scanning or Photography,
+          Choose the Right File Format, Check for Clarity and Legibility, Compress Large Files
+        </ion-label>
+
+
+        <form class="forms">
+          <span class="form-title">Upload your Letter&nbsp;&nbsp;</span>
+          <label for="file-input" class="drop-container">
+            <span class="drop-title">Drop files here</span>
+            or
+            <input type="file" accept="image/*" required="" id="file-input" accept=".pdf" maxlength="3000000"
+              (change)="uploadLetter($event)">
+          </label>
+        </form>
+
+        <form class="forms">
+          <span class="form-title">Upload your Academic&nbsp;&nbsp;</span>
+          <label for="file-input" class="drop-container">
+            <span class="drop-title">Drop files here</span>
+            or
+            <input type="file" accept="image/*" required="" id="file-input" accept=".pdf" maxlength="3000000"
+              (change)="uploadAcademicRrd($event)">
+          </label>
+        </form>
+
+        <form class="forms">
+          <span class="form-title">Upload Your ID&nbsp;&nbsp;</span>
+          <label for="file-input" class="drop-container">
+            <span class="drop-title">Drop files here</span>
+            or
+            <input type="file" accept="image/*" required="" id="file-input" accept=".pdf" maxlength="3000000"
+              (change)="uploadID($event)">
+          </label>
+        </form>
+
+        <form class="forms">
+          <span class="form-title">Upload your Certificates&nbsp;&nbsp;</span>
+          <label for="file-input" class="drop-container">
+            <span class="drop-title">Drop files here</span>
+            or
+            <input type="file" accept="image/*" required="" id="file-input" accept=".pdf" maxlength="3000000"
+              (change)="uploadCertificates($event)">
+          </label>
+        </form>
+
+      </ion-card-content>
+    </ion-card>
+
+    <br>
+
+  </div>
+
+</ion-content>
+<ion-footer class="custom-footer">
+  Designed with ❤️ by <b>MUT INNOVATIONLAB</b>
+</ion-footer>

@@ -3,11 +3,13 @@ import { User } from '../model/user';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore} from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
+import { AngularFireUploadTask } from '@angular/fire/compat/storage';
 // import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
+
   constructor(private afs : AngularFirestore,
     private auth: AngularFireAuth,
    
@@ -51,4 +53,16 @@ export class DataService {
     this.deleteUser(user);
     this.addUser(user);
   }
+
+  updateStaffAvailability(staffId: string, availabilityStatus: boolean) {
+    return this.afs.collection('registeredStaff').doc(staffId).update({
+      availabilityStatus: availabilityStatus.toString() // Convert to string if needed
+    });
+  }
+
+  removeInterviewee(interviewId: string) {
+    return this.afs.collection('Interviewees').doc(interviewId).delete();
+  }
+
+  
 }

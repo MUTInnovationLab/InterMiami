@@ -4,9 +4,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import emailjs from 'emailjs-com';
-//import{EmailComposer} from '@ionic-native/email-composer/ngx';
-//import { EmailComposerOptions } from '@ionic-native/email-composer';
-//import { IonicNativePlugin } from '@ionic-native/core';
+
 
 @Component({
   selector: 'app-schedule-interview',
@@ -15,13 +13,14 @@ import emailjs from 'emailjs-com';
 })
 export class ScheduleInterviewPage {
 
-  // Initialize properties with default values
+  selectedPosition: any = '';
   int_id:any; // Unique interview ID
   datecode: any;
   code_job: any;
   name:any;
   surname:any;
   email: any;
+  position: any;
   date:any;
   status='Waiting';
   emailError:any;
@@ -29,16 +28,8 @@ export class ScheduleInterviewPage {
   toast: any;
   fullName: any;
   data: any;
-  tables$: any;
-  oneDocData: any;
-  
 
 
-    counter: number = 1;
-
-    counters: number = 0;
-
-    
   constructor( private db: AngularFirestore,private router:Router,private toastController: ToastController,
     private alertController: AlertController,private loadingController: LoadingController,
      public navCtrl: NavController, private auth: AngularFireAuth,
@@ -46,21 +37,25 @@ export class ScheduleInterviewPage {
      ) {}
 
      ngOnInit() {
-
-      this.route.queryParams.subscribe((params:Params) => {
-        if (params && params['email']) {
-          this.email = params['email'];
-          // Fetch data for the specified email
-          this.getOneDocumentData();
+      this.route.queryParams.subscribe((params: Params) => {
+        if (params && params['data']) {
+          this.data = params['data'];
+          this.populateFormFields();
         }
       });
-      // Retrieve the data passed from the previous page
-      //const data = this.navCtrl.get('queryParams');
-      
-      // Now you can use the 'data' object in this component as needed
-      this.getOneDocumentData;
     }
-
+    
+    populateFormFields() {
+      this.int_id = this.generateUniqueId();
+      this.email = this.data.personalDetails.email;
+      this.name = this.data.personalDetails.fullName;
+      this.surname = this.data.personalDetails.lastName;
+    
+      // Get all the unique positions
+      this.position = this.data.applications[0].positions.map((p: { codeTitles: any; }) => p.codeTitles);
+      this.position = Array.from(new Set(this.position.flat()));
+    }
+    
     async presentConfirmationAlert() {
       const alert = await this.alertController.create({
         header: 'Confirmation',
@@ -86,9 +81,6 @@ export class ScheduleInterviewPage {
               }).catch((error) => {
               
               });
-    
-    
-    
             }
           }
         ]
@@ -111,97 +103,16 @@ export class ScheduleInterviewPage {
       this.navCtrl.navigateBack('/dashboard');
     }
 
-
-
-    getOneDocumentData() {
-      if (this.email) {
-        this.db
-          .collection('applicant-application', (ref) =>
-            ref.where('email', '==', this.email)
-          )
-          .valueChanges()
-          .subscribe((data: any[]) => {
-            if (data && data.length > 0) {
-              const docData = data[0];
-              this.oneDocData = docData;
-              this.email = docData.email;
-              this.name = docData.fullName;
-              this.surname = docData.surname;
-              this.code_job = docData.code_job;
-  
-              const currentDate = new Date();
-              const day = currentDate.getDate().toString().padStart(2, '0');
-              const month = (currentDate.getMonth() + 1).toString().padStart(2, '0'); // Months are zero-based
-              const year = currentDate.getFullYear().toString();
-              const hours = currentDate.getHours().toString().padStart(2, '0');
-              const minutes = currentDate.getMinutes().toString().padStart(2, '0');
-              const seconds = currentDate.getSeconds().toString().padStart(2, '0');
-              const milliseconds = currentDate.getMilliseconds().toString().padStart(3, '0');
-              const formattedDate = `${hours}${minutes}${seconds}${milliseconds}${year}`;
-  
-              // Generate a unique ID
-              const uniqueId = this.generateUniqueId();
-  
-              // Combine date and unique ID to create a unique code
-              this.datecode = `${uniqueId}`;
-              this.int_id = this.datecode;
-  
-              // Increment the counter for the next unique ID
-              this.counters++;
-            }
-          });
-      }
-    }
+   
   
     generateUniqueId(): string {
-      const randomDigits = Math.floor(Math.random() * 1000000000000).toString(); // Generate random 13-digit number
+      const randomDigits = Math.floor(Math.random() * 1000000000000).toString(); 
       return randomDigits;
     }
 
     checkIfDocumentExist = false;
 
-    private formatCounter(counter: number): string {
-      return counter.toString().padStart(3, '0');
-    }
-
-    getAllDocuments() 
-    {
-      this.db
-        .collection('applicant-application')
-        .valueChanges()
-        .subscribe((data:any) => {
-          this.tables$ = data;
-        });
-    }
-
-    getPasedData() {
-      this.route.queryParams.subscribe((params: Params) => {
-        if (params && params['userData']) {
-          // Use the correct query parameter name (userData) to extract the data
-          const userData = params['userData'];
-         
-  
-          // Assuming email is a key in the userData object, you can extract it like this:
-          this.email = userData.email;
-          
-          // Now call the getOneDocumentData method to fetch the specific document
-          this.getOneDocumentData();
-        }
-      });
-    }
-
-    getPassedData() {
-      this.route.queryParams.subscribe((params: Params) => {
-        if (params && params['userData']) {
-          // Assuming you passed 'userData' as the query parameter
-          const userData = params['userData'];
-          this.email = userData.email; // Extract the email from userData (adjust this according to your data structure)
-        
-          this.getOneDocumentData();
-        }
-      });
-    }
-
+ 
     async cancel() {
       const alert = await this.alertController.create({
         header: 'Confirmation',
@@ -219,7 +130,7 @@ export class ScheduleInterviewPage {
             handler: () => {
               
               // Navigate back to the dashboard
-              this.router.navigate(['/all-applicants']);
+              this.router.navigate(['/all-applications']);
             }
           }
         ]
@@ -238,6 +149,7 @@ export class ScheduleInterviewPage {
     }
 
     async submit() {
+      // Validate email
       if (!this.emailRegex.test(this.email)) {
         const toast = await this.toastController.create({
           message: "Please enter a valid email address.",
@@ -248,9 +160,21 @@ export class ScheduleInterviewPage {
         return;
       }
     
-      if (this.int_id.toString().length !== 13) {
+      // Validate date
+      if (!this.date) { // Check if date is not chosen
         const toast = await this.toastController.create({
-          message: 'ID must be exactly 12 digits, Refresh the page',
+          message: "Please choose a date and time.",
+          duration: 2000,
+          position: 'top'
+        });
+        toast.present();
+        return;
+      }
+    
+      // Validate ID length
+      if (this.int_id.toString().length !== 12) {
+        const toast = await this.toastController.create({
+          message: 'ID must be exactly 12 digits, Refresh the page.',
           duration: 2000,
           position: 'top',
           color: 'danger'
@@ -259,6 +183,7 @@ export class ScheduleInterviewPage {
         return;
       }
     
+      // Show loader
       const loader = await this.loadingController.create({
         message: 'Scheduling',
         cssClass: 'custom-loader-class'
@@ -266,23 +191,27 @@ export class ScheduleInterviewPage {
     
       await loader.present();
     
+      // Simulate a delay
       const delay = 2000;
       await new Promise(resolve => setTimeout(resolve, delay));
     
       try {
-       
-        await this.db.collection('Interviewees').add({
+        const docId = this.name + this.email + this.date;
+
+        // Add record to Firestore with the custom document ID
+        await this.db.collection('Interviewees').doc(docId).set({
           int_id: this.int_id,
           name: this.name,
           email: this.email,
           date: this.date,
+          position: this.position,
           status: this.status
         });
     
         await loader.dismiss();
         alert("Recorded");
     
-        // Sending email
+        // Sending email (uncomment if needed)
         const emailParams = {
           name: this.name,
           surname: this.surname,
@@ -296,31 +225,8 @@ export class ScheduleInterviewPage {
         this.showToast('Email successfully sent');
         alert('Email successfully sent');
       } catch (error) {
-        this.showToast('Error:'+ error);
+        this.showToast('Error: ' + error);
         await loader.dismiss();
-        // alert('Error: ' + error.message);
       }
     }
-    
-
-   
-    
   }
-
-  
-      
-function presentToast(message: any, string: any) {
-  throw new Error('Function not implemented.');
-}
-
-  
-
-function isValidInput(input: any, any: any) {
-  throw new Error('Function not implemented.');
-}
-  // You can implement the checkScheduledInterviews() method here
- 
-  
-  
-
-
