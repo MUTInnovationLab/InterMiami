@@ -3,6 +3,7 @@ import { AngularFirestore, QuerySnapshot } from '@angular/fire/compat/firestore'
 import { LoadingController, ModalController, NavController, ToastController } from '@ionic/angular';
 import { DeclineModalPage } from '../decline-modal/decline-modal.page';
 import { Router } from '@angular/router';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 // Update the interfaces to better represent the data structure
 interface PersonalDetails {
@@ -29,7 +30,7 @@ interface ApplicationData {
   experience: Experience[];
   skills: Skill[];
   references: Reference[];
-  allDocumentsUrl: string[];
+  allDocumentsUrl: string;
 }
 
 // New interface to represent user with multiple applications
@@ -89,13 +90,16 @@ export class AllApplicationsPage implements OnInit {
   filteredApplications: UserApplications[] = [];
   isExpanded: boolean[] = [];
 
+  showDocuments: boolean[] = [];
+
   constructor(
     private toastController: ToastController,
     private db: AngularFirestore,
     private loadingController: LoadingController,
     private navCtrl: NavController,
     private modalController: ModalController,
-    private router: Router
+    private router: Router,
+    private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit() {
@@ -110,23 +114,20 @@ export class AllApplicationsPage implements OnInit {
         .get()
         .toPromise() as QuerySnapshot<any>;
   
-      console.log('QuerySnapshot received:', querySnapshot?.size, 'documents');
-  
       if (!querySnapshot || querySnapshot.empty) {
         console.log('No applications found');
         this.userApplications = [];
         this.filteredApplications = [];
         this.isExpanded = [];
+        this.showDocuments = [];
         return;
       }
   
       const userApplicationsMap = new Map<string, UserApplications>();
   
       querySnapshot.forEach(doc => {
-        console.log('Processing document ID:', doc.id);
         const data = doc.data();
-        console.log('Document data:', JSON.stringify(data, null, 2));
-  
+        
         // Extract personal details
         const personalDetails: PersonalDetails = {
           fullName: data.personalDetails?.fullName || '',
@@ -138,16 +139,12 @@ export class AllApplicationsPage implements OnInit {
           status: data.personalDetails?.status || '',
         };
   
-        // Only process if status is "pending"
         if (personalDetails.status.toLowerCase() !== 'pending') {
-          console.log(`Skipping document ${doc.id} because status is not pending.`);
           return;
         }
   
-        // Use email as unique identifier for each user
         const userKey = personalDetails.email.toLowerCase();
   
-        // Get or create user entry
         let userEntry = userApplicationsMap.get(userKey);
         if (!userEntry) {
           userEntry = {
@@ -157,13 +154,13 @@ export class AllApplicationsPage implements OnInit {
           userApplicationsMap.set(userKey, userEntry);
         }
   
-        // Process applications
         const applicationsToProcess = data.applications || [data];
         
         applicationsToProcess.forEach((app: any) => {
           if (!app) return;
   
           const applicationData: ApplicationData = {
+            // ... [keep existing application data mapping]
             positions: Array.isArray(app.positions || app.position) ? 
               (app.positions || app.position).map((pos: any) => ({
                 codeDept: pos.codeDept || '',
@@ -172,35 +169,13 @@ export class AllApplicationsPage implements OnInit {
                 codeQualify: pos.codeQualify || '',
                 status: pos.status || '',
               })) : [],
-            education: Array.isArray(app.education) ? app.education.map((edu: any) => ({
-              qualification: edu.qualification || '',
-              fieldOfStudy: edu.fieldOfStudy || '',
-              institution: edu.institution || '',
-              graduationYear: edu.graduationYear || '',
-              average: edu.average || 0,
-            })) : [],
-            experience: Array.isArray(app.experience) ? app.experience.map((exp: any) => ({
-              company: exp.company || '',
-              jobTitle: exp.jobTitle || '',
-              startDate: exp.startDate || '',
-              endDate: exp.endDate || '',
-              description: exp.description || '',
-            })) : [],
-            skills: Array.isArray(app.skills) ? app.skills.map((skill: any) => ({
-              skillName: skill.skillName || '',
-              skillLevel: skill.skillLevel || '',
-              description: skill.description || '',
-            })) : [],
-            references: Array.isArray(app.references) ? app.references.map((ref: any) => ({
-              name: ref.name || '',
-              relationship: ref.relationship || '',
-              phone: ref.phone || '',
-              email: ref.email || '',
-              company: ref.company || '',
-            })) : [],
-            allDocumentsUrl: Array.isArray(app.allDocumentsUrl) ? app.allDocumentsUrl : [],
+            education: Array.isArray(app.education) ? app.education : [],
+            experience: Array.isArray(app.experience) ? app.experience : [],
+            skills: Array.isArray(app.skills) ? app.skills : [],
+            references: Array.isArray(app.references) ? app.references : [],
+            allDocumentsUrl: app.allDocumentsUrl || ''
           };
-  
+          
           userEntry!.applications.push(applicationData);
         });
       });
@@ -208,8 +183,7 @@ export class AllApplicationsPage implements OnInit {
       this.userApplications = Array.from(userApplicationsMap.values());
       this.filteredApplications = this.userApplications;
       this.isExpanded = new Array(this.userApplications.length).fill(false);
-  
-      console.log('Processed users:', this.userApplications.length);
+      this.showDocuments = new Array(this.userApplications.length).fill(true);
       
     } catch (error) {
       console.error('Error loading applications:', error);
@@ -217,8 +191,28 @@ export class AllApplicationsPage implements OnInit {
       this.userApplications = [];
       this.filteredApplications = [];
       this.isExpanded = [];
+      this.showDocuments = [];
     }
   }
+
+  // Add new methods for document handling
+  toggleDocuments(index: number) {
+    this.showDocuments[index] = !this.showDocuments[index];
+  }
+
+  getSafeUrl(url: string): SafeResourceUrl {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
+
+  async openDocument(url: string) {
+    if (!url) {
+      await this.showToast('No document available');
+      return;
+    }
+    
+    window.open(url, '_blank');
+  }
+  
   
 
   async done(userApp: UserApplications, applicantId: string) {
