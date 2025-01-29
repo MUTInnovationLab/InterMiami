@@ -1,140 +1,141 @@
-<ion-header>
+<ion-header class="profile-header">
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Profile Viewer</ion-title>
+    <ion-title>My Profile</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="toggleEdit()" *ngIf="!isEditing && userProfile">
+      <ion-button (click)="toggleEdit()" *ngIf="!isEditing && userProfile" class="edit-button">
         <ion-icon name="create-outline"></ion-icon>
-        Edit
+        <span class="button-text">Edit</span>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-content >
   <ng-container *ngIf="userProfile; else noProfile">
     <!-- View Mode -->
-    <div *ngIf="!isEditing">
-      <ion-card>
-        <ion-card-header>
-          <ion-card-title>Personal Details</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <ion-list>
-            <ion-item>
-              <ion-label>
-                <h2>Full Name</h2>
-                <p>{{userProfile.personalDetails.fullName}} {{userProfile.personalDetails.lastName}}</p>
-              </ion-label>
-            </ion-item>
-            <ion-item>
-              <ion-label>
-                <h2>Gender</h2>
-                <p>{{userProfile.personalDetails.gender}}</p>
-              </ion-label>
-            </ion-item>
-            <ion-item>
-              <ion-label>
-                <h2>Date of Birth</h2>
-                <p>{{userProfile.personalDetails.dob}}</p>
-              </ion-label>
-            </ion-item>
-            <ion-item>
-              <ion-label>
-                <h2>Email</h2>
-                <p>{{userProfile.personalDetails.email}}</p>
-              </ion-label>
-            </ion-item>
-            <ion-item>
-              <ion-label>
-                <h2>Phone</h2>
-                <p>{{userProfile.personalDetails.phone}}</p>
-              </ion-label>
-            </ion-item>
-          </ion-list>
-        </ion-card-content>
-      </ion-card>
+    <div *ngIf="!isEditing" class="profile-content">
+      <div class="profile-header-section">
+        <div class="profile-avatar">
+          <ion-avatar>
+            <img src="assets/default-avatar.png" alt="Profile Picture">
+          </ion-avatar>
+        </div>
+        <h1 class="profile-name">{{userProfile.personalDetails.fullName}} {{userProfile.personalDetails.lastName}}</h1>
+      </div>
 
-      <!-- Applications Section -->
-      <ion-card *ngIf="userProfile.applications?.length > 0">
-        <ion-card-header>
-          <ion-card-title>Applications</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <ion-list>
-            <ion-item *ngFor="let app of userProfile.applications">
-              <ion-label>
-                <h2>Position: {{app.position[0].codeTitles}}</h2>
-                <p>Department: {{app.position[0].codeDept}}</p>
-                <p>Status: {{app.status || 'Pending'}}</p>
-              </ion-label>
-            </ion-item>
-          </ion-list>
-        </ion-card-content>
-      </ion-card>
+      <div class="profile-section">
+        <h2 class="section-title">Personal Information</h2>
+        <ion-list lines="none">
+          <ion-item>
+            <ion-icon name="person-outline" slot="start"></ion-icon>
+            <ion-label>
+              <span class="label-title">Gender</span>
+              <span class="label-content">{{userProfile.personalDetails.gender}}</span>
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="calendar-outline" slot="start"></ion-icon>
+            <ion-label>
+              <span class="label-title">Date of Birth</span>
+              <span class="label-content">{{userProfile.personalDetails.dob}}</span>
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="mail-outline" slot="start"></ion-icon>
+            <ion-label>
+              <span class="label-title">Email</span>
+              <span class="label-content">{{userProfile.personalDetails.email}}</span>
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="call-outline" slot="start"></ion-icon>
+            <ion-label>
+              <span class="label-title">Phone</span>
+              <span class="label-content">{{userProfile.personalDetails.phone}}</span>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </div>
 
-      <ion-button expand="block" color="danger" (click)="deleteProfile()">
-        Delete Profile
-      </ion-button>
+      <div class="profile-section" *ngIf="userProfile.applications?.length > 0">
+        <h2 class="section-title">Applications</h2>
+        <ion-list lines="none">
+          <ion-item *ngFor="let app of userProfile.applications" class="application-item">
+            <ion-icon name="briefcase-outline" slot="start"></ion-icon>
+            <ion-label>
+              <h3 class="position-title">{{app.position[0].codeTitles}}</h3>
+              <p class="department">{{app.position[0].codeDept}}</p>
+              <ion-badge >{{userProfile.personalDetails.status}}</ion-badge>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </div>
+
+      <div class="profile-actions">
+        <ion-button expand="block" color="danger" (click)="deleteProfile()" class="delete-button">
+          <ion-icon name="trash-outline" slot="start"></ion-icon>
+          Delete Profile
+        </ion-button>
+      </div>
     </div>
 
     <!-- Edit Mode -->
-    <div *ngIf="isEditing">
-      <ion-card>
-        <ion-card-header>
-          <ion-card-title>Edit Personal Details</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <ion-list>
-            <ion-item>
-              <ion-label position="stacked">First Name</ion-label>
-              <ion-input [(ngModel)]="editableProfile.personalDetails.fullName"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label position="stacked">Last Name</ion-label>
-              <ion-input [(ngModel)]="editableProfile.personalDetails.lastName"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label position="stacked">Gender</ion-label>
-              <ion-select [(ngModel)]="editableProfile.personalDetails.gender">
-                <ion-select-option value="male">Male</ion-select-option>
-                <ion-select-option value="female">Female</ion-select-option>
-                <ion-select-option value="other">Other</ion-select-option>
-              </ion-select>
-            </ion-item>
-            <ion-item>
-              <ion-label position="stacked">Date of Birth</ion-label>
-              <ion-datetime [(ngModel)]="editableProfile.personalDetails.dob"
-                           display-format="DD/MM/YYYY">
-              </ion-datetime>
-            </ion-item>
-            <ion-item>
-              <ion-label position="stacked">Phone</ion-label>
-              <ion-input [(ngModel)]="editableProfile.personalDetails.phone" type="tel"></ion-input>
-            </ion-item>
-          </ion-list>
-        </ion-card-content>
-      </ion-card>
+    <div *ngIf="isEditing" class="profile-content edit-mode">
+      <h2 class="edit-title">Edit Profile</h2>
+      <form class="edit-form">
+        <ion-list>
+          <ion-item>
+            <ion-label position="floating">First Name</ion-label>
+            <ion-input [(ngModel)]="editableProfile.personalDetails.fullName" class="custom-input"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Last Name</ion-label>
+            <ion-input [(ngModel)]="editableProfile.personalDetails.lastName" class="custom-input"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Gender</ion-label>
+            <ion-select [(ngModel)]="editableProfile.personalDetails.gender" interface="popover">
+              <ion-select-option value="male">Male</ion-select-option>
+              <ion-select-option value="female">Female</ion-select-option>
+              <ion-select-option value="other">Other</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Date of Birth</ion-label>
+            <ion-datetime [(ngModel)]="editableProfile.personalDetails.dob"
+                         display-format="DD/MM/YYYY"
+                         picker-format="DD MMM YYYY"
+                         class="custom-datetime">
+            </ion-datetime>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Phone</ion-label>
+            <ion-input [(ngModel)]="editableProfile.personalDetails.phone" type="tel" class="custom-input"></ion-input>
+          </ion-item>
+        </ion-list>
 
-      <div class="ion-padding">
-        <ion-button expand="block" (click)="updateProfile()">
-          Save Changes
-        </ion-button>
-        <ion-button expand="block" fill="outline" (click)="cancelEdit()">
-          Cancel
-        </ion-button>
-      </div>
+        <div class="edit-actions">
+          <ion-button expand="block" (click)="updateProfile()" color="primary" class="save-button">
+            <ion-icon name="checkmark-outline" slot="start"></ion-icon>
+            Save Changes
+          </ion-button>
+          <ion-button expand="block" fill="outline" (click)="cancelEdit()" class="cancel-button">
+            <ion-icon name="close-outline" slot="start"></ion-icon>
+            Cancel
+          </ion-button>
+        </div>
+      </form>
     </div>
   </ng-container>
 
   <ng-template #noProfile>
-    <div class="ion-padding ion-text-center">
-      <ion-text color="medium">
-        <h2>No Profile Found</h2>
-        <p>Please complete your application to create a profile.</p>
-      </ion-text>
+    <div class="no-profile-container">
+      <ion-icon name="person-add-outline" class="no-profile-icon"></ion-icon>
+      <h2>No Profile Found</h2>
+      <p>Please complete your application to create a profile.</p>
     </div>
   </ng-template>
 </ion-content>

@@ -132,6 +132,7 @@ export class PostsPage implements OnInit {
 
   applyForJob(job: any) {
     this.navigateToViewPage(job.jobfaculty, job.jobpost, job.jobdepartment, job.qualification, job.jobType);
+    this.closeModal();
   }
 
   shareJobOnPlatform(platform: string, job: any) {

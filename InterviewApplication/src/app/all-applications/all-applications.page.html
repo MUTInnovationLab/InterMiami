@@ -18,6 +18,7 @@
       <ion-col size="6">
         <ion-searchbar #searchInput (ionInput)="filterApplications()" placeholder="Search..."></ion-searchbar>
       </ion-col>
+      <ion-button style="--background:#065D78;" (click)="goToApp()">Track Applications <ion-icon name="analytics-outline"></ion-icon></ion-button>
     </ion-row>
   </ion-toolbar>
 </ion-header>
@@ -36,11 +37,11 @@
             </ion-col>
 
             <ion-col class="ion-text-end">
-              <ion-button size="auto" (click)="approve(userApp, userApp.personalDetails.email)">
-                Approve
+              <ion-button size="auto" (click)="done(userApp, userApp.personalDetails.email)">
+                Mark As Done
               </ion-button>
-              <ion-button size="auto" (click)="decline(userApp, userApp.personalDetails.email)">
-                Decline
+              <ion-button size="auto" (click)="notConsider(userApp, userApp.personalDetails.email)">
+                Do Not Consider
               </ion-button>
             </ion-col>
             
@@ -86,7 +87,7 @@
             <ion-item-divider>
               <ion-label>Position Details</ion-label>
             </ion-item-divider>
-            <ion-item *ngFor="let position of app.positions" lines="none">
+            <ion-item *ngFor="let position of app.positions; let posIndex = index" lines="none">
               <ion-grid>
                 <ion-row>
                   <ion-col size="12">
@@ -94,6 +95,19 @@
                     <p><strong>Department:</strong> {{position.codeDept || 'Not specified'}}</p>
                     <p><strong>Job Code:</strong> {{position.code_job || 'Not specified'}}</p>
                     <p><strong>Qualification Required:</strong> {{position.codeQualify || 'Not specified'}}</p>
+                    <p><strong>Status:</strong> {{position.status || 'pending'}}</p>
+                    
+                    <!-- Add buttons for each position -->
+                    <ion-row class="ion-justify-content-end">
+                      <ion-col size="auto">
+                        <ion-button size="auto" (click)="approve(userApp, userApp.personalDetails.email)">
+                          Approve
+                        </ion-button>
+                        <ion-button size="auto" (click)="decline(userApp, userApp.personalDetails.email)">
+                          Decline
+                        </ion-button>
+                      </ion-col>
+                    </ion-row>
                   </ion-col>
                 </ion-row>
               </ion-grid>

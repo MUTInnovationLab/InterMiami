@@ -1,14 +1,14 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <ion-toolbar style="  --background: #3f6877; color: aliceblue; text-align: center;">
     <ion-title>Application Form</ion-title>
   </ion-toolbar>
 </ion-header>
 <div class="info">
   <ion-card>
-    <ion-card-header>
+    <ion-card-header style="color: aliceblue;">
       Position: {{codeTitles}}
     </ion-card-header>
-    <ion-card-content>
+    <ion-card-content style="color: aliceblue;">
       Qualification: {{codeDept}}
     </ion-card-content>
     <ion-card-content>
@@ -17,7 +17,7 @@
   </ion-card>
 </div>
 
-<ion-content>
+<ion-content style=" --background: #071b20;">
   <!-- Personal Details Section -->
   <ion-card *ngIf="currentStep === 0">
 
@@ -97,11 +97,11 @@
           <ion-label position="stacked">Average</ion-label>
           <ion-input type="number" [(ngModel)]="education.average"></ion-input>
         </ion-item>
-        <ion-button (click)="removeEducation(i)">Remove</ion-button>
+        <ion-button class="remove-button" (click)="removeEducation(i)">Remove</ion-button>
       </ng-container>
-      <ion-button expand="full" (click)="addEducation()">Add Education</ion-button>
+      <ion-button class="add-button" expand="full" (click)="addEducation()">Add Education</ion-button>
       <ion-button class="next" expand="full" (click)="nextToExperience()">Next</ion-button>
-      <ion-button expand="full" (click)="backToPersonalDetails()">Back</ion-button>
+      <ion-button class="back-button" expand="full" (click)="backToPersonalDetails()">Back</ion-button>
     </ion-card-content>
   </ion-card>
 
@@ -145,11 +145,11 @@
           <ion-label position="stacked">Description</ion-label>
           <ion-textarea [(ngModel)]="experience.description"></ion-textarea>
         </ion-item>
-        <ion-button (click)="removeExperience(i)">Remove</ion-button>
+        <ion-button class="remove-button" (click)="removeExperience(i)">Remove</ion-button>
       </ng-container>
-      <ion-button expand="full" (click)="addExperience()">Add Experience</ion-button>
+      <ion-button class="add-button" expand="full" (click)="addExperience()">Add Experience</ion-button>
       <ion-button class="next" expand="full" (click)="nextToSkills()">Next</ion-button>
-      <ion-button expand="full" (click)="backToEducation()">Back</ion-button>
+      <ion-button class="back-button" expand="full" (click)="backToEducation()">Back</ion-button>
     </ion-card-content>
   </ion-card>
 
@@ -176,11 +176,11 @@
           <ion-label position="stacked">Skill Description</ion-label>
           <ion-textarea [(ngModel)]="skill.description"></ion-textarea>
         </ion-item>
-        <ion-button (click)="removeSkill(i)">Remove</ion-button>
+        <ion-button class="remove-button" (click)="removeSkill(i)">Remove</ion-button>
       </ng-container>
-      <ion-button expand="full" (click)="addSkill()">Add Skill</ion-button>
+      <ion-button class="add-button" expand="full" (click)="addSkill()">Add Skill</ion-button>
       <ion-button class="next" expand="full" (click)="nextToReferences()">Next</ion-button>
-      <ion-button expand="full" (click)="backToExperience()">Back</ion-button>
+      <ion-button class="back-button" expand="full" (click)="backToExperience()">Back</ion-button>
     </ion-card-content>
   </ion-card>
 
@@ -211,11 +211,11 @@
           <ion-label position="stacked">Company</ion-label>
           <ion-input [(ngModel)]="reference.company"></ion-input>
         </ion-item>
-        <ion-button (click)="removeReference(i)">Remove</ion-button>
+        <ion-button class="remove-button" (click)="removeReference(i)">Remove</ion-button>
       </ng-container>
-      <ion-button expand="full" (click)="addReference()">Add Reference</ion-button>
+      <ion-button class="add-button" expand="full" (click)="addReference()">Add Reference</ion-button>
       <ion-button expand="full" (click)="submitForm()">Submit</ion-button>
-      <ion-button expand="full" (click)="backToSkills()">Back</ion-button>
+      <ion-button class="back-button" expand="full" (click)="backToSkills()">Back</ion-button>
     </ion-card-content>
   </ion-card>
 
@@ -281,5 +281,5 @@
 
 </ion-content>
 <ion-footer class="custom-footer">
-  Designed with ❤️ by <b>MUT INNOVATIONLAB</b>
+  Designed with ❤️ by <b>Innovation Lab</b>
 </ion-footer>

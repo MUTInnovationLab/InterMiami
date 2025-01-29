@@ -1,86 +1,40 @@
-ion-content {
-  --ion-background-color: #f4f4f4; /* Set the background color */
-}
-
-ion-item-divider {
- --ion-background-color: transparent; /* Make the divider transparent */
-  font-weight: bold;
-  padding: 10px 0;
-  color: #333;
-}
-
-ion-card.custom-card {
-  margin: 10px;
-  width:70%;
-  color:white;
-  border-radius: 11px;
-background: #065D78;
-box-shadow:  6px 6px 12px #3b290d,
-             -6px -6px 12px #f8f5f1;
-}
-
-ion-card-content {
-  padding: 15px;
-
-}
-
-p {
-  margin: 5px 0;
-  font-size: 14px;
-  color: #555;
-}
-
-p.email {
-  color: #007bff;
-}
-
-p.today {
-  font-weight: bold;
-}
-
-ion-item-divider.today-divider {
+.date-header {
   background-color: #007bff;
   color: white;
-}
-
-ion-item-divider.All-divider {
-  background-color: #007bff;
-  color: white;
-}
-
-ion-item-divider{
-  color:  #641c1c;
-  height: 25%;
-}
-/* Footer */
-.custom-footer {
-  text-align: center;
-  background-color: #065D78; /* Footer background color */
-  padding: 2px;
-}
-
-
-.grid-container{
-  background-color: #ffffff;
-}
-ion-header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #065D78;
-  color: white;
-  height: 70px;
-  animation: headerFadeIn 1s ease-in;
-}
-
-.header-title {
+  padding: 10px;
   margin: 0;
   text-align: center;
-  font-weight: bold;
-  animation: textFadeIn 1.5s ease-in-out;
-}
-.table{
-  width:100%;
-
 }
 
+.interview-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.interview-table thead {
+  background-color: #065D78;
+  color: white;
+}
+
+.interview-table th, 
+.interview-table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.interview-table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.interview-table ion-select {
+  width: 100%;
+}
+
+.custom-footer {
+  text-align: center;
+  background-color: #065D78;
+  padding: 10px;
+  color: white;
+}

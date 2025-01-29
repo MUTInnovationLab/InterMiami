@@ -33,7 +33,7 @@
            
             </ion-item>
 
-            <ion-content color="primary">
+            <ion-content color="primary" class="verticalCard">
   <ion-list  *ngFor="let group of groupedInterviewees | keyvalue; let i = index" (click)="handleItemClick(i)" [class.selected]="i === selectedRowIndex">
     <ion-item-divider >
      {{ group.key === todayDateString ? 'Today' : group.key }}

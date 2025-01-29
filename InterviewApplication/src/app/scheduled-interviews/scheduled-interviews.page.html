@@ -1,48 +1,56 @@
 <ion-header>
-    <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-back-button defaultHref="/"></ion-back-button>
-        <ion-menu-toggle>
-        </ion-menu-toggle>
-      </ion-buttons>
-      <ion-title class="header-title">
-        All Interviews
-      </ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="header-title">
+      All Interviews
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
   
-  <ion-content style="--background: rgb(255, 255, 255);">
-    <div class="grid-container">
-      <ion-row *ngFor="let group of groupedInterviewees | keyvalue">
-               <ion-item class="table bg-transparent" color=transparent>
-            <ion-label style="color: black;">{{ group.key === todayDateString ? 'Today' : group.key }}</ion-label>
-          </ion-item>
-        <ion-col size="6"   *ngFor="let item of group.value">
-   
-            <ion-card class="custom-card">
-                <ion-icon name="woman-outline" style="size: 100%;"></ion-icon>
-              <ion-card-content style="color:white;">
-                <p  style="color:white;">ID: {{item.int_id }}</p>
-                <p  style="color:white;">Name: {{item.name }}</p>
-                <p  style="color:white;">Email: {{item.email }}</p>
-                <p  style="color:white;">Date: {{item.date }}</p> 
-                <p  style="color:white;">Status: {{item.Status }}</p>
-                <ion-col>
-                  <ion-select [(ngModel)]="item.selectedOption" (ionChange)="updateField(item.int_id,item.selectedOption)" placeholder="Update Status">
-                    <ion-select-option value="In Progress">In Progress</ion-select-option>
-                    <ion-select-option value="Interviewed">Interviewed</ion-select-option>
-                    <ion-select-option value="Waiting">Waiting</ion-select-option>
-                  </ion-select>
-                </ion-col>
-              </ion-card-content>
-            </ion-card>
-         
-        </ion-col>
-      </ion-row>
+<ion-content style="--background: rgb(255, 255, 255);">
+  <div class="table-container">
+    <div *ngFor="let group of groupedInterviewees | keyvalue">
+      <h3 class="date-header">
+        {{ group.key === todayDateString ? 'Today' : group.key }}
+      </h3>
+      <table class="interview-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Update Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of group.value">
+            <td>{{item.int_id}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.email}}</td>
+            <td>{{item.date}}</td>
+            <td>{{item.Status}}</td>
+            <td>
+              <ion-select 
+                [(ngModel)]="item.selectedOption" 
+                (ionChange)="updateField(item.int_id, item.selectedOption)" 
+                placeholder="Update Status"
+              >
+                <ion-select-option value="In Progress">In Progress</ion-select-option>
+                <ion-select-option value="Interviewed">Interviewed</ion-select-option>
+                <ion-select-option value="Waiting">Waiting</ion-select-option>
+              </ion-select>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-  </ion-content>
+  </div>
+</ion-content>
   
-  <ion-footer class="custom-footer">
-    Designed by @<b>MUT INNOVATIONLAB</b>
-  </ion-footer>
-  
+<ion-footer class="custom-footer">
+  Designed by @<b>Innovation Lab</b>
+</ion-footer>

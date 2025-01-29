@@ -1,7 +1,7 @@
 
   
     .add-button {
-      --background: #065D78;
+      --background: #3f6877;
       color: white;
   
       &:hover {
@@ -10,7 +10,7 @@
     }
 
     .next {
-        --background: #065D78;
+        --background: #5F302E;;
         color: white;
     
         &:hover {
@@ -21,19 +21,33 @@
     .remove-button {
       --background: #dc3545;
       color: white;
+      // --background: #071b20;
   
       &:hover {
         background-color: #c82333;
       }
     }
 
+    .back-button {
+      --background: #000000;
+      color: white;
+  
+      &:hover {
+        background-color: #201d0c;
+      }
+    }
+
     .image{
-        --background: #065D78;
+        --background: #5F302E;;
         // background-image: url('/assets/img/MEDIA-RELATIONS-3.jpg');
     }
 
-  
-      
+    .form-title{
+      color: white;
+    }
+    ion-card-title{
+      color: white;
+    }
     
     ion-card {
         background: transparent; /* Makes the background transparent */
@@ -58,11 +72,10 @@
 
       .info{
         font-size: 16px;
-        color: #333;
-        margin-left: 870px;
-        top: 420px;
-        margin-top: 10px;
-        width: 460px;
+        color:white;
+        top: 400px;
+        height: 15vh;
+        background-color: #26414b
       }
 
   /////////////////////////////

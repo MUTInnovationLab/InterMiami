@@ -123,14 +123,36 @@ export class ScheduleInterviewPage {
             role: 'cancel',
             cssClass: 'secondary',
             handler: () => {
-              
+              // No action on cancel
             }
-          }, {
+          },
+          {
             text: 'Yes',
-            handler: () => {
-              
-              // Navigate back to the dashboard
-              this.router.navigate(['/all-applications']);
+            handler: async () => {
+              try {
+                const updatedStatus = 'pending'; // Set the status to "pending"
+                this.data.personalDetails.status = updatedStatus; // Update local userApp object
+    
+                // Query the Firestore collection to find the document by email
+                const querySnapshot = await this.db.collection('applicant-application')
+                  .ref
+                  .where('personalDetails.email', '==', this.email)
+                  .get();
+    
+                if (!querySnapshot.empty) {
+                  // Update the status for the matching document
+                  const docRef = querySnapshot.docs[0].ref; // Assuming email is unique
+                  await docRef.update({ 'personalDetails.status': updatedStatus });
+    
+                  this.showToast('Application status updated to pending!');
+                  this.router.navigate(['/all-applications']);
+                } else {
+                  this.showToast('Error: No matching application found!');
+                }
+              } catch (error) {
+                console.error('Error updating application status:', error);
+                this.showToast('Failed to update application status.');
+              }
             }
           }
         ]
@@ -138,6 +160,7 @@ export class ScheduleInterviewPage {
     
       await alert.present();
     }
+    
     
     async showToast(message: string) {
       const toast = await this.toastController.create({
@@ -224,6 +247,7 @@ export class ScheduleInterviewPage {
         await emailjs.send('interviewEmailsAD', 'template_7x4kjte', emailParams, 'TrFF8ofl4gbJlOhzB');
         this.showToast('Email successfully sent');
         alert('Email successfully sent');
+        this.router.navigate(['/dashboard']);
       } catch (error) {
         this.showToast('Error: ' + error);
         await loader.dismiss();

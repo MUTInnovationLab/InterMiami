@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AngularFirestore, QuerySnapshot } from '@angular/fire/compat/firestore';
 import { LoadingController, ModalController, NavController, ToastController } from '@ionic/angular';
 import { DeclineModalPage } from '../decline-modal/decline-modal.page';
+import { Router } from '@angular/router';
 
 // Update the interfaces to better represent the data structure
 interface PersonalDetails {
@@ -43,6 +44,7 @@ interface Position {
   codeTitles: string;
   code_job: string;
   codeQualify: string;
+  status: string;
 }
 
 interface Education {
@@ -92,7 +94,8 @@ export class AllApplicationsPage implements OnInit {
     private db: AngularFirestore,
     private loadingController: LoadingController,
     private navCtrl: NavController,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -106,9 +109,9 @@ export class AllApplicationsPage implements OnInit {
       const querySnapshot = await this.db.collection('applicant-application')
         .get()
         .toPromise() as QuerySnapshot<any>;
-
+  
       console.log('QuerySnapshot received:', querySnapshot?.size, 'documents');
-
+  
       if (!querySnapshot || querySnapshot.empty) {
         console.log('No applications found');
         this.userApplications = [];
@@ -116,14 +119,14 @@ export class AllApplicationsPage implements OnInit {
         this.isExpanded = [];
         return;
       }
-
+  
       const userApplicationsMap = new Map<string, UserApplications>();
-
+  
       querySnapshot.forEach(doc => {
         console.log('Processing document ID:', doc.id);
         const data = doc.data();
         console.log('Document data:', JSON.stringify(data, null, 2));
-
+  
         // Extract personal details
         const personalDetails: PersonalDetails = {
           fullName: data.personalDetails?.fullName || '',
@@ -134,10 +137,16 @@ export class AllApplicationsPage implements OnInit {
           phone: data.personalDetails?.phone || '',
           status: data.personalDetails?.status || '',
         };
-
+  
+        // Only process if status is "pending"
+        if (personalDetails.status.toLowerCase() !== 'pending') {
+          console.log(`Skipping document ${doc.id} because status is not pending.`);
+          return;
+        }
+  
         // Use email as unique identifier for each user
         const userKey = personalDetails.email.toLowerCase();
-
+  
         // Get or create user entry
         let userEntry = userApplicationsMap.get(userKey);
         if (!userEntry) {
@@ -147,13 +156,13 @@ export class AllApplicationsPage implements OnInit {
           };
           userApplicationsMap.set(userKey, userEntry);
         }
-
+  
         // Process applications
         const applicationsToProcess = data.applications || [data];
         
         applicationsToProcess.forEach((app: any) => {
           if (!app) return;
-
+  
           const applicationData: ApplicationData = {
             positions: Array.isArray(app.positions || app.position) ? 
               (app.positions || app.position).map((pos: any) => ({
@@ -161,6 +170,7 @@ export class AllApplicationsPage implements OnInit {
                 codeTitles: pos.codeTitles || '',
                 code_job: pos.code_job || '',
                 codeQualify: pos.codeQualify || '',
+                status: pos.status || '',
               })) : [],
             education: Array.isArray(app.education) ? app.education.map((edu: any) => ({
               qualification: edu.qualification || '',
@@ -190,15 +200,15 @@ export class AllApplicationsPage implements OnInit {
             })) : [],
             allDocumentsUrl: Array.isArray(app.allDocumentsUrl) ? app.allDocumentsUrl : [],
           };
-
+  
           userEntry!.applications.push(applicationData);
         });
       });
-
+  
       this.userApplications = Array.from(userApplicationsMap.values());
       this.filteredApplications = this.userApplications;
       this.isExpanded = new Array(this.userApplications.length).fill(false);
-
+  
       console.log('Processed users:', this.userApplications.length);
       
     } catch (error) {
@@ -209,37 +219,123 @@ export class AllApplicationsPage implements OnInit {
       this.isExpanded = [];
     }
   }
+  
 
+  async done(userApp: UserApplications, applicantId: string) {
+    try {
+      const updatedStatus = 'application complete'; // Set the status to "approved"
+      userApp.personalDetails.status = updatedStatus; // Update local userApp object
+  
+      // Update the status in the database
+      await this.db.collection('applicant-application').doc(applicantId).update({ 'personalDetails.status': updatedStatus });
+  
+      this.showToast('Application complete!');
+  
+     
+
+    } catch (error) {
+      console.error('Error updating status to approved:', error);
+      this.showToast('Error approving application: ' + error);
+    }
+  }
+  
+  async notConsider(userApp: UserApplications, applicantId: string) {
+    try {
+      const updatedStatus = 'Not considered'; // Set the status to "approved"
+      userApp.personalDetails.status = updatedStatus; // Update local userApp object
+  
+      // Update the status in the database
+      await this.db.collection('applicant-application').doc(applicantId).update({ 'personalDetails.status': updatedStatus });
+  
+      this.showToast('Application not considered!');
+  
+
+    } catch (error) {
+      console.error('Error updating status to approved:', error);
+      this.showToast('Error approving application: ' + error);
+    }
+  }
+  
   async approve(userApp: UserApplications, applicantId: string) {
     try {
-      const updatedStatus = 'active';
-      await this.db.collection('applicant-application').doc(applicantId).update({ status: updatedStatus });
-      this.showToast('Approved!!!');
-
+      const updatedStatus = 'interview scheduled';
+      
+      // Update only the positions status in each application
+      userApp.applications.forEach(application => {
+        application.positions.forEach(position => {
+          position.status = updatedStatus;
+        });
+      });
+  
+      // Update the positions status in the database
+      await this.db.collection('applicant-application').doc(applicantId).update({
+        'applications': userApp.applications.map(app => ({
+          ...app,
+          positions: app.positions.map(pos => ({
+            ...pos,
+            status: updatedStatus
+          }))
+        }))
+      });
+  
+      this.showToast('Application approved!');
+  
       // Navigate to the next page and pass data using queryParams
       this.navCtrl.navigateForward('/schedule-interview', {
         queryParams: { data: userApp, source: 'cards' },
       });
-
+  
       this.sendApproveNotification(userApp.personalDetails.email);
     } catch (error) {
-      this.showToast('Error updating status: ' + error);
+      console.error('Error updating position status:', error);
+      this.showToast('Error approving application: ' + error);
     }
   }
-
+  
   async decline(userApp: UserApplications, applicantId: string) {
-    const modal = await this.modalController.create({
-      component: DeclineModalPage,
-      componentProps: {
-        studentId: applicantId,
-        personalDetails: userApp.personalDetails,
-      },
-      cssClass: 'modal-ion-content',
-    });
-
-    return await modal.present();
+    try {
+      const modal = await this.modalController.create({
+        component: DeclineModalPage,
+        componentProps: {
+          studentId: applicantId,
+          personalDetails: userApp.personalDetails,
+        },
+        cssClass: 'modal-ion-content',
+      });
+  
+      modal.onDidDismiss().then(async (data) => {
+        if (data.data && data.data.reason) {
+          const updatedStatus = 'declined';
+          
+          // Update only the positions status in each application
+          userApp.applications.forEach(application => {
+            application.positions.forEach(position => {
+              position.status = updatedStatus;
+            });
+          });
+  
+          // Update the positions status and decline reason in the database
+          await this.db.collection('applicant-application').doc(applicantId).update({
+            'applications': userApp.applications.map(app => ({
+              ...app,
+              positions: app.positions.map(pos => ({
+                ...pos,
+                status: updatedStatus
+              }))
+            })),
+            declineReason: data.data.reason
+          });
+  
+          this.showToast('Application declined.');
+        }
+      });
+  
+      await modal.present();
+    } catch (error) {
+      console.error('Error presenting modal or declining application:', error);
+      this.showToast('Error declining application: ' + error);
+    }
   }
-
 
   async openDeclineModal() {
     const modal = await this.modalController.create({
@@ -249,6 +345,10 @@ export class AllApplicationsPage implements OnInit {
       }
     });
     return await modal.present();
+  }
+
+  goToApp(): void {
+    this.router.navigate(['/track-applications']);
   }
 
   sendApproveNotification(email: string) {

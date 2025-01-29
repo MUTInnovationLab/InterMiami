@@ -1,6 +1,5 @@
-<!-- track-applications.page.html -->
 <ion-header>
-  <ion-toolbar class="header">
+  <ion-toolbar>
     <ion-title>Application Tracker</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -8,43 +7,51 @@
 <ion-content class="ion-padding">
   <!-- Dashboard Stats -->
   <ion-grid class="ion-padding">
-    <ion-row>
-      <ion-col size="6" size-md="3">
-        <ion-card class="stat-card">
+    <div class="allStats">
+     
+        <ion-card >
           <ion-card-content>
-            <h3>{{dashboardStats.totalActive}}</h3>
+            <h3 style="color: white;">{{dashboardStats.totalActive}}</h3>
             <p>Active Applications</p>
           </ion-card-content>
         </ion-card>
-      </ion-col>
-
-      <ion-col size="6" size-md="3">
-        <ion-card class="stat-card">
+      
+        <ion-card >
           <ion-card-content>
-            <h3>{{dashboardStats.scheduledInterviews}}</h3>
+            <h3 style="color: white;">{{dashboardStats.scheduledInterviews}}</h3>
             <p>Scheduled Interviews</p>
           </ion-card-content>
         </ion-card>
-      </ion-col>
-
-      <ion-col size="6" size-md="3">
-        <ion-card class="stat-card">
+      
+        <ion-card >
           <ion-card-content>
-            <h3>{{dashboardStats.offersReceived}}</h3>
-            <p>Offers Received</p>
+            <h3 style="color: white;">{{dashboardStats.completedApplications}}</h3>
+            <p>Completed Applications</p>
           </ion-card-content>
         </ion-card>
-      </ion-col>
-
-      <ion-col size="6" size-md="3">
-        <ion-card class="stat-card">
+      
+        <ion-card >
           <ion-card-content>
-            <h3>{{dashboardStats.recentUpdates}}</h3>
+            <h3 style="color: white;">{{dashboardStats.notConsidered}}</h3>
+            <p>Not Considered Applications</p>
+          </ion-card-content>
+        </ion-card>
+  
+        <ion-card >
+          <ion-card-content>
+            <h3 style="color: white;">{{dashboardStats.declined}}</h3>
+            <p>Declined Applications</p>
+          </ion-card-content>
+        </ion-card>
+      
+        <ion-card >
+          <ion-card-content>
+            <h3 style="color: white;">{{dashboardStats.recentUpdates}}</h3>
             <p>Recent Updates</p>
           </ion-card-content>
         </ion-card>
-      </ion-col>
-    </ion-row>
+      
+    </div>
   </ion-grid>
 
   <!-- Search and Filter Section -->
@@ -52,7 +59,7 @@
     <ion-row>
       <ion-col size="12">
         <ion-searchbar [(ngModel)]="searchTerm" (ionChange)="filterApplications()"
-          placeholder="Search by company, title, or location">
+          placeholder="Search by name or position">
         </ion-searchbar>
       </ion-col>
     </ion-row>
@@ -79,24 +86,24 @@
   </ion-grid>
 
   <!-- Applications List -->
-  <ion-list>
+  <ion-list >
     <ion-item-sliding *ngFor="let application of filteredApplications">
       <ion-item (click)="viewTimeline(application)" class="application-item">
-        <ion-label>
+        <ion-label >
           <div class="application-header">
-            <h2 class="company-name">{{application.jobTitle}}</h2>
-            <ion-badge [color]="getStatusColor(application.status)" class="status-badge">
-              {{application.status}}
+            <h2 class="applicant-name">{{application.personalDetails?.fullName || 'Unnamed Applicant'}}  {{application.personalDetails?.lastName || 'Unnamed Applicant'}}</h2>
+            <ion-badge [color]="getStatusColor(application.personalDetails?.status || 'pending')" class="status-badge">
+              {{application.personalDetails?.status || 'pending'}}
             </ion-badge>
           </div>
           <div class="application-info">
-            <span class="job-location">
-              <ion-icon name="location-outline"></ion-icon>
-              MUT
-            </span>
-            <span class="job-type">
+            <span class="position-title" *ngIf="application.applicationData?.positions?.[0]">
               <ion-icon name="briefcase-outline"></ion-icon>
-              {{application.jobType}}
+              {{application.applicationData.positions[0].codeTitles}}
+            </span>
+            <span class="department" *ngIf="application.applicationData?.positions?.[0]">
+              <ion-icon name="business-outline"></ion-icon>
+              {{application.applicationData.positions[0].codeDept}}
             </span>
           </div>
           <div class="application-dates">
@@ -104,9 +111,9 @@
               <ion-icon name="calendar-outline"></ion-icon>
               Applied: {{application.submissionDate | date:'mediumDate'}}
             </span>
-            <span class="last-update" *ngIf="application.timeline.length > 1">
+            <span class="last-update" *ngIf="application.timeline && application.timeline.length > 0">
               <ion-icon name="time-outline"></ion-icon>
-              Updated: {{application.timeline[application.timeline.length-1].date | date:'mediumDate'}}
+              Updated: {{getLastTimelineEvent(application).date | date:'mediumDate'}}
             </span>
           </div>
         </ion-label>
@@ -121,22 +128,16 @@
           <ion-icon slot="icon-only" [name]="application.isArchived ? 'archive' : 'archive-outline'">
           </ion-icon>
         </ion-item-option>
-        <!-- Add this to your ion-item-options -->
-        <ion-item-option (click)="viewApplication(application)" color="primary">
-          <ion-icon slot="icon-only" name="document-text-outline">
-          </ion-icon>
-        </ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
 
-  <!-- Timeline Modal Content -->
-
+  <!-- Timeline Modal -->
   <ion-modal [isOpen]="showTimeline" (didDismiss)="showTimeline = false">
     <ng-template>
       <ion-header>
         <ion-toolbar>
-          <ion-title>Application Details</ion-title>
+          <ion-title>Application Timeline</ion-title>
           <ion-buttons slot="end">
             <ion-button (click)="showTimeline = false">Close</ion-button>
           </ion-buttons>
@@ -144,14 +145,18 @@
       </ion-header>
 
       <ion-content>
-        <div class="timeline-container">
+        <div class="timeline-container" *ngIf="selectedApplication">
           <div class="application-info">
-            <h2>{{selectedApplication?.jobTitle}}</h2>
+            <h2>{{selectedApplication.personalDetails.fullName}}</h2>
+            <p *ngIf="selectedApplication.applicationData?.positions?.[0]">
+              {{selectedApplication.applicationData.positions[0].codeTitles}}
+            </p>
           </div>
 
           <div class="timeline">
             <div class="timeline-step" *ngFor="let status of applicationStatuses; let i = index"
-              [class.active]="isStatusReached(status)" [class.current]="selectedApplication?.status === status">
+              [class.active]="isStatusReached(status)"
+              [class.current]="selectedApplication.personalDetails.status === status">
               <div class="timeline-line-container">
                 <div class="timeline-line" *ngIf="i < applicationStatuses.length - 1"
                   [class.active]="isStatusReached(applicationStatuses[i + 1])"></div>
@@ -169,7 +174,7 @@
           <!-- Timeline Events List -->
           <div class="timeline-events">
             <ion-list>
-              <ion-item *ngFor="let event of selectedApplication?.timeline">
+              <ion-item *ngFor="let event of selectedApplication.timeline">
                 <ion-label>
                   <h3>{{event.status}}</h3>
                   <p>{{event.date | date:'medium'}}</p>
@@ -182,3 +187,4 @@
       </ion-content>
     </ng-template>
   </ion-modal>
+</ion-content>

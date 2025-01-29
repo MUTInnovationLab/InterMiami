@@ -1,36 +1,39 @@
 /* Dashboard Stats Styling */
 ion-toolbar{
-  --background: #065D78;
+  --background: #093542;
   --color: white;
   font-weight: bold;
 }
-.stat-card {
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s;
+
+h3{
+  color: white;
 }
 
-.stat-card:hover {
-  transform: translateY(-2px);
+.application-list{
+  background-color: #394447;
 }
 
-.stat-card ion-card-content {
-  padding: 16px;
-  text-align: center;
+.application-list1{
+  background-color: #394447;
 }
 
-.stat-card h3 {
-  font-size: 24px;
-  font-weight: bold;
-  margin: 0 0 8px 0;
-  color: var(--ion-color-primary);
+.allStats{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px;
+  background-color: #476e7a;
 }
 
-.stat-card p {
-  margin: 0;
-  color: var(--ion-color-medium);
-  font-size: 14px;
+.allStats ion-card{
+  background-color: #154450;
+  color: white;
 }
+
+.allStats h3{
+  color: black;
+}
+
 
 /* Application List Styling */
 .application-item {
@@ -44,6 +47,7 @@ ion-toolbar{
   justify-content: space-between;
   align-items: center;
   margin-bottom: 8px;
+  
 }
 
 .company-name {
@@ -62,7 +66,7 @@ ion-toolbar{
 .application-info {
   display: flex;
   gap: 16px;
-  color: var(--ion-color-medium);
+  color: #065D78;
   font-size: 14px;
   margin-bottom: 4px;
 }
@@ -75,7 +79,7 @@ ion-toolbar{
 .application-dates {
   display: flex;
   gap: 16px;
-  color: var(--ion-color-medium);
+  color:#02181d;
   font-size: 12px;
 }
 

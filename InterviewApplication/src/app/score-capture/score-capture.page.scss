@@ -9,12 +9,13 @@ ion-toolbar {
   --background: #ffffff; 
   color: #111;
 }
-ion-input{
+
+ion-input {
   width: 20% !important;
   height: 100px;
 }
 
-ion-label{
+ion-label {
   width: 70%;
 }
 
@@ -23,20 +24,22 @@ ion-label{
 }
 
 ion-list {
-  height: 100vh;
+  height: 50vh;
+  /* Uncomment if you need minimum height 
+     min-height: 100vh; 
+  */
 }
 
-.dismiss{
+.dismiss {
   font-size: 8px;
 }
 
-
-
-.submitBtn:hover{
-  background-color:green;
+.submitBtn:hover {
+  background-color: green;
 }
+
 .clearBtn:hover {
-  background-color:red; 
+  background-color: red; 
 }
 
 .submitBtn svg,
@@ -44,16 +47,33 @@ ion-list {
   margin-left: 5px; /* Add margin to SVG icon */
 }
 
-@media screen and (max-width: 768px) {
-  .submitBtn,
-  .clearBtn {
-    width: 100%; /* Make buttons full width */
-  }
-}
+// @media screen and (max-width: 768px) {
+//   .submitBtn,
+//   .clearBtn {
+//     width: 100%; /* Make buttons full width */
+//     background-color: grey;
+//     color: white;
+//     border: none;
+//     padding: 10px 20px;
+//     margin: 5px auto; /* Center buttons horizontally */
+//     cursor: pointer;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//   }
+
+//   .submitBtn:hover {
+//     background-color: green;
+//   }
+
+//   .clearBtn:hover {
+//     background-color: red; 
+//   }
+// }
 
 .custom-label {
   text-align: center;
-  font-size: 24px; /* You can adjust the value as needed */
+  font-size: 24px; /* Adjust as needed */
 }
 
 .custom-card {
@@ -72,7 +92,6 @@ ion-list {
   margin-bottom: 5px; 
 }
 
-/* Additional styling if required */
 .icon-col {
   display: flex;
   align-items: center;
@@ -84,47 +103,58 @@ ion-list {
   flex-direction: column;
 }
 
-@media screen and (max-width: 768px) { 
+
+@media (max-width: 576px) {
+  .mobile-col {
+    flex: 0 0 100%;
+    max-width: 100%;
+    padding: 5px;
+  }
+
+  ion-grid {
+    padding: 0;
+  }
+
+  ion-row {
+    margin: 0;
+  }
+
+  .skill_card {
+    margin: 5px 0;
+  }
+
+  .score-label {
+    font-size: 13px;
+  }
+
+  // /* Button row responsiveness */
+  // .button-row ion-col {
+  //   flex-direction: row;
+  //   // gap: 50px;
+  // }
+
+  // // .button-row ion-col {
+  // //   padding: 0;
+  // // }
+
+
+
   .main-grid {
     display: flex; 
     flex-direction: column;
     height: auto; 
   }
+
   .mobile-col {
     width: 100%; 
   }
-  .submitBtn,
-  .clearBtn {
-  background-color: grey; 
-  color: white; 
-  border: none; 
-  padding: 10px 20px; 
-  margin: 5px; 
-  margin-right: 200px;
-  cursor: pointer; 
-  display: flex; 
-  justify-content: center; 
-  align-items: center; 
+
+ 
 }
 
-.submitBtn:hover{
-  background-color:green;
-}
-.clearBtn:hover {
-  background-color:red; 
-}
-
-}
-
-
-.former{
+.former {
   height: 100vh;
-  border: 10px;
-  border: 0;
- background-color: #065D78;
- margin-top: -3.5px;
- margin-right: -6px;
- padding: 10px;
-//  overflow-y: auto;
+  background-color: #065D78;
+  margin: -3.5px -6px 0 0;
+  padding: 10px;
 }
-
